@@ -1,0 +1,9 @@
+<% if notification.notification_type == "callback request" %>
+  <%= t("phrases.callback") %>
+  </br>
+  <%= inline_svg("icons/phone.svg", class:"icon icon--brand") %><%= notification.body %>
+<% elsif notification.project_id.present? %>
+  <%= Project.where(id: notification.project_id).first.title rescue "Project was removed"%>
+  </br>
+  <%= format_notification_body(notification)[:blurb] %>
+<% end %>

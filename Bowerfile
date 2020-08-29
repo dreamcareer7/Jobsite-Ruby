@@ -1,0 +1,16 @@
+asset 'smooth-scroll', '12.1.0', 'https://github.com/cferdinandi/smooth-scroll.git'
+asset 'jquery', "2.2.4"
+asset 'jquery-ujs', "1.2.1"
+asset 'jquery-ui', "1.11.4"
+asset 'slick-carousel', "1.6.0"
+asset 'fastclick', "1.0.6"
+asset 'select2', "4.0.3"
+asset 'js-base64', "2.1.9"
+asset 'lodash', "4.13.1"
+asset 'gs', "0.5.1"
+asset 'readmore-js'
+asset 'moment'
+asset 'tooltipster'
+asset 'highcharts'
+asset 'rivets'
+asset 'markerclustererplus'

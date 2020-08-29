@@ -1,0 +1,149 @@
+<%= simple_form_for [:admin, @banner] do |f| %>
+  <div class="grid">
+    <div class="grid__col--xs-12 grid__col--md-10">
+      <div class="card">
+        <div class="card__section card__section--border">
+          <h3><%= link_to 'Banners /', admin_banners_path,  class: 'u-text-light u-text-regular' %> <%= action_name == 'edit' ? @banner.title : "New" %></h3>
+        </div>
+        <div class="card__section">
+          <fieldset class="fieldset">
+            <div class="grid">
+              <div class="grid__col--xs-12 grid__col--xlg-12">
+                <div class="field">
+                  <label class="field__label">* Banner type</label>
+                  <div class="field__input-wrapper">
+                    <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                    <%= f.input :banner_type, collection: @banner_options, selected: @banner_type, as: :select, input_html: { class: "field__input field__input--right-add-on js-banner-type" }, label: false, required: true %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="grid js-banner-image-results u-hide">
+              <%= render partial: "partials/admin/banners/banner_image_fields", locals: { f: f, image_size:  "200", banner_size: "1000 x 400", placeholder: "missing/result_banner.png" } %>
+            </div>
+            <div class="grid js-banner-image-side u-hide">
+              <%= render partial: "partials/admin/banners/banner_image_fields", locals: { f: f, image_size: "100", banner_size:  "366 x *", placeholder: "missing/side_banner.png" } %>
+            </div>
+            <div class="grid">
+              <div class="grid__col--xs-12 grid__col--md-12">
+                <%= f.input :title, wrapper: :text_field %>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <label class="field__label">Link (en)</label>
+                <%= f.input :link_en, wrapper: :text_field, label: false %>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <label class="field__label">Link (ar)</label>
+                <%= f.input :link_ar, wrapper: :text_field, label: false %>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
+                <div class="field">
+                  <label class="field__label">Start date</label>
+                  <div class="field__input-wrapper">
+                    <%= inline_svg("icons/calendar.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
+                    <%= f.input :start_date, wrapper: :date_picker, as: :date_picker_future, placeholder: t("form.date_placeholder") %>
+                  </div>
+                </div>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
+                <div class="field">
+                  <label class="field__label">End date</label>
+                  <div class="field__input-wrapper">
+                    <%= inline_svg("icons/calendar.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
+                    <%= f.input :end_date, wrapper: :date_picker, as: :date_picker_future, placeholder: t("form.date_placeholder") %>
+                  </div>
+                </div>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <div class="field">
+                  <span class="field__label">Enabled?</span>
+                  <div class="control-group">
+                    <label class="control-group__item control">
+                      <%= f.radio_button :enabled, true, class: "control__input" %>
+                      <span class="control__indicator control__indicator--radio">
+                        <%= inline_svg("icons/dot.svg", class: "control__icon icon icon--small icon--white") %>
+                      </span>
+                      <span class="control__label"><%= t("post_project.fields.historical_structure.yes") %></span>
+                    </label>
+                    <label class="control-group__item control">
+                      <%= f.radio_button :enabled, false, class: "control__input" %>
+                      <span class="control__indicator control__indicator--radio">
+                        <%= inline_svg("icons/dot.svg", class: "control__icon icon icon--small icon--white") %>
+                      </span>
+                      <span class="control__label"><%= t("post_project.fields.historical_structure.no") %></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__section">
+          <div class="card__header">
+            <h4 class="card__title"><%= inline_svg("icons/location.svg", class: "icon icon--dark icon--small") %>Locations</h4>
+          </div>
+          <fieldset class="fieldset">
+            <div class="grid js-select2">
+              <div class="grid__col--xs-12 grid__col--md-12">
+                <%= f.input :banner_locations, collection: Country.all, selected: @banner_locations, wrapper: :select2, input_html: { style: "width:100%", multiple: true, required: true, class: "js-select2-options" } %>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-12 mt1 mb1">
+                <label class="control">
+                  <input type="checkbox" class="control__input js-select-all">
+                  <span class="control__indicator control__indicator--checkbox">
+                    <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
+                  </span>
+                  <span class="control__label">Select all</span>
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="card__section js-listings u-hide">
+          <div class="card__header">
+            <h4 class="card__title"><%= inline_svg("icons/book.svg", class: "icon icon--dark icon--small") %>Listings</h4>
+          </div>
+          <fieldset class="fieldset">
+            <%= render partial: "partials/admin/banners/banner_sub_categories", locals: { f: f } %>
+          </fieldset>
+        </div>
+        <div class="card__section">
+          <div class="field">
+            <%= f.submit action_name == 'edit' ? 'Save': 'Create', class: 'btn btn--primary' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= content_for :page_scripts do %>
+  <script>
+    $(document).ready(showForBannerType);
+    $('.js-banner-type').on('change', showForBannerType);
+
+    function showForBannerType() {
+      var bannerType = $('.js-banner-type')
+
+      if(!(bannerType.val() === 'dashboard banner')){
+        $('.js-listings').removeClass('u-hide');
+      } else {
+        $('.js-listings').addClass('u-hide');
+      };
+
+      if(!(bannerType.val() === "")) {
+        if(!(bannerType.val() === 'result banner')) {
+          $('.js-banner-image-side').removeClass('u-hide');
+          $('.js-banner-image-results').addClass('u-hide');
+        } else {
+          $('.js-banner-image-side').addClass('u-hide');
+          $('.js-banner-image-results').removeClass('u-hide');
+        }
+      }
+
+    };
+
+  </script>
+<% end %>

@@ -1,0 +1,9 @@
+ar:
+  profile_nav:
+    user:
+      favourites: "المفضلة"
+      reviews: "التقييمات"
+      invite_share: "الدعوة والمشاركة"
+      switch_to_business: "الإنتقال الى الشركة"
+      following: "المتابَعين"
+      settings: "الإعدادات"

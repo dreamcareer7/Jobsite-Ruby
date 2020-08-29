@@ -1,0 +1,10 @@
+<% content_for :meta_description do %>
+  "<%= business_headline(@current_city, params[:filter_by]) %>"
+<% end %>
+<% content_for :meta_url do %>
+  <%= businesses_path(city: @current_city.slug) %>
+<% end %>
+<% content_for :meta_image do %>
+  <%= @current_city.city_image ? @current_city.city_image.image.url(:small) : City.first.default_city_image  %>
+<% end %>
+

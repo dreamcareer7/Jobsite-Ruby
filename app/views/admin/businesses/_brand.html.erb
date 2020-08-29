@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="card__section card__section--border">
+    <h4 class="card__title"><%= inline_svg("icons/briefcase.svg", class: "icon icon--dark icon--small") %>Brand</h4>
+  </div>
+  <div class="card__section card__section--border">
+    <%= f.simple_fields_for :brand do |b| %>
+      <div class="field">
+        <%= b.association :businesses, collection: Business.includes(:translations).order(name: :asc), wrapper: :select2, input_html: { style: "width:100%", multiple: true, class: 'js-chosen-subcategories' }, label: "Subsidiary businesses" %>
+      </div>
+      <%= f.submit "Save", class: "btn btn--xs-full btn--primary mt2" %>
+    <% end %>
+  </div>
+</div>

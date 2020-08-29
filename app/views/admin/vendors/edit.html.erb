@@ -1,0 +1,5 @@
+<div class="grid__col--xs-12 grid__col--md-12">
+  <h3><%= link_to 'Vendors /', admin_vendors_path,  class: 'u-text-light u-text-regular' %> <%= action_name == 'edit' ? @user.name : "New" %></h3>
+</div>
+
+<%= render partial: "partials/admin/users/edit_view" %>

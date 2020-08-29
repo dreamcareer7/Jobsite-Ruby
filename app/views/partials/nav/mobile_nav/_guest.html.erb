@@ -1,0 +1,8 @@
+<li class="mobile-nav__item list__item"><button data-modal="please-log-in" class="js-open-modal h3 list__link mobile-nav__link"><%= t("main_nav.post_a_project") %></button></li>
+<li class="mobile-nav__item list__item"><%= link_to t("main_nav.add_business"), new_business_path, class: "h3 list__link mobile-nav__link" %></li>
+<li class="mobile-nav__item list__item"><%= link_to t("main_nav.categories"), categories_path(city: @current_city.slug), class: "h3 list__link mobile-nav__link" %></li>
+<li class="mobile-nav__item list__item"><%= link_to t("main_nav.gallery"), gallery_index_path, class: "h3 list__link mobile-nav__link" %></li>
+<li class="mobile-nav__item list__item"><a class="h3 list__link mobile-nav__link" href="/pages/contact"><%= t("main_nav.contact") %></a></li>
+<li class="mobile-nav__spacer mobile-nav__item"></li>
+<li class="mobile-nav__item list__item"><%= link_to t("main_nav.sign_up"), new_user_registration_path, class: "h3 list__link mobile-nav__link mobile-nav__link--accent" %></li>
+<li class="mobile-nav__item list__item"><%= link_to t("main_nav.log_in"), new_user_session_path, class: "h3 list__link mobile-nav__link mobile-nav__link--accent" %></li>

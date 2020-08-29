@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="card__section card__header card__section--border">
+    <h3 class="card__title">
+      <%= link_to "Categories / ", admin_categories_path,  class: 'u-text-light u-text-regular' %>
+      <% if @service.sub_category.present? %>
+        <%= link_to "#{@service.sub_category.category.name} / ", admin_sub_categories_path(category_id: @service.sub_category.category_id),  class: 'u-text-light u-text-regular' %>
+        <%= link_to "#{@service.sub_category.name} / ", admin_services_path(sub_category_id: @service.sub_category_id),  class: 'u-text-light u-text-regular' %>
+      <% end %>
+      <%= @service.name %>
+    </h3>
+  </div>
+  <div class="card__section">
+    <%= simple_form_for [:admin, @service] do |f| %>
+      <fieldset class="fieldset">
+        <div class="field">
+          <%= f.association :sub_category, :selected => @sub_category.id, wrapper: :text_field %>
+        </div>
+        <div class="grid">
+          <% I18n.available_locales.each do |locale| %>
+            <div class="grid__col--xs-12 grid__col--md-6">
+              <%= f.input "name_#{ locale }", wrapper: "text_field", placeholder: t("category_form.fields.name.placeholder", locale: locale), label: t("category_form.fields.name.label", locale: locale ), input_html: { class: " #{ locale == :ar ? 'rtl' : 'ltr' } " } %>
+            </div>
+          <% end %>
+        </div>
+        <%= f.simple_fields_for :category_metadata do |cm| %>
+          <div class="grid">
+            <% I18n.available_locales.each do |locale| %>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <%= cm.input "subheadline_#{ locale }", wrapper: "text_field", placeholder: t("category_form.fields.subheadline.placeholder", locale: locale), label: t("category_form.fields.subheadline.label", locale: locale ), input_html: { class: " #{ locale == :ar ? 'rtl' : 'ltr' } " } %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="field">
+          <div class="btn-group">
+            <%= f.submit action_name == 'edit' ? t('form.update'): t('form.create'), class: 'btn btn--primary btn-group__item' %>
+          </div>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

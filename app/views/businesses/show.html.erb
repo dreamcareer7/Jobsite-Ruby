@@ -1,0 +1,282 @@
+<%= render partial: "partials/meta_tags/business", locals: { business: @business, summary: @summary, city: @current_city.slug } %>
+
+<% content_for :breadcrumbs do %>
+  <%= render partial: "partials/nav/breadcrumb_nav", locals: { breadcrumbs: @breadcrumbs ? @breadcrumbs : [], current_breadcrumb: { name: @business.name } } %>
+<% end %>
+
+<header class="section section--padded section--dark u-text-center u-cover u-relative has-tint" <% if @business.banner.present? %> style="background-image: url('<%= @business.banner.url(:large) %>'); <% end %>">
+  <div class="site-wrap has-tint__content">
+    <%= image_tag(@business.logo.url(:large), class: "profile-logo u-box-shadow u-rounded") %>
+    <% if @follow_count > 0 %>
+      <br><small class="mt2 badge badge--primary profile-followers u-hide--medium-down"><%= pluralize(@follow_count, t("words.follower")) %></small>
+    <% end %>
+    <h1 class="mb1 u-text-contrast u-text-shadow">
+      <%= @business.name %>
+      <% if @business.trusted? %>
+        <%= inline_svg("icons/trusted.svg", class: "icon icon--medium icon--white") %>
+      <% elsif @business.verified? %>
+        <%= inline_svg("icons/verified.svg", class: "icon icon--medium icon--white") %>
+      <% end %>
+    </h1>
+    <% if @business.categories.present? %>
+      <h4 class="mb1 mt0">
+        <% @business.categories.distinct.each_with_index do |category, index| %>
+          <%= link_to category.name, category_path(id: category), class: "u-text-contrast u-text-shadow u-text-regular u-text-muted" %>
+          <% unless @business.categories.distinct.size == index + 1 %>
+            <span class="u-text-contrast u-text-shadow u-text-regular u-text-muted">,</span>
+          <% end %>
+        <% end %>
+      </h4>
+    <% end %>
+    <% if @business.reviews.present? %>
+      <div>
+        <small class="u-text-contrast u-text-shadow u-inline-flex u-flex-wrap">
+          <a class="u-text-inherit" data-scroll href="#reviews"><span class="rating"><%= render partial: "partials/businesses/reviews", locals: { business: @business, star_modifier: 'white' } %></span></a>
+          &nbsp;
+          <span class="u-hide--small-down"><%= @business.review_stars_to_s %></span>
+        </small>
+      </div>
+    <% end %>
+    <div class="btn-group btn-group--full mt1">
+      <% if @business.verified? %>
+        <% if @current_user %>
+          <span data-modal="quote-request" id="quote-request" class="js-open-modal js-invite btn btn--xs-full btn--primary btn-group__item"><%= t("business.request_quote") %></span>
+        <% else %>
+          <span data-modal="please-log-in" data-modal-target="invite" data-modal-target-business="<%= @business.id %>" class="js-open-modal btn btn--xs-full btn--primary btn-group__item"><%= t("business.request_quote") %></span>
+        <% end %>
+      <% end %>
+      <% if @current_user %>
+        <%= render partial: "partials/follows/follow", locals: { target: @business, follow: current_user.followed_businesses.where(id: @business.id).first, classes: "btn btn--xs-full btn-group__item #{ 'btn--secondary' unless current_user.followed_businesses.where(id: @business.id).present? }" } %>
+      <% else %>
+        <span data-modal="please-log-in" data-modal-target="follow" data-modal-target-business="<%= @business.id %>" class="js-open-modal btn btn--xs-full btn--secondary btn-group__item"><%= t("business.follow") %></span>
+      <% end %>
+      <div class="has-popover btn-group__item u-hide--medium-down">
+        <button class="js-open-popover btn btn--xs-full btn--secondary mb0"><%= t("words.contact") %> ▾</button>
+        <div class="popover popover--arrow">
+          <% if @current_user %>
+            <span data-modal="call-now" data-impression="number_view" class="js-open-modal popover__link js-impressionist" data-business-name="<%= @business.name %>" data-business-hours="<%= @business.business_hours.present? ? @business.business_hours.to_json : '' %>" data-phone="<%= Base64.encode64(@business.number_for_city(@current_city)) %>"><%= t("business.call") %></span>
+          <% else %>
+            <span data-modal="please-log-in" data-modal-target="call" data-modal-target-business="<%= @business.id %>" class="js-open-modal popover__link"><%= t("business.call") %></span>
+          <% end %>
+          <% if @business.verified? %>
+            <% if @current_user %>
+              <span data-modal="send-business-message" class="js-open-modal js-message popover__link"><%= t("business.send_message") %></span>
+              <span data-modal="request-callback" class="js-open-modal js-callback popover__link"><%= t("business.request_call") %></span>
+            <% else %>
+              <span data-modal="please-log-in" data-modal-target="message" data-modal-target-business="<%= @business.id %>" class="js-open-modal popover__link"><%= t("business.send_message") %></span>
+              <span data-modal="please-log-in" data-modal-target="callback" class="js-open-modal popover__link"><%= t("business.request_call") %></span>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="grid grid--tight u-hide--medium mt1">
+      <div class="grid__col--xs-6">
+        <div class="has-popover">
+          <button class="js-open-popover btn btn--full btn--secondary mb0"><%= t("words.contact") %> ▾</button>
+          <div class="popover popover--mobile-contact popover--arrow">
+            <% if @current_user %>
+              <span data-modal="call-now" data-impression="number_view" class="js-open-modal popover__link js-impressionist" data-business-name="<%= @business.name %>" data-business-hours="<%= @business.business_hours.present? ? @business.business_hours.to_json : '' %>" data-phone="<%= Base64.encode64(@business.number_for_city(@current_city)) %>"><%= t("business.call") %></span>
+            <% else %>
+              <span data-modal="please-log-in" data-modal-target="call" data-modal-target-business="<%= @business.id %>" class="js-open-modal popover__link"><%= t("business.call") %></span>
+            <% end %>
+            <% if @business.verified? %>
+              <% if @current_user %>
+                <span data-modal="send-business-message" class="js-open-modal js-message popover__link"><%= t("business.send_message") %></span>
+                <span data-modal="request-callback" class="js-open-modal js-callback popover__link"><%= t("business.request_call") %></span>
+              <% else %>
+                <span data-modal="please-log-in" data-modal-target="message" data-modal-target-business="<%= @business.id %>" class="js-open-modal popover__link"><%= t("business.send_message") %></span>
+                <span data-modal="please-log-in" data-modal-target="callback" class="js-open-modal popover__link"><%= t("business.request_call") %></span>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="grid__col--xs-6">
+        <div class="has-popover">
+          <button class="js-open-popover btn btn--full btn--secondary mb0"><%= t("words.share") %> ▾</button>
+          <div class="popover popover--mobile-share popover--arrow">
+            <%= render partial: "partials/social/mobile_share_links" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% if @business.website.present? || @business.social_links.present? %>
+      <ul class="list list--inline mb2 mt2">
+        <% if @business.social_links.present? %>
+          <% @business.social_links.profiles.map do |profile_name, profile_link| %>
+            <% next unless profile_link.present? %>
+            <li class="list__item">
+              <%= link_to full_path(profile_link), target: "_blank" do %>
+                <%= inline_svg("icons/#{ profile_name.to_s }-circle.svg", class: "icon icon--white js-impressionist", data: { impression: "social_view" }) %>
+              <% end %>
+            </li>
+          <% end %>
+          <% if @business.website.present? %>
+            <li class="list__item">
+              <%= link_to full_path(@business.website), class: "js-impressionist", data: { impression: "website_view" }, target: "_blank" do %>
+                <small class="u-text-contrast"><%= @business.website %></small>
+              <% end %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <small class="profile-update u-text-muted"><%= t("business.last_updated") %> <%= time_ago_in_words(@business.updated_at) %> <%= t("business.ago") %></small>
+  <% unless @business.user.present? %>
+    <% if current_user %>
+      <span data-modal="claim-business" class="js-open-modal js-claim small u-text-muted u-text-contrast u-text-underline profile-claim u-text-pointer"><%= t("business.claim") %></span>
+    <% else %>
+      <span data-modal="please-log-in" data-modal-target="claim" data-modal-target-business="<%= @business.id %>" class="js-open-modal small u-text-muted u-text-contrast u-text-underline profile-claim u-text-pointer"><%= t("business.claim") %></span>
+    <% end %>
+  <% end %>
+</header>
+
+<nav class="nav secondary-nav secondary-nav--has-tabs js-sticky-nav">
+  <div class="site-wrap">
+    <div class="grid grid--middle">
+      <div class="grid__col--xs-12 grid__col--md-7 grid__col--lg-6">
+        <div class="tab-nav">
+          <button data-toggle="overview" class="tab-nav__item u-text-pointer u-text-dark js-section-toggle is-active"><%= t("business.overview") %></button>
+          <button data-toggle="projects-all" class="tab-nav__item u-text-pointer js-section-toggle js-impressionist" data-impression="project_view"><%= t("business.completed_projects") %></button>
+          <button data-toggle="branches-all" class="tab-nav__item u-text-pointer js-section-toggle"><%= t("business.locations") %></button>
+          <button data-toggle="reviews-all" class="tab-nav__item u-text-pointer js-section-toggle"><%= t("business.reviews") %></button>
+          <button data-toggle="team" class="tab-nav__item u-text-pointer js-section-toggle"><%= t("business.team") %></button>
+        </div>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-7 grid__col--lg-6 u-hide--large-down">
+        <%= render partial: "partials/social/share_links" %>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--md-4 grid__col--lg-3 u-hide--medium-down">
+        <%= render partial: "businesses/sections/side_bar" %>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-8 grid__col--lg-9">
+        <div class='u-hide--medium-down'>
+          <div class="js-section js-overview">
+            <%= render partial: "businesses/sections/overview" %>
+            <%= render partial: "businesses/sections/services" %>
+          </div>
+        </div>
+        <div class='u-hide--medium'>
+          <%= render partial: "businesses/sections/side_bar" %>
+        </div>
+        <div class="js-section js-projects">
+          <%= render partial: "businesses/sections/projects" %>
+        </div>
+        <div class="js-section js-projects-all">
+          <%= render partial: "businesses/sections/projects_all" %>
+        </div>
+        <div class="js-section js-branches-local">
+          <%= render partial: "businesses/sections/branches_local" %>
+        </div>
+        <div class="js-section js-branches-all">
+          <%= render partial: "businesses/sections/branches_all" %>
+        </div>
+        <div class="js-section js-reviews">
+          <%= render partial: "businesses/sections/reviews" %>
+        </div>
+        <div class="js-section js-reviews-all">
+          <%= render partial: "businesses/sections/reviews_all" %>
+        </div>
+        <div class="js-section js-team">
+          <%= render partial: "businesses/sections/team" %>
+        </div>
+        <span class="u-hide--large">
+          <%= render partial: "businesses/sections/hours_of_operation" %>
+        </span>
+        <% unless @business.trusted? %>
+          <% if @result_banners %>
+            <hr class="divider">
+            <div class="grid">
+              <%= render partial: "partials/banners/result_banner" %>
+            </div>
+          <% end %>
+        <% end %>
+
+        <div class="card u-hide--medium">
+          <div class="card__section">
+            <% if current_user %>
+              <span data-modal="problem" class="js-open-modal js-problem btn btn--secondary btn--full"><%= t("business.report") %></span>
+            <% else %>
+              <span data-modal="please-log-in" data-modal-target="problem" data-modal-target-business="<%= @business.id %>" class="js-open-modal btn btn--secondary btn--full"><%= t("business.report") %></span>
+            <% end %>
+            <small class="u-text-muted"><%= t("business.disclaimer") %></small>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<% if @similar_businesses.present? %>
+  <section class="section section--tight section--alt u-text-center pt0">
+    <div class="site-wrap">
+      <hr class="divider">
+      <h3 class="mb3"><%= t("business.similar_businesses") %></h3>
+      <div class="grid">
+        <% @similar_businesses.limit(3).each do |similar_business| %>
+          <div class="grid__col--xs-12 grid__col--sm-4 grid__col--md-6 grid__col--lg-3">
+            <%= link_to business_path(id: similar_business.slug), class: "card photo-block has-tint has-tint--rounded u-cover", style: "background-image: url('#{ similar_business.banner.present? ? similar_business.banner.url(:small) : image_path("missing/hero.jpg") }')" do %>
+              <div class="photo-block__name has-tint__content u-text-left">
+                <strong class="u-text-contrast u-text-shadow"><%= similar_business.name %></strong><br>
+                <% if similar_business.reviews.present? %>
+                  <div class="rating small">
+                    <%= render partial: "partials/businesses/reviews", locals: { business: similar_business, star_modifier: 'white' } %>
+                  </div>
+                <% else %>
+                  <small class="u-text-muted u-text-shadow"><%= similar_business.categories.limit(3).distinct.collect(&:name).join(', ') %></small>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-3">
+          <div class="photo-block photo-block--no-backdrop card u-text-center u-bg-turquoise">
+            <div class="card__section">
+              <h4 class="u-text-contrast"><%= t("listing.business_prompt.header") %></h4>
+              <% if current_user %>
+                <%= link_to t("links.add_business"), new_user_business_path, class: "btn btn--contrast btn--small" %>
+              <% else %>
+                <%= link_to t("links.add_business"), new_business_path, class: "btn btn--contrast btn--small" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<%= content_tag :span, '', class: "js-business-id", data: { id: @business.id } %>
+
+<% if @business_location.present? %>
+  <%= content_tag :span, '', class: "js-business-location", data: { lat: @business_location.latitude, lng: @business_location.longitude } %>
+<% end %>
+
+<% if @target_modal.present? %>
+  <%= content_tag :span, '', class: "js-target-modal", data: { target: @target_modal } %>
+<% end %>
+
+<% if @target_section.present? %>
+  <%= content_tag :span, '', class: "js-target-section", data: { target: @target_section } %>
+<% end %>
+
+<% if @suggest_signup.present? %>
+  <%= content_tag :span, '', class: "js-suggest-signup", data: { suggest: 'yes' } %>
+<% end %>
+
+<%= content_for :page_scripts do %>
+  <%= javascript_include_tag "business-map" %>
+  <%= javascript_include_tag "business-profile" %>
+  <%= javascript_include_tag 'sticky-nav' %>
+<% end %>

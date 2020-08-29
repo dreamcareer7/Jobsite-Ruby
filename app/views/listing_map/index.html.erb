@@ -1,0 +1,38 @@
+<%= content_for :breadcrumbs do %>
+  <% if @listing_type.is_a?(Category) %>
+    <%= render partial: 'partials/nav/breadcrumb_nav',
+      locals: {
+      breadcrumbs: [],
+      current_breadcrumb: { name: @listing_type.name,
+                            count: @listing_type.active_businesses_in_city(@current_city) } } %>
+  <% elsif @listing_type.is_a?(SubCategory) %>
+      <%= render partial: 'partials/nav/breadcrumb_nav',
+        locals: {
+        breadcrumbs: [
+          name: @listing_type.category.name, url: category_path(id: @listing_type.category),
+          count: @listing_type.category.active_businesses_in_city(@current_city) ],
+        current_breadcrumb: {
+            name: @listing_type.name,
+            count: @listing_type.active_businesses_in_city(@current_city) } } %>
+  <% elsif @listing_type.is_a?(Service) %>
+    <%= render partial: 'partials/nav/breadcrumb_nav',
+      locals: {
+      breadcrumbs: [ {
+        name: @listing_type.category.name,
+        url: category_path(id: @listing_type.category),
+        count: @listing_type.category.active_businesses_in_city(@current_city) },
+      {
+          name: @listing_type.sub_category.name,
+          url: sub_category_path(id: @listing_type.sub_category),
+          count: @listing_type.sub_category.active_businesses_in_city(@current_city)
+        } ],
+        current_breadcrumb: { name: @listing_type.name,
+                              count: @listing_type.active_businesses_in_city(@current_city) } } %>
+  <% end %>
+<% end %>
+
+<% content_for :section_header do %>
+  <%= render partial: "partials/businesses/listing_header", locals: { listing_type: @listing_type, city: @current_city, listing_banner: @listing_banner, filter: params[:filter] } %>
+<% end %>
+
+<%= render partial: "listing_map/map_view" %>

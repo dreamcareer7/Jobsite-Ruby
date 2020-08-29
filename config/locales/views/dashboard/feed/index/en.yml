@@ -1,0 +1,20 @@
+en:
+
+  feed:
+    view_more: "+ View more"
+    obscured_title: "New project"
+    obscured_blurb: "Add a subscription to get more details"
+    posted: "Posted"
+    ago: "ago"
+    Distance: "Distance"
+    start_date: "Start date"
+    end_date: "End date"
+    Services: "Services"
+    apply: "Apply"
+    details: "Details"
+    no_projects: "Browse the latest projects on Muqawiloon"
+    missing_information: "Information not available"
+    start_date: "Start date"
+    end_date: "End date"
+    updated: "Updated %{updated_when} ago"
+    location: "Type of location"

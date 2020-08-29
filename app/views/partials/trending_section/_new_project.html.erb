@@ -1,0 +1,8 @@
+<div class="grid__col--xs-4 grid__col--lg-3">
+  <%= link_to business_path(id: project.business.slug, city: @current_city.slug, targetSection: 'projects-all'), target: :blank, style: "background-image: url('#{project.photos.sample.url(:medium)}');", class: "u-hover-muted u-block gallery-item u-cover" do %>
+    <div class="gallery-item__description">
+      <strong class="u-text-contrast u-block"><%= project.business.name %></strong>
+      <small class="u-text-contrast u-text-muted"><%= time_ago_in_words(project.business.updated_at).gsub("about", "") %> <%= t("words.ago") %></small>
+    </div>
+  <% end %>
+</div>

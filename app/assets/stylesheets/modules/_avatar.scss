@@ -1,0 +1,25 @@
+// Avatar
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.avatar--small {
+  height: $spacing-x-large;
+  width: $spacing-x-large;
+}
+
+.avatar--medium {
+  width: 48px;
+  height: 48px;
+}
+
+.avatar--large {
+  @include mq(medium) {
+    width: 64px;
+    height: 64px;
+  }
+}

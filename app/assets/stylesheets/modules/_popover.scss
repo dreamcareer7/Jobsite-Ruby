@@ -1,0 +1,187 @@
+// Settings
+
+$popover-width: 220px;
+
+// Parent class
+
+.has-popover {
+  position: relative;
+}
+
+
+// Base
+
+.popover {
+  position: absolute;
+  top: calc(100% + #{$spacing-medium});
+  left: 50%;
+  margin-left: -$popover-width/2;
+  width: $popover-width;
+  border-radius: $border-radius;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity $time $curve, visibility $time $curve, transform $time $curve;
+  transform: translateY(-5px);
+  border: 1px solid $border;
+  background-color: $white;
+  @include z-index(popover);
+
+  &--full {
+    width: 100%;
+    left: 0;
+    margin: 0;
+  }
+
+  &--right {
+    margin: 0;
+
+    @include ltr {
+      right: 0;
+      left: auto;
+    }
+
+    @include rtl {
+      left: 0;
+      right: auto;
+    }
+  }
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+  }
+}
+
+.popover--mobile-share {
+  @include ltr {
+    margin-left: -80px;
+    left: 0;
+  }
+
+  @include rtl {
+    margin-left: -80px;
+  }
+}
+
+.popover--mobile-contact {
+  @include ltr {
+    margin-left: 0;
+    left: 0;
+  }
+
+  @include rtl {
+    left: 0;
+  }
+}
+
+
+// Wide popover, 2 columns wide
+
+.popover--wide {
+  display: flex;
+  flex-wrap: wrap;
+  width: $popover-width*2;
+  margin-left: -$popover-width;
+
+  .popover__link {
+    width: 50%;
+
+    &:nth-child(odd) {
+      border-right: 1px solid $border;
+    }
+
+    &:nth-last-child(-n+2) {
+      border-bottom: 0; // Remove border bottom on last 2 popover links when within wide
+    }
+  }
+}
+
+
+// Arrows
+
+.popover--arrow:before,
+.popover--arrow:after {
+  position: absolute;
+  content: "";
+  left: 50%;
+  bottom: 100%;
+  border: 8px solid transparent;
+  border-bottom: 8px solid $white;
+  transform: translateX(-50%);
+}
+
+.popover--arrow:before {
+  @include z-index(content);
+}
+
+.popover--arrow:after {
+  border: 9px solid transparent;
+  border-bottom: 9px solid $border;
+}
+
+
+// Popover arrow north east
+
+.popover--arrow-ne:before,
+.popover--arrow-ne:after {
+  transform: none;
+
+  @include ltr {
+    right: $spacing-large;
+    left: auto;
+  }
+
+  @include rtl {
+    right: auto;
+    left: $spacing-large;
+  }
+}
+
+.popover--arrow-ne:after {
+
+  @include ltr {
+    right: $spacing-large - 1;
+  }
+
+  @include rtl {
+    left: $spacing-large - 1;
+  }
+}
+
+
+// Links
+
+.popover__link {
+  display: block;
+  position: relative;
+  width: 100%;
+  text-align: left;
+  padding: 0 $spacing-medium;
+  height: $input-height;
+  line-height: $input-height;
+  background-color: $white;
+  border-bottom: 1px solid $border;
+  color: $grey;
+  cursor: pointer;
+  @include caps-bold;
+
+  @include ltr {
+    text-align: left;
+  }
+
+  @include rtl {
+    text-align: right;
+  }
+
+  &:hover {
+    color: $grey-dark;
+    background-color: $background;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}

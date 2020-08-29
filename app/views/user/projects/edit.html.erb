@@ -1,0 +1,80 @@
+<section class="section section--alt js-project">
+  <div class="site-wrap">
+    <div class="grid">
+      <%= render partial: "partials/user/projects/project_edit_menu" %>
+      <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-8">
+        <fieldset class="fieldset">
+          <%= simple_form_for [:user, @project] do |f| %>
+            <%= render partial: "partials/projects/project_form", locals: { f: f } %>
+          <% end %>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt js-services u-hide">
+  <div class="site-wrap">
+    <div class="grid">
+      <%= render partial: "partials/user/projects/project_edit_menu" %>
+      <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-8">
+        <% if I18n.with_locale(:en){ @project.category.name == "Machinery" } %>
+          <%= render partial: "user/project_steps/machinery" %>
+        <% elsif I18n.with_locale(:en){ @project.category.name == "Suppliers" } %>
+          <%= render partial: "user/project_steps/suppliers" %>
+        <% else %>
+          <%= render partial: "user/project_steps/service_fields" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<%= content_for :page_scripts do %>
+  <%= javascript_include_tag "location-map" %>
+
+  <script>
+    $('.control__input').on('change', function() {
+      if( $('#project_location_type_other').is(':checked')) {
+        $('.js-other-option').removeClass('u-hide');
+        $('#other_field').select();
+      } else {
+        $('.js-other-option').addClass('u-hide');
+      };
+    });
+    
+    if( $('#project_location_type_other').is(':checked')) {
+      $('.js-other-option').removeClass('u-hide');
+      $('#other_field').val(other_field);
+    };
+    
+    <% if @restored %>
+      var requiredCategories = "<%= j @required_categories %>".split("");
+      var address = "<%= j @address %>"
+      var coordinates = "<%= j @coordinates %>".split("");
+      var other_field = "<%= j @other_field %>";
+    
+      $('.js-required-categories').each(function() {
+        if (requiredCategories.indexOf(this.value) > -1) {
+          $(this).prop('checked', true);
+        };
+      });
+    
+      $('#other_field').val(other_field);
+      $("#coordinates").val(coordinates);
+      $('.js-street-address').val(address);
+    <% end %>
+
+    $('.js-toggle-project').on('click', function() {
+      $('.js-services').addClass('u-hide');
+      $('.js-project').removeClass('u-hide');
+    });
+
+    $('.js-toggle-services').on('click', function() {
+      $('.js-project').addClass('u-hide');
+      $('.js-services').removeClass('u-hide');
+    });
+  </script>
+
+<% end %>

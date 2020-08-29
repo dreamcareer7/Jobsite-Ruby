@@ -1,0 +1,94 @@
+<div class="card js-toggle-truncate js-section js-overview">
+  <div class="card__section card__section--border">
+    <div class="card__header">
+      <h3 class="card__title"><%= inline_svg("icons/info.svg", class: "icon icon--sm-small icon--brand") %><%= t("business.overview") %></h3>
+      <span class="btn btn--link js-view-all"><%= t("business.view_all") %></span>
+    </div>
+    <% if @summary %>
+      <p class="js-truncate-text u-text-paragraph"><%= @summary %></p>
+    <% end %>
+    <% if @verifications.present? %>
+      <ul class="list list--stacked list--two-col list--unstyled">
+        <% @verifications.each do |verification| %>
+          <li class="list__item list__item--has-icon js-toggle-target"><%= inline_svg("icons/checkmark.svg", class: "icon list__icon icon--brand") %><%= verification.name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <% if [@business.number_of_employees, @business.years_of_establishment, @business.business_contact, @business.license_number, @business.insurance_coverage].any? { |detail| detail.present? } %>
+    <div class="card__section card__section--border">
+      <div class="grid grid--v-padded">
+        <% if @business.number_of_employees.present? %>
+          <div class="grid__col--xs-12 grid__col--sm-6 grid__col--lg-4">
+            <div class="media">
+              <div class="media__figure">
+                <%= inline_svg("icons/users.svg", class: "icon icon--brand") %>
+              </div>
+              <div class="media__body">
+                <strong class="strong"><%= t("business.employees") %></strong><br>
+                <span><%= @business.number_of_employees %></span>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if @business.years_of_establishment.present? %>
+          <div class="grid__col--xs-12 grid__col--sm-6 grid__col--lg-4">
+            <div class="media">
+              <div class="media__figure">
+                <%= inline_svg("icons/book.svg", class: "icon icon--brand") %>
+              </div>
+              <div class="media__body">
+                <strong class="strong"><%= t("business.year_of_establishment") %></strong><br>
+                <span><%= @business.years_of_establishment %> </span>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if @business.business_contact.present? %>
+          <div class="grid__col--xs-12 grid__col--sm-6 grid__col--lg-4">
+            <div class="media">
+              <div class="media__figure">
+                <%= inline_svg("icons/user.svg", class: "icon icon--brand") %>
+              </div>
+              <div class="media__body">
+                <strong class="strong"><%= t("business.contact") %></strong><br>
+                <span><%= @business.business_contact.name %></span>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if @business.license_number.present? %>
+          <div class="grid__col--xs-12 grid__col--sm-6 grid__col--lg-4">
+            <div class="media">
+              <div class="media__figure">
+                <%= inline_svg("icons/license.svg", class: "icon icon--brand") %>
+              </div>
+              <div class="media__body">
+                <strong class="strong"><%= t("business.license_number") %></strong><br>
+                <span><%= @business.license_number %></span>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if @business.insurance_coverage.present? %>
+          <div class="grid__col--xs-12 grid__col--sm-6 grid__col--lg-4">
+            <div class="media">
+              <div class="media__figure">
+                <%= inline_svg("icons/insurance.svg", class: "icon icon--brand") %>
+              </div>
+              <div class="media__body">
+                <strong class="strong"><%= t("business.insurance") %></strong><br>
+                <span><%= @business.insurance_coverage %></span>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% if @business.description.present? %>
+    <div class="card__section">
+      <p class="js-truncate-text u-text-paragraph"><%= @business.description %></p>
+    </div>
+  <% end %>
+</div>

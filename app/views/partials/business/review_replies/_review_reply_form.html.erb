@@ -1,0 +1,111 @@
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="grid grid--center">
+      <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-8">
+        <div class="grid grid--middle">
+          <div class="grid__col--xs-12">
+            <div class="breadcrumbs mb3">
+              <%= link_to "Reviews", business_path(id: @current_business.slug, city: @current_city.slug), class: "breadcrumbs__item" %>
+              <span class="breadcrumbs__item breadcrumbs__item--current"><span class="u-text-dark"><%= @project.title %></span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h1 class="section-heading"><%= t("review_form.respond") %></h1>
+    <div class="grid grid--center">
+      <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-8">
+        <div class="card">
+          <div class="card__section card__section--padded">
+            <%= simple_form_for [:business, @review_reply] do |f| %>
+              <fieldset class="fieldset">
+                <div class="grid">
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("review_form.project") %></label>
+                      <div class="field__input-wrapper">
+                        <span class="u-text-bold"><%= @project.title %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("review_form.user") %></label>
+                      <div class="field__input-wrapper">
+                        <span class="u-text-bold"><%= @project.user.name %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("review_form.reliability") %></label>
+                      <div class="field__input-wrapper">
+                        <span class="u-text-bold"><%= render partial: "partials/stars/star_helper", locals: { full_stars: @review.full_stars_by_type("reliability"), empty_stars: @review.empty_stars_by_type("reliability"), star_modifier: "yellow" } %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("review_form.tidiness") %></label>
+                      <div class="field__input-wrapper">
+                        <span class="u-text-bold"><%= render partial: "partials/stars/star_helper", locals: { full_stars: @review.full_stars_by_type("tidiness"), empty_stars: @review.empty_stars_by_type("tidiness"), star_modifier: "yellow" } %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("review_form.courtesy") %></label>
+                      <div class="field__input-wrapper">
+                        <span class="u-text-bold"><%= render partial: "partials/stars/star_helper", locals: { full_stars: @review.full_stars_by_type("courtesy"), empty_stars: @review.empty_stars_by_type("courtesy"), star_modifier: "yellow" } %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("review_form.workmanship") %></label>
+                      <div class="field__input-wrapper">
+                        <span class="u-text-bold"><%= render partial: "partials/stars/star_helper", locals: { full_stars: @review.full_stars_by_type("workmanship"), empty_stars: @review.empty_stars_by_type("workmanship"), star_modifier: "yellow" } %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("review_form.value") %></label>
+                      <div class="field__input-wrapper">
+                        <span class="u-text-bold"><%= render partial: "partials/stars/star_helper", locals: { full_stars: @review.full_stars_by_type("value_for_money"), empty_stars: @review.empty_stars_by_type("value_for_money"), star_modifier: "yellow" } %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("review_form.recommended") %></label>
+                      <div class="field__input-wrapper">
+                        <span class="u-text-bold"><%= @review.recommended ? inline_svg("icons/checkmark.svg", class: "icon icon--green") : inline_svg("icons/close.svg", class: "icon icon--brand") %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("review_form.comment") %></label>
+                      <div class="field__input-wrapper">
+                        <span class="u-text-bold"><%= @review.comment %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <%= f.error_notification %>
+                  <div class="grid__col--xs-12 grid__col--md-12">
+                    <%= f.input :body, wrapper: :text_area, placeholder: t("review_form.respond"), label: t("review_form.response") %>
+                  </div>
+                  <div class="grid__col--xs-12 u-text-right">
+                    <div class="field">
+                      <%= f.submit "Respond", class: "btn btn--xs-full btn--primary" %>
+                    </div>
+                  </div>
+              </fieldset>
+            <% end %>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>

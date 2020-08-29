@@ -1,0 +1,20 @@
+en:
+
+  filter_sort:
+    sort_by: "Sort by"
+    rating: "Rating"
+    distance: "Distance"
+    verified: "Verified"
+    recommended: "Recommended"
+    all_messages: "All messages"
+    project_messages: "Project messages"
+    other_messages: "Other messages"
+    callback_requests: "Callback requests"
+    all_projects: "All projects"
+    invited_only: "Invited only"
+    interested: "Interested"
+    shortlisted: "Shortlisted"
+    active: "Active"
+    completed: "Completed"
+    latest: "Latest"
+    cancelled: "Cancelled"

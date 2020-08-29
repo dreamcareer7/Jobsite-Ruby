@@ -1,0 +1,31 @@
+<div class="modal js-request-callback">
+  <% if @user_callback %>
+    <div class="modal__table">
+      <div class="modal__cell">
+        <div class="modal__container">
+          <button class="js-close-modal modal__close">
+            <%= inline_svg("icons/close.svg", class: "icon") %>
+          </button>
+          <h2 class="modal__title"><%= t("callback.title") %></h2>
+          <p><%= t("callback.description_one") %><strong><%= @business.name %></strong><%= t("callback.description_two") %></p>
+          <small class="mb2 u-block js-hide-number"><%= current_user.mobile_number.present? ? current_user.mobile_number : t("callback.no_number_placeholder") %></small>
+          <fieldset class="fieldset">
+            <%= simple_form_for @user_callback, name: "user-callback", url: business_user_callbacks_path, remote: true do |f| %>
+              <div class="field">
+                <div class="field__input-wrapper">
+                  <%= f.input :new_user_number, as: :fake, placeholder: t("callback.placeholder"), wrapper: :text_field, label: false, input_html: { class: "js-replace-number field__input", style: "#{ 'display:none' if current_user.mobile_number.present? }" } %>
+                </div>
+              </div>
+              <div class="field">
+                <%= f.submit t("callback.submit"), class: "btn btn--full btn--primary" %>
+              </div>
+            <% end %>
+          </fieldset>
+          <div class="u-text-center">
+            <button class="mt1 u-text-inherit u-text-underline small js-change-number"><%= t("callback.change_number") %></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

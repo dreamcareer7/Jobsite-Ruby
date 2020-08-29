@@ -1,0 +1,23 @@
+<% filter_terms.each do |term| %>
+  <% if !filter_terms.any? { |any_term| request.original_url.include? any_term.gsub(" ", "") } %>
+    <% if term == default_term %>
+      <button class="js-open-popover btn btn--full btn--secondary u-text-left mb0">
+        <span><%= t("filter_sort.#{ term.downcase.gsub(" ", "_") }") %></span>
+        <%= inline_svg("icons/dropdown.svg", class: "icon btn__add-on") %>
+      </button>
+    <% end %>
+  <% else %>
+    <% if request.original_url.include?(term.gsub(" ", "")) %>
+      <button class="js-open-popover btn btn--full btn--secondary u-text-left mb0">
+        <span><%= t("filter_sort.#{ term.downcase.gsub(" ", "_") }") %></span>
+        <%= inline_svg("icons/dropdown.svg", class: "icon btn__add-on") %>
+      </button>
+    <% end %>
+  <% end %>
+<% end %>
+<div class="popover popover--full popover--arrow-ne popover--arrow">
+  <% filter_terms.each do |term| %>
+    <% next if request.original_url.include?(term.gsub(" ", "")) %>
+    <%= link_to t("filter_sort.#{term.downcase.gsub(" ", "_")}"), { city: @current_city.slug, filter_by: term.gsub(" ", "") }, class: "popover__link" %>
+  <% end %>
+</div>

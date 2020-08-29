@@ -1,0 +1,18 @@
+<div class="grid__col--xs-12 grid__col--sm-6 grid__col--md-12">
+  <%= link_to business_path(id: review.business.slug, city: @current_city.slug), target: :blank, class: "u-hover-muted u-block card card--grow" do %>
+    <div class="card__section">
+      <div class="media media--middle mb2">
+        <%= image_tag review.business.logo.url(:large), width: "48", class: "u-rounded-half u-border media__figure" %>
+        <div class="media__body u-truncate">
+          <strong class="u-block u-text-dark"><%= review.business.name %></strong>
+          <div class="rating">
+            <%= render partial: "partials/stars/star_helper", locals: { full_stars: review.full_stars, half_star: review.half_star, empty_stars: review.empty_stars, star_modifier: "yellow" } %>
+          </div>
+          <br>
+        </div>
+      </div>
+      <p class="u-text-reset mt1"><%= truncate(review.comment, length: 100) %></p>
+      <small class="u-text-reset"><%= t("words.reviewed") %> <%= review.user.name %></small>
+    </div>
+  <% end %>
+</div>

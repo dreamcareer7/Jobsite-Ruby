@@ -1,0 +1,43 @@
+<nav class="nav primary-nav <%= current_page?(controller: '/home') ? 'primary-nav--transparent' : '' %>">
+  <div class="grid grid--middle">
+    <div class="grid__col--xs-10 grid__col--md-8 grid__col--middle">
+      <a href="/admin/overview">
+        <%= inline_svg("logo-mark.svg", class: "nav__logo nav__logo--mobile") %>
+        <%= inline_svg("logo.svg", class: "nav__logo nav__logo--desktop") %>
+        <span class="ml2 badge badge--reverse u-text-accent">Admin</span>
+      </a>
+
+      <%= simple_form_for :admin_country, url: admin_select_country_path, html: { class: 'inline-form ml2' }, method: :post do |f| %>
+        <div class="field">
+          <div class="field__input-wrapper">
+            <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
+            <%= f.input :country_id, collection: Admin::CountryPolicy::Scope.new(current_admin, Country).resolve, input_html: { class: "field__input field__input--right-add-on js-admin-country-selector" }, required: true, label: false, selected: session[:admin_country_id], include_blank: 'All countries' %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+    <div class="grid__col--xs-2 grid__col--md-4 u-text-right">
+      <button class="nav__hamburger js-mobile-nav-trigger">
+        <%= inline_svg("icons/hamburger.svg", class: "icon icon--white") %>
+      </button>
+      <ul class="list list--inline nav__list u-hide--medium-down mb0">
+        <div class="nav__divider nav__divider--tight"></div>
+        <% if locale == :en %>
+          <li class="list__item">
+            <h3 class="pb1"><%= link_to "ع", set_language_path(language: :ar), method: :put, class: "u-text-contrast" %></h3>
+          </li>
+        <% else %>
+          <li class="list__item">
+            <%= link_to "EN", set_language_path(language: :en), method: :put, class: "u-text-contrast" %>
+          </li>
+        <% end %>
+        <div class="nav__divider nav__divider--tight"></div>
+
+        <li class="list__item">
+          <%= link_to "Log Out", destroy_admin_session_path, class: "btn btn--small btn--contrast" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

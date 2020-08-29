@@ -1,0 +1,29 @@
+<div class="grid__col--xs-12 grid__col--md-8">
+  <div class="card">
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-4">
+        <div class="card__section">
+          <div class="grid grid--v-padded">
+            <%= render partial: "partials/projects/details/project_details_sidebar" %>
+          </div>
+        </div>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-8">
+        <div class="card__section">
+          <p class="js-truncate-text u-text-paragraph"><%= @project.description %></p>
+          <% if @project.services.present? %>
+            <div class="pill-list">
+              <% @project.services.visible.distinct.each do |service| %>
+                <div class="pill-list__item pill"><%= service.name.capitalize %></div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="grid__col--xs-12 grid__col--md-4">
+  <%= render partial: "partials/projects/instructions/business_instructions" %>
+</div>
+

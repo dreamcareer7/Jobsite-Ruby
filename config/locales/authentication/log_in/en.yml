@@ -1,0 +1,13 @@
+en:
+
+  log_in:
+    title: "Log in"
+    facebook: "Log in with Facebook"
+    google: "Log in with Google"
+    or: "or"
+    email_placeholder: "Email"
+    password_placeholder: "Password"
+    forget: "Forgot?"
+    submit: "Log in"
+    have_account: "Don't have an account?"
+    sign_up: "Sign up"

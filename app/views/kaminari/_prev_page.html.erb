@@ -1,0 +1,13 @@
+<% unless current_page.first? %>
+
+  <!-- Mobile -->
+  <%= link_to url, rel: 'previous', remote: remote, class: "mb0 btn btn--secondary u-hide--medium" do %>
+    <%= inline_svg("icons/left-arrow.svg", class: "btn__add-on btn__add-on--center icon") %>
+  <% end %>
+
+  <!-- Desktop -->
+  <%= link_to url, rel: 'previous', remote: remote, class: "mb0 btn btn--secondary u-hide--medium-down" do %>
+    <%= t("phrases.prev_page") %>
+  <% end %>
+
+<% end %>

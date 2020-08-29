@@ -1,0 +1,122 @@
+var setupModals;
+$(document).on('ajax:error', '#new_user', function(event, data, status, xhr) {
+  $(".js-sign-in-error").empty().append("<div class='notification notification--error'>Invalid username or password</div>");
+});
+
+$(document).on('ajax:success', '#new_user', function(event, data, status, xhr) {
+  if (xhr.responseText.indexOf("has already been taken") > 1) {
+    $(".js-sign-up-error").empty().append("<div class='notification notification--error'>Email has already been taken. Try signing in.</div>");
+  } else if (xhr.responseText.indexOf("too short") > 1) {
+    $(".js-sign-up-error").empty().append("<div class='notification notification--error'>Password must be atleast 8 characters.</div>");
+  }
+});
+
+// Modal trigger
+setupModals = function() {
+  var closeModal = function() {
+    $('.modal').removeClass('is-visible');
+    $('body').removeClass('hidden');
+    $('.js-video-target').prop('src', '');
+  };
+
+  $(document).on('click', '.modal__cell', function(e) {
+    if (e.target !== this) return;
+    closeModal();
+  });
+
+  $(document).on('click', '.js-open-modal', function() {
+    if ($(this).data('modal') === 'call-now') handleDecodeNumber( $(this).attr('data-phone'), $(this) );
+    if ($(this).data('modal') === 'video-player') handleVideoPlayer( $(this).attr('data-video-link'), $(this) );
+    if ($(this).data('modal') === 'please-log-in') setupLoginRedirect( $(this).attr('data-modal-target'), $(this).attr('data-modal-target-business'), $(this).attr('data-modal-redirect') );
+
+    $('.modal').removeClass('is-visible');
+    $('.js-' + $(this).data('modal')).addClass('is-visible');
+    $('body').addClass('hidden');
+  });
+
+  $(document).on('click', '.js-close-modal', closeModal);
+
+  //Decode number
+  function handleDecodeNumber(phoneNumber, $this) {
+    var decodedPhoneNumber = Base64.decode(phoneNumber);
+    var businessName = $this.data('business-name');
+    var businessHours = $this.data('business-hours');
+
+    if(decodedPhoneNumber.length > 0) {
+      $('.js-call-now-phone').text( decodedPhoneNumber );
+      $('.js-call-now-phone').attr('href', 'tel:' + decodedPhoneNumber);
+    } else {
+      $('.js-call-now-phone').text( 'Not available' );
+    }
+
+    $('.js-call-now-business-name').text( businessName );
+    // $('.js-call-now-business-hours').html(formatBusinessHours(businessHours));
+    $('.js-call-now-business-hours').html($('#business_hours_text').html());
+    $('.js-' + $(this).data('modal')).toggleClass('is-visible');
+    $('body').toggleClass('hidden');
+  }
+
+  function handleVideoPlayer(video, $this) {
+    $('.js-video-target').prop('src', video + '?autoplay=1');
+  }
+
+  //Setup redirect to appropriate form
+  function setupLoginRedirect(target, targetBusiness, redirectPath) {
+    document.cookie = 'loginTarget=' + target + ';path=/';
+
+    if(targetBusiness) {
+      document.cookie = 'loginTargetBusiness=' + targetBusiness + ';path=/';
+    }
+
+    if(redirectPath) {
+      document.cookie = 'loginRedirect=' + redirectPath + ';path=/';
+    }
+  }
+
+  function formatBusinessHours(businessHours) {
+    var weekdays;
+    var weekend;
+
+    if(businessHours.weekday_hours instanceof Object) {
+      var weekdayHours = '(' + businessHours.weekday_hours.day_start + ' - ' + businessHours.weekday_hours.day_end + ')';
+      var shiftOneWeekday = '<br>' + moment(businessHours.weekday_hours.shift_one_start).format('LT') + ' - ' + moment(businessHours.weekday_hours.shift_one_end).format('LT');
+      var shiftTwoWeekday = '<br>' + moment(businessHours.weekday_hours.shift_two_start).format('LT') + ' - ' + moment(businessHours.weekday_hours.shift_two_end).format('LT');
+
+      if (businessHours.weekday_hours.shift_one_start && businessHours.weekday_hours.shift_two_start) {
+        weekdays = weekdayHours + shiftOneWeekday + shiftTwoWeekday;
+      } else if (businessHours.weekday_hours.shift_one_start) {
+        weekdays =  weekdayHours + shiftOneWeekday;
+      }
+    }
+
+    if(businessHours.weekend_hours instanceof Object) {
+      var weekendHours = '(' + businessHours.weekend_hours.day_start + ' - ' + businessHours.weekend_hours.day_end + ')';
+      var shiftOneWeekend = '<br>' + moment(businessHours.weekend_hours.shift_one_start).format('LT') + ' - ' + moment(businessHours.weekend_hours.shift_one_end).format('LT');
+      var shiftTwoWeekend = '<br>' + moment(businessHours.weekend_hours.shift_two_start).format('LT') + ' - ' + moment(businessHours.weekend_hours.shift_two_end).format('LT');
+
+      if (businessHours.weekend_hours.shift_one_start && businessHours.weekend_hours.shift_two_start) {
+        weekend = weekendHours + shiftOneWeekend + shiftTwoWeekend;
+      } else if (businessHours.weekend_hours.shift_one_start) {
+        weekend =  weekendHours + shiftOneWeekend;
+      } 
+
+    }
+
+    if(weekdays && weekend) {
+      return "Weekdays " + weekdays + '<br>' + "Weekend " + weekend;
+    } else if (weekdays) {
+      return "Weekdays " + weekdays;
+    } else if (weekend) {
+      return "Weekend " + weekend;
+    } else {
+      return 'Information not available';
+    }
+
+
+  }
+
+};
+
+$(document).ready(setupModals);
+//for when rendering partials via ajax
+$(document).on('ajax:complete ajaxSuccess', setupModals);

@@ -1,0 +1,38 @@
+<!--email_off-->
+<div class="card">
+  <div class="card__section card__section--border">
+    <h4 class="card__title"><%= inline_svg("icons/briefcase.svg", class: "icon icon--dark icon--small") %>Account details</h4>
+  </div>
+  <div class="card__section card__section--border">
+    <%= simple_form_for [:admin, @business] do |f| %>
+      <div class="field">
+        <div class="field__label">Business owner</div>
+        <% if @business.user.present? %>
+          <%= f.association :user, collection: User.all, :selected => @business.user.id, wrapper: :select2, input_html: { style: "width:100%" }, label: false, label_method: lambda { |user| "#{ user.name } - #{ user.email }" } %>
+          <div class="mt2">
+            signed up on <%= @business.user.created_at.to_s :dateonly %>
+          &mdash;
+          <%= link_to "View user", edit_admin_vendor_path(@business.user) %> - <%= link_to "Dissociate", dissociate_owner_admin_business_path(@business), method: :put %>
+          </div>
+        <% else %>
+          <%= f.association :user, collection: User.all, wrapper: :select2, input_html: { style: "width:100%", class: "js-select2-user" }, label: false, label_method: lambda { |user| "#{ user.name } - #{ user.email }" } %> 
+        <% end %>
+      </div>
+      <%= f.submit "Save", class: "btn btn--xs-full btn--primary mt2" %>
+    <% end %>
+  </div>
+</div>
+<!--/email_off-->
+
+<% if params[:user_to_associate].present? %>
+  <%= content_tag :span, '', class: "js-associate-user", data: { user: params[:user_to_associate] } %>
+<% end %>
+
+<%= content_for :page_scripts do %>
+  <script>
+    $(document).ready(function() {
+      $('.js-select2-user').val( $('.js-associate-user').data('user') ).trigger('change');
+    });
+  </script>
+<% end %>
+

@@ -1,0 +1,32 @@
+// Animations
+
+$time: 0.2s;
+$time-longer: $time*2;
+
+$curve: ease-in-out;
+$curve-bounce: cubic-bezier(0.155, 0.960, 0.560, 1.315);
+
+
+// Measurements
+
+$input-height: 50px;
+$border-radius: 4px;
+
+$site-width: 1280px;
+
+$spacing-xx-small: 2px;
+$spacing-x-small: 4px;
+$spacing-small: 8px;
+$spacing-medium: $spacing-small * 2;
+$spacing-large: $spacing-small * 3;
+$spacing-x-large: $spacing-small * 4;
+$spacing-xx-large: $spacing-small * 5;
+$spacing-xxx-large: $spacing-small * 6;
+
+
+// Media queries
+
+$small: 540px;
+$medium: 820px;
+$large: 1060px;
+$x-large: 1300px;

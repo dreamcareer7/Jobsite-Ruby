@@ -1,0 +1,8 @@
+en:
+  project_type:
+    professional:
+      blurb: "Professional service scope"
+    machinery:
+      blurb: "Machiery project types"
+    supplier:
+      blurb: "Supplier project types"

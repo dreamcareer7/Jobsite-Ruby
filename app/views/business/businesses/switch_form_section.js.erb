@@ -1,0 +1,19 @@
+$('#js-form-section').html('<%= j render partial: "partials/user/businesses/business_target_section", locals: { editor: :user, section: @section } %>');
+
+//rebind select2
+$( '.select2' ).addClass('needsclick').select2({ templateSelection: hideNone, templateResult: hideNone });
+
+function hideNone(data, container) {
+  if(data.text === "None") {
+    $(container).addClass('u-hide');
+  } else {
+    return data.text
+  }
+}
+
+//hide remove option for first cocoon field
+$('.js-cocoon-partial').children('.js-cocoon-fields').first().find('.js-remove-field').hide();
+
+// Highlight appropriate menu element
+$('.sidebar-menu__item a').addClass('is-active').removeClass('is-active');
+$('.sidebar-menu__item a[data-section="<%= @section %>"]').addClass('is-active');

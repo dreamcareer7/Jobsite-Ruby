@@ -1,0 +1,144 @@
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="grid">
+      <% unless @business.approved %>
+        <div class="grid__col--xs-12">
+          <div class="card banner banner--primary"><%= t("dashboard.awaiting") %> <%= link_to edit_business_business_path(@business), class: "u-text-contrast u-text-underline" do %><%= t("dashboard.complete") %><% end %> <%= t("dashboard.wait") %></div>
+        </div>
+      <% end %>
+      <div class="grid__col--xs-12 grid__col--md-4 grid__col--lg-3">
+        <% if @dashboard_banners.first %>
+          <%= render partial: "partials/banners/dashboard_banner", locals: { banner: @dashboard_banners.first } %>
+        <% end %>
+        <% if @business.premium? %>
+          <div class="card promo-block u-cover">
+            <div class="card__section promo-block__content">
+              <h3 class="u-text-contrast u-text-shadow"><%= t("dashboard.advertise_ad") %></h3>
+              <p class="u-text-shadow u-text-contrast u-text-muted"><%= t("dashboard.advertise_ad_blurb") %></p>
+              <a href="/pages/contact?advertise" class="btn btn--primary"><%= t("words.advertise") %></a>
+            </div>
+          </div>
+        <% else %>
+          <div class="card promo-block u-cover">
+            <div class="card__section promo-block__content">
+              <h3 class="u-text-contrast u-text-shadow"><%= t("dashboard.upgrade_ad_business") %></h3>
+              <p class="u-text-shadow u-text-contrast u-text-muted"><%= t("dashboard.upgrade_ad_blurb") %></p>
+              <span data-modal="business-upgrade" class="js-open-modal btn btn--primary"><%= t("words.upgrade") %></span>
+            </div>
+          </div>
+        <% end %>
+        <% if @dashboard_banners.present? && @dashboard_banners.count > 1 %>
+          <%= render partial: "partials/banners/dashboard_banner", locals: { banner: @dashboard_banners.last } %>
+        <% end %>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-8 grid__col--lg-9">
+        <div class="card">
+          <div class="card__section">
+            <div class="card__header">
+              <h4 class="card__title"><%= inline_svg("icons/graph.svg", class: "icon icon--brand icon--small") %><%= t("dashboard.stats") %></h4>
+              <%= link_to t("dashboard.view_all"), business_stats_path, class: "btn btn--link" %>
+            </div>
+            <div class="grid grid--v-padded">
+              <% @stats.map do |stat_name, stat_value| %>
+                <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-3">
+                  <small class="u-block mb1"><%= t("dashboard.#{stat_name}") %></small>
+                  <h2 class="m0"><%= stat_value %></h2>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__section">
+            <div class="card__header">
+              <h4 class="card__title"><%= inline_svg("icons/briefcase.svg", class: "icon icon--dark icon--small") %><%= t("dashboard.projects") %></h4>
+              <%= link_to t("dashboard.view_all"), business_project_feed_index_path, class: "btn btn--link" unless @projects.blank? %>
+            </div>
+            <div class="grid grid--v-padded">
+              <div class="grid__col--xs-12">
+                <% if @projects.present? %>
+                  <% @projects.each do |project| %>
+                    <div class="media small mb2">
+                      <div class="media__body">
+                        <%= link_to project.title, business_project_feed_path(project), class: "u-block" %>
+                        <small class="u-text-light mb1 u-inline-block"><%= project.created_at.strftime("%b %d, %Y") %></small>
+                        <small class="u-block mb1"><%= truncate(project.description, length: 200) if project.description.present? %></small>
+                      </div>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <p><%= t("dashboard.no_projects") %></p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+         </div>
+        <div class="card">
+          <div class="card__section">
+            <div class="card__header">
+              <h4 class="card__title"><%= inline_svg("icons/chat.svg", class: "icon icon--brand icon--small") %><%= t("dashboard.latest_messages") %></h4>
+              <%= link_to t("dashboard.view_more"), business_inbox_index_path, class: "btn btn--link" unless @messages.blank? %>
+            </div>
+            <div class="grid grid--v-padded">
+              <% if @messages.present? %>
+                <% @messages.each do |message| %>
+                  <div class="grid__col--xs-12">
+                    <div class="media small">
+                      <div class="media__figure u-hide--small-down">
+                        <%= image_tag message.sender.profile_image.url, class: "avatar" %>
+                      </div>
+                      <div class="media__body">
+                        <strong class="u-block mb1"><%= "#{ message.sender.name }, #{ message.sender.is_a?(Business) ? message.sender.locations.first.city_country : message.sender.city_country }" %></strong>
+                        <small class="u-text-light mb1 u-inline-block"><%= message.created_at %></small>
+                        <p><%= truncate(message.body, length: 70) %></p>
+                        <% if message.project_id.present? %>
+                          <%= link_to t("dashboard.read_more"), business_project_feed_path(message.project_id) %>
+                        <% else %>
+                          <%= link_to t("dashboard.read_more"), business_message_path(message) %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% else %>
+                <div class="grid__col--xs-12">
+                  <p><%= t("dashboard.no_messages") %></p>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__section">
+            <div class="card__header">
+              <h4 class="card__title"><%= inline_svg("icons/quote.svg", class: "icon icon--brand icon--small") %><%= t("dashboard.notifications") %></h4>
+              <%= link_to t("dashboard.view_all"), business_inbox_index_path, class: "btn btn--link" if @notifications.present? %>
+            </div>
+            <div class="grid grid--v-padded">
+              <% if @notifications.present? %>
+                <% @notifications.each do |notification| %>
+                  <div class="grid__col--xs-12">
+                    <div class="media small">
+                      <div class="media__figure u-hide--small-down">
+                        <%= image_tag notification.sender.profile_image.url, class: "avatar" %>
+                      </div>
+                      <div class="media__body">
+                        <%= render partial: "partials/notifications/format_body", locals: { notification: notification, user_type: "business", project: notification.project_id.present? && Project.where(id: notification.project_id).present? ? Project.find(notification.project_id) : '' } %>
+                        </br>
+                        <small class="u-text-light mb1 u-inline-block"><%= time_ago_in_words(notification.created_at) %></small>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% else %>
+                <div class="grid__col--xs-12">
+                  <p><%= t("dashboard.no_notifications") %></p>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,30 @@
+// Accordion
+
+@include mq(small-down) {
+  .mobile-accordion {
+    position: relative;
+  }
+
+  .mobile-accordion__trigger {
+    cursor: pointer;
+    border-bottom: 1px solid $border;
+    padding-bottom: $spacing-small;
+  }
+
+  .mobile-accordion__trigger--dark {
+    border-color: mix($grey, $black, 75%);
+  }
+
+  .mobile-accordion.is-visible .mobile-accordion__icon {
+    transform: rotate(180deg);
+  }
+
+  .mobile-accordion__list {
+    display: none;
+    margin-top: $spacing-small;
+
+    &.is-visible {
+      display: block;
+    }
+  }
+}

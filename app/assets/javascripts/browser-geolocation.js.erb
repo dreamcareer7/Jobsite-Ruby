@@ -1,0 +1,24 @@
+function permissionStatus() {
+  if (typeof navigator.permissions === 'undefined') { return };
+
+  navigator.permissions.query({ name: 'geolocation' })
+    .then(function(permissionStatus) {
+      navigator.geolocation.getCurrentPosition(success, error);
+      permissionStatus.onchange = function() {
+        if(this.state === "granted") {
+          navigator.geolocation.getCurrentPosition(success, error);
+        }
+      };
+    });
+}
+
+function success(position) {
+    var coords = position.coords.latitude + '!' + position.coords.longitude;
+  document.cookie = 'browserCoords=' + coords + ';path=/';
+}
+
+function error() {
+  document.cookie = 'browserCoords=declined;path=/';
+}
+
+$(document).on('turbolinks:load', permissionStatus);

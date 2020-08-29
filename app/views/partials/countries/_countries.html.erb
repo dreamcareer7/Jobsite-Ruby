@@ -1,0 +1,12 @@
+<section class="section section--tight u-rounded u-text-center mb2 u-cover has-tint has-tint--rounded" style="background-image: url('<%= random_city.present? && random_city.city_image ? random_city.city_image.image.url(:small) : City.first.default_city_image %>')">
+  <div class="has-tint__content">
+    <h3 class="u-text-contrast u-text-shadow mb0"><%= target_country.name %></h3>
+    <p class="u-text-contrast u-text-shadow u-text-muted m0"><%= pluralize(target_country.active_businesses_count, t("listing.listings")) %></p>
+  </div>
+</section>
+
+<ul class="list list--two-col-all">
+  <% target_country.cities.enabled.each do |city| %>
+    <li class="list__item u-block"><%= link_to city.name, city_choose_city_path(city), method: :put, class: "list__link h4 u-block" %></li>
+  <% end %>
+</ul>

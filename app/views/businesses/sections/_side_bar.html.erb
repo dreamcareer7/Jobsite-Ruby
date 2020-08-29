@@ -1,0 +1,107 @@
+<div class="<%= 'js-section' if browser.device.mobile? %>">
+<% if @business.trusted? || @business.verified? %>
+  <div class="card">
+    <div class="card__section">
+      <div class="media">
+        <div class="media__figure">
+          <% if @business.trusted? %>
+            <%= inline_svg("icons/trusted.svg", class: "icon icon--brand") %>
+          <% elsif @business.verified? %>
+            <%= inline_svg("icons/verified.svg", class: "icon icon--green") %>
+          <% end %>
+        </div>
+        <div class="media__body">
+          <% if @business.trusted? %>
+            <strong class="strong"><%= t("business.trusted_business") %></strong><br>
+            <small><%= t("business.trusted_blurb") %></small>
+          <% elsif @business.verified? %>
+            <strong class="strong"><%= t("business.verified_business") %></strong><br>
+            <small><%= t("business.verified_blurb") %></small>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<% if @business.certifications.any? %>
+  <div class="card">
+    <div class="card__section">
+      <div class="card__header">
+        <h3 class="card__title"><%= inline_svg("icons/reward.svg", class: "icon icon--sm-small icon--brand") %><%= t("business.certifications") %></h3>
+      </div>
+      <div class="icon-list">
+        <% @business.certifications.each do |certification| %>
+          <%= image_tag(certification.logo.url(:small), class: "icon-list__item certification js-toggle-target tooltip", title: "#{ certification.name }#{ ' (' + certification.country.name + ')' if certification.country.present? }") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<div class="u-hide--medium">
+  <%= render partial: "businesses/sections/overview" %>
+  <%= render partial: "businesses/sections/services" %>
+</div>
+<% if @business_location.present? %>
+  <div class="card">
+    <div class="card__section">
+      <div class="card__header">
+        <h3 class="card__title"><%= inline_svg("icons/location.svg", class: "icon icon--sm-small icon--brand") %><%= t("business.map") %></h3>
+        <button data-toggle="branches-all" class="btn btn--link js-section-toggle"><%= t("business.view_locations") %></span>
+      </div>
+    </div>
+    <span data-modal="business-profile-map" data-coordinates="<%= [@business_location.latitude, @business_location.longitude ] %>" class="js-open-modal js-branch">
+      <div id="business-map" class="u-rounded u-text-pointer" style="height: 150px;"></div>
+    </span>
+    <div class="card__section">
+      <a href="https://maps.google.com/?q=<%= @business_location.latitude %>, <%= @business_location.longitude %>" target="_blank" class="btn btn--full btn--primary"><%= t("business.directions") %></a>
+    </div>
+  </div>
+<% end %>
+<span class="u-hide--medium-down">
+  <%= render partial: "businesses/sections/hours_of_operation" %>
+</span>
+<% if @business.brand.present? && @business.brand.businesses.present? %>
+  <div class="card">
+    <div class="card__section">
+      <div class="card__header">
+        <h3 class="card__title"><%= inline_svg("icons/briefcase.svg", class: "icon icon--sm-small icon--brand") %><%= t("business.brands") %></h3>
+      </div>
+      <div class="icon-list">
+        <% @business.brand.businesses.each do |business| %>
+          <%= link_to business_path(id: business.slug) do %>
+            <%= image_tag(business.logo.url(:large), class: "icon-list__item brand js-toggle-target") %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<% unless @business.premium? %>
+  <div class="u-hide--large-down">
+    <%= render partial: "partials/banners/side_banner" %>
+  </div>
+<% end %>
+
+<div class="card promo-block u-hide--large-down u-cover" style="background-image: url('<%= image_path('listings/promo.jpg') %>')">
+  <div class="card__section promo-block__content">
+    <h3 class="u-text-contrast u-text-shadow"><%= t("listing.project_prompt.header") %></h3>
+    <p class="u-text-contrast u-text-shadow u-text-muted"><%= t("listing.project_prompt.copy") %></p>
+    <% if current_user %>
+      <button data-modal="projects-coming-soon" class="js-open-modal btn btn--primary"><%= t("links.post_project") %></button>
+    <% else %>
+      <button data-modal="projects-coming-soon" class="js-open-modal btn btn--primary"><%= t("links.post_project") %></button>
+    <% end %>
+  </div>
+</div>
+
+<div class="card u-hide--medium-down">
+  <div class="card__section">
+    <% if @current_user %>
+      <span data-modal="problem" class="js-open-modal js-problem btn btn--secondary btn--full"><%= t("business.report") %></span>
+    <% else %>
+      <span data-modal="please-log-in" data-modal-target="problem" data-modal-target-business="<%= @business.id %>" class="js-open-modal btn btn--secondary btn--full"><%= t("business.report") %></span>
+    <% end %>
+    <small class="u-text-muted"><%= t("business.disclaimer") %></small>
+  </div>
+</div>
+</div>

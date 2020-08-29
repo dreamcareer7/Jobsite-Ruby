@@ -1,0 +1,28 @@
+<section class="section section--dark u-cover u-text-center has-tint" <% if @current_business.banner.present? %> style="background-image: url('<%= @current_business.banner.url(:large)  %>') <% end %>">
+  <div class="site-wrap has-tint__content">
+    <%= image_tag @current_business.logo.url, class: "u-box-shadow profile-logo u-rounded" %>
+    <h2 class="mb0 u-text-contrast u-text-shadow"><%= t("dashboard.welcome") %> <%= @current_business.name %>!</h2>
+    <h3 class="mt1 u-text-contrast u-text-shadow u-text-regular">
+      <%= t("user_dashboard.your_profile") %> 
+      <strong class="<%= percentage_to_colour(@current_business.profile_completion) %>">
+        <%= @current_business.profile_completion.round %>%
+      </strong> 
+      <%= t("user_dashboard.completed") %>. 
+      <%= link_to @current_business.profile_completion == 100 ? 
+      t("user_dashboard.edit") : 
+      t("user_dashboard.complete_it"), 
+      edit_business_business_path(@current_business), class: "u-text-underline" %>
+  </h3>
+  <% if current_user.businesses.present? && current_user.businesses.count > 1 %>
+    <div class="grid grid--center">
+      <div class="grid__col--xs-12 grid__col--sm-10 grid__col--md-8 grid__col--lg-6 grid__col--xlg-4">
+        <%= render partial: "partials/nav/business_drop_list", locals: { business: @current_business } %>
+      </div>
+    </div>
+  <% end %>
+  <% if @current_business.disabled? %>
+    <%= render partial: "partials/business/profile/disabled" %>
+  <% end %>
+  </div>
+  <%= link_to t("dashboard.view_as_user"), business_path(id: @current_business.slug, city: @current_city.slug), class: "btn btn--small home-city__tooltip", target: "_blank" %>
+</section>

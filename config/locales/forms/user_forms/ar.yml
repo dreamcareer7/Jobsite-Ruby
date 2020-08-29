@@ -1,0 +1,28 @@
+ar:
+
+  user_form:
+    header: “تحديث ملفك الشخصي”
+    information: “معلوماتك”
+    submit: “تحديث ملفك الشخصي”
+    name:
+      label: “الإسم”
+      placeholder: “إسمك”
+    phone:
+      label: “رقم الهاتف”
+      placeholder: "XXX-XXX-XXX"
+    nationality:
+      label: “الجنسية”
+      placeholder: “كندا”
+    industry:
+      label: “في أي صناعة تعمل حالياً ؟”
+    birthday:
+      label: “تاريخ الميلاد”
+    email:
+      label: “البريد الإلكتروني”
+      placeholder: “البريد الإلكتروني”
+    gender:
+      label: "الجنس"
+    password:
+      label: “كلمة المرور”
+      placeholder_present: "*******"
+      placeholder_empty: “كلمة المرور”

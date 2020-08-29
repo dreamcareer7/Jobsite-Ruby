@@ -1,0 +1,21 @@
+{
+  "name": "dsl-generated dependencies",
+  "dependencies": {
+    "smooth-scroll": "https://github.com/cferdinandi/smooth-scroll.git",
+    "jquery": "2.2.4",
+    "jquery-ujs": "1.2.1",
+    "jquery-ui": "1.11.4",
+    "slick-carousel": "1.6.0",
+    "fastclick": "1.0.6",
+    "select2": "4.0.3",
+    "js-base64": "2.1.9",
+    "lodash": "4.13.1",
+    "gs": "0.5.1",
+    "readmore-js": "latest",
+    "moment": "latest",
+    "tooltipster": "latest",
+    "highcharts": "latest",
+    "rivets": "latest",
+    "markerclustererplus": "latest"
+  }
+}

@@ -1,0 +1,19 @@
+//took this from:
+//https://github.com/vol7/karmapoints/blob/09196dcb4eb7b877c174ebfd21c9e7c0aa39ff5c/app/assets/stylesheets/alex_design/modules/_video-container.scss
+
+// Video
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+
+  iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

@@ -1,0 +1,9 @@
+en:
+
+  messages:
+    no_messages: "No messages have been sent yet"
+    submit: "Send message"
+    placeholder: "Type a message..."
+    shortlist: "Shortlist quote"
+    accept: "Accept quote"
+    deny: "Deny quote"

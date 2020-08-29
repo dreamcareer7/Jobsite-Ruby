@@ -1,0 +1,30 @@
+<div class="card js-subscriptions">
+  <div class="card__section">
+
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--sm-8">
+        <h3 class="mb2">Matching Businesses</h3>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Business</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @target_businesses.each do |s| %>
+          <tr>
+           <td>
+              <%= link_to s.name, edit_admin_business_path(s) %>
+            </td>
+            <td><%= s.created_at %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<%= render partial: "partials/user/businesses/business_form_standard_premium", locals: { editor: :user } %>
+
+<% if session[:section].present? %>
+  <%= content_tag :span, '', class: "js-session-section", data: { section: session[:section] } %>
+<% end %>
+
+<%= content_for :page_scripts do %>
+  <script>
+    if ($('.js-session-section').data('section') && 
+        $('.js-session-section').data('section').length > 1) {
+      $('*[data-section=' + $('.js-session-section').data('section') + ']').click();
+    }
+  </script>
+<% end %>

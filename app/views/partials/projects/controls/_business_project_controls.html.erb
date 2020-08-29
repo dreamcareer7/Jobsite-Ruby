@@ -1,0 +1,26 @@
+<% if (!@project.project_in_process?) || (@project.project_in_process? && @project.business == @current_business)  %>
+  <div class="grid__col--xs-12 grid__col--lg-flex u-text-right--large">
+    <div class="btn-group btn-group--full">
+      <% if @project.completed? %>
+        <span class="btn-group__item btn-group__item--full-small-down "><%= t("projects.project_complete") %></span>
+
+      <% elsif @project.business == @current_business %>
+        <% unless @project.pending_completion? %>
+          <%= link_to t("projects.mark_complete"), business_project_mark_as_complete_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", id: "mark-complete", method: :put %>
+        <% end %>
+        <% unless @project.inactive? || @project.pending_completion? %>
+          <%= link_to t("projects.cancel_project"), business_project_cancel_project_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--secondary", id: "cancel-project", data: { confirm: "Are you sure?" }, method: :put %>
+        <% end %>
+      <% elsif @current_business.shortlisted?(@project) && @current_business.quotes.where(project_id: @project.id).blank? %>
+        <%= link_to t("projects.submit_quote"), new_business_quote_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary" %>
+
+      <% else %>
+        <%= link_to t("words.apply"), business_project_apply_to_project_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", method: :put unless @current_business.applied_to_projects.where(project_id: @project.id).exists? %>
+
+      <% end %>
+      <% unless @project.inactive? || @current_business == @project.business %>
+        <%= link_to t("projects.no_longer_interested"), business_project_hide_project_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--secondary", method: :put %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

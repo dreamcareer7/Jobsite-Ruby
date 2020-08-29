@@ -1,0 +1,34 @@
+<div class="field">
+  <div class="field__input-wrapper">
+    <%= f.input :attachment, as: :file, input_html: { class: "js-file-upload", hidden: true }, label: false %>
+    <div type="text" class="field__input js-file-upload-name">
+      <span class="u-text-light">No file chosen</span>
+    </div>
+    <%= link_to_remove_association f, { wrapper_class: 'field__input-wrapper' } do %>
+      <%= inline_svg("icons/close-small.svg", class: "icon icon--small btn__add-on") %>
+    <% end %>
+    <a class="field__btn btn btn--secondary js-file-browse" onclick="clickBrowseProjectPhoto($(this));">Browse</a>
+  </div>
+</div>
+
+<%= content_for :page_scripts do %>
+  <script>
+    function clickBrowseProjectPhoto($this) {
+      var uploadButton = $this.closest('.field__input-wrapper').find('.js-file-upload');
+    
+      uploadButton.click();
+    
+      $('input:file').change(function() {
+        setFileUploadName($this, uploadButton)
+      });
+    
+    }
+
+    function setFileUploadName($this, uploadButton) {
+      $this.parent().find('.js-file-upload-name').text(uploadButton.val().split('\\').pop());
+      $this.hide();
+    }
+
+  </script>
+<% end %>
+

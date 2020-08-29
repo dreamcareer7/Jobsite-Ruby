@@ -1,0 +1,10 @@
+<div class="card">
+  <div class="js-cocoon-partial">
+    <%= f.simple_fields_for :locations  do |l| %>
+      <%= render 'partials/user/businesses/business_form_sections/field_partials/location_fields', f: l %>
+    <% end %>
+    <div class="card__section card__section--top">
+      <%= link_to_add_association t("business_profile.add_another"), f, :locations, partial: "partials/user/businesses/business_form_sections/field_partials/location_fields" %>
+    </div>
+  </div>
+</div>

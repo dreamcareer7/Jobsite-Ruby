@@ -1,0 +1,118 @@
+// Mobile nav
+
+.mobile-nav {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  height: 100%;
+  background-color: $white;
+  width: 90%;
+  max-width: 400px;
+  transition: transform $time $curve;
+  overflow-y: scroll;
+  @include z-index(mobile-nav);
+
+  @include mq(medium) {
+    display: none;
+  }
+
+  @include ltr {
+    left: 100%;
+  }
+
+  @include rtl {
+    right: 100%;
+  }
+
+  &.is-visible {
+    -webkit-overflow-scrolling: touch;
+
+    @include ltr {
+      transform: translate3d(-100%, 0, 0);
+    }
+
+    @include rtl {
+      transform: translate3d(100%, 0, 0);
+    }
+  }
+}
+
+.mobile-nav__list {
+  margin-top: -1px; // Prevent duplicate borders
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.mobile-nav__item {
+  border-top: 1px solid $border;
+  border-bottom: 1px solid $border;
+
+  & + & {
+    margin-top: -1px;
+  }
+}
+
+
+.mobile-nav__spacer {
+  display: block;
+  flex: 1;
+  border: 0;
+}
+
+.mobile-nav__link {
+  display: block;
+  width: 100%; // Make sure close button is right aligned
+  padding: $spacing-medium;
+  color: $grey;
+
+  @include ltr {
+    text-align: left;
+  }
+
+  @include rtl {
+    text-align: right;
+  }
+
+  &:hover {
+    color: $grey-dark;
+    background-color: $background;
+  }
+
+  &--active {
+    color: $red;
+
+    &:hover {
+      color: $red;
+    }
+  }
+}
+
+
+// Backdrop
+
+.mobile-nav-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($black, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity $time $curve, visibility $time $curve;
+  pointer-events: none;
+  @include z-index(mobile-nav-backdrop);
+
+  @include mq(medium) {
+    display: none;
+  }
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}

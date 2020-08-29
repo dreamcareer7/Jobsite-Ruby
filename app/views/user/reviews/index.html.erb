@@ -1,0 +1,54 @@
+<section class="section section--alt">
+  <div class="site-wrap">
+    <% if @reviews.present? %>
+      <div class="card">
+        <% @reviews.each do |review| %>
+          <div class="card__section card__section--border">
+            <div class="grid grid--v-padded">
+              <div class="grid__col--xs-12">
+                <div class="media media--middle mb2">
+                  <div class="media__figure u-hide--small-down">
+                    <%= image_tag review.business.logo, class: "avatar avatar--large" %>
+                  </div>
+                  <div class="media__body">
+                    <h4 class="mb1"><%= review.business.name %>, <%= review.business.location_for_to_s(@current_city) %></h4>
+                    <p class="mb1"> <%= link_to review.project.title, user_project_path(review.project) %></p>
+                    <div class="rating">
+                      <%= render partial: "partials/stars/star_helper", locals: { full_stars: review.full_stars, half_star: review.half_star, empty_stars: review.empty_stars, star_modifier: "yellow" } %>
+                    </div>
+                  </div>
+                </div>
+                <p class="small"><%= review.comment %></p>
+                <p class="small">
+
+                <%= t("words.reliability") %> <strong><%= review.reliability %></strong> • 
+                <%= t("words.tidiness") %> <strong><%= review.tidiness %></strong> • 
+                <%= t("words.courtesy") %> <strong><%= review.courtesy %></strong> • 
+                <%= t("words.workmanship") %> <strong><%= review.workmanship %></strong> • 
+                <%= t("words.value") %> <strong><%= review.value_for_money %></strong>
+                </p>
+                <% if review.recommended %>
+                  <div class="u-relative">
+                    <span class="recommended-badge badge badge--success"><%= t("words.recommended") %></span>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="card">
+        <div class="card__section card__section--border">
+          <p><%= t("dashboard_reviews.no_reviews") %>.</p>
+          <%= link_to t("links.post_project"), new_user_project_path, class: 'btn btn--primary btn--small' %>
+        </div>
+      </div>
+    <% end %>
+    <% if @reviews.total_pages > 1 %>
+      <div class="mt3 pagination">
+        <%= paginate @reviews %>
+      </div>
+    <% end %>
+  </div>
+</section>

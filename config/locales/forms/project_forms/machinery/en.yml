@@ -1,0 +1,19 @@
+en:
+
+  post_project:
+    machinery:
+      header: "Machinery details"
+      add_more: "Add more"
+
+      fields:
+        machinery_category:
+          label: "Category"
+        sub_category:
+          label: "Subcategory"
+        quantity:
+          label: "Quantity"
+        option:
+          label: "Buy or Rent"
+          options: ["Buy", "Rent"]
+        details:
+          label: "Details"

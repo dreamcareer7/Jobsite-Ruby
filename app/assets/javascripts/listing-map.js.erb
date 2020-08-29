@@ -1,0 +1,42 @@
+var markers;
+var targetBusiness;
+
+function initialiseMap() {
+  handler = Gmaps.build('Google');
+
+  handler.buildMap(
+    { provider: { disableDefaultUI: true, draggable: true },
+      internal: { id: 'listing-map' } }, 
+      function(){
+        var businessMarkers = $('.js-business-locations').data('markers');
+
+        Gmaps.store = businessMarkers.map(function(bm) {
+          marker = handler.addMarker(bm);
+
+          marker.serviceObject.set('business', bm.data.business);
+          return marker;
+        });
+
+        handler.bounds.extendWith(Gmaps.store);
+        handler.fitMapToBounds();
+        handler.getMap().setZoom(12);
+      }
+  );
+}
+
+
+function popMarker(){
+  $.each(Gmaps.store, function(){ 
+    if(this.serviceObject.business == targetBusiness){
+      google.maps.event.trigger(this.getServiceObject(), 'click');
+    }
+  });
+}
+
+$('.js-business').hover(function() {
+  targetBusiness = $(this).data('business');
+  popMarker();
+});
+
+//initialise!
+$(document).ready( initialiseMap );

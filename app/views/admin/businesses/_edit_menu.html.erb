@@ -1,0 +1,78 @@
+<% unless @business.new_record? %>
+  <%= simple_form_for [:admin, @business] do |f| %>
+    <div class="grid grid--v-padded">
+
+      <div class="grid__col--xs-12 grid__col--md-8">
+        <div class="control-group">
+          <label class="control-group__item control">
+            <% if @business.services.present? && @business.cities.present? && @business.name_ar.present? %>
+              <%= f.input_field :approved, class: "control__input js-toggle-approve" %>
+              <span class="control__indicator control__indicator--toggle js-approve-toggle"></span>
+              <span class="control__label">Approve</span>
+            <% else %>
+              <div class="badge badge--primary">Add a location, a category, and an Arabic translation of name before approving</div>
+            <% end %>
+          </label>
+          <label class="control-group__item control">
+            <%= f.input_field  :disabled, class: "control__input js-toggle-disable" %>
+            <span class="control__indicator control__indicator--toggle"></span>
+            <span class="control__label"><%= @business.disabled ? "Disabled" : "Disable" %></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="grid__col--xs-12 grid__col--md-4">
+        <div class="btn-group btn-group--full">
+          <%= link_to "Delete business", admin_business_path(@business), class: "btn-group__item btn btn--xs-full btn--secondary", method: :delete, data: { confirm: "Are you sure?" } %>
+          <%= link_to "View profile", business_path(id: @business.slug, city: @current_city.slug), class: "btn-group__item btn btn--xs-full btn--secondary" %>
+        </div>
+      </div>
+
+      <div class="grid__col--xs-12">
+        <% if @business.flagged? %>
+          <div class="badge badge--primary">Business has been flagged</div>
+        <% end %>
+      </div>
+
+    </div>
+  <% end %>
+
+  <% if @admin_editor.present? %>
+    <% if @admin_editor == "deleted" %>
+      <div class="grid__col--xs-12">
+        The last admin to edit this business has been deleted.
+      </div>
+    <% else %>
+      <div class="grid__col--xs-12">
+        Last edited by <span class="u-text-bold"><%= @admin_editor.name.present? ? @admin_editor.name : @admin_editor.email %></span> on <span class="u-text-bold"><%= @business.admin_edit_date.strftime("%B %d, %Y") %></span> at <span class="u-text-bold"><%= @business.admin_edit_date.strftime("%H:%M:%S") %></span>
+      </div>
+    <% end %>
+  <% end %>
+
+  <hr class="divider">
+<% end %>
+
+<ul class="tabs">
+  <li class="tab__item"><a class="business-tabs" href="#tabs_general">General</a></li>
+  <% if action_name == 'edit' %>
+    <li class="tab__item"><a class="business-tabs" href="#tabs_services">Tags</a></li>
+    <li class="tab__item"><a class="business-tabs" href="#tabs_locations">Locations</a></li>
+    <li class="tab__item"><a class="business-tabs" href="#tabs_team">Team</a></li>
+    <li class="tab__item"><a class="business-tabs" href="#tabs_featured-projects">Gallery</a></li>
+    <li class="tab__item"><a class="business-tabs" href="#tabs_social">Social</a></li>
+    <li class="tab__item"><a class="business-tabs" href="#tabs_certifications">Certifications</a></li>
+    <li class="tab__item"><a class="business-tabs" href="#tabs_verifications">Verifications</a></li>
+    <li class="tab__item"><a class="business-tabs" href="#tabs_reviews">Reviews</a></li>
+    <li class="tab__item"><a class="business-tabs" href="#tabs_subscriptions">Subscriptions</a></li>
+    <li class="tab__item"><a class="business-tabs" href="#tabs_brand">Brand</a></li>
+    <li class="tab__item"><a class="business-tabs" href="#tabs_account_details">Account Details</a></li>
+  <% end %>
+</ul>
+
+<%= content_for :page_scripts do %>
+  <script>
+    $('.js-toggle-approve, .js-toggle-disable').on('change', function() {
+      this.form.submit();
+    });
+  </script>
+<% end %>

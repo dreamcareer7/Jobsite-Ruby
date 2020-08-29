@@ -1,0 +1,100 @@
+// General
+
+.section {
+  background-color: $white;
+  @include vertical-padding(2em);
+
+  @include mq(medium) {
+    @include vertical-padding(2.5em);
+  }
+
+  @include mq(large) {
+    @include vertical-padding(3em);
+  }
+}
+
+.section--tight {
+  @include vertical-padding(1.5em);
+
+  @include mq(medium) {
+    @include vertical-padding(1.75em);
+  }
+
+  @include mq(large) {
+    @include vertical-padding(2em);
+  }
+}
+
+.section--padded {
+  @include vertical-padding(3em);
+
+  @include mq(medium) {
+    @include vertical-padding(4em);
+  }
+
+  @include mq(large) {
+    @include vertical-padding(5em);
+  }
+}
+
+.section--alt {
+  background-color: $background;
+}
+
+.section--dark {
+  background-color: $grey-dark;
+  color: $white;
+}
+
+.section--flush + .section--flush {
+  padding-top: 0;
+}
+
+.section--border-top {
+  border-top: 1px solid $border;
+}
+
+.section--border-bottom {
+  border-bottom: 1px solid $border;
+}
+
+.section--turquoise {
+  background-color: $turquoise;
+  color: $white;
+}
+
+
+// Heading
+
+.section-heading {
+  margin-bottom: $spacing-large;
+  text-align: center;
+
+  @include mq(medium) {
+    margin-bottom: $spacing-x-large;
+  }
+
+  @include mq(large) {
+    margin-bottom: $spacing-xx-large;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.section-heading__subheading {
+  @include font-regular;
+}
+
+.section-footer {
+  margin-top: $spacing-large;
+
+  @include mq(medium) {
+    margin-top: $spacing-x-large;
+  }
+
+  @include mq(large) {
+    margin-top: $spacing-xx-large;
+  }
+}

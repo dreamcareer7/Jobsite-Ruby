@@ -1,0 +1,57 @@
+<div class="card">
+  <div class="card__section">
+    <div class="card__header">
+      <h4 class="card__title"><%= inline_svg("icons/paint.svg", class: "icon icon--brand icon--small") %><%= t("phrases.main_categories") %></h4>
+    </div>
+    <fieldset class="fieldset">
+      <div class="grid">
+        <div class="grid__col--xs-12 grid__col--md-12">
+          <div class="field">
+            <div class="control-group">
+              <% @categories.order_by_type.each do |category| %>
+                <label class="control-group__item control <%= current_namespace == "admin" ? '' : 'u-clickthrough' %>">
+                  <%= f.check_box(:category_list, { class: "control__input js-categories js-chosen-category-#{ category.name(locale: :en).downcase }", multiple: true, checked: @business.has_category?(category) ? true : false, disabled: (true unless current_namespace === "admin"), data: { category: category.name(locale: :en).downcase, type: category.category_type } }, "#{ category.id }", nil) %>
+                  <span class="control__indicator control__indicator--checkbox">
+                    <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
+                  </span>
+                  <span class="control__label"><%= category.name.singularize %></span>
+                </label>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<% ProjectType.category_types.each do |category_type| %>
+
+  <div class="card u-hide js-category-type-cards" data-category-type="<%= category_type[0] %>">
+    <div class="card__section">
+      <div class="card__header">
+        <h4 class="card__title"><%= inline_svg("icons/paint.svg", class: "icon icon--brand icon--small") %><%= ProjectType.blurb(category_type[0]) %></h4>
+      </div>
+      <fieldset class="fieldset">
+        <label class="field__label"><%= t("business_profile.fields.project_types.blurb") %></label>
+        <%= f.association :project_types, collection: ProjectType.by_category_type(category_type[1]), selected: @business.project_types ? @business.project_types.pluck(:id) : '', input_html: { style: "width:100%", multiple: true }, wrapper: :select2, label: false  %>
+      </fieldset>
+    </div>
+  </div>
+
+<% end %>
+
+<% @categories.each do |category| %>
+  <%= render partial: "partials/user/businesses/business_form_sections/field_partials/service_fields", locals: { f: f, category: category } %>
+<% end %>
+
+<div class="card">
+  <div class="card__section">
+    <div class="field">
+      <%= f.submit t("form.update"), class: "mt1 btn btn--primary" %>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "business-services" %>

@@ -1,0 +1,75 @@
+// Listing
+
+$listing-image-height: 108px;
+
+.listing {
+  position: relative;
+  padding-top: $listing-image-height;
+
+  @include mq(large) {
+    padding-top: 0;
+
+    @include ltr {
+      padding-left: 144px;
+    }
+
+    @include rtl {
+      padding-right: 144px;
+    }
+
+  }
+}
+
+.listing__logo {
+  flex-shrink: 0;
+  background-color: $white;
+  position: relative;
+  @include z-index(content);
+}
+
+.listing__content {
+  flex: 1;
+}
+
+.listing__image {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: $listing-image-height;
+  text-align: center;
+  padding: $spacing-large;
+  background-color: $grey-light;
+  @include black-overlay;
+
+  @include ltr {
+    left: 0;
+  }
+
+  @include rtl {
+    right: 0;
+  }
+
+  @include mq(large) {
+    width: 144px;
+    height: 100%;
+  }
+}
+
+.listing__action {
+  @include mq(large-down) {
+    margin-top: $spacing-medium;
+  }
+
+  @include mq(large) {
+    position: absolute;
+    top: $spacing-large;
+
+    @include ltr {
+      right: $spacing-large;
+    }
+
+    @include rtl {
+      left: $spacing-large;
+    }
+  }
+}

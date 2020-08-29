@@ -1,0 +1,38 @@
+$(document).on('turbolinks:load', function() {
+
+  //handle listing page onload events
+  if($('.js-target-modal').data('target')) {
+    var target = $('.js-target-modal').data('target');
+    $('.js-' + target).click();
+  };
+
+
+  if($('.js-suggest-signup').data('suggest') === 'yes') {
+    $('.js-suggest-sign-up').toggleClass('is-visible');
+  };
+
+});
+
+$('.js-impressionist').on('click', function() {
+  var impressionTarget = $(this).data('impression');
+
+  $.ajax({
+    url: '/businesses/' + impressionTarget,
+    method: 'PUT',
+    data: { business: $('.js-business-id').data('id') }
+  });
+});
+
+$('.js-view-all-target').on('click', function(e) {
+  if($(window).scrollTop() > originalNavPosition) {
+    $('html,body').animate({
+      scrollTop: originalNavPosition
+    } , 500);
+  }
+});
+
+if($('.js-target-section').data('target')) {
+  var target = $('.js-target-section').data('target');
+  var targetButton = $('*[data-toggle="' + target + '"]');
+  targetButton[0].click();
+};

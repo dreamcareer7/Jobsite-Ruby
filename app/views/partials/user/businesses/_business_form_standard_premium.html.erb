@@ -1,0 +1,12 @@
+<%= simple_form_for [:user, @business] do |f| %>
+  <section class="section section--alt">
+    <div class="site-wrap">
+      <div class="grid">
+        <%= render partial: "partials/user/businesses/edit_profile_menu" %>
+        <div class="grid__col--xs-12 grid__col--md-9" id="js-form-section">
+          <%= render partial: "partials/user/businesses/business_form_sections/general_information", locals: { f: f } %>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>

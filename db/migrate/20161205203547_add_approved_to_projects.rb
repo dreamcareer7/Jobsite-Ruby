@@ -1,0 +1,9 @@
+class AddApprovedToProjects < ActiveRecord::Migration[5.0]
+  def up
+    add_column :projects, :approved, :boolean, default: false
+  end
+
+  def down
+    remove_column :projects, :approved
+  end
+end

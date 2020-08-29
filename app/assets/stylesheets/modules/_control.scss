@@ -1,0 +1,124 @@
+// Base
+
+.control {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  text-align: left; // Force checkbox to always be left-aligned
+  user-select: none;
+  color: $grey-dark;
+}
+
+.control__input {
+  @include visually-hidden;
+}
+
+.control__indicator {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  border: 1px solid $border;
+  background-color: $white;
+  transition: background-color $time $curve, border-color $time $curve;
+
+  .control__input:checked + & {
+    background-color: $red;
+    border-color: $red;
+  }
+
+  .control__input:focus + & {
+    border-color: $red;
+  }
+}
+
+.control__icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0) scale(0.3);
+  opacity: 0;
+  transition: opacity $time $curve, transform $time $curve;
+}
+
+.control__input:checked ~ .control__indicator .control__icon {
+  opacity: 1; // Show icon when checkbox is checked
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.control__label {
+  line-height: 1; // Make label bounding box smaller than checkbox
+
+  @include ltr {
+    margin-left: $spacing-small * 1.5;
+  }
+
+  @include rtl {
+    margin-right: $spacing-small * 1.5;
+  }
+}
+
+
+// Checkbox
+
+.control__indicator--checkbox {
+  border-radius: $border-radius /2;
+}
+
+
+// Radio
+
+.control__indicator--radio {
+  border-radius: 50%;
+}
+
+
+// Toggle
+
+.control__indicator--toggle {
+  width: 56px;
+  height: $spacing-x-large;
+  border-radius: $spacing-medium;
+  background-color: $border;
+
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: $spacing-large;
+    height: $spacing-large;
+    background-color: $white;
+    top: 3px;
+    left: 3px;
+    border-radius: 50%;
+    transition: transform $time $curve;
+  }
+
+  .control__input:checked + &:after {
+    transform: translateX($spacing-large);
+  }
+}
+
+
+// Group
+
+.control-group {
+  flex-wrap: wrap;
+
+  @include mq(small) {
+    margin: -$spacing-small;
+    display: inline-flex;
+  }
+}
+
+.control-group__item {
+
+  & + & {
+    margin-top: $spacing-small;
+  }
+
+  @include mq(small) {
+    margin: $spacing-small;
+  }
+}

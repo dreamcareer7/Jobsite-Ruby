@@ -1,0 +1,135 @@
+<div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-12 js-project-listing-card">
+  <div class="listing card">
+    <div class="listing__content card__section">
+      <%= link_to business_path(id: business.slug), target: "_blank" do %>
+        <div class="listing__image u-cover" <% if business.banner.present? %> style="background-image: url('<%= business.banner.url(:small) %>')" <% end %>>
+          <%= image_tag(business.logo.url(:listing), size: "72x72", class: "listing__logo u-box-shadow u-hide--large-down u-rounded") %>
+          <div class="media u-hide--large">
+            <%= link_to business_path(id: business.slug) do %>
+              <%= image_tag(business.logo.url(:listing), size: "60x60", class: "u-hide--large u-rounded u-border media__figure") %>
+            <% end %>
+            <div class="media__body">
+              <h4 class="mb0">
+                <%= link_to business_path(id: business.slug), class: "u-truncate u-block u-hover-underline u-text-contrast u-hide--medium-down", target: "_blank" do %>
+                  <%= link_to business_path(id: business.slug), class: "u-truncate u-block u-hover-underline u-text-contrast u-hide--large" do %>
+                    <%= business.name %>
+                    <% if business.trusted? %>
+                      <%= inline_svg("icons/trusted.svg", class: "icon icon--brand")%>
+                    <% elsif business.verified? %>
+                      <%= inline_svg("icons/verified.svg", class: "icon icon--green")%>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </h4>
+              <small class="u-block mb0 u-text-contrast u-text-muted"><%= @current_city.name %> (<%= business.distance_from_user_to_s(@current_coordinates, @current_city)%> km)</small>
+              <% if business.reviews.present? %>
+                <div class="rating small">
+                  <%= render partial: "partials/businesses/reviews", locals: { business: business, star_modifier: 'white' } %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="media u-hide--large-down">
+        <%= link_to (business.shortlisted_or_accepted?(@project) ? user_project_project_business_path(@project, business) : business_path(id: business.slug)), target: "_blank" do %>
+          <%= image_tag(business.logo.url(:medium), size: "60x60", class: "u-hide--large u-rounded u-border media__figure mb2") %>
+        <% end %>
+        <div class="media__body">
+          <h4 class="mb0">
+            <%= link_to business.name, business_path(id: business.slug), class: "u-hover-underline u-text-inherit", target: "_blank" %>
+            <% if business.trusted? %>
+              <%= inline_svg("icons/trusted.svg", class: "icon icon--brand") %>
+            <% elsif business.verified? %>
+              <%= inline_svg("icons/verified.svg", class: "icon icon--green") %>
+            <% end %>
+          </h4>
+          <small class="u-block mb1"><%= @current_city.name %> (<%= business.distance_from_user_to_s(@current_coordinates, @current_city)%> km)</small>
+          <% if business.reviews.present? %>
+            <div class="mb2 rating small">
+              <%= render partial: "partials/businesses/reviews", locals: { business: business, star_modifier: 'yellow' } %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <%= link_to (business.shortlisted_or_accepted?(@project) ? user_project_project_business_path(@project, business) : business_path(id: business.slug)), target: "_blank" do %>
+        <p class="u-text-reset u-text-paragraph mb1"><%= truncate(business.description, length: browser.device.mobile? ? 43 : 200) %></p>
+        <small class="u-text-turquoise">
+          <%= business.services.visible.first(5).select{ |service| service }.map(&:name).join(' • ') %>         
+        </small>
+        <ul class="list list--inline mt1 mb0">
+          <% if business.experience.present? && business.experience.to_i > 0 %>
+            <li class="list__item">
+              <div class="media media--tight">
+                <div class="media__figure u-hide--medium-only u-hide--xsmall-only">
+                  <%= inline_svg("icons/clock.svg", class: "icon") %>
+                </div>
+                <div class="media__body">
+                  <small class="strong"><%= t("listing.experience") %></small><br>
+                  <small class="u-text-reset"><%= pluralize(business.experience, t("words.year")) %> </small>
+                </div>
+              </div>
+            </li>
+          <% end %>
+          <% if business.nb_projects_completed.present? %>
+            <li class="list__item">
+              <div class="media media--tight">
+                <div class="media__figure u-hide--medium-only u-hide--xsmall-only">
+                  <%= inline_svg("icons/briefcase.svg", class: "icon") %>
+                </div>
+                <div class="media__body">
+                  <small class="strong"><%= t("listing.projects") %></small><br>
+                  <small class="u-text-reset"><%= business.nb_projects_completed %></small>
+                </div>
+              </div>
+            </li>
+          <% end %>
+          <% if business.number_of_employees.present? %>
+            <li class="list__item">
+              <div class="media media--tight">
+                <div class="media__figure u-hide--medium-only u-hide--xsmall-only">
+                  <%= inline_svg("icons/users.svg", class: "icon") %>
+                </div>
+                <div class="media__body">
+                  <small class="strong"><%= t("listing.employees") %></small><br>
+                  <small class="u-text-reset"><%= business.number_of_employees %></small>
+                </div>
+              </div>
+            </li>
+          <% end %>
+          <% if business.certifications.present? %>
+            <li class="list__item">
+              <div class="media media--tight">
+                <div class="media__figure u-hide--medium-only u-hide--xsmall-only">
+                  <%= inline_svg("icons/reward.svg", class: "icon") %>
+                </div>
+                <div class="media__body">
+                  <small class="strong"><%= t("business.certifications") %></small><br>
+                  <% business.certifications.shuffle.first(2).each do |certification| %>
+                    <%= image_tag(certification.logo.url(:small), size: "36", class: "tooltip", title: "#{ certification.name }#{ ' (' + certification.country.name + ')' if certification.country.present? }") %>
+                  <% end %>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+      <div class="btn-group mt1">
+        <% unless @project.completed? %>
+          <% if business.shortlisted_or_accepted?(@project) && @project.quotes.pluck(:business_id).any?{ |business_id| business_id == business.id } && !@project.project_in_process? %>
+            <%= link_to "Hire now", user_project_accept_quote_path(quote_id: business.quotes.where(project_id: @project.id).first.id, project_id: @project.id), class: "btn-group__item btn btn--primary", method: :put %>
+          <% elsif !business.shortlisted_or_accepted?(@project) %>
+            <%= link_to "Shortlist", user_project_shortlist_business_path(@project, business_id:business.id), class: "btn-group__item btn btn--primary", method: :put %>
+          <% end %>
+          <% if business.shortlisted_or_accepted?(@project) %>
+            <%= link_to t("projects.view_messages"), user_project_project_business_path(@project, business), class: "btn-group__item btn btn--secondary" %>
+          <% end %>
+          <%= link_to user_project_hide_business_path(@project, business_id: business.id), class: "btn-group__item btn btn--secondary", method: :put do %>
+            <span class="u-visuallyhidden"><%= t("projects.not_interested") %></span>
+            <%= inline_svg("icons/trash.svg", class: "btn__add-on btn__add-on--center icon") %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

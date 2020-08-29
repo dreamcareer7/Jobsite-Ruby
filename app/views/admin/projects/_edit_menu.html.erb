@@ -1,0 +1,45 @@
+<% unless @project.new_record? %>
+  <%= simple_form_for [:admin, @project] do |f| %>
+    <div class="grid grid--v-padded">
+
+      <div class="grid__col--xs-12 grid__col--md-8">
+        <div class="control-group">
+          <label class="control-group__item control">
+            <%= f.input_field :approved, class: "control__input js-toggle-approve" %>
+            <span class="control__indicator control__indicator--toggle js-approve-toggle"></span>
+            <span class="control__label">Approve</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="grid__col--xs-12 grid__col--md-4">
+        <div class="btn-group btn-group--full">
+          <%= link_to "Delete project", admin_project_path(@project), class: "btn-group__item btn btn--xs-full btn--secondary", method: :delete, data: { confirm: "Are you sure?" } %>
+          <% if @project.user.present? %>
+            <%= link_to "View user", edit_admin_user_path(id: @project.user.id), class: "btn-group__item btn btn--xs-full btn--secondary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<ul class="tabs u-text-center">
+  <li class="tab__item"><a href="#tabs_general" class="admin-tabs">General</a></li>
+  <li class="tab__item"><a href="#tabs_services" class="admin-tabs">Services</a></li>
+  <li class="tab__item"><a href="#tabs_matching_businesses" class="admin-tabs">Matching Businesses</a></li>
+  <% if @project.shortlists.present? || @project.applied_to_projects.present? || @project.business.present? %>
+    <li class="tab__item"><a href="#tabs_interactions" class="admin-tabs">Interactions</a></li>
+  <% end %>
+  <% if @project.review.present? %>
+    <li class="tab__item"><a href="#tabs_review" class="admin-tabs">Review</a></li>
+  <% end %>
+</ul>
+
+<%= content_for :page_scripts do %>
+  <script>
+    $('.js-toggle-approve, .js-toggle-disable').on('change', function() {
+      this.form.submit();
+    });
+  </script>
+<% end %>

@@ -1,0 +1,6 @@
+<div class="card">
+  <div class="card__section">
+    <h2><%= t "devise.invitations.new.header" %></h2>
+    <%= render partial: 'admin/admins/form', locals: { resource: resource, url: invitation_path(resource_name), button_text: "Send an invitation", method: :post } %>
+  </div>
+</div>

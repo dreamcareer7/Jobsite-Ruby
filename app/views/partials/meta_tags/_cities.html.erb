@@ -1,0 +1,13 @@
+<% content_for :meta_description do %>
+  <%= t('cities_page.meta_tag_description') %>
+<% end %>
+
+<% content_for :meta_image do %>
+  <%= City.where.not(banner_file_name: nil).present? ? image_url(City.where.not(banner_file_name: nil).shuffle.first.banner.url(:small)) : image_url('missing/defaultcity.jpg') %>
+
+<% end %>
+
+<% content_for :meta_url do %>
+  <%= url %>
+<% end %>
+

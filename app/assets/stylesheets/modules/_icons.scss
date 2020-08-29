@@ -1,0 +1,95 @@
+// Icons
+
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: $spacing-large;
+  height: $spacing-large;
+  fill: $grey;
+}
+
+
+// Sizes
+
+.icon--small {
+  width: $spacing-medium;
+  height: $spacing-medium;
+}
+
+.icon--sm-small {
+  @include mq(medium-down) {
+    width: $spacing-medium;
+    height: $spacing-medium;
+  }
+}
+
+.icon--medium {
+  width: $spacing-x-large;
+  height: $spacing-x-large;
+}
+
+.icon--large {
+  width: $spacing-xx-large;
+  height: $spacing-xx-large;
+}
+
+.icon--x-large {
+  width: 72px;
+  height: 72px;
+}
+
+
+// Colors
+
+.icon--white {
+  fill: $white;
+}
+
+.icon--dark {
+  fill: $grey-dark;
+}
+
+.icon--light {
+  fill: $grey-light;
+}
+
+.icon--green {
+  fill: $green;
+}
+
+.icon--yellow {
+  fill: $yellow;
+}
+
+.icon--brand {
+  fill: $red;
+}
+
+.icon--facebook {
+  fill: #3b5998;
+}
+
+.icon--twitter {
+  fill: #00aced;
+}
+
+.icon--google {
+  fill: #dc4e41;
+}
+
+.icon--linkedin {
+  fill: #0077b5;
+}
+
+
+// List
+
+.icon-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -$spacing-small;
+}
+
+.icon-list__item {
+  margin: $spacing-xx-small;
+}

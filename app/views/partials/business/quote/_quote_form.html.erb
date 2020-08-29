@@ -1,0 +1,104 @@
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="grid grid--center">
+      <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-8">
+        <div class="grid grid--middle">
+          <div class="grid__col--xs-12">
+            <div class="breadcrumbs mb3">
+              <%= link_to "Project feed", business_project_feed_index_path, class: "breadcrumbs__item" %>
+              <span class="breadcrumbs__item breadcrumbs__item--current"><span class="u-text-dark"><%= @project.title %></span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h1 class="section-heading"><%= t("quote.header") %></h1>
+    <div class="grid grid--center">
+      <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-8">
+        <div class="card">
+          <div class="card__section card__section--padded">
+            <%= simple_form_for [:business, @quote] do |f| %>
+              <%= f.error_notification %>
+              <fieldset class="fieldset">
+                <div class="grid">
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("quote.project") %></label>
+                      <div class="field__input-wrapper">
+                        <span class="u-text-bold"><%= @project.title %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("quote.location") %></label>
+                      <div class="field__input-wrapper">
+                        <span class="u-text-bold"><%= @project.location.street_address %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("projects.budget") %></label>
+                      <div class="field__input-wrapper">
+                        <span class="u-text-bold"><%= @project.project_budget %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("quote.type") %></label>
+                      <div class="field__input-wrapper">
+                        <span class="u-text-bold"><%= @project.category.present? ? @project.category.name : "Unavailable" %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-12">
+                    <%= f.input :proposal, wrapper: :text_area, placeholder: t("quote.proposal") %>
+                  </div>
+                  <div class="grid__col--xs-6 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("quote.budget") %></label>
+                      <%= f.input :approximate_budget, label: false, wrapper: :text_field, placeholder: '$10,000' %>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-6 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("quote.duration") %></label>
+                      <div class="field__input-wrapper">
+                        <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                        <%= f.input :approximate_duration, collection: [ "0 - 5 days", "5 - 15 days", "15 - 20 days", "20 - 30 days", "30 + days" ], input_html: { class: "field__input field__input--right-add-on" }, label: false %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12">
+                    <div class="field field--has-btn">
+
+                      <label class="field__label"><%= t("phrases.add_attachments") %></label>
+                      <%= f.simple_fields_for :attachments do |attachment| %>
+                        <%= render 'partials/attachments/existing_attachment_fields', f: attachment unless attachment.object.new_record? %>
+                      <% end %>
+                      <%= f.simple_fields_for :attachments do |attachment| %>
+                        <%= render 'partials/attachments/attachment_fields', f: attachment if attachment.object.new_record? %>
+                      <% end %>
+                      <div class="field">
+                        <div class="field__input-wrapper">
+                          <%= link_to_add_association '+ Add attachment', f, :attachments, partial: "partials/attachments/attachment_fields" %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 u-text-right">
+                    <div class="field">
+                      <%= f.submit "Continue", id: "new-business", class: "btn btn--xs-full btn--primary" %>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

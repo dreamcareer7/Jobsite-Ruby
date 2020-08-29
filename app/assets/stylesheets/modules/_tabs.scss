@@ -1,0 +1,23 @@
+ul.tabs li {
+  display: inline-block;
+  border-bottom: solid 5px #eeeeee;
+  padding: 8px;
+  margin-bottom: 4px;
+  color: #fff;
+  cursor: pointer;
+  outline: none;
+}
+ul.tabs li:hover {
+  background-color: #ffffff;
+}
+.ui-tabs-active {
+  background-color: #eeeeee;
+}
+ul.tab {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+ul.tab li.active {
+  display: block;
+}

@@ -1,0 +1,19 @@
+en:
+
+  post_project:
+    supplier:
+      header: "Material details"
+      add_more: "Add more"
+
+      fields:
+        material_category:
+          label: "Material category"
+        material:
+          label: "Material"
+        quantity:
+          label: "Quantity"
+        units:
+          label: "Units"
+          options: ["Bag", "Other"]
+        details:
+          label: "Details"

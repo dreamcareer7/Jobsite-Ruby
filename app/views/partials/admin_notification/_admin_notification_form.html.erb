@@ -1,0 +1,25 @@
+<%= simple_form_for AdminNotification.new, url: admin_admin_notifications_path do |f| %>
+  <fieldset class="fieldset">
+    <%#= f.input :name, wrapper: :text_field, placeholder: t("contact_email.name"), label: false, required: true %>
+    <%#= f.input :from, wrapper: :text_field, placeholder: t("contact_email.email"), label: false, required: true %>
+    <% unless controller_name == "businesses" %>
+      <div class="field">
+        <div class="field__input-wrapper">
+          <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
+          <div class="field">
+            <div class="field__input-wrapper">
+              <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough u-clickthrough") %>
+              <%#= f.input :subject, collection: t("contact_email.subjects"), input_html: { class: "field__input field__input--right-add-on u-text-pointer js-subject-select" }, required: true, label: false, prompt: t("contact_email.subject_prompt") %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <%#= f.input :body, wrapper: :text_area, as: :text, placeholder: t("contact_email.body"), label: false, required: true %>
+    <%#= f.hidden_field :subject_target, as: :fake, class: "js-subject-target", value: ("claim" if controller_name == "businesses") %>
+    <div class="field u-text-right">
+      <%#= f.submit t("contact_email.submit"), class: "btn btn--xs-full btn--primary" %>
+    </div>
+  </fieldset>
+<% end %>
+

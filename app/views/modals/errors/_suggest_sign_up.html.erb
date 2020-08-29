@@ -1,0 +1,14 @@
+<div class="modal js-suggest-sign-up">
+  <div class="modal__table">
+    <div class="modal__cell">
+      <div class="modal__container">
+        <button class="js-close-modal modal__close">
+          <%= inline_svg("icons/close.svg", class: "icon") %>
+        </button>
+        <h2 class="modal__title"><%= t("suggest_sign_up.title") %></h2>
+        <p><%= t("suggest_sign_up.description") %></p>
+        <button class="btn btn--primary btn--full js-open-modal" data-modal="sign-up"><%= t("modal.sign_up") %></button>
+        <p><%= t("modal.have_account") %> <button class="u-text-accent u-hover-underline js-open-modal" data-modal="log-in"><%= t("modal.log_in") %></button></p></div>
+    </div>
+  </div>
+</div>

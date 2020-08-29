@@ -1,0 +1,19 @@
+<small class="u-block mb2 u-text-center u-text-light u-text-caps">
+  <% if previous_message.blank? %>
+    <%= message.created_at.today? ? message.hour_to_s : message.date_to_s %>
+  <% elsif calls_for_timestamp?(message, previous_message) %>
+    <%= message.created_at.today? ? message.hour_to_s : message.date_to_s %>
+  <% end %>
+</small>
+<% if message.receiver.present? && !message.is_sender?(current_user, @current_business) %>
+  <div class="message media">
+    <%= image_tag(message.sender.is_a?(Business) ? message.sender.contact_photo : message.sender.profile_image.url, class: "u-hide--large-down avatar media__figure") if message.sender.present? %>
+    <div class="media__body">
+      <div class="message__bubble u-text-paragraph <%= 'u-text-break-word' unless message.body.match(/\s/) %>"><%= message.body %></div>
+    </div>
+  </div>
+<% else %>
+  <div class="message message--sent">
+    <div class="message__bubble message__bubble--sent u-text-paragraph <%= 'u-text-break-word' unless message.body.match(/\s/) %>"><%= message.body %></div>
+  </div>
+<% end %>

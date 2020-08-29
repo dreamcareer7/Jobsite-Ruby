@@ -1,0 +1,20 @@
+<%= content_for :sub_nav do %>
+  <% if ["project_steps", "businesses"].include?(controller_name) %>
+    <%= yield :section_header %>
+  <% else %>
+    <%= render partial: "partials/user/profile/profile_header" %>
+    <%= render partial: "partials/nav/profile_nav", locals: {
+      nav_links: [
+        { name: t("profile_nav.dashboard"), path: user_profile_index_path },
+        { name: t("profile_nav.user.following"), path: user_follows_path },
+        { name: t("profile_nav.projects"), path: user_projects_path },
+        { name: t("profile_nav.inbox"), path: user_inbox_index_path },
+        { name: t("profile_nav.user.reviews"), path: user_reviews_path },
+        { name: t("main_nav.my_profile"), path: edit_user_path(current_user) },
+        #{ name: t("profile_nav.user.invite_share, path: user_invite_and_share_index_path }
+      ],
+      business: current_user.businesses.present? ? @current_business || current_user.businesses.first : "" } %>
+  <% end %>
+<% end %>
+
+<%= render template: "layouts/application" %>

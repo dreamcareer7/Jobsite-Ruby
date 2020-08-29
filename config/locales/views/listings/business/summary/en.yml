@@ -1,0 +1,15 @@
+en:
+
+  business_summary:
+
+    machinery: "Provides %{master_category} products and services including %{services} based in %{city}, %{country}%{city_branch_count}. Managing %{project_size} size projects %{service_area}. A %{business_type} since %{year_established}."
+
+    contractor: "A %{master_category} based in %{city}, %{country}%{city_branch_count}. Managing %{project_size} size projects %{service_area}. Provides services including %{services}. A %{business_type} since %{year_established}."
+
+    supplier: "A %{business_class} %{master_category} providing %{services} in %{country}%{city_branch_count}. A %{business_type} since %{year_established}."
+
+    consultant: "A %{master_category} providing %{services} based in %{city}, %{country}%{city_branch_count}. Managing %{project_size} size projects %{service_area}. A %{business_type} since %{year_established}."
+
+    specialist: "A %{master_category} business based in %{city}, %{country}%{city_branch_count}. Providing %{services} since %{year_established}. Managing %{project_size} size projects %{service_area}."
+
+    municipal: "Based in %{city}, %{country}%{city_branch_count}, providing %{services}. Managing %{project_size} size projects %{service_area}."

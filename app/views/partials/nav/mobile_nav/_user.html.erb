@@ -1,0 +1,56 @@
+<li class="mobile-nav__item list__item"><%= link_to t("main_nav.post_a_project"), new_user_project_path, class: "h3 list__link mobile-nav__link" %></li>
+<li class="mobile-nav__item list__item"><%= link_to t("main_nav.add_business"), new_user_business_path, class: "h3 list__link mobile-nav__link" %></li>
+
+<% if Category.exists? %>
+  <li class="mobile-nav__item list__item">
+    <%= link_to t("footer.near_you"), category_path(id: Category.first, city: @current_city.slug, display_type: "business_listing", sort_by: "distance"), class: "h3 list__link mobile-nav__link" %>
+  </li>
+<% end %>
+
+<li class="mobile-nav__item list__item"><%= link_to t("main_nav.categories"), categories_path(city: @current_city.slug), class: "h3 list__link mobile-nav__link" %></li>
+<li class="mobile-nav__item list__item"><%= link_to t("main_nav.gallery"), gallery_index_path, class: "h3 list__link mobile-nav__link" %></li>
+<li class="mobile-nav__item list__item"><a class="h3 list__link mobile-nav__link" href="/pages/contact"><%= t("main_nav.contact") %></a></li>
+
+<li class="mobile-nav__item list__item">
+  <% if request.path.starts_with?("/business") && current_user.businesses.present? %>
+    <%= link_to business_profile_index_path, class: "h3 list__link mobile-nav__link" do %>
+      <%= t("main_nav.dashboard") %>
+      <% if current_user.unread_business_notifications.present? %>
+        <small class="badge badge--primary"><%= current_user.unread_business_notifications %></small>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= link_to default_profile(current_user), class: "h3 list__link mobile-nav__link" do %>
+      <%= t("main_nav.dashboard") %>
+      <% if current_user.unread_notifications.present? %>
+        <small class="badge badge--small badge--primary"><%= current_user.unread_notifications.count %></small>
+      <% end %>
+    <% end %>
+  <% end %>
+</li>
+
+<li class="mobile-nav__item list__item"><%= link_to t("main_nav.my_profile"), edit_user_path(current_user), class: "h3 list__link mobile-nav__link" %></li>
+<li class="mobile-nav__spacer mobile-nav__item"></li>
+<li class="mobile-nav__item list__item"><%= link_to t("main_nav.log_out"), destroy_user_session_path, method: :delete, class: "h3 list__link mobile-nav__link" %></li>
+
+<% if (request.path.starts_with?("/user") && current_user.businesses.present?) %>
+  <li class="mobile-nav__item list__item">
+    <%= link_to business_profile_index_path, class: "h3 list__link mobile-nav__link" do %>
+      <%= t("main_nav.switch_to_business") %>
+      <% if current_user.unread_business_notifications.present? %>
+        <small class="badge badge--primary"><%= current_user.unread_business_notifications %></small>
+      <% end %>
+    <% end %>
+  </li>
+<% end %>
+
+<% if request.path.starts_with? "/business" %>
+  <li class="mobile-nav__item list__item">
+    <%= link_to default_profile(current_user), class: "h3 list__link mobile-nav__link" do %>
+      <%= t("main_nav.switch_to_user") %>
+      <% if current_user.unread_notifications.present? %>
+        <small class="badge badge--small badge--primary"><%= current_user.unread_notifications %></small>
+      <% end %>
+    <% end %>
+  </li>
+<% end %>

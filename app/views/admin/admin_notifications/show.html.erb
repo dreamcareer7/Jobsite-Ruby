@@ -1,0 +1,5 @@
+<% if @notification.user || @notification.business %>
+  <%= render partial: "user_view" %>
+<% else %>
+  <%= render partial: "guest_view" %>
+<% end %>

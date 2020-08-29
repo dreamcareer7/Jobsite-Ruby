@@ -1,0 +1,17 @@
+<% Category.all.each do |category| %>
+  <div class="grid js-select2">
+    <div class="grid__col--xs-12 grid__col--md-12">
+      <label class="field__label"><%= category.name %></label>
+      <%= f.input :banner_listings, collection: category.sub_categories, selected: @banner_listings, wrapper: :select2, input_html: { style: "width:100%", multiple: true, class: 'js-select2-options' } %>
+    </div>
+    <div class="grid__col--xs-12 grid__col--md-12 mt1">
+      <label class="control">
+        <input type="checkbox" class="control__input js-select-all">
+        <span class="control__indicator control__indicator--checkbox">
+          <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
+        </span>
+        <span class="control__label">Select all</span>
+      </label>
+    </div>
+  </div>
+<% end %>

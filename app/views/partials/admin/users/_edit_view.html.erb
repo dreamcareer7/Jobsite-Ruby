@@ -1,0 +1,36 @@
+<div class="grid__col--xs-12 grid__col--md-12">
+
+  <div class="js-tabs">
+
+    <%= render partial: "partials/admin/users/edit_menu" %>
+
+    <div id="tabs_user">
+      <%= render partial: 'partials/admin/users/edit_form' %>
+    </div>
+    <div id="tabs_businesses">
+      <%= render partial: 'partials/admin/users/businesses' %>
+    </div>
+    <div id="tabs_projects">
+      <%= render partial: 'partials/admin/users/projects' %>
+    </div>
+    <div id="tabs_subscriptions">
+      <%= render partial: 'partials/admin/users/subscriptions' %>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  $(function() {
+    $('.js-tabs').tabs({
+      active: localStorage.getItem('currentTab'),
+      activate: function(event, ui) {
+        localStorage.setItem('currentTab', $(this).tabs('option', 'active'));
+      },
+      create: function(event, ui) {
+        localStorage.removeItem('currentTab');
+      }
+    });
+  });
+</script>

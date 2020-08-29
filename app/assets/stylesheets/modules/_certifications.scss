@@ -1,0 +1,12 @@
+// Certifications
+
+.certification {
+  width: 64px;
+  height: 64px;
+  border: 1px solid $border;
+
+  @include mq(medium) {
+    width: 80px;
+    height: 80px;
+  }
+}

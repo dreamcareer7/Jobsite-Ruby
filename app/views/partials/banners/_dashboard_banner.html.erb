@@ -1,0 +1,7 @@
+<% if banner.present? %>
+  <div class="card ad">
+    <%= link_to banner.link_for_locale, target: "_blank" do %>
+      <%= image_tag(banner.image_for_locale.url(:large)) %>
+    <% end %>
+  </div>
+<% end %>

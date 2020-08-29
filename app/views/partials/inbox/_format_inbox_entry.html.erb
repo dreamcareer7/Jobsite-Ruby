@@ -1,0 +1,42 @@
+<div class="card__section card__section--border <%= 'u-border--unread' unless entry.read? %>">
+  <%= link_to get_path_for(entry) do %>
+    <div class="grid grid--v-padded js-mark-as-read" data-value="<%= entry.id %>">
+      <div class="grid__col--xs-12 grid__col--md-4 grid__col--lg-4">
+        <div class="media">
+          <div class="media__figure u-hide--medium-down">
+            <% if entry.sender.present? && entry.receiver.present? %>
+              <% if entry.is_sender?(current_user, @current_business) %>
+                <%= image_tag(entry.receiver.is_a?(Business) ? entry.receiver.logo.url(:small) : entry.receiver.profile_image.url, class: "avatar") %>
+              <% else %>
+                <%= image_tag(entry.sender.is_a?(Business) ? entry.sender.logo.url(:small) : entry.sender.profile_image.url, class: "avatar") %>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="media__body">
+            <h4 class="mb0"><%= entry.is_sender?(current_user, @current_business) ? entry.receiver.name : entry.sender.name if entry.sender.present? && entry.receiver.present? %></h4>
+            <small class="u-text-reset"><%= entry.is_sender?(current_user, @current_business) ? entry.receiver.city_country : entry.sender.city_country if entry.sender.present? && entry.receiver.present? %></small>
+          </div>
+        </div>              
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-6">
+        <p class="u-text-dark <%= 'u-text-bold' unless entry.read? || entry.is_sender?(current_user, @current_business) %>">
+        <% if entry.is_a?(Notification) %>
+          <%= render partial: "partials/inbox/format_notification_body", locals: { notification: entry } %>
+        <% else %>
+          <%= render partial: "partials/inbox/format_message_body", locals: { message: entry } %>
+        <% end %>
+        </p>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-2 grid__col--lg-2 u-text-right--large">
+        <%if entry.try(:notification_type) && @project_notification_types.any? { |n_type| entry.notification_type == n_type } %>
+          <small class="u-text-turquoise"><%= entry.notification_type %></small>
+          </br>
+        <% elsif entry.project_id.present? && Project.where(id: entry.project_id).present?  %>
+          <small class="u-text-turquoise><%= entry.project.notifications.last.notification_type %></small>
+          </br>
+        <% end %>
+        <small class="u-text-dark"><%= time_ago_in_words(entry.created_at) %> <%= t("words.ago") %></small>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,51 @@
+$(document).ready( function() {
+  $('.js-countries-table').dataTable({
+    serverSide: true,
+    bFilter: false,
+    bLengthChange: false,
+    bInfo: false,
+    ajax: $('.js-countries-table').data('source'),
+    columns: [
+      {
+        data: 'name_en',
+        render: function (data, type, row, meta) {
+          return '<a href="/admin/cities/?country_id=' + row.id + '">' + data + '</a>';
+        }
+      },
+      {
+        data: 'name_ar',
+        render: function (data, type, row, meta) {
+          return '<a href="/admin/cities/?country_id=' + row.id + '">' + data + '</a>';
+        }
+      },
+      {
+        data: 'cities',
+        sortable: false
+      },
+      {
+        data: 'user_count',
+        sortable: false
+      },
+      {
+        data: 'business_count',
+        sortable: false
+      },
+      {
+        data: null,
+        sortable: false,
+        render: function (data, type, row, meta) {
+          return (data.role === 'superadmin' ? '<a class="tooltip" title="Edit" href="/admin/countries/' + row.id + '/edit"><%= image_tag("icons/pencil.svg", class: "icon icon--dark icon--small") %></a> <a class="tooltip" title="Delete" rel="nofollow" data-method="delete" href="/admin/countries/' + row.id + '" data-confirm="Are you sure?"><%= image_tag("icons/trash.svg", class: "icon icon--dark icon--small") %></a>' : '') + (row.disabled ? '<a class="tooltip" title="Enable" data-method="put" href="/admin/countries/' + row.id + '/enable"><%= image_tag("icons/verified.svg", class: "icon icon--dark icon--small") %></a>' : '<a class="tooltip" title="Disable" data-method="put" href="/admin/countries/' + row.id + '/disable"><%= image_tag("icons/close-small.svg", class: "icon icon--dark icon--small") %></a>');
+        }
+      }
+    ],
+    dom: "ritp",
+    pageLength: 30
+  }); // dataTable
+}); // document.on
+
+$('.js-countries-table').on('draw.dt', function() {
+  $('.tooltip').tooltipster({
+    delay: 0,
+    animationDuration: 100
+  });
+});

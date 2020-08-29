@@ -1,0 +1,9 @@
+ar:
+
+  messages:
+    no_messages: "لم يتم إرسال اي رسالة بعد"
+    submit: "إرسال"
+    placeholder: "اكتب رسالتك..."
+    shortlist: "اختيار العرض"
+    accept: "قبول العرض"
+    deny: "رفض العرض"

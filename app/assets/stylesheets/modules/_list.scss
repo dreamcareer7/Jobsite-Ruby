@@ -1,0 +1,149 @@
+// List
+
+.list {
+  margin: 0 0 1.2em 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list--inline {
+  margin-left: -$spacing-small;
+  margin-right: -$spacing-small;
+}
+
+.list--stacked {
+  margin-bottom: -$spacing-small*1.5 !important;
+}
+
+.list--padded {
+  margin: -$spacing-small/2;
+}
+
+.list--caps {
+  @include caps-bold;
+}
+
+.list--two-col {
+  @include mq(large) {
+    display: flex;
+    flex-wrap: wrap;
+
+    .list__item {
+      width: 50%; // 2 columns
+    }
+  }
+}
+
+.list--two-col-all {
+  column-count: 2;
+}
+
+
+// List link
+
+.list__link {
+  color: $grey;
+
+  &:hover {
+    color: $grey-dark;
+  }
+
+  &.active {
+    color: $grey-dark;
+    @include font-bold;
+
+    .icon {
+      fill: $grey-dark;
+    }
+  }
+}
+
+
+// List item
+
+.list__item {
+  display: block;
+
+  @include ltr {
+    text-align: left;
+  }
+
+  @include rtl {
+    text-align: right;
+  }
+
+  .list--inline & {
+    display: inline-block;
+    margin: 0 $spacing-small;
+  }
+
+  .list--padded & {
+    display: inline-block;
+    margin: $spacing-small/2;
+  }
+
+  .list--stacked & {
+    margin-bottom: $spacing-small*1.5;
+  }
+
+  .list--styled & {
+    display: list-item;
+    position: relative;
+
+    &:before {
+      content: "- ";
+    }
+  }
+}
+
+.list__item--has-icon {
+  position: relative;
+
+  @include ltr {
+    padding-left: $spacing-x-large;
+  }
+
+  @include rtl {
+    padding-right: $spacing-x-large;
+  }
+}
+
+
+// Marketing
+
+.marketing-list {
+  margin-bottom: -$spacing-medium !important;
+}
+
+.marketing-list__item {
+  position: relative;
+  padding-left: $spacing-x-large;
+  margin-bottom: $spacing-medium;
+}
+
+.list__icon {
+  position: absolute;
+  top: 0;
+
+  @include ltr {
+    left: 0;
+  }
+
+  @include rtl {
+    right: 0;
+  }
+}
+
+
+// City
+
+.city-list {
+  column-count: 2;
+}
+
+// Business profile mobile share links
+
+.share-links--mobile {
+  display: inline-block;
+  width: 100%;
+}

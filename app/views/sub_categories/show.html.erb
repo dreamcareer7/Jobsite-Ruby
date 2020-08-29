@@ -1,0 +1,11 @@
+<%= render partial: "partials/meta_tags/listing", locals: { listing_type: @sub_category, banner: @listing_banner, city: @current_city, count: @sub_category.active_businesses_in_city(@current_city) } %>
+
+<% content_for :breadcrumbs do %>
+  <%= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [name: @sub_category.category.name, url: category_path(id: @sub_category.category), count: @sub_category.category.active_businesses_in_city(@current_city) ], current_breadcrumb: { name: @sub_category.name, count: @sub_category.active_businesses_in_city(@current_city) } } %>
+<% end %>
+
+<% content_for :section_header do %>
+  <%= render partial: "partials/businesses/listing_header", locals: { listing_type: @sub_category, city: @current_city, listing_banner: @listing_banner, filter: params[:filter_by] } %>
+<% end %>
+
+<%= render partial: "partials/businesses/sub_categories_and_services" %>

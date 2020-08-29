@@ -1,0 +1,15 @@
+en:
+
+  user_dashboard:
+    greeting: "Hello,"
+    your_profile: "Your profile is"
+    completed: "completed"
+    edit: "Edit profile"
+    complete_it: "Complete it now"
+    browse: "Browse businesses"
+    browse_copy: "Browse more than %{business_count} businesses in %{city_count} cities and start your project today."
+    post: "Get a quote"
+    post_copy: "Connect with trusted businesses that are ready to answer all your inquiries and provide you with the expertise you need for your every kind of project you are working on."
+    add: "Add your business"
+    add_copy: "Muqawiloon helps you advertise your business, brands and services with a professionally designed profile page that is instantly indexed across online search engines worldwide. Reach new customers today."
+    add_button: "Add a business"

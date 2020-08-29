@@ -1,0 +1,40 @@
+ar:
+
+  location_classes:
+    commercial: 'تجاري'
+    residential: 'سكني'
+    government: 'حكومي'
+    industrial: 'صناعي'
+  contact_roles:
+    agent: 'ممثل'
+    ceo: 'الرئيس التنفيذي'
+    employee: 'موظف'
+    general_manager: 'مدير عام'
+    marketing_manager: 'مدير التسويق'
+    owner: 'المالك'
+    other: 'اخرى'
+    project_consultant: 'مستشار المشروع'
+    project_manager: 'مدير المشروع'
+    project_owner: 'مالك المشروع'
+  timeline_types:
+    flexible: 'مرن'
+    urgent: 'اهمية قصوى'
+  currency_types:
+    american_dollar: 'دولار امريكي - USD'
+    bahrain: 'دينار بحريني - BHD'
+    british_pound: 'جنيه استرليني - GBP'
+    egyptian_pound: 'جنيه مصري - EGP'
+    jordan: 'دينار اردني - JOD'
+    kuwaiti_dinar: 'دينار كويتي - KWD'
+    omani_riyal: 'ريال عماني - OMR'
+    qatar: 'ريال قطري - QAR'
+    turkey: 'ليرة تركية - TRY'
+    saudi_riyal: 'ريال سعودي - SAR'
+    uae_dirham: 'درهم اماراتي - AED'
+  project_status:
+    new_project: "جديد"
+    in_process: "جاري العمل"
+    completion_pending: "انتهى الإنتنظار"
+    completed: "مكتمل"
+    cancelled: "ملغي"
+

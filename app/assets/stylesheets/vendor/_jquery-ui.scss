@@ -1,0 +1,62 @@
+.popover__link.ui-state-focus {
+  color: $grey-dark;
+  background-color: $background;
+}
+
+.ui-datepicker {
+  height: auto;
+  background-color: $white;
+  text-align: center;
+  max-width: 360px;
+  @include drop-shadow;
+
+  td,
+  th {
+    border-bottom: 1px solid $border;
+    border-right: 1px solid $border;
+
+    &:last-child {
+      border-right: 0;
+    }
+  }
+
+  .ui-state-default {
+    color: $red;
+  }
+}
+
+.ui-datepicker-year {
+  text-decoration: underline;
+  cursor: pointer;
+  color: $red;
+}
+
+.ui-datepicker-calendar {
+  table-layout: fixed;
+}
+
+.ui-datepicker-header {
+  padding: $spacing-medium;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid $border;
+}
+
+.ui-datepicker-prev,
+.ui-datepicker-next {
+  cursor: pointer;
+}
+
+.ui-datepicker-next {
+  order: 3;
+}
+
+.ui-datepicker-title {
+  order: 2;
+  color: $grey-dark;
+  @include font-bold;
+}
+
+.past-date {
+  opacity: 0.2;
+}

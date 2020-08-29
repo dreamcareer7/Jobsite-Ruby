@@ -1,0 +1,6 @@
+ar:
+  post_project:
+    service:
+      fields:
+        service_services:
+          label: "اختار واحد أو العديد من الخدمات التي يمكن تطبيقها على مشروعك"

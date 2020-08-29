@@ -1,0 +1,39 @@
+<% content_for :breadcrumbs do %>
+  <%= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [], current_breadcrumb: { name: "Gallery" } } %>
+<% end %>
+
+<section class="section section--dark u-cover u-text-center" style="background-image: url('<%= image_path('add-business-header.jpg') %>')">
+  <div class="site-wrap">
+    <div class="section-heading">
+      <h1 class="section-heading__heading u-text-contrast"><%= t("gallery.header") %></h1>
+      <h3 class="section-heading__subheading u-text-contrast"><%= t("gallery.blurb") %></h3>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="grid grid--tight grid--v-padded">
+      <% @gallery_items.each do |item| %>
+        <% if item.is_a?(Business) %>
+          <%= render partial: "gallery/gallery_item_image", locals: { owner: item, item: item.banner } %>
+        <% elsif item.is_a?(SelfAddedProject) && (item.photos.present? || item.video_link.present?) %>
+          <% next unless item.business.present? %>
+          <% if item.photos.present? %>
+            <%= render partial: "gallery/gallery_item_image", locals: { owner: item, item: item.photos.sample } %>
+          <% end %>
+          <% if item.video_link.present? %>
+            <%= render partial: "gallery/gallery_item_video", locals: { item: item } %>
+          <% end %>
+        <% elsif item.is_a?(Attachment) %>
+          <%= render partial: "gallery/gallery_item_image", locals: { owner: item.owner, item: item.attachment } %>
+        <% end %>
+      <% end %>
+    </div>
+    <% if @gallery_items.total_pages > 1 %>
+      <div class="mt2">
+        <%= paginate @gallery_items %>
+      </div>
+    <% end %>
+  </div>
+</section>

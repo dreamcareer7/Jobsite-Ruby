@@ -1,0 +1,16 @@
+<div class="modal js-call-now">
+  <div class="modal__table">
+    <div class="modal__cell">
+      <div class="modal__container">
+        <button class="js-close-modal modal__close">
+          <%= inline_svg("icons/close.svg", class: "icon") %>
+        </button>
+        <h2 class="modal__title"><%= t("call_now.title") %></h2>
+        <p><%= t("call_now.description_first") %> <strong class="js-call-now-business-name"></strong> <%= t("call_now.description_second") %>.</p>
+        <h3 class="mt2 mb2 u-ltr"><a class="btn btn--secondary js-call-now-phone"></a></h3>
+        <p><%= t("call_now.working_hours") %>:</br><div class="js-call-now-business-hours mt1"></div></p>
+        <button class="btn btn--full btn--primary js-close-modal"><%= t("call_now.got_it") %></button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<% if @target.is_a?(User) %>
+  <h3><%= link_to 'Users /', admin_users_path,  class: 'u-text-light u-text-regular' %>
+  <%= link_to "#{@target.name} / ", edit_admin_user_path(@target),  class: 'u-text-light u-text-regular' %>
+  <%= action_name == 'edit' ? @target.name : "New" %> Subscription
+  </h3>
+<% else %>
+  <h3><%= link_to 'Businesses /', admin_businesses_path,  class: 'u-text-light u-text-regular' %>
+  <%= link_to "#{@target.name} / ", edit_admin_business_path(@target),  class: 'u-text-light u-text-regular' %>
+  <%= action_name == 'edit' ? @target.name : "New" %> Subscription
+  </h3>
+<% end %>
+
+<div class="grid">
+  <div class="grid__col--xs-12 grid__col--md-12">
+    <div class="card">
+
+
+      <%= simple_form_for [:admin, @subscription] do |f| %>
+        <% if @target.is_a?(User) %>
+          <%= f.input :user_id, input_html: { value: @target.id, class: "u-hide" }, label: false %>
+        <% else %>
+          <%= f.input :business_id, input_html: { value: @target.id, class: "u-hide" }, label: false %>
+        <% end %>
+        <%= f.input :user_type, as: :fake, input_html: { value: @user_type, class: "u-hide" }, label: false %>
+
+        <div class="card__section">
+          <div class="card__header">
+            <h4 class="card__title">Subscription details</h4>
+          </div>
+          <fieldset class="fieldset">
+            <div class="grid">
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <% if @target.is_a?(Business) %>
+                  <%= f.input :subscription_type, wrapper: :text_field, label: "Subscription type", required: true, collection: Subscription.subscription_types.reject{ |option| ["pro"].any?{ |enum_option| enum_option == option } } %>
+                <% else %>
+                  <%= f.input :subscription_type, wrapper: :text_field, label: "Subscription type", required: true, collection: Subscription.subscription_types.reject{ |option| ["standard", "premium"].any?{ |enum_option| enum_option == option } } %>
+                <% end %>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <%= f.input :payment_method, collection: ["Credit Card", "Wire transfer", "Cash", "Cheque", "Complementary", "Special offer", "Other"], wrapper: :text_field, label: "Payment method", required: true %>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <%= f.input :amount_paid, wrapper: :text_field, label: "Amount paid", required: true %>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
+                <div class="field">
+                  <label class="field__label">* Expiry date</label>
+                  <div class="field__input-wrapper">
+                    <%= inline_svg("icons/calendar.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
+                    <%= f.input :expiry_date, wrapper: :date_picker, as: :date_picker_future, placeholder: t("form.date_placeholder") %>
+                  </div>
+                </div>
+              </div>
+              <% unless @subscription.new_record? %>
+                <div class="grid__col--xs-12 grid__col--md-6">
+                  <div class="field">
+                    <span class="field__label">Reference #</span>
+                    <%= f.input :reference_number, label: false, required: false, disabled: true %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="card__section">
+          <div class="field">
+            <%= f.submit action_name == 'edit' ? 'Save': 'Create', class: 'btn btn--primary' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

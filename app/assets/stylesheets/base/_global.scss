@@ -1,0 +1,68 @@
+// Global
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+.rtl {
+  direction: rtl;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: $background;
+  color: $grey;
+  overflow-x: hidden;
+
+  &.hidden {
+    overflow: hidden;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: $red;
+  outline: 0;
+}
+
+img,
+svg {
+  max-width: 100%;
+  vertical-align: top;
+}
+
+.logo {
+  height: 28px;
+
+  @include mq(medium) {
+    height: 36px;
+  }
+}
+
+.site-wrap {
+  max-width: $site-width;
+  width: 100%;
+  padding: 0 $spacing-medium;
+  margin: 0 auto;
+
+  @include mq(small) {
+    padding: 0 $spacing-large;
+  }
+
+  @include mq(medium) {
+    width: 90%;
+    padding: 0;
+  }
+}
+
+.page-wrap {
+  position: relative;
+  overflow-x: hidden;
+}
+

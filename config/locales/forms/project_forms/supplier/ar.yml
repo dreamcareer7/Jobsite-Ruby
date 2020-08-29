@@ -1,0 +1,20 @@
+ar:
+
+  post_project:
+    supplier:
+      header: “تفاصيل المادة“
+      add_more: “أضف المزيد”
+
+      fields:
+        material_category:
+          label: “فئة المادة”
+        material:
+          label: “المادة”
+        quantity:
+          label: “الكمية”
+        units:
+          label: “الوحدات”
+          options: [“أكياس”, “اخرى”]
+        details:
+          label: “التفاصيل”
+

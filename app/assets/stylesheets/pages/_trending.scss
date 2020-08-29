@@ -1,0 +1,99 @@
+// Settings
+
+$trending-project-height: 340px;
+$trending-project-image-small: 120px;
+$trending-project-image-medium: 140px;
+
+.trending-section + .trending-section {
+  margin-top: $spacing-x-large;
+
+  @include mq(medium) {
+    margin-top: $spacing-xx-large;
+  }
+
+  @include mq(large) {
+    margin-top: $spacing-xxx-large;
+  }
+}
+
+
+.trending-heading {
+  position: relative;
+  margin-bottom: $spacing-large;
+  @include vertical-padding($spacing-medium);
+
+  * {
+    position: relative;
+    z-index: 1; // Position above after element
+  }
+
+  @include mq(medium) {
+    margin-bottom: $spacing-x-large;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 300%;
+    height: 100%;
+    background-color: mix($background, $black, 95%);
+  }
+}
+
+
+// Business
+
+.trending-business {
+  @include mq(large) {
+    height: 236px !important;
+  }
+}
+
+.trending-category-label {
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+
+// Project
+
+.trending-project {
+  position: relative;
+  display: flex;
+
+  @include mq(medium-down) {
+    padding-top: $trending-project-image-small;
+  }
+
+  @include mq(medium) {
+    padding-top: $trending-project-image-medium;
+  }
+
+  @include mq(large) {
+    height: $trending-project-height;
+  }
+}
+
+.trending-project__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.trending-project__business {
+  margin-top: auto;
+}
+
+.trending-project__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $trending-project-image-small;
+
+  @include mq(medium) {
+    height: $trending-project-image-medium;
+  }
+}

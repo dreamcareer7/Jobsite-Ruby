@@ -1,0 +1,149 @@
+var handler;
+var geocoder = new google.maps.Geocoder();
+var infoWindow = new google.maps.InfoWindow();
+var initialMarker;
+var markerOnMap;
+var targetElement;
+var coords = [];
+var address = "";
+var locationToUpdate = "";
+
+var currentLocation = $('.js-current-location').data('coordinates');
+
+function initialiseMap() {
+  handler = Gmaps.build('Google');
+
+  handler.buildMap(
+    { provider: {}, internal: { id: 'location-map' } }, function() {
+
+      initialLocation();
+      getUserInput();
+
+      google.maps.event.addListener(handler.getMap(), 'click', function(event) {
+        moveMarker(event.latLng);
+        getMarkerLocation(markerOnMap);
+      });
+
+
+      handler.getMap().setZoom(14);
+      handler.getMap().setCenter(initialMarker.position);
+    }
+  );
+}
+
+function initialLocation() {
+  var latlng = { 
+    lat: currentLocation ? parseFloat(currentLocation.split(',')[0]) : 0,
+    lng: currentLocation ? parseFloat(currentLocation.split(',')[1]) : 0
+  };
+
+  initialMarker = new google.maps.Marker({ position: latlng, map: handler.getMap() });
+
+}
+
+function streetAddressUpdated() {
+  var locationFields = $(this).parents('.js-location-fields');
+  var $this = $(this);
+  var userInput = locationFields.find('.js-street-address').val() + " " + locationFields.find('.js-city option:selected').text();
+
+  if (userInput && userInput.length > 0) { getLocationFromInput(userInput, $this); }
+}
+
+function getUserInput() {
+  var userInput = $('.js-street-address');
+  if (userInput.val()) { getLocationFromInput(userInput.val()); }
+}
+
+function getLocationFromInput(userInput, targetElement) {
+  geocoder.geocode({ 'address': userInput }, function(results, status) {
+    var locationFields = $(this).parents('.js-location-fields');
+
+    if (status === google.maps.GeocoderStatus.OK) {
+
+      if (results[0]) {
+        address = results[0].formatted_address;
+        lat = results[0].geometry.location.lat();
+        lng = results[0].geometry.location.lng();
+        coords = "" + results[0].geometry.location.lat() + ", " + results[0].geometry.location.lng();
+
+        moveMarker(results[0].geometry.location);
+        infoWindow.setContent(coords);
+        infoWindow.open(handler.getMap(), markerOnMap);
+      }
+
+      locationFields.find('.js-latitude').val(lat);
+      locationFields.find('.js-longitude').val(lng);
+
+    }
+
+  }.bind(targetElement));
+}
+
+function moveMarker(location) {
+
+  if(initialMarker){
+    initialMarker.setMap(null);
+  }
+
+  if (markerOnMap) { markerOnMap.setPosition(location); } 
+  else { markerOnMap = new google.maps.Marker({ position: location, map: handler.getMap(), draggable: true }); }
+
+  handler.getMap().setCenter(markerOnMap.position);
+  google.maps.event.addListener(markerOnMap, 'dragend', function(event) {
+    getMarkerLocation(markerOnMap);
+  });
+
+}
+
+function confirmLocation() {
+  var locationFields = $(this).parents('.js-location-fields');
+  var userLat = locationFields.find('.js-latitude');
+  var userLng = locationFields.find('.js-longitude');
+
+  locationToUpdate = $(this);
+
+  if(userLat.val()) {
+    moveMarker({ lat: parseFloat(userLat.val()), lng: parseFloat(userLng.val()) });
+    infoWindow.setContent(locationFields.find('.js-street-address').val());
+    infoWindow.open(handler.getMap(), markerOnMap);
+  } else { 
+  handler.getMap().setCenter(initialMarker.position);
+  }
+
+}
+
+function updateLocationFields() {
+  var locationFields = locationToUpdate.parents('.js-location-fields');
+
+  locationFields.find('.js-latitude').val(lat);
+  locationFields.find('.js-longitude').val(lng);
+}
+
+function getMarkerLocation(marker) {
+  var latlng = { lat: marker.position.lat(), lng: marker.position.lng() };
+
+  geocoder.geocode({ 'location': latlng }, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      if (results[0]) {
+        address = results[0].formatted_address;
+        lat = latlng.lat;
+        lng = latlng.lng;
+        coords = "" + latlng.lat + ", " + latlng.lng;
+        infoWindow.setContent(coords);
+        infoWindow.open(handler.getMap(), marker);
+        updateLocationFields();
+      }
+    }
+  });
+}
+
+//map click events
+$('.js-get-user-input').on('click', getUserInput);
+//off to unbind to handle when multiple elements are present
+$('.js-confirm-location').off().on('click', confirmLocation);
+$('.js-update-location').on('click', updateLocationFields);
+$('.js-street-address').on('input', _.debounce(streetAddressUpdated, 500));
+$('.js-city').on('input', _.debounce(streetAddressUpdated, 300));
+
+//initialise!
+$(document).ready( initialiseMap );

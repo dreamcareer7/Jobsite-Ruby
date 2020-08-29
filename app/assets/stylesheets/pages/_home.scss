@@ -1,0 +1,93 @@
+// Home
+
+.home-promo {
+  position: relative; // Make sure section is over hero
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $site-width;
+  padding: $spacing-medium;
+  margin-top: -1em;
+  text-align: center;
+  background-color: $red;
+
+  @include mq(small) {
+    width: 90%;
+    padding: 2em;
+    margin-top: -2em;
+    border-radius: $border-radius;
+  }
+
+  @include mq(large) {
+    padding: 3em;
+    margin-top: -3em;
+  }
+}
+
+.home-promo__content {
+  width: 100%;
+}
+
+// How it works
+
+.how-it-works {
+  position: relative;
+  display: none;
+}
+
+.how-it-works__image {
+  width: 200px;
+
+  @include mq(medium) {
+    width: 240px;
+  }
+
+  @include mq(large) {
+    width: 280px;
+  }
+}
+
+.how-it-works__close {
+  position: absolute;
+  top: $spacing-medium;
+  right: $spacing-medium;
+
+  @include mq(medium) {
+    top: $spacing-large;
+    right: $spacing-large;
+  }
+
+  @include mq(large) {
+    top: $spacing-x-large;
+    right: $spacing-x-large;
+  }
+}
+
+
+// Categories
+
+.home-category {
+  display: block;
+  border: 1px solid $border;
+  border-radius: $border-radius;
+  padding: $spacing-medium;
+
+  &:hover {
+    border-color: mix($border, $black, 85%);
+  }
+
+  @include mq(small) {
+    display: inline-block;
+    padding: $spacing-large;
+  }
+
+  @include mq(medium) {
+    padding: $spacing-x-large;
+  }
+}
+
+.home-city__tooltip {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  @include z-index(home-city__tooltip);
+}

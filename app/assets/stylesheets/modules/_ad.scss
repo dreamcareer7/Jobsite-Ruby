@@ -1,0 +1,49 @@
+// General
+
+.ad {
+  border: 1px solid $grey-light;
+}
+
+.ad-slider-wrapper {
+  position: relative;
+}
+
+.ad-slider {
+  overflow: hidden;
+
+  img {
+    border-radius: $border-radius;
+  }
+}
+
+.ad-slider__arrow {
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity $time $curve;
+  width: $spacing-xx-large;
+  height: $spacing-xx-large;
+  border-radius: $border-radius;
+  background-color: rgba($black, 0.8);
+  @include v-center(absolute);
+
+  @include mq(medium) {
+    width: $spacing-xxx-large;
+    height: $spacing-xxx-large;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.ad-slider__arrow--left {
+  left: $spacing-medium;
+}
+
+.ad-slider__arrow--right {
+  right: $spacing-medium;
+}

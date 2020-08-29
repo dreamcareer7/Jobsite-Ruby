@@ -1,0 +1,37 @@
+var ready;
+
+ready = function() {
+
+  if( $('#business-map').length < 1) { return; }
+
+  handler = Gmaps.build('Google');
+
+  handler.buildMap({ 
+    provider: { disableDefaultUi: true, draggable: false }, 
+    internal: { id: 'business-map' }
+  });
+
+  businessLocation();
+
+  function businessLocation() {
+    var lat = $('.js-business-location').data('lat');
+    var lng = $('.js-business-location').data('lng');
+
+    var latlng = { 
+      lat: lat ? parseFloat(lat) : 0,
+      lng: lng ? parseFloat(lng) : 0
+    };
+
+    var initialMarker = new google.maps.Marker({
+      position: latlng,
+      map: handler.getMap()
+    });
+
+    handler.getMap().setZoom(15);
+    handler.getMap().setCenter(initialMarker.position);
+  }
+
+};
+
+$(document).ready(ready);
+$(document).on('turbolinks:load', ready);

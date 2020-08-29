@@ -1,0 +1,80 @@
+ar:
+
+  post_project:
+    service_type: "ما نوع الـ %{category} التي تبحث عنها ؟"
+    project_type: "اختر ما الأفضل في وصف مشروعك"
+    project_services: "الرجاء تحديد نوع المنتجات والخدمات التي تحتاجها"
+    project_requirements: "Select requirements"
+    project_services_needed: "What %{category} do you need?"
+    project_services_specific: "Please choose the specific service you need"
+    information: "معلومات المشروع"
+    submit: "استمر"
+    section_header:
+      add: "انشئ مشروعك"
+      sub_head: "اطرح مشروعك امام افضل الشركات في مقاولون، وانجزه بالطريقة الصحيحة."
+      connect:
+        title: "الوصول لشركات معتمدة"
+        description: "مقاولون تقيم وتعتمد وتوثق الشركات لتوفر لك الوقت."
+      control:
+        title: "انت المتحكم"
+        description: "القرار بيدك في اختيار الشركة المناسبة للمشروع."
+      no_commissions:
+        title: "بدون عمولة"
+        description: "لن يتم استقطاع اي عمولة من الصفقات."
+    header:
+      post_project: "إنشاء مشروع"
+      details: "الجدول الزمني والميزانية"
+      general: "معلونات عامة"
+      location: "اين يقع مشروعك ؟"
+      attachments: "المرفقات"
+      project_details: "تفاصيل المشروع"
+    prompt:
+      post: "اطرح مشروعك امام افضل الشركات في مقاولون، استلم المزايدات وعروض الأسعار من شركات تم اعتماده وتوثيقها." 
+
+    fields:
+      project_name:
+        label: "اسم المشروع"
+        field:
+        placeholder: "اختر إسم المشروع"
+      category:
+        label: "ماذا تحتاج؟"
+      description:
+        label: "وصف مختصر"
+        field:
+        placeholder: "توفير وصف مفصل عن المشروع (مثال : مساحة الموقع، متطلبات خاصة والخ..) لتحصل على انتباه اهم الشركات في مقاولون"
+      budget:
+        label: "الميزانية"
+        options: ["$0 - $1000", "$1000 - $5000", "$5000 - $10,000", "$10,000 - $15,000", "$15,000 +"]
+      timeline:
+        label: "الجدول الزمني"
+      status:
+        label: "حالة المشروع"
+        options: ["جاهز للتوظيف", "تحت التخطيط", "معلق"]
+      start_date:
+        label: "تاريخ بداية المشروع"
+      end_date:
+        label: "تاريخ انتهاء المشروع"
+      location:
+        label: "موقع المشروع"
+        placeholder: ‫"‬الشارع ، الصندوق البريدي ، الحي‫"‬
+      owner_type:
+        label: "انا"
+        owner: "مالك المشروع"
+        consultant: "مستشار"
+      location_type:
+        label: ‫"‬نوع الموقع‫"‬
+        commercial: "تجاري"
+        residential: "سكني"
+        government: "حكومي"
+        private: "خاص"
+        other: "اخر"
+        placeholder: "يرجى تحديد"
+      historical_structure:
+        label: "هل المشروع يحتاج العمل على أساس‫/‬موقع أثري ؟"
+        yes: "نعم"
+        no: "لا"
+      attachments:
+        label: "أضف المرفقات (JPG, PDF, DOC under 1MB)"
+        no_file: "لم تقم باختيار ملف"
+        browse: "إستعراض"
+        add_attachment: "+ إضافة المرفقات"

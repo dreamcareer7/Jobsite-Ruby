@@ -1,0 +1,15 @@
+en:
+
+  sign_up:
+    title: "Sign up"
+    facebook: "Sign up with Facebook"
+    google: "Sign up with Google"
+    or: "or"
+    name_placeholder: "Full name"
+    email_placeholder: "Email"
+    mobile_placeholder: "Phone number (optional)"
+    password_placeholder: "Password"
+    submit: "Sign up"
+    have_account: "Already have an account?"
+    log_in: "Log in"
+    policy: "By creating an account you're agreeing with our Terms and Conditions, and Privacy Policy"

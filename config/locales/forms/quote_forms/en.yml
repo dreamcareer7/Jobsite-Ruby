@@ -1,0 +1,11 @@
+en:
+
+  quote:
+    header: "Send a quote"
+    project: "Project name"
+    location: "Location"
+    reference: "Quotation reference"
+    type: "Project type"
+    budget: "Approximate budget"
+    duration: "Approximate duration"
+    proposal: "Brief description of your quote"

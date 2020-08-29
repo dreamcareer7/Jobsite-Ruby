@@ -1,0 +1,45 @@
+<% if !business.business_hours.is_a?(String) && business.business_hours[:weekday_hours].present? %>
+  <div id="business_hours_text">Weekdays (<%= business.business_hours[:weekday_hours][:day_start] %> - <%= business.business_hours[:weekday_hours][:day_end] %>)
+    <br>
+    <small>
+      <% if business.business_hours[:weekday_hours][:shift_one_start].present? %>
+        <%= business.business_hours[:weekday_hours][:shift_one_start].strftime('%l:%M%p') %> - 
+      <% end %>
+      <% if business.business_hours[:weekday_hours][:shift_one_end].present? %>
+        <%= business.business_hours[:weekday_hours][:shift_one_end].strftime('%l:%M%p') %>
+      <% end %>
+      <% if business.business_hours[:weekday_hours][:shift_one_start] && business.business_hours[:weekday_hours][:shift_two_start].present? %>
+        /
+      <% end %>
+      <% if business.business_hours[:weekday_hours][:shift_two_start].present? %>
+        <%= business.business_hours[:weekday_hours][:shift_two_start].strftime('%l:%M%p') %> - 
+      <% end %>
+      <% if business.business_hours[:weekday_hours][:shift_two_end].present? %>
+        <%= business.business_hours[:weekday_hours][:shift_two_end].strftime('%l:%M%p') %>
+      <% end %>
+    </small>
+  </div>
+<% end %>
+
+<% if !business.business_hours.is_a?(String) && business.business_hours[:weekend_hours].present? %>
+  <div class="mt1" id="business_hours_text">Weekend (<%= business.business_hours[:weekend_hours][:day_start] %> - <%= business.business_hours[:weekend_hours][:day_end] %>)
+    <br>
+    <small>
+      <% if business.business_hours[:weekend_hours][:shift_one_start].present? %>
+        <%= business.business_hours[:weekend_hours][:shift_one_start].strftime('%l:%M%p') %> - 
+      <% end %>
+      <% if business.business_hours[:weekend_hours][:shift_one_end].present? %>
+        <%= business.business_hours[:weekend_hours][:shift_one_end].strftime('%l:%M%p') %>
+      <% end %>
+      <% if business.business_hours[:weekend_hours][:shift_one_start] && business.business_hours[:weekend_hours][:shift_two_start].present? %>
+        /
+      <% end %>
+      <% if business.business_hours[:weekend_hours][:shift_two_start].present? %>
+        <%= business.business_hours[:weekend_hours][:shift_two_start].strftime('%l:%M%p') %> - 
+      <% end %>
+      <% if business.business_hours[:weekend_hours][:shift_two_end].present? %>
+        <%= business.business_hours[:weekend_hours][:shift_two_end].strftime('%l:%M%p') %>
+      <% end %>
+    </small>
+  </div>
+<% end %>

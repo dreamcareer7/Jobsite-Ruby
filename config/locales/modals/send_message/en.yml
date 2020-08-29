@@ -1,0 +1,8 @@
+en:
+
+  send_message:
+    title: "Send message"
+    create_project: "+ Create a project"
+    prompt: "Send a message to "
+    submit: "Send message"
+    placeholder: "Write a message..."

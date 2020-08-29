@@ -1,0 +1,36 @@
+<section class="section section--padded section--turquoise u-text-center">
+  <div class="site-wrap">
+    <div class="section-heading">
+      <h2 class="u-text-contrast"><%= t("cta.head", current_city: @current_city.name) %></h2>
+    </div>
+    <div class="grid grid--v-padded">
+      <div class="grid__col--xs-12 grid__col--md-4">
+        <%= inline_svg("icons/profile.svg", class: "icon icon--medium icon--white") %>
+        <h4 class="u-text-contrast"><%= t("cta.professional_profile.title") %></h4>
+        <p class="u-text-muted"><%= t("cta.professional_profile.description") %></p>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-4">
+        <%= inline_svg("icons/zero.svg", class: "icon icon--medium icon--white") %>
+        <h4 class="u-text-contrast"><%= t("cta.no_commissions.title") %></h4>
+        <p class="u-text-muted"><%= t("cta.no_commissions.description") %></p>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-4">
+        <%= inline_svg("icons/rewards.svg", class: "icon icon--medium icon--white") %>
+        <h4 class="u-text-contrast"><%= t("cta.exclusive_membership.title") %></h4>
+        <p class="u-text-muted"><%= t("cta.exclusive_membership.description") %></p>
+      </div>
+    </div>
+    <div class="section-footer">
+      <% if current_user %>
+        <div class="btn-group btn-group--full">
+          <%= link_to t("main_nav.add_business"), new_user_business_path, class: "btn-group__item btn btn--xs-full btn--contrast" %>
+          <%= link_to t("cta.upgrade"), "/pages/contact", class: "btn-group__item btn btn--xs-full btn--contrast" %>
+        </div>
+      <% else %>
+        <div class="btn-group">
+          <%= link_to t("main_nav.add_business"), new_business_path, class: "btn-group__item btn btn--contrast" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

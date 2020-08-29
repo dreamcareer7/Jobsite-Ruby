@@ -1,0 +1,70 @@
+<button class="nav__hamburger js-mobile-nav-trigger">
+  <div class="u-relative u-inline-block">
+    <% if current_user.total_unread_notifications.present? %>
+      <small class="badge badge--small profile-followers badge--yellow"><%= current_user.total_unread_notifications %></small>
+    <% end %>
+    <%= inline_svg("icons/hamburger.svg", class: "icon icon--white") %>
+  </div>
+</button>
+
+<ul class="list list--inline nav__list u-hide--medium-down mb0">
+  <% unless current_user.businesses.present? && current_namespace == "business" %>
+    <li class="list__item">
+      <%= link_to t("main_nav.add_business"), new_user_business_path, class: "btn btn--small btn--contrast btn--hover-red" %>
+    </li>
+  <% end %>
+
+  <% unless current_namespace == "business" %>
+    <%= render partial: "partials/nav/main_nav/more" %>
+  <% end %>
+
+  <% if locale == :en %>
+    <li class="list__item">
+      <h3 class="pb1"><%= link_to "ع", set_language_path(language: :ar), method: :put, class: "u-text-contrast" %></h3>
+    </li>
+  <% else %>
+    <li class="list__item">
+      <%= link_to "EN", set_language_path(language: :en), method: :put, class: "u-text-contrast" %>
+    </li>
+  <% end %>
+  <li class="list__item">
+    <%= link_to user_inbox_index_path do %>
+      <%= inline_svg("icons/email.svg", class: "icon icon--white") %>
+      <% if current_user.total_unread_notifications.present? %>
+        <span class="badge badge--small badge--yellow"><%= current_user.total_unread_notifications %></span>
+      <% end %>
+    <% end %>
+  </li>
+
+  <div class="nav__divider nav__divider--tight"></div>
+  <li class="list__item has-popover">
+
+    <button class="js-open-popover list__link nav__link" href="#">
+      <span class="mr1"><%= current_user.name.split.first %></span>
+
+      <%= image_tag current_user.profile_image.url, class: "profile-avatar u-box-shadow avatar avatar--small mr1" %>
+
+      ▾
+    </button>
+    <div class="popover popover--right popover--arrow popover--arrow-ne">
+      <%= link_to user_profile_index_path, class: "popover__link" do %>
+        <%= t("main_nav.dashboard") %>
+        <% if current_user.unread_notifications.count > 0 %>
+          <span class="badge badge--primary btn__add-on"><%= current_user.unread_notifications.count %></span>
+        <% end %>
+      <% end %>
+
+      <%= link_to t("main_nav.my_profile"), edit_user_path(current_user), class: "popover__link" %>
+      <% if current_user.businesses.present? %>
+        <%= link_to business_profile_index_path, class: "popover__link" do %>
+          <span><%= t("main_nav.switch_to_business") %></span>
+          <% if current_user.unread_business_notifications.present? %>
+            <span class="badge badge--small badge--primary btn__add-on"><%= current_user.unread_business_notifications %></span>
+          <% end %>
+        <% end %>
+      <% end %>
+      <%= link_to t("main_nav.upgrade"), "/pages/contact", class: "popover__link" if current_user.free? %>
+      <%= link_to t("main_nav.log_out"), destroy_user_session_path, method: :delete, class: "popover__link" %>
+    </div>
+  </li>
+</ul>

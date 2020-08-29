@@ -1,0 +1,92 @@
+$('#js-new-reviews-table').dataTable({
+  serverSide: true,
+  bLengthChange: false,
+  bInfo: false,
+  ajax: { url: $('#js-new-reviews-table').data('source') },
+  order: [[ 2, "desc" ]],
+  fnRowCallback: function (nRow, aData, iDisplayIndex) {
+    if (!aData.resolved) { $(nRow).removeClass().addClass('unapproved'); }
+  },
+  columns: [
+    {
+      data: 'business',
+      orderable: false,
+      render: function (data, type, row, meta) {
+        return '<a href="/admin/businesses/' + row.business.id + '/edit">' + row.business.name + '</a>';
+
+      }
+    },
+    {
+      data: 'user',
+      orderable: false,
+      render: function (data, type, row, meta) {
+        return '<a href="/admin/users/' + row.user.id + '/edit">' + row.user.name + '</a>';
+      }
+    },
+    {
+      data: 'created_at',
+      render: function (data, type, row, meta) {
+        return moment(data).format("DD/MM/YY");
+      }
+    }, 
+    {
+      data: null,
+      sortable: false,
+      render: function (data, type, row, meta) {
+        return (row.resolved ? '<a class="tooltip" title="Unresolve" data-method="put" href="/admin/admin_notifications/' + row.id + '/toggle_resolve"><%= image_tag("icons/close.svg", class: "icon icon--dark icon--small") %></a>' : '<a class="tooltip" title="Resolve" data-method="put" href="/admin/admin_notifications/' + row.id + '/toggle_resolve"><%= image_tag("icons/verified.svg", class: "icon icon--dark icon--small") %></a>');
+      }
+    },
+    {
+      data: 'resolved',
+      visible: false
+    }
+  ],
+  dom: "ritp",
+  pageLength: 30,
+  initComplete: function() {
+    var table = this;
+
+    // Select filters
+    $('.js-select-filter').each(function () {
+      var $filterSelect = $(this);
+      var columnIndex = +$filterSelect.data('column');
+      var column = table.api().column(columnIndex);
+
+      // Filter the column when the user picks an option
+      $filterSelect.on('change', function() {
+        var val = $.fn.dataTable.util.escapeRegex($filterSelect.val());
+        column.search(val ? val : '', false, false).draw();
+      });
+
+      // Add all possible options to the select
+      $filterSelect.append('<option value="">' + column.header().innerHTML + '</option>');
+
+      var entries = column.data().unique().sort().map( function (d, j) {
+        if (typeof d === 'object') {
+          return d.map(function(row) { return row.name || row; });
+        } else {
+          return d;
+        }
+      });
+
+      // undefined is falsey so filtering false values works to remove undefined
+      entries = _.uniq(_.flattenDeep(entries)).filter(function(value) { return value !== undefined; });
+
+      entries.forEach(function(entry) {
+        if (entry === true || entry === false) {
+          entry === true ? entry = 'Yes' : entry = 'No'
+        }
+
+        $filterSelect.append('<option value="' + entry + '">' + entry + '</option>');
+      });
+    });
+  }
+});
+
+$('#js-new-reviews-table').on('draw.dt', function() {
+  $('.tooltip').tooltipster({
+    delay: 0,
+    animationDuration: 100
+  });
+});
+

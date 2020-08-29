@@ -1,0 +1,30 @@
+// Footer
+
+.footer {
+  background-color: $grey-dark;
+
+  @include mq(medium) {
+    @include vertical-padding(1em);
+  }
+}
+
+.footer__section {
+  @include vertical-padding(1.5em);
+
+  @include mq(medium) {
+    @include vertical-padding(2em);    
+  }
+
+  & + & {
+    border-top: 1px solid lighten($grey-dark, 8%);
+  }
+}
+
+.footer__link {
+  line-height: 1.8;
+}
+
+.footer__logo {
+  fill: $white;
+  width: 180px;
+}

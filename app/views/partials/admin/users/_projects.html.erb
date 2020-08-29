@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card__section">
+
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--sm-8">
+        <h3 class="mb2">Projects</h3>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Updated</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user.projects.each do |p| %>
+        <tr>
+          <td><%= p.title %></td>
+          <% if p.category.present? %>
+            <td><%= p.category.name %></td>
+          <% end %>
+          <% if p.project_status.present? %>
+            <td><%= p.project_status %></td>
+          <% end %>
+          <td><%= p.updated_at %></td>
+          <td>&nbsp</td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
+  </div>
+</div>

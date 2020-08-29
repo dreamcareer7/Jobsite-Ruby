@@ -1,0 +1,85 @@
+// Card
+
+.card {
+  position: relative;
+  border-radius: $border-radius;
+  background-color: $white;
+  transition: box-shadow $time $curve;
+  margin-bottom: $spacing-medium;
+  overflow: hidden;
+  @include drop-shadow;
+
+  @include mq(medium) {
+    margin-bottom: $spacing-large;
+  }
+}
+
+.card--grow {
+  flex: 1;
+}
+
+
+// Card section
+
+.card__section {
+  width: 100%;
+  padding: $spacing-large;
+}
+
+.card__section:not(.card__section--border) + .card__section {
+  padding-top: 0;
+}
+
+.card__section--padded {
+  @include mq(medium) {
+    padding: $spacing-xx-large;
+  }
+
+  @include mq(large) {
+    padding: $spacing-xxx-large;
+  }
+}
+
+.card__section--border {
+  border-bottom: 1px solid $border;
+
+  &:last-child {
+    border: 0;
+  }
+}
+
+.card__section--top {
+  border-top: 1px solid $border;
+}
+
+
+// Title
+
+.card__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-medium;
+}
+
+.card__title {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  margin: 0;
+
+  a {
+    margin-right: $spacing-small / 1.5;
+  }
+
+  .icon {
+    flex-shrink: 0;
+
+    @include ltr {
+      margin-right: $spacing-small;
+    }
+
+    @include rtl {
+      margin-left: $spacing-small;
+    }
+  }
+}

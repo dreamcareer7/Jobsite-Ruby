@@ -1,0 +1,44 @@
+// Photo block
+
+.photo-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  position: relative;
+  border-radius: $border-radius;
+
+  @include mq(small) {
+    height: 150px;
+  }
+}
+
+a.photo-block:hover {
+  opacity: 0.92;
+}
+
+.photo-block--no-backdrop {
+  @include mq(medium-down) {
+    height: auto;
+  }
+  
+  &:before,
+  &:after {
+    display: none;
+  }
+}
+
+.photo-block__name {
+  position: absolute !important;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: $spacing-medium;
+  color: $white;
+  z-index: 1;
+
+  @include mq(medium) {
+    padding: $spacing-large;
+  }
+}

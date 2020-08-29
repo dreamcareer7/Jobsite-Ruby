@@ -1,0 +1,11 @@
+<%= render partial: "partials/meta_tags/listing", locals: { listing_type: @categories, banner: @listing_banner, city: @current_city, headline: "Categories in #{ @current_city.name }" } %>
+
+<% content_for :breadcrumbs do %>
+  <%= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [], current_breadcrumb: { name: "Categories" } } %>
+<% end %>
+
+<% @categories.each do |category| %>
+  <%= render partial: 'category', locals: { category: category, sub_categories: category.sub_categories.visible.enabled.includes(:category_metadata).order(name: :asc) } %>
+<% end %>
+
+<%= render partial: "partials/cta/add_business" %>

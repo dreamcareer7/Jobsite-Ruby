@@ -1,0 +1,9 @@
+en:
+
+  breadcrumb_nav:
+    home: "Home"
+    inbox: "Inbox"
+    feed: "Project feed"
+
+  search:
+    placeholder: "What are you looking for?"

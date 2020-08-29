@@ -1,0 +1,34 @@
+<div class="card">
+  <% ['ar', 'en' ].each do |lang| %>
+    <div class="card__section card__section--border">
+      <div class="card__header">
+        <h4 class="card__title"><%= lang == "ar" ? "العربية" : "English" %></h4>
+      </div>
+      <fieldset class="fieldset">
+        <div class="grid">
+          <div class="grid__col--xs-12">
+            <div class="field">
+              <label class="field__label"><%= I18n.with_locale(lang){ t("business_profile.fields.general_information.business_name.label") } %></label>
+              <div class="field__input-wrapper">
+                <%= f.input "name_#{ lang }", type: "text", placeholder: t("business_profile.fields.general_information.business_name.placeholder"), label: false, wrapper: :text_field %>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field__label"><%= I18n.with_locale(lang){ t("business_profile.fields.general_information.business_description.label") } %></label>
+              <div class="field__input-wrapper">
+                <%= f.input "description_#{ lang }", as: :text, wrapper: :text_area, placeholder: t("business_profile.fields.general_information.business_description.placeholder"), label: false %>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field__label"><%= I18n.with_locale(lang){ t("business_profile.fields.additional_information.business_hours.label") } %></label>
+              <%= f.input "business_hours_#{ lang}", wrapper: :text_field, placeholder: t("business_profile.fields.additional_information.business_hours.placeholder"), required: false, label: false %>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  <% end %>
+  <div class="card__section">
+    <%= f.submit t("business_profile.submit"), class: "mt1 btn btn--primary" %>
+  </div>
+</div>

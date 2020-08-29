@@ -1,0 +1,48 @@
+// Hero
+
+.hero {
+  position: relative;
+  background-size: cover;
+  background-position: center center;
+  @include vertical-padding(6em);
+  @include gradient-overlay;
+  @include black-overlay;
+
+  @include mq(small) {
+    @include vertical-padding(7em);
+  }
+
+  @include mq(medium) {
+    @include vertical-padding(8em);
+  }
+
+  @include mq(large) {
+    @include vertical-padding(10em);
+  }
+
+  @include mq(x-large) {
+    @include vertical-padding(12em);
+  }
+}
+
+.hero__content {
+  @include z-index(content);
+  position: relative; // Make sure content is above gradient
+}
+
+.hero__title {
+  font-size: 2em;
+
+  @include mq(medium) {
+    font-size: 2.4em;
+  }
+
+  @include mq(large) {
+    font-size: 3em;
+  }
+}
+
+.hero__subtitle {
+  margin-bottom: 1.5em;
+  @include font-regular;
+}

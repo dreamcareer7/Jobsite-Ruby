@@ -1,0 +1,5 @@
+en:
+  inbox:
+    project: "Project messages"
+    other: "Other messages"
+    callback: "Callback requests"

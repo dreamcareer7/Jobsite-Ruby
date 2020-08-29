@@ -1,0 +1,64 @@
+en:
+
+  add_business:
+    submit: "Add business"
+    header:
+      edit: "Edit"
+      add: "Add"
+      your_business: "your business"
+      sub_head: "Sign Up Free! Reach More Customers. Increase Sales."
+      reach_customers:
+        title: "Reach customers online"
+        description: "Your own profile page, like a mini-website that you can update anytime."
+      control:
+        title: "You’re in control."
+        description: "Take on as much work as you want and choose the projects you want."
+      no_commissions:
+        title: "No commissions"
+        description: "We don’t ask for any commissions on any deal."
+
+    fields:
+      header:
+        general_information: "Business information"
+        contact_person: "Contact person"
+      business_name:
+        label: "Business name"
+        field:
+        placeholder: "Legal business name"
+      category:
+        label: "Category"
+      email:
+        label: "Email"
+        field:
+        placeholder: "business@example.com"
+      website:
+        label: "Website"
+        field:
+        placeholder: "www.google.com"
+      phone_number:
+        label: "Phone number"
+        field:
+        placeholder: "XXX-XXX-XXX"
+      street_address:
+        label: "Street address"
+        field:
+        placeholder: "Street address"
+
+      contact_person:
+        edit_photo: "Edit profile photo"
+        name:
+          label: "Name"
+          field:
+          placeholder: "Name"
+        email:
+          label: "Email"
+          field:
+          placeholder: "joe@example.com"
+        phone_number:
+          label: "Phone number"
+          field:
+          placeholder:
+        position:
+          label: "Position"
+          field:
+          placeholder: "Position"

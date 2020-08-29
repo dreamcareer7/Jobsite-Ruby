@@ -1,0 +1,146 @@
+// Font sizes
+
+$regular-font-size: (
+  null: 15px,
+  $medium: 16px
+);
+
+$small-font-size: (
+  null: 13px,
+  $medium: 14px
+);
+
+$smallest-font-size: (
+  null: 10px,
+  $medium: 11px
+);
+
+$h1-font-size: (
+  null: 26px,
+  $medium: 32px,
+  $large: 36px
+);
+
+$h2-font-size: (
+  null: 18px,
+  $medium: 21px,
+  $large: 24px
+);
+
+$h3-font-size: (
+  null: 16px,
+  $medium: 18px,
+  $large: 20px
+);
+
+$h4-font-size: (
+  null: 15px,
+  $large: 16px
+);
+
+$h5-font-size: (
+  null: 16px
+);
+
+
+// General typography
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: subpixel-antialiased;
+  @include font-regular;
+  @include font-size($regular-font-size);
+}
+
+
+// Caps bold
+
+@mixin caps-bold {
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  @include font-bold;
+
+  @include mq(medium) {
+    font-size: 13px;
+  }
+}
+
+
+// Headlines
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  color: $grey-dark;
+  margin: 0.75em 0;
+  @include font-bold; // All titles are bold by default
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+h1,
+.h1 {
+  line-height: 1.25;
+  margin: 0.5em 0;
+  @include font-size($h1-font-size);
+}
+
+
+h2,
+.h2 {
+  line-height: 1.5;
+  @include font-size($h2-font-size);
+}
+
+h3,
+.h3 {
+  @include font-size($h3-font-size);
+}
+
+h4,
+.h4 {
+  margin: 0.85em 0;
+  @include font-size($h4-font-size);
+}
+
+
+// Paragraphs and lists
+
+p {
+  line-height: 1.5;
+  margin: 0 0 1.2em 0;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+
+// Strong and small
+
+strong,
+.strong {
+  color: $grey-dark;
+  @include font-bold;
+}
+
+small,
+.small {
+  @include font-size($small-font-size);
+}
+
+em,
+.em {
+  font-style: normal;
+  color: $grey-dark;
+}
+
+.large {
+  font-size: 1.1em;
+}

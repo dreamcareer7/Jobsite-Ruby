@@ -1,0 +1,28 @@
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="card">
+      <div class="card__section">
+        <%= render partial: "partials/messages/message_header", locals: { business: @business, business_location: @business_location, business_contact: @business.business_contact } %>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card__section card__section--border chat-wrapper">
+        <% @conversation_messages.each_with_index do |message, index| %>
+          <%= render partial: "partials/inbox/format_conversation_body", locals: { message: message, previous_message: index == 0 ? "" : @conversation_messages[index - 1] } %>
+        <% end %>
+      </div>
+      <div class="card__section">
+        <fieldset class="fieldset">
+          <%= simple_form_for(Message.create, url: user_messages_path(conversation_id: @conversation.id), method: :post) do |f| %>
+            <div class="field">
+              <%= f.input :body, type: "text", wrapper: :text_area, placeholder: t("messages.placeholder"), label: false %>
+            </div>
+            <div class="field u-text-right">
+              <%= f.submit t("messages.submit"), class: "btn btn--primary btn--xs-full" %>
+            </div>
+          <% end %>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</section>

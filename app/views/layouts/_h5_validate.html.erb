@@ -1,0 +1,11 @@
+<%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/h5Validate/0.9.0/jquery.h5validate.min.js" %>
+
+<%= content_for :page_scripts do %>
+  <script>
+    $(document).ready(function () {
+      try { $('form').h5Validate() }
+
+      catch(err) { return }
+    });
+  </script>
+<% end %>

@@ -1,0 +1,28 @@
+<div class="modal js-send-business-message">
+  <% if @message && controller_name == "businesses" %>
+    <div class="modal__table">
+      <div class="modal__cell">
+        <div class="modal__container">
+          <button class="js-close-modal modal__close">
+            <%= inline_svg("icons/close.svg", class: "icon") %>
+          </button>
+          <h2 class="modal__title"><%= t("send_message.title") %></h2>
+          <p><%= t("send_message.prompt") %> <%= @business.name %>.</p>
+          <fieldset class="fieldset">
+            <%= form_for @message, url: user_messages_path do |f| %>
+              <%= f.hidden_field :notification_type, value: "business message" %>
+              <div class="field">
+                <div class="field__input-wrapper">
+                  <%= f.text_area :body, type: "text", class: "field__input field__input--textarea", label: false, placeholder: t("send_message.placeholder") %>
+                </div>
+              </div>
+              <div class="field">
+                <%= f.submit t("send_message.submit"), class: "btn btn--full btn--primary" %>
+              </div>
+            <% end %>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

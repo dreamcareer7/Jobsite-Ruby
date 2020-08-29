@@ -1,0 +1,9 @@
+<% content_for :breadcrumbs do %>
+  <%= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [], current_breadcrumb: { name: @category.name, count: @category.active_businesses_in_city(@current_city) } } %>
+<% end %>
+
+<% content_for :section_header do %>
+  <%= render partial: "partials/businesses/listing_header", locals: { listing_type: @category, city: @current_city, listing_banner: @category.category_metadata.present? ? @category.category_metadata.banner.url(:large) : image_path("missing/hero.jpg"), filter: params[:filter_by] } %>
+<% end %>
+
+<%= render partial: "partials/businesses/sub_categories_and_services" %>

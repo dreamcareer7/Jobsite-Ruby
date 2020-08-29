@@ -1,0 +1,68 @@
+$(document).ready( function() {
+  $('.js-services-table').dataTable({
+    serverSide: true,
+    bFilter: false,
+    bLengthChange: false,
+    bInfo: false,
+    ajax: $('.js-services-table').data('source'),
+    columns: [
+      {
+        data: 'name_en',
+        render: function (data, type, row, meta) {
+          return '<a href="/admin/services/' + row.id + '/edit">' + data + '</a>';
+        }
+      },
+      {
+        data: 'name_ar',
+        render: function (data, type, row, meta) {
+          return '<a href="/admin/services/' + row.id + '/edit">' + data + '</a>';
+        }
+      },
+      {
+        data: 'category_id',
+        visible: false
+      },
+      {
+        data: 'category',
+        sortable: false
+      },
+      {
+        data: 'sub_category_id',
+        visible: false
+      },
+      {
+        data: 'subcategory',
+        sortable: false
+      },
+      {
+        data: 'businesses',
+        sortable: false
+      },
+      {
+        data: 'banner',
+        render: function (data, type, row, meta) {
+          return data ? 'Yes' : 'No'
+        },
+        sortable: false
+      },
+      {
+        data: null,
+        sortable: false,
+        render: function (data, type, row, meta) {
+          return '<a class="tooltip" title="View" target="_blank" href="/services/' + row.id + '"><%= image_tag("icons/eye.svg", class: "icon icon--dark icon--small") %></a> <a class="tooltip" title="Edit" href="/admin/services/' + row.id + '/edit"><%= image_tag("icons/pencil.svg", class: "icon icon--dark icon--small") %></a>' + (data.role === 'superadmin' ? '<a class="tooltip" title="Delete" rel="nofollow" data-method="delete" href="/admin/services/' + row.id + '" data-confirm="Are you sure?"><%= image_tag("icons/trash.svg", class: "icon icon--dark icon--small") %></a> ' : '') + (row.disabled ? '<a class="tooltip" title="Enable" data-method="put" href="/admin/services/' + row.id + '/enable"><%= image_tag("icons/verified.svg", class: "icon icon--dark icon--small") %></a>' : '<a class="tooltip" title="Disable" data-method="put" href="/admin/services/' + row.id + '/disable"><%= image_tag("icons/close-small.svg", class: "icon icon--dark icon--small") %></a>');
+        }
+      }
+    ],
+    searchCols: [
+      null,
+      null,
+      null,
+      null,
+      { "search" : $('.js-services-table').data('sub-category-id') },
+      null,
+      null
+    ],
+    dom: "ritp",
+    pageLength: 30
+  }); // dataTable
+}); // document.ready

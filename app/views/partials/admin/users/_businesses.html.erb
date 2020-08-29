@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card__section">
+
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--sm-8">
+        <h3 class="mb2">Businesses</h3>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Cities</th>
+            <th>Categories</th>
+            <th>Updated</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @user.businesses.each do |b| %>
+          <tr>
+            <td><a href="/admin/businesses/<%= b.id %>/edit"><%= b.name %></a></td>
+            <th><%= b.cities.map(&:name).join(",") %></th>
+            <th><%= b.categories.distinct.map(&:name).join(",") %></th>
+            <th><%= b.updated_at %></th>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+    </div> <!-- grid -->
+  </div> <!-- card__section -->
+</div> <!-- card -->

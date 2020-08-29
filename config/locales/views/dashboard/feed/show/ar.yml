@@ -1,0 +1,12 @@
+ar:
+
+  feed:
+    shortlisted: "القائمة النهائية مع "
+    others: "أخرى"
+    budget: "الميزانية"
+    status: "حالة المشروع"
+    start_date: "تاريخ البدء"
+    end_date: "تاريخ الإنتهاء"
+    location: "نوع الموقع"
+    Role: "الوظيفة"
+    historical: "الهيكل التاريخي"

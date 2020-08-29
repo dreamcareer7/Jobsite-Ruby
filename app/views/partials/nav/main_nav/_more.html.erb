@@ -1,0 +1,21 @@
+<li class="list__item has-popover">
+  <button class="js-open-popover list__link nav__link" href="#"><%= t("main_nav.more") %> ▾</button>
+  <div class="popover popover--right popover--arrow popover--arrow-ne">
+    <%= link_to t("footer.near_you"), businesses_path(city: @current_city.slug, filter_by: "Distance"), class: "popover__link" %>
+    <%= link_to t("main_nav.categories"), categories_path(city: @current_city.slug), class: "popover__link" %>
+    <% if current_user %>
+      <%= link_to t("main_nav.post_a_project"), new_user_project_path, class: "popover__link" %>
+    <% else %>
+      <button data-modal="please-log-in" data-modal-target="project" class="js-open-modal popover__link"><%= t("main_nav.post_a_project") %></button>
+    <% end %>
+    <%= link_to t("main_nav.gallery"), gallery_index_path, class: "popover__link" %>
+    <%= link_to t("main_nav.contact"), "/pages/contact", class: "popover__link" %>
+    <span data-modal="problem" class="js-open-modal js-claim-menu popover__link"><%= t("business.report") %></span>
+    <% if I18n.locale == :en %>
+      <%= link_to "العربية", set_language_path(language: :ar), method: :put, class: "popover__link" %>
+    <% else %>
+      <%= link_to "English", set_language_path(language: :en), method: :put, class: "popover__link" %>
+    <% end %>
+  </div>
+</li>
+<div class="nav__divider nav__divider--tight"></div>

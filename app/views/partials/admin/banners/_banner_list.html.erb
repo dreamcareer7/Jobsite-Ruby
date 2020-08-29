@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="card__section">
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--sm-8">
+        <h3 class="mb2"><%= banner_type %> Banners</h3>
+      </div>
+      <div class="grid__col--xs-12 grid__col--sm-4 u-text-right--small">
+        <a class="btn btn--xs-full btn--primary btn--small" href="/admin/banners/new/?banner_type=<%= new_type %>">Add Banner</a>
+      </div>
+    </div>
+    <table id="js-banners-table" data-source="<%= source %>">
+      <thead>
+        <tr>
+          <th>Image(en)</th>
+          <th>Image(ar)</th>
+          <th>Start date</th>
+          <th>End date</th>
+          <th>Locations</th>
+          <th>Listings</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<%= content_for :page_scripts do %>
+  <%= javascript_include_tag 'admin/datatables/banners' %>
+<% end %>

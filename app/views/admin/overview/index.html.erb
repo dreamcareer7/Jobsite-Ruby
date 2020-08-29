@@ -1,0 +1,140 @@
+<div class="js-admin-stats">
+  <div class="card">
+
+    <div class="card__section">
+      <div class="grid grid--middle">
+        <div class="grid__col--xs-12 grid__col--md-8 grid__col--lg-9">
+          <h3>
+            <%= inline_svg("icons/user.svg", class: "icon icon--small icon--dark") %>
+            User Analytics (30 days)
+          </h3>
+        </div>
+        <div class="grid__col--xs-12 grid__col--md-4 grid__col--lg-1">
+          <p style="margin-right: 10px; display: none;" class="js-stats-loading">Loading...</p>
+        </div>
+        <div class="grid__col--xs-12 grid__col--md-4 grid__col--lg-2">
+          <div class="field">
+            <div class="field__input-wrapper u-hide">
+              <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+              <select class="field__input field__input--right-add-on js-stats-time-range">
+                <option selected value="<%= 30.days.ago.to_i %>-<%= 0.days.ago.to_i %>"></option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card__section card__section--border">
+      <div class="grid">
+        <div class="grid__col--xs-12 grid__col--md-12">
+          <div class="grid">
+            <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-3">
+              <%= link_to admin_users_path do %>
+                <p class="mb0"><%= t("stats.total_users") %></p>
+                <h2 class="m0" rv-text="stats.total">-</h2>
+              <% end %>
+            </div>
+            <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-3">
+              <%= link_to admin_users_path do %>
+                <p class="mb0"><%= t("stats.total_paid_users") %></p>
+                <h2 class="m0" rv-text="stats.total_paid">-</h2>
+              <% end %>
+            </div>
+            <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-3">
+              <%= link_to admin_users_path do %>
+                <p class="mb0"><%= t("stats.new_users") %></p>
+                <h2 class="m0" rv-text="stats.new">-</h2>
+              <% end %>
+            </div>
+            <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-3">
+              <%= link_to admin_users_path do %>
+                <p class="mb0"><%= t("stats.new_paid_users") %></p>
+                <h2 class="m0" rv-text="stats.new_paid">-</h2>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card__section card__section--border">
+      <div class="js-stats-graph" data-series="users"></div>
+    </div>
+
+
+    <div class="card__section card__section--border">
+      <div class="card__header">
+        <h3 class="card__title">
+          <%= inline_svg("icons/clipboard.svg", class: "icon icon--small icon--dark") %>
+          Businesses
+        </h3>
+      </div>
+      <div class="grid">
+        <div class="grid__col--xs-12 grid__col--md-12">
+          <div class="grid">
+            <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-3">
+              <%= link_to admin_businesses_path do %>
+                <p class="mb0">Total businesses</p>
+                <h2 class="m0"><%= @total_businesses.count %></h2>
+              <% end %>
+            </div>
+            <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-3">
+              <%= link_to admin_businesses_path(filter: 'unapproved') do %>
+                <p class="mb0">Total unapproved businesses</p>
+                <h2 class="m0"><%= @total_unapproved_businesses.count %></h2>
+              <% end %>
+            </div>
+            <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-3">
+              <%= link_to admin_businesses_path do %>
+                <p class="mb0">New businesses (last 30 days)</p>
+                <h2 class="m0"><%= @total_new_businesses.count %></h2>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card__section card__section--border">
+      <div class="card__header">
+        <h3 class="card__title">
+          <%= inline_svg("icons/paint.svg", class: "icon icon--small icon--dark") %>
+          Projects
+        </h3>
+      </div>
+      <div class="grid">
+        <div class="grid__col--xs-12 grid__col--md-12">
+          <div class="grid">
+            <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-3">
+              <%= link_to admin_projects_path do %>
+                <p class="mb0">Total projects</p>
+                <h2 class="m0"><%= @total_projects.count %></h2>
+              <% end %>
+            </div>
+            <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-3">
+              <%= link_to admin_projects_path do %>
+                <p class="mb0">Total unapproved projects</p>
+                <h2 class="m0"><%= @total_unapproved_projects.count %></h2>
+              <% end %>
+            </div>
+            <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-3">
+              <%= link_to admin_projects_path do %>
+                <p class="mb0">New projects (last 30 days)</p>
+                <h2 class="m0"><%= @total_new_projects.count %></h2>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<% content_for :page_scripts do %>
+  <%= javascript_include_tag 'business-stats' %>
+
+  <script>
+    initStats({ endpointModule: 'users' })
+  </script>
+<% end %>

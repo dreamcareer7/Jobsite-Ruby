@@ -1,0 +1,106 @@
+<section class="section section--alt">
+  <div class="site-wrap">
+    <h1 class="section-heading"><%= t("review_form.leave_review") %></h1>
+    <div class="grid grid--center">
+      <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-8">
+        <div class="card">
+          <div class="card__section card__section--padded">
+            <%= simple_form_for [:user, @review] do |f| %>
+              <fieldset class="fieldset">
+                <div class="grid">
+                  <div class="grid__col--xs-12 grid__col--md-12">
+                    <div class="field">
+                      <p>
+                        <%= t("review_form.feedback_blurb") %>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("review_form.project") %></label>
+                      <div class="field__input-wrapper">
+                        <span class="u-text-bold"><%= @project.title %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("review_form.business") %></label>
+                      <div class="field__input-wrapper">
+                        <span class="u-text-bold"><%= @project.business.name %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("review_form.reliability") %></label>
+                      <div class="field__input-wrapper">
+                        <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                        <%= f.input :reliability, collection: 1..5, input_html: { class: "field__input field__input-right-add-on" }, label: false, required: true %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("review_form.tidiness") %></label>
+                      <div class="field__input-wrapper">
+                        <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                        <%= f.input :tidiness, collection: 1..5, input_html: { class: "field__input field__input-right-add-on" }, label: false, required: true %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("review_form.courtesy") %></label>
+                      <div class="field__input-wrapper">
+                        <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                        <%= f.input :courtesy, collection: 1..5, input_html: { class: "field__input field__input-right-add-on" }, label: false, required: true %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("review_form.workmanship") %></label>
+                      <div class="field__input-wrapper">
+                        <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                        <%= f.input :workmanship, collection: 1..5, input_html: { class: "field__input field__input-right-add-on" }, label: false, required: true %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("review_form.value") %></label>
+                      <div class="field__input-wrapper">
+                        <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                        <%= f.input :value_for_money, collection: 1..5, input_html: { class: "field__input field__input-right-add-on" }, label: false, required: true %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <div class="field">
+                      <label class="field__label"><%= t("review_form.recommended") %></label>
+                      <div class="field__input-wrapper">
+                        <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                        <%= f.input :recommended, collection: [ [t("words.yes"), true], [t("word.no"), false] ], input_html: { class: "field__input field__input-right-add-on" }, label: false, required: true %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-12">
+                    <div class="field">
+                      <%= f.input :comment, wrapper: :text_area %>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 u-text-right">
+                    <div class="field">
+                      <%= f.submit "Submit", class: "btn btn--xs-full btn--primary" %>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

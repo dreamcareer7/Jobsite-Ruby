@@ -1,0 +1,24 @@
+<section class="section section--alt">
+  <div class="site-wrap">
+    <h1 class="section-heading">Change your password</h1>
+    <div class="grid grid--center">
+      <div class="grid__col--xs-12 grid__col--sm-10 grid__col--md-6 grid__col--lg-5 grid__col--xlg-4">
+        <fieldset class="fieldset">
+          <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+            <%= f.error_notification %>
+            <%= f.input :reset_password_token, as: :hidden %>
+            <%= f.full_error :reset_password_token %>
+            <div class="field">
+              <div class="field__input-wrapper">
+                <%= f.input :password, label: "New password", wrapper: :text_field, required: true, autofocus: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+              </div>
+            </div>
+            <div class="field">
+              <%= f.submit "Change password", id: "log-in", class: "btn btn--full btn--primary" %>
+            </div>
+          <% end %>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</section>

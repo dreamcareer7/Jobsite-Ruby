@@ -1,0 +1,25 @@
+<div class="modal js-claim-business">
+  <div class="modal__table">
+    <div class="modal__cell">
+      <div class="modal__container">
+        <button class="js-close-modal modal__close">
+          <%= inline_svg("icons/close.svg", class: "icon") %>
+        </button>
+        <h2 class="modal__title"><%= t("claim_business.title") %></h2>
+        <p><%= t("claim_business.description") %></p>
+        <%= simple_form_for AdminNotification.new, url: admin_notifications_path do |f| %>
+          <fieldset class="fieldset">
+            <%= f.input :user_number, wrapper: :text_field, placeholder: t("phrases.number"), label: false, required: true, input_html: { value: current_user.mobile_number } %>
+            <%= f.input :content, wrapper: :text_area, as: :text, placeholder: t("contact_email.body"), label: false, required: true %>
+            <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+            <%= f.input :business_id, as: :hidden, input_html: { value: @business.id } %>
+            <%= f.input :notification_type, as: :hidden, input_html: { value: "business_claim" } %>
+            <div class="field u-text-right">
+              <%= f.submit t("contact_email.submit"), class: "btn btn--xs-full btn--primary" %>
+            </div>
+          </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

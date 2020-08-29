@@ -1,0 +1,329 @@
+// Text
+
+.u-text-muted {
+  opacity: 0.7;
+}
+
+.u-text-dark {
+  color: $grey-dark !important;
+}
+
+.u-text-inherit {
+  color: inherit !important;
+}
+
+.u-text-contrast {
+  color: $white !important;
+}
+
+.u-text-light {
+  color: $grey-light !important;
+}
+
+.u-link {
+  color: $grey;
+
+  &:hover {
+    color: $grey-dark;
+  }
+}
+
+.u-link-contrast {
+  color: rgba($white, 0.7) !important;
+
+  &:hover {
+    color: $white !important;
+  }
+}
+
+.u-link-white {
+  color: $white !important;
+
+  &:hover {
+    color: rgba($white, 0.7) !important;
+  }
+}
+
+.u-text-paragraph {
+  white-space: pre-wrap;
+}
+
+.u-text-break-word {
+  word-break: break-all;
+}
+
+.u-text-reset {
+  color: $grey;
+}
+
+.u-text-turquoise {
+  color: $turquoise;
+}
+
+.u-text-underline {
+  text-decoration: underline;
+}
+
+.u-text-italic {
+  font-style: italic;
+}
+
+.u-text-caps {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.u-text-regular {
+  @include font-regular;
+}
+
+.u-text-bold {
+  @include font-bold;
+}
+
+.u-text-pointer {
+  cursor: pointer;
+}
+
+
+// States
+
+.u-text-accent {
+  color: $red !important;
+}
+
+.u-text-positive {
+  color: $green !important;
+}
+
+.u-text-yellow {
+  color: $yellow !important;
+}
+
+.u-text-blur {
+  -webkit-filter:blur(2px);
+  -moz-filter:blur(2px);
+  -o-filter:blur(2px);
+  filter:blur(2px);
+}
+
+.u-hover-muted {
+  &:hover {
+    opacity: 0.92 !important;
+  }
+}
+
+.u-hover-underline {
+  &:hover {
+    text-decoration: underline !important;
+  }
+}
+
+.u-hover-dark {
+  &:hover {
+    color: $grey-dark !important;
+  }
+}
+
+// Shadow
+
+.u-text-shadow {
+  text-shadow: 0px 1px 2px rgba($black, 0.2);
+}
+
+.u-box-shadow {
+  @include drop-shadow;
+}
+
+
+// Misc
+
+.u-rounded {
+  border-radius: $border-radius;
+}
+
+.u-rounded-half {
+  border-radius: $border-radius/2;
+}
+
+.u-circle {
+  border-radius: 50%;
+}
+
+.u-cover {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.u-block {
+  display: block !important;
+}
+
+.u-inline-block {
+  display: inline-block;
+}
+
+.u-relative {
+  position: relative;
+}
+
+.u-clickthrough {
+  pointer-events: none;
+}
+
+.u-width-auto {
+  width: auto !important;
+}
+
+.u-full {
+  width: 100%;
+}
+
+.u-full--small-down {
+  @include mq(small-down) {
+    width: 100%;
+  }
+}
+
+.u-border {
+  border: 1px solid $border;
+}
+
+.u-border--unread {
+  //important used to override card__section--border
+  border: 1px solid rgba(0, 96, 193, 0.30) !important;
+}
+
+.u-visuallyhidden {
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip: rect(0, 0, 0, 0);
+  position: absolute;
+}
+
+.u-fade-in {
+  animation: fadein 1.5s;
+}
+
+@keyframes fadein {
+  0% { opacity: 0; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+
+// Flex
+
+.u-flex {
+  display: flex !important;
+}
+
+.u-flex-middle {
+  align-items: center !important;
+}
+
+.u-flex-column {
+  flex-direction: column !important;
+}
+
+.u-inline-flex {
+  display: inline-flex !important;
+}
+
+.u-flex-wrap {
+  flex-wrap: wrap !important;
+}
+
+.u-flex-grow {
+  flex: 1;
+}
+
+
+// Ellipsis
+
+.u-truncate {
+  text-overflow: ellipsis;
+  max-width: 95%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+
+// Text direction
+
+.u-ltr {
+  direction: ltr;
+}
+
+.u-rtl {
+  direction: rtl;
+}
+
+
+
+// Show/hide
+
+.u-hide--large-down {
+  @include mq(large-down) {
+    display: none !important;
+  }
+}
+
+.u-hide--large {
+  @include mq(large) {
+    display: none !important;
+  }
+}
+
+.u-hide--medium {
+  @include mq(medium) {
+    display: none !important;
+  }
+}
+
+.u-hide--medium-only {
+  @include mq(medium-only) {
+    display: none !important;
+  }
+}
+
+.u-hide--medium-down {
+  @include mq(medium-down) {
+    display: none !important;
+  }
+}
+
+.u-hide--small-down {
+  @include mq(small-down) {
+    display: none !important;
+  }
+}
+
+.u-hide--small {
+  @include mq(small) {
+    display: none !important;
+  }
+}
+
+.u-hide--xsmall-only {
+  @include mq(xsmall-only) {
+    display: none !important;
+  }
+}
+
+.u-hide {
+  display: none !important;
+}
+
+
+// Colors
+
+.u-bg-turquoise {
+  background-color: $turquoise !important;
+}
+

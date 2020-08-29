@@ -1,0 +1,22 @@
+<nav class="js-mobile-nav mobile-nav">
+  <ul class="list mobile-nav__list">
+    <li class="mobile-nav__item list__item">
+      <button class="mobile-nav__link u-text-right mobile-nav__close js-mobile-nav-trigger">
+        <%= inline_svg("icons/close.svg", class: "icon") %>
+      </button>
+    </li>
+
+    <% if current_admin %>
+      <li class="mobile-nav__item list__item"><%= link_to t("main_nav.log_out"), destroy_user_session_path, class: "h3 list__link mobile-nav__link" %></li>
+    <% end %>
+
+    <% if I18n.locale == :en %>
+      <li class="mobile-nav__item list__item"><%= link_to "العربية", set_language_path(language: :ar), method: :put, class: "h3 list__link mobile-nav__link" %></li>
+    <% else %>
+      <li class="mobile-nav__item list__item"> <%= link_to "English", set_language_path(language: :en), method: :put, class: "h3 list__link mobile-nav__link" %></li>
+    <% end %>
+
+  </ul>
+</nav>
+<nav class="js-mobile-nav-backdrop js-mobile-nav-trigger mobile-nav-backdrop"></nav>
+

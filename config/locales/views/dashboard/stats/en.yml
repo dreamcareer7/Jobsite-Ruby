@@ -1,0 +1,56 @@
+en:
+
+  stats:
+    today: "Today"
+    yesterday: "Yesterday"
+    this_week: "This week"
+    last_week: "Last week"
+    this_month: "This month"
+    last_month: "Last month"
+    last_year: "Last Year"
+    this_year: "This Year"
+    all_time: "All Time"
+    my_page: "My page"
+    profile: "Profile views"
+    portfolio: "Portfolio views"
+    listing: "Listing views"
+    recommendations: "Recommendations"
+    favourites: "Favourites"
+    image_blurb: "Profile views"
+    user_actions:
+      header: "User actions"
+      website: "Website visits"
+      number: "Phone number reveals"
+      callback: "Callback requests"
+      social: "Social media visits"
+      messages: "New messages"
+    my_projects:
+      header: "My projects"
+      applied: "Projects applied"
+      shortlisted: "Projects shortlisted"
+      won: "Projects won"
+      reviews: "Customer reviews"
+      completed: "Projects completed"
+    phone_calls: Phone calls
+    projects_posted: Projects posted
+    callback_requests: Callback requests
+    messages_by_users: User messages
+    responses_by_businesses: Business messages
+    website_visits: Website visits
+    social_media_visits: Social media visits
+    total_amount: Total amount
+    new_businesses: New businesses
+    most_viewed: Most viewed
+    most_followed: Most followed
+    new_users: New users
+    paid_users: New paid users
+    total_users: Total users
+    total_paid_users: Total paid users
+    new_vendors: New vendors
+    paid_vendors: New paid vendors
+    new_projects: New projects
+    projects_accepted: Projects accepted
+    projects_completed: Projects completed
+    projects_cancelled: Projects cancelled
+    projects_progress: Number of projects in progress
+    projects_matching: Number of projects in matching

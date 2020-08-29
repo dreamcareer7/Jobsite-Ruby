@@ -1,0 +1,192 @@
+<div class="grid__col--xs-12 grid__col--md-12 mb2">
+  <h3><%= link_to 'Projects /', admin_projects_path,  class: 'u-text-light u-text-regular' %> <%= @project.title %></h3>
+</div>
+
+<div class="grid grid--center">
+  <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-12">
+    <div class="card">
+
+      <div class="card__section card__section--padded">
+        <div class="card__header">
+          <h4 class="card__title"><%= inline_svg("icons/briefcase.svg", class: "icon icon--dark icon--small") %><%= t("post_project.header.general") %></h4>
+        </div>
+        <fieldset class="fieldset">
+          <div class="grid">
+            <div class="grid__col--xs-12 grid__col--md-6">
+              <div class="field">
+                  <label class="field__label"><%= t("post_project.fields.project_name.label") %></label>
+                  <p class="u-text-dark"><%= @project.title %></p>
+              </div>
+            </div>
+            <div class="grid__col--xs-12 grid__col--md-6">
+              <div class="field">
+                  <label class="field__label">Project status</label>
+                  <p class="u-text-dark"><%= @project.project_status %></p>
+              </div>
+            </div>
+            <div class="grid__col--xs-12 grid__col--md-12">
+              <div class="field">
+                <div class="field__input-wrapper">
+                  <label class="field__label"><%= t("post_project.fields.description.label") %></label>
+                  <p class="u-text-dark"><%= @project.description %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="card__section card__section--padded">
+        <div class="card__header">
+          <h4 class="card__title"><%= inline_svg("icons/location.svg", class: "icon icon--dark icon--small") %><%= t("post_project.header.location") %></h4>
+        </div>
+        <fieldset class="fieldset">
+          <div class="grid">
+            <% if @project.location.location_type.present? %>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <div class="field">
+                  <label class="field__label"><%= t("business_profile.fields.locations.type.label") %></label>
+                  <div class="field__input-wrapper">
+                    <p class="u-text-dark"><%= @project.location.location_type %></p>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            <div class="grid__col--xs-12 grid__col--md-6">
+              <div class="field">
+                <label class="field__label"><%= t("business_profile.fields.locations.country.label") %></label>
+                <p class="u-text-dark"><%= @project.location.country.name %></p>
+              </div>
+            </div>
+            <div class="grid__col--xs-12 grid__col--md-6">
+              <div class="field">
+                <label class="field__label"><%= t("business_profile.fields.locations.city.label") %></label>
+                <p class="u-text-dark"><%= @project.location.city.name %></p>
+              </div>
+            </div>
+            <div class="grid__col--xs-12 grid__col--md-6">
+              <div class="field">
+                <label class="field__label"><%= t("add_business.fields.street_address.label") %></label>
+                <p class="u-text-dark"><%= @project.location.street_address %></p>
+              </div>
+            </div>
+            <% if @project.location_class %>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <div class="field">
+                  <label class="field__label"><%= t("post_project.fields.location_type.label") %></label>
+                  <p class="u-text-dark"><%= @project.location_class %></p>
+                </div>
+              </div>
+            <% end %>
+            <div class="grid__col--xs-12 grid__col--md-6">
+              <div class="field">
+                <label class="field__label"><%= t("post_project.fields.historical_structure.label") %></label>
+                <p class="u-text-dark"><%= @project.historical_structure ? "Yes" : "No" %></p>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="card__section card__section--padded">
+        <div class="card__header">
+          <h4 class="card__title"><%= inline_svg("icons/pencil.svg", class: "icon icon--dark icon--small") %><%= t("post_project.header.details") %></h4>
+        </div>
+        <fieldset class="fieldset">
+          <div class="grid">
+            <div class="grid__col--xs-12 grid__col--xlg-6">
+              <div class="field">
+                <label class="field__label"><%= t("post_project.fields.budget.label") %></label>
+                <p class="u-text-dark"><%= @project.project_budget %></p>
+              </div>
+            </div>
+            <% if @project.timeline_type.present? %>
+              <div class="grid__col--xs-12 grid__col--xlg-6">
+                <div class="field">
+                  <label class="field__label"><%= t("post_project.fields.timeline.label") %></label>
+                  <p class="u-text-dark"><%= @project.timeline_type %></p>
+                </div>
+              </div>
+            <% end %>
+            <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
+              <div class="field">
+                <label class="field__label"><%= t("post_project.fields.start_date.label") %></label>
+                <p class="u-text-dark"><%= @project.start_date %></p>
+              </div>
+            </div>
+            <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
+              <div class="field">
+                <label class="field__label"><%= t("post_project.fields.end_date.label") %></label>
+                <p class="u-text-dark"><%= @project.end_date %></p>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="card__section card__section--padded">
+        <div class="card__header">
+          <h4 class="card__title"><%= inline_svg("icons/paint.svg", class: "icon icon--dark icon--small") %>Project Services</h4>
+        </div>
+        <fieldset class="fieldset">
+          <div class="grid">
+            <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
+              <div class="field">
+                <label class="field__label">Category</label>
+                <p class="u-text-dark"><%= @project.category.name %></p>
+              </div>
+            </div>
+            <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
+              <div class="field">
+                <label class="field__label">SubCategories</label>
+                <p class="u-text-dark"><%= @project.sub_categories.visible.distinct.collect(&:name).join(", ") %></p>
+              </div>
+            </div>
+            <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
+              <div class="field">
+                <label class="field__label">Services</label>
+                <p class="u-text-dark"><%= @project.services.visible.distinct.collect(&:name).join(", ") %></p>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="card__section card__section--padded">
+        <div class="card__header">
+          <h4 class="card__title"><%= inline_svg("icons/user.svg", class: "icon icon--dark icon--small") %><%= t("post_project.header.project_contact") %></h4>
+        </div>
+        <fieldset class="fieldset">
+          <div class="grid">
+            <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
+              <div class="field">
+                <label class="field__label"><%= t("post_project.fields.contact.name.label") %></label>
+                <p class="u-text-dark"><%= @project.contact_name %></p>
+              </div>
+            </div>
+            <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
+              <div class="field">
+                <label class="field__label"><%= t("post_project.fields.contact.email.label") %></label>
+                <p class="u-text-dark"><%= @project.contact_email %></p>
+              </div>
+            </div>
+            <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
+              <div class="field">
+                <label class="field__label"><%= t("post_project.fields.contact.role.label") %></label>
+                <p class="u-text-dark"><%= @project.contact_role %></p>
+              </div>
+            </div>
+            <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
+              <div class="field">
+                <label class="field__label"><%= t("post_project.fields.contact.number.label") %></label>
+                <p class="u-text-dark"><%= @project.contact_number %></p>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,65 @@
+<div class="js-featured-project js-cocoon-fields">
+  <div class="card__section card__section--border js-toggle-featured-project">
+    <div class="u-flex">
+      <h4 class="card__title"><%= inline_svg("icons/gallery.svg", class: "icon icon--brand icon--small") %><%= f.object.title.present? ? f.object.title : t("words.project") %></h4>
+      <%= inline_svg("icons/dropdown.svg", class: "u-text-pointer icon icon--dark") %>
+    </div>
+  </div>
+  <div class="card__section card__section--border js-toggle-target u-hide">
+    <fieldset class="fieldset">
+      <div class="grid">
+        <% I18n.available_locales.each do |locale| %>
+          <div class="grid__col--xs-12 grid__col--md-6">
+            <%= f.input "title_#{ locale }", wrapper: :text_field, label: " #{ t("business_profile.fields.featured_projects.title.label", locale: locale) } (#{ locale })", input_html: { class: input_text_direction(locale) }, required: true %>
+          </div>
+        <% end %>
+        <% I18n.available_locales.each do |locale| %>
+          <div class="grid__col--xs-12 grid__col--md-12">
+            <%= f.input "description_#{ locale }", as: :text, wrapper: :text_area, label: " #{ t("business_profile.fields.featured_projects.description.label", locale: locale) } (#{ locale })", input_html: { class: input_text_direction(locale) }, required: true %>
+          </div>
+        <% end %>
+        <div class="grid__col--xs-12 grid__col--md-6">
+          <%= f.input :video_link, wrapper: :text_field, label: t("business_profile.fields.featured_projects.video_link.label"), required: false %>
+        </div>
+      </div>
+      <div class="field js-upload-fields">
+        <div class="field field--has-btn">
+          <div class="field__input-wrapper">
+            <%= f.input :image_one, as: :file, input_html: { class: "js-file-upload", hidden: true }, label: false %>
+            <div type="text" class="field__input js-file-upload-name">
+              <span class="u-text-light js-file-upload-name"><%= f.object.image_one.present? ? f.object.image_one_file_name : t("business_profile.fields.featured_projects.photo.no_file") %></span>
+            </div>
+            <a class="field__btn btn btn--secondary js-file-upload-button"><%= t("business_profile.fields.featured_projects.photo.browse") %></a>
+          </div>
+        </div>
+      </div>
+      <div class="field js-upload-fields">
+        <div class="field field--has-btn">
+          <div class="field__input-wrapper">
+            <%= f.input :image_two, as: :file, input_html: { class: "js-file-upload", hidden: true }, label: false %>
+            <div type="text" class="field__input js-file-upload-name">
+              <span class="u-text-light js-file-upload-name"><%= f.object.image_two.present? ? f.object.image_two_file_name : t("business_profile.fields.featured_projects.photo.no_file") %></span>
+            </div>
+            <a class="field__btn btn btn--secondary js-file-upload-button"><%= t("business_profile.fields.featured_projects.photo.browse") %></a>
+          </div>
+        </div>
+      </div>
+      <div class="field js-upload-fields">
+        <div class="field field--has-btn">
+          <div class="field__input-wrapper">
+            <%= f.input :image_three, as: :file, input_html: { class: "js-file-upload", hidden: true }, label: false %>
+            <div type="text" class="field__input js-file-upload-name">
+              <span class="u-text-light js-file-upload-name"><%= f.object.image_three.present? ? f.object.image_three_file_name : t("business_profile.fields.featured_projects.photo.no_file") %></span>
+            </div>
+            <a class="field__btn btn btn--secondary js-file-upload-button"><%= t("business_profile.fields.featured_projects.photo.browse") %></a>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="grid__col--xs-12 grid__col--md-6">
+            <%= link_to_remove_association f, { wrapper_class: "js-cocoon-fields", class: "mt1 btn btn--secondary js-remove-field", data: { confirm: 'Are you sure you want to remove this gallery?'} } do %><%= t("words.remove") %><% end %>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>

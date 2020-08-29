@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card__section card__header card__section--border">
+    <h3 class="card__title">Categories</h3>
+  </div>
+  <div class="card__section">
+    <table class="js-categories-table" data-source="<%= admin_categories_path(format: :json) %>">
+      <thead>
+        <tr>
+          <th>Name (en)</th>
+          <th>Name (ar)</th>
+          <th>Businesses</th>
+          <th>Banner?</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+</script>
+
+<% content_for :page_scripts do %>
+  <%= javascript_include_tag 'admin/datatables/categories' %>
+<% end %>
+

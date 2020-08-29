@@ -1,0 +1,9 @@
+ar:
+  category_form:
+    fields:
+      name:
+        label: الإسم
+        placeholder: الإسم
+      subheadline:
+        label: الوصف
+        placeholder: الوصف

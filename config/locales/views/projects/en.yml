@@ -1,0 +1,42 @@
+en:
+
+  projects:
+    no_longer_interested: "No longer interested"
+    not_interested: "Not interested"
+    submit_quote: "Submit quote"
+    cancel_project: "Cancel project"
+    mark_complete: "Mark as complete"
+    project_complete: "Project is complete"
+    no_projects: "No projects at this time"
+    view_messages: "View messages"
+    location: "Location"
+    start_date: "Start date"
+    end_date: "End date"
+    budget: "Budget"
+    applicants: "Applicants"
+    shortlisted: "Shortlisted"
+    interested: "Interested"
+    edit_project: "Edit project"
+    view_project: "View project"
+    view_applicants: "View applicants"
+    help: "Need help with your project? Contact us"
+    leave_review: "Leave feedback"
+    cancel: "Cancel project"
+    category: "Category"
+    sub_categories: "Sub categories"
+    services: "Services"
+    project_types: "Project types"
+
+    user_instructions:
+      blurb: "How To Run A Successful Project"
+      step_one: "Shortlist the businesses you would like to work on your project"
+      step_two: "Message them to give them additional information so they can submit a proposal"
+      step_three: "Once the proposals have been submitted, select and hire a business to work on the project"
+      step_four: "After the project has come to an end, review the business"
+
+    business_instructions:
+      blurb: "How To Successfully Participate In A Project"
+      step_one: "Apply for projects that are relevant to your business"
+      step_two: "Once shortlisted, message project owners for additional information to create a proposal"
+      step_three: "Write and submit a proposal"
+      step_four: "Start working"

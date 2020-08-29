@@ -1,0 +1,41 @@
+// Table
+
+table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse !important;
+}
+
+tr {
+  border-bottom: 1px solid $border;
+
+  &:nth-child(even) {
+    background-color: $background !important;
+  }
+}
+
+td,
+th {
+  border: 0 !important; // Overwrite JS plugin
+  padding: $spacing-medium;
+}
+
+td.indented {
+  padding-left: $spacing-medium*2;
+}
+
+th {
+  @include caps-bold;
+}
+
+.sorting_desc:after,
+.sorting_asc:after {
+  margin-left: $spacing-small/2;
+  content: "▲";
+  font-size: 8px;
+  vertical-align: 2px;
+}
+
+.sorting_desc:after {
+  content: "▼";
+}

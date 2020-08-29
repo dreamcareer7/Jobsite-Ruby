@@ -1,0 +1,105 @@
+$('.js-vendors-table').dataTable({
+  serverSide: true,
+  bLengthChange: false,
+  bInfo: false,
+  ajax: $('.js-vendors-table').data('source'),
+  order: [[ 5, 'desc' ]],
+  columns: [
+    {
+      data: 'name',
+      render: function (data, type, row, meta) {
+        return '<a href="/admin/vendors/' + row.id + '/edit">' + data + '</a>';
+      }
+    },
+    {
+      data: 'email',
+      render: function( data, type, row, meta ){
+        return "<a href='mailto:#{data}'>" + data + '</a>';
+      }
+    },
+    {
+      data: 'location',
+      sortable: false
+    },
+    {
+      data: 'businesses',
+      sortable: false
+    },
+    {
+      data: 'lastlogin',
+      render: function (data, type, row, meta) {
+        return moment(data).isValid() ? moment(data).format("DD/MM/YY") : 'Never';
+      }
+    },
+    {
+      data: 'created_at',
+      render: function (data, type, row, meta) {
+        return moment(data).format("DD/MM/YY");
+      }
+    },
+    {
+      data: null,
+      sortable: false,
+      render: function (data, type, row, meta) {
+        return '<a class="tooltip" title="Edit" href="/admin/users/' + row.id + '/edit"><%= image_tag("icons/pencil.svg", class: "icon icon--dark icon--small") %></a>' + (data.role === 'superadmin' ? '<a class="tooltip" title="Delete" rel="nofollow" data-method="delete" href="/admin/users/' + row.id + '" data-confirm="Are you sure?"><%= image_tag("icons/trash.svg", class: "icon icon--dark icon--small") %></a> ' : '') + (row.disabled ? '<a class="tooltip" title="Enable" data-method="put" href="/admin/users/' + row.id + '/enable"><%= image_tag("icons/verified.svg", class: "icon icon--dark icon--small") %></a>' : '<a class="tooltip" title="Disable" data-method="put" href="/admin/users/' + row.id + '/disable"><%= image_tag("icons/close-small.svg", class: "icon icon--dark icon--small") %></a>');
+      }
+    }
+  ],
+  dom: "ritp",
+  pageLength: 30,
+  initComplete: function() {
+    var table = this;
+
+    // Select filters
+    $('.js-select-filter').each(function () {
+      var $filterSelect = $(this);
+      var columnIndex = +$filterSelect.data('column');
+      var column = table.api().column(columnIndex);
+
+      // Filter the column when the user picks an option
+      $filterSelect.on('change', function() {
+        var val = $.fn.dataTable.util.escapeRegex($filterSelect.val());
+        column.search(val ? val : '', false, false).draw();
+      });
+
+      // Add all possible options to the select
+      $filterSelect.append('<option value="">' + column.header().innerHTML + '</option>');
+
+      var entries = column.data().unique().sort().map( function (d, j) {
+        if (d === null) { return };
+        if (typeof d === 'object' && !d.length) {
+          return d.name;
+        } else {
+          return d;
+        }
+      });
+
+      // undefined is falsey so filtering false values works to remove undefined
+      entries = _.uniq(_.flattenDeep(entries)).filter(function(value) { return value !== undefined });
+
+      entries.forEach(function(entry) {
+        $filterSelect.append('<option value="' + entry + '">' + entry + '</option>');
+      });
+    });
+
+    // Text filters
+    $('.js-text-filter').each(function() {
+      var $filterInput = $(this);
+      var columnIndex = +$filterInput.data('column');
+      var column = table.api().column(columnIndex);
+
+      $filterInput.on('keyup change', function() {
+        if (column.search() !== this.value) {
+          column.search(this.value).draw();
+        }
+      }); // filterInput
+    }); // js-text-filter
+  } // initComplete
+}); // DataTable
+
+$('.js-vendors-table').on('draw.dt', function() {
+  $('.tooltip').tooltipster({
+    delay: 0,
+    animationDuration: 100
+  });
+});

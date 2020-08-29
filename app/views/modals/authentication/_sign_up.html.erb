@@ -1,0 +1,62 @@
+<% unless resource.is_a?(Admin) %>
+  <div class="modal js-sign-up">
+    <div class="modal__table">
+      <div class="modal__cell">
+        <div class="modal__container">
+          <button class="js-close-modal modal__close">
+            <%= inline_svg("icons/close.svg", class: "icon") %>
+          </button>
+          <h2 class="modal__title"><%= t("sign_up.title") %></h2>
+          <div class="grid grid--tight">
+            <div class="grid__col--xs-4">
+              <%= link_to user_omniauth_authorize_path(:facebook), class: "btn btn--facebook btn--full" do %>
+                <span class="u-visuallyhidden"><%= t("log_in.facebook") %></span>
+                <%= inline_svg("icons/facebook.svg", class: "btn__add-on btn__add-on--center icon icon--white") %>
+              <% end %>
+            </div>
+            <div class="grid__col--xs-4">
+              <%= link_to user_omniauth_authorize_path(:google_oauth2), class: "btn btn--google btn--full" do %>
+                <span class="u-visuallyhidden"><%= t("log_in.google") %></span>
+                <%= inline_svg("icons/google_plus.svg", class: "btn__add-on btn__add-on--center icon icon--white") %>
+              <% end %>
+            </div>
+            <div class="grid__col--xs-4">
+              <%= link_to user_omniauth_authorize_path(:linkedin), class: "btn btn--linkedin btn--full" do %>
+                <span class="u-visuallyhidden"><%= t("log_in.google") %></span>
+                <%= inline_svg("icons/linkedin.svg", class: "btn__add-on btn__add-on--center icon icon--white") %>
+              <% end %>
+            </div>
+          </div>
+          <div class="or-divider">
+            <small class="or-divider__text"><%= t("sign_up.or") %></small>
+          </div>
+          <div class="js-sign-up-error"></div>
+          <fieldset class="fieldset">
+            <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), remote: true) do |f| %>
+              <div class="field">
+                <%= f.input :name, placeholder: t("sign_up.name_placeholder"), wrapper: :text_field, label: false, required: true, type: "name" %>
+              </div>
+              <div class="field">
+                <%= f.input :prevent_autocomplete, as: :fake, input_html: { class: "u-hide", name: "user[email]", type: "text" }, label: false %>
+                <%= f.input :email, placeholder: t("sign_up.email_placeholder"), wrapper: :text_field, label: false, required: true, type: "email" %>
+              </div>
+              <div class="field">
+                <%= f.input :mobile_number, type: "tel", wrapper: "text_field", placeholder: t("sign_up.mobile_placeholder"), label: false %>
+              </div>
+              <div class="field">
+                <%= f.input :prevent_autocomplete, as: :fake, input_html: { class: "u-hide", name: "user[password]", type: "password" }, label: false %>
+                <%= f.input :password, placeholder: t("sign_up.password_placeholder"), wrapper: :text_field, label: false, required: true, type: "password" %>
+              </div>
+              <div class="field">
+                <%= f.submit t("sign_up.submit"), id: "sign-up", class: "btn btn--full btn--primary", label: false %>
+              </div>
+            <% end %>
+          </fieldset>
+          <p class="mt2"><%= t("sign_up.have_account") %> <button data-modal="log-in" class="u-text-accent u-hover-underline js-open-modal"><%= t("sign_up.log_in") %></button>.</p>
+          <hr class="divider">
+          <small class="u-text-muted"><%= t("sign_up.policy") %></small>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,43 @@
+<div class="grid__col--xs-4 grid__col--lg-3">
+  <div class="gallery-item js-open-image u-cover" data-photolink="<%= item.url(:large) %>" style="background-image: url('<%= item.url(:large) %>')">
+    <div class="gallery-item__description">
+      <div class="grid">
+        <div class="grid__col--xs-8">
+          <div class="media media--middle js-open-image-inner">
+            <% if owner.is_a?(SelfAddedProject) %>
+              <%= link_to business_path(id: owner.business.id, city: @current_city.slug) do %>
+                <%= image_tag(owner.business.logo.url(:small), class: "media__figure u-rounded-half u-hide--medium-down #{ 'fallback-logo' unless owner.business.logo.present? }", width: "40") %>
+              <% end %>
+            <% elsif owner.is_a?(Business) %>
+              <%= link_to business_path(id: owner.slug, city: @current_city.slug) do %>
+                <%= image_tag(owner.logo.url(:small), class: "media__figure u-rounded-half u-hide--medium-down #{ 'fallback-logo' unless owner.logo.present? }", width: "40") %>
+              <% end %>
+            <% else %>
+              <%= image_tag(owner.user.profile_image.url, class: "media__figure u-rounded-half u-hide--medium-down", width: "40") %>
+            <% end %>
+            <div class="media__body u-truncate">
+              <% if owner.is_a?(Project) %>
+                <strong class="u-text-left u-text-contrast"><%= owner.title %></strong><br>
+                <small class="u-text-contrast"><%= t("gallery.uploaded") %> <%= owner.user.name %></small>
+              <% elsif owner.is_a?(SelfAddedProject) %>
+                <%= link_to business_path(id: owner.business.slug, city: @current_city.slug, targetSection: 'projects-all'), class: 'u-hover-underline u-text-contrast' do %>
+                  <strong class="u-text-left u-text-contrast"><%= owner.title  %></strong><br>
+                  <small class="u-text-contrast"><%= t("gallery.uploaded") %> <%= owner.business.name %></small>
+                <% end %>
+              <% elsif owner.is_a?(Business) %>
+                <%= link_to business_path(id: owner.slug, city: @current_city.slug), class: 'u-hover-underline u-text-contrast' do %>
+                  <small class="u-text-contrast"><%= t("gallery.uploaded") %> <%= owner.name %></small>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <% if item.created_at.present? || owner.updated_at.present? %>
+          <div class="grid__col--xs-4 u-text-right">
+            <small class="u-text-muted"><%= time_ago_in_words(item.created_at.present? ? item.created_at : owner.created_at).gsub("about", "") %></small>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

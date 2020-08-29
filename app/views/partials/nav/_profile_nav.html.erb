@@ -1,0 +1,13 @@
+<nav class="nav secondary-nav secondary-nav--has-tabs js-sticky-nav">
+  <div class="site-wrap">
+    <div class="tab-nav">
+      <% nav_links.each do |nav_link| %>
+        <%= link_to nav_link[:name], nav_link[:path], class: "tab-nav__item#{' is-active--red' if current_page?(nav_link[:path])}" %>
+      <% end %>
+    </div>
+  </div>
+</nav>
+
+<%= content_for :page_scripts do %>
+  <%= javascript_include_tag 'sticky-nav' %>
+<% end %>

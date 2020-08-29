@@ -1,0 +1,57 @@
+<div class="card">
+  <div class="card__section">
+
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--sm-8">
+        <h3 class="mb2">Subscriptions</h3>
+      </div>
+      <div class="grid__col--xs-12 grid__col--sm-4 u-text-right">
+        <%= link_to "Add subscription", new_admin_subscription_path(business_id: @business, user_type: "business"), class: "btn btn--xs-full btn--primary btn--small" %>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Expiry date</th>
+          <th>Reference #</th>
+          <th>Updated</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @business.subscriptions.each do |s| %>
+          <tr>
+            <td><%= s.subscription_type %></td>
+            <td><%= s.expiry_date %></td>
+            <td><%= s.reference_number %></td>
+            <td><%= s.updated_at %></td>
+            <td>
+              <%= link_to edit_admin_subscription_path(s, user_type: "user"), class: "tooltip", title: "Edit" do %>
+                <%= inline_svg("icons/pencil.svg", class: "icon icon--dark icon--small") %>
+              <% end %>
+              <%= link_to admin_subscription_path(s), method: :delete, data: { confirm: "Are you sure?" }, class: "tooltip", title: "Delete" do %>
+                <%= inline_svg("icons/trash.svg", class:" icon icon--dark icon--small") %>
+              <% end %>
+              <% unless s.subscription_type == "free" %>
+                |
+                <%= link_to admin_subscription_send_invoice_path(s), class: "tooltip", title: "Send invoice", method: :get, remote: true do %>
+                  <%= inline_svg("icons/email.svg", class: "icon icon--dark icon--small") %>
+                <% end %>
+                |
+                <%= link_to admin_subscription_send_receipt_path(s), class: "tooltip", title: "Send receipt", method: :get, remote: true do %>
+                  <%= inline_svg("icons/email.svg", class: "icon icon--dark icon--small") %>
+                <% end %>
+                |
+              <% end %>
+            </td>
+            <td>&nbsp</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
+  </div>
+</div>
+

@@ -1,0 +1,31 @@
+ar:
+  simple_form:
+    "نعم": 'نعم'
+    "لا": 'لا'
+    required:
+      text: 'مطلوب'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "يرجى مراجعة المشاكل التالية"
+    # Examples
+    # labels:
+    #   defaults:
+    #     password: 'كلمة السر'
+    #   user:
+    #     new:
+    #       email: 'البريد الإلكتروني'
+    #     edit:
+    #       email: 'البريد الإلكتروني'
+    # hints:
+    #   defaults:
+    #     username: 'اسم المستخدم'
+    #     password: 'بدون رموز، لو سمحت.'
+    # include_blanks:
+    #   defaults:
+    #     age: 'أفضل عدم القول'
+    # prompts:
+    #   defaults:
+    #     age: 'اختر عمرك'

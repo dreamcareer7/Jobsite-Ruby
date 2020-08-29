@@ -1,0 +1,10 @@
+<div class="section section--padded u-text-center">
+  <div class="site-wrap">
+    <div class="section-heading">
+      <h1 class="section-heading__heading">The team is busy behind the scenes fixing this error.</h1>
+      <h3 class="section-heading__subheading">We apologize for the inconvenience.</h3>
+      <a href="/<%= @current_city.present? ? @current_city.name : City.first.name %>" class="mt1 btn btn--primary">Continue browsing</a>
+    </div>
+    <img src="<%= image_path("404.jpg") %>" width="600">
+  </div>
+</div>

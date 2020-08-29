@@ -1,0 +1,26 @@
+<div class="grid__col--xs-12 grid__col--md-6">
+  <div class="field">
+    <label class="field__label"><span class="u-text-dark">Edit English banner</span> - <small><%= banner_size %></small></label>
+    <div class="media media--middle js-upload-fields u-text-pointer">
+      <%= image_tag(@banner.image_en.present? ? @banner.image_en.url : placeholder, size: image_size, class: "media__figure u-rounded u-border js-file-upload-button js-photo-placeholder") %>
+      <div class="media__body">
+        <div class="field__input-wrapper">
+          <%= f.input :image_en, as: :file, input_html: { class: "js-file-upload", hidden: "true" }, label: false %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="grid__col--xs-12 grid__col--md-6">
+  <div class="field">
+    <label class="field__label"><span class="u-text-dark">Edit Arabic banner</span> - <small><%= banner_size %></small></label>
+    <div class="media media--middle js-upload-fields u-text-pointer">
+      <%= image_tag(@banner.image_ar.present? ? @banner.image_ar.url : placeholder, size: image_size, class: "media__figure u-rounded u-border js-file-upload-button js-photo-placeholder") %>
+      <div class="media__body">
+        <div class="field__input-wrapper">
+          <%= f.input :image_ar, as: :file, input_html: { class: "js-file-upload", hidden: "true" }, label: false %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+# PostgreSQL. Versions 9.1 and up are supported.
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: muqawiloon_development
+
+test:
+  <<: *default
+  database: muqawiloon_test
+
+production:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
+

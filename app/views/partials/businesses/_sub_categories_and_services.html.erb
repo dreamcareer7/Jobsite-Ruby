@@ -1,0 +1,248 @@
+<%= yield :section_header %>
+
+<% if @featured_businesses.present? %>
+  <section class="section section--tight section--alt section--border-bottom">
+    <div class="site-wrap">
+      <h4 class="u-text-center--medium-down"><%= t("phases.verified_businesses") %></h4>
+      <div class="grid grid--v-padded">
+        <% @featured_businesses.each do |business| %>
+          <div class="grid__col--xs-4 u-hide--medium u-text-center">
+            <%= link_to business_path(business) do %>
+              <div class="u-inline-block u-relative">
+                <%= image_tag(business.logo.url(:listing), size: "80x80", class: "u-rounded u-border") %>
+              </div>
+            <% end %>
+          </div>
+          <div class="grid__col--xs-4 grid__col--md-4 u-hide--medium-down">
+            <div class="media media--middle">
+              <%= link_to business_path(id: business.slug), target: "_blank" do %>
+                <%= image_tag(business.logo.url(:listing), class: "u-rounded u-border media__figure", width: "64") %>
+              <% end %>
+              <div class="media__body u-hide--medium-down">
+                <%= link_to business_path(id: business.slug), class: 'u-hover-underline u-text-reset', target: "_blank" do %>
+                  <h4 class="mb0"><%= business.name %></h4>
+                  <small class="u-text-reset"><%= @current_city.name %> (<%= business.distance_from_user_to_s(@current_coordinates, @current_city)%> km)</small>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--lg-3">
+        <% if current_user %>
+          <%= link_to @quote_button[:blurb], new_user_project_path(project_type: @quote_button[:link]), class: "mb3 btn btn--primary btn--xs-full u-hide--large-down" %>
+        <% else %>
+          <button data-modal="please-log-in", data-modal-target="project", class="js-open-modal btn btn--primary"><%= @quote_button[:blurb] %></button>
+        <% end %>
+        <div class="card u-hide--large-down">
+          <div class="card__section">
+            <aside class="sidebar-menu">
+              <h3 class="sidebar-menu__heading js-sidebar-scroll-target"><%= @category.name.capitalize %></h3>
+              <ul class="sidebar-menu__list list u-text-left">
+                <% @sub_categories.each do |sub_category| %>
+                  <button class="h4 u-block sidebar-menu__subheading js-sidebar-scroll js-sidebar-expand <%= 'expanded' if @sub_category == sub_category && !browser.device.mobile? %>">
+                    <%= sub_category.name.titlecase %>
+                    <%= inline_svg("icons/dropdown.svg", class: "icon icon--dark") %>
+                  </button>
+                  <ul class="sidebar-menu__list list js-sidebar-list u-text-left" <%= ' style="display: none;"'.html_safe if sub_category != @sub_category || browser.device.mobile? %>>
+                    <% sub_category.services.visible.enabled.each do |service| %>
+                      <li class="sidebar-menu__item">
+                        <%= link_to service.name.titlecase, service_path(id: service.slug), class: "sidebar-menu__link#{current_service?(service) ? ' is-active' : ''}" %>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </ul>
+
+              <%= link_to categories_path(city: @current_city.slug), class: "btn btn--secondary btn--xs-full" do %><%= t("listing.switch_category") %><% end %>
+            </aside>
+          </div>
+        </div>
+        <% if @side_banners && @side_banners[0].present? %>
+          <div class="u-hide--large-down">
+            <%= render partial: "partials/banners/side_banner", locals: { banner: @side_banners[0] } %>
+          </div>
+          <div class="u-hide--large">
+            <%= render partial: "partials/banners/side_banner_mobile", locals: { banner: @side_banners[0] } %>
+          </div>
+        <% end %>
+        <div class="card promo-block u-hide--large-down u-cover" style="background-image: url('<%= image_path('listings/promo.jpg') %>')">
+          <div class="card__section promo-block__content">
+            <h3 class="u-text-contrast u-text-shadow"><%= t("listing.project_prompt.header") %></h3>
+            <p class="u-text-contrast u-text-shadow u-text-muted"><%= t("listing.project_prompt.copy") %></p>
+            <% if current_user %>
+              <%= link_to @quote_button[:blurb], new_user_project_path(project_type: @quote_button[:link]), class: "btn btn--primary" %>
+            <% else %>
+              <button data-modal="please-log-in", data-modal-target="project", class="js-open-modal btn btn--primary"><%= @quote_button[:blurb] %></button>
+            <% end %>
+          </div>
+        </div>
+        <% if @side_banners && @side_banners[1].present? %>
+          <div class="u-hide--large-down">
+            <%= render partial: "partials/banners/side_banner", locals: { banner: @side_banners[1] } %>
+          </div>
+        <% end %>
+      </div>
+      <div class="grid__col--xs-12 grid__col--lg-9">
+        <div class="grid grid--middle mb3">
+          <div class="grid__col--xs-12 grid__col--md-12 grid__col--lg-8">
+            <div class="has-popover u-hide--small">
+              <small class="u-block mb1"><%= t("listing.sort_by") %>:</small>
+                <%= render partial: "partials/filter_sort/filter_sort_mobile", locals: { filter_terms: @filter_terms, default_term: "Recommended" } %>
+            </div>
+            <div class="u-hide--small-down">
+              <small class="mr2"><%= t("filter_sort.sort_by") %></small>
+              <div class="segmented-control">
+                <%= render partial: "partials/filter_sort/filter_sort", locals: { filter_terms: @filter_terms, default_term: "Recommended" } %>
+              </div>
+            </div>
+          </div>
+          <div class="grid__col--lg-4 u-text-right u-hide--large-down">
+            <div class="segmented-control">
+              <span class="segmented-control__item active btn btn--secondary"><%= inline_svg("icons/list.svg", class: "icon segmented-control__icon") %><%= t("listing.list") %></span>
+              <% if @businesses.present? %>
+                <%= link_to listing_map_index_path(businesses: @unpaginated_businesses.distinct.pluck(:id), category: @category, sub_category: @sub_category, service: @service, city: @current_city.slug), class: "segmented-control__item btn btn--secondary" do %><%= inline_svg("icons/map.svg", class: "icon segmented-control__icon") %><%= t("listing.map") %><% end %>
+              <% else %>
+                <span class= "segmented-control__item btn btn--secondary u-clickthrough"><%= inline_svg("icons/map.svg", class: "icon segmented-control__icon") %><%= t("listing.map") %></span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <% if @businesses.present? %>
+          <div class="grid">
+            <% if params[:filter_by] == "Recommended" %>
+              <% @businesses.each_with_index do |business, index| %>
+                <% if !business.verified? && @businesses[index - 1].verified? %>
+                  <%= render partial: "partials/banners/result_banner" %>
+                <% end %>
+                <%= render "partials/businesses/business_card", business: business %>
+              <% end %>
+            <% else %>
+              <% @businesses.each_with_index do |business, index| %>
+                <% if index == 5 || (@businesses.count <= 5 && business == @businesses.last) %>
+                  <%= render partial: "partials/banners/result_banner" %>
+                <% end %>
+                <%= render "partials/businesses/business_card", business: business %>
+              <% end %>
+            <% end %>
+          </div>
+          <% if @businesses.total_pages > 1 %>
+            <div class="mt1">
+              <%= paginate @businesses %>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="grid">
+            <div class="grid__col--xs-12 grid__col--md-12 grid__col--lg-12">
+              <div class="photo-block photo-block--no-backdrop card u-text-center u-bg-turquoise">
+                <div class="card__section">
+                  <h4 class="u-text-contrast"><%= t("listing.business_prompt.header") %></h4>
+                  <% if current_user %>
+                    <%= link_to t("links.add_business"), new_user_business_path, class: "btn btn--contrast btn--small" %>
+                  <% else %>
+                    <%= link_to t("links.add_business"), new_business_path, class: "btn btn--contrast btn--small" %>
+                  <% end %>
+                </div>
+              </div>
+              <%= render partial: "partials/banners/result_banner" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight section--alt section--border-top">
+  <div class="site-wrap">
+    <% if @featured_businesses.present? %>
+      <h4 class="u-text-center--medium-down"><%= t("phrases.verified_businesses") %></h4>
+      <div class="grid grid--v-padded mb1">
+        <% @featured_businesses.each do |business| %>
+          <div class="grid__col--xs-4 u-hide--medium u-text-center">
+            <%= link_to business_path(business) do %>
+              <div class="u-inline-block u-relative">
+                <%= image_tag(business.logo.url(:listing), size: "80x80", class: "u-rounded u-border") %>
+              </div>
+            <% end %>
+          </div>
+          <div class="grid__col--xs-4 grid__col--md-4 u-hide--medium-down">
+            <div class="media media--middle">
+              <%= link_to business_path(id: business.slug), target: "_blank" do %>
+                <%= image_tag(business.logo.url(:listing), class: "u-rounded u-border media__figure", width: "64") %>
+              <% end %>
+              <div class="media__body u-hide--medium-down">
+                <%= link_to business_path(id: business.slug), class: 'u-hover-underline u-text-reset', target: "_blank" do %>
+                  <h4 class="mb0"><%= business.name %></h4>
+                  <small class="u-text-reset"><%= @current_city.name %> (<%= business.distance_from_user_to_s(@current_coordinates, @current_city)%> km)</small>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="grid">
+      <% @trending_sub_categories.each do |sub_category| %>
+        <div class="grid__col--xs-12 grid__col--sm-4 grid__col--md-6 grid__col--lg-3">
+          <%= link_to sub_category_path(id: sub_category), class: "card has-tint has-tint--rounded photo-block u-cover", style: "background-image: url('#{ sub_category.category_metadata.present? ? sub_category.category_metadata.banner.url(:small) : image_path("missing/hero.jpg") }')" do %>
+            <div class="photo-block__name has-tint__content">
+              <span class="u-text-shadow"><%= sub_category.name %></span><br>
+              <small class="u-text-muted u-text-shadow"><%= pluralize(sub_category.active_businesses_in_city(@current_city), t("listing.listings")) %></small>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-3">
+        <div class="photo-block photo-block--no-backdrop card u-text-center u-bg-turquoise">
+          <div class="card__section">
+            <h4 class="u-text-contrast"><%= t("listing.business_prompt.header") %></h4>
+            <% if current_user %>
+              <%= link_to t("links.add_business"), new_user_business_path, class: "btn btn--contrast btn--small" %>
+            <% else %>
+              <%= link_to t("links.add_business"), new_business_path, class: "btn btn--contrast btn--small" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight section--alt section--border-top u-hide--large">
+  <div class="site-wrap">
+    <div class="btn-group btn-group--full">
+      <% if current_user %>
+        <%= link_to @quote_button[:blurb], new_user_project_path(project_type: @quote_button[:link]), class: "btn-group__item btn btn--primary btn--xs-full" %>
+      <% else %>
+        <button data-modal="please-log-in", data-modal-target="project", class="js-open-modal btn-group__item btn btn--primary btn--xs-full"><%= @quote_button[:blurb] %></button>
+      <% end %>
+      <%= link_to categories_path(city: @current_city.slug), class: "btn-group__item btn btn--secondary btn--xs-full" do %><%= t("listing.switch_category") %><% end %>
+    </div>
+    <% if @side_banners && @side_banners[1].present? %>
+      <div class="u-hide--large mt2">
+        <%= render partial: "partials/banners/side_banner_mobile", locals: { banner: @side_banners[1] } %>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<% content_for :page_scripts do %>
+  <script>
+    $('.js-sidebar-scroll').on('click', function(e) { 
+      if($(window).scrollTop() > $('.js-sidebar-scroll-target').offset().top) {
+        $('html,body').animate( { 
+          scrollTop: $('.js-sidebar-scroll-target').offset().top 
+        } , 500);
+      }
+    })
+  </script>
+<% end %>

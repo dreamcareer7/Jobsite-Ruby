@@ -1,0 +1,15 @@
+ar:
+
+  sign_up:
+    title: "التسجيل"
+    facebook: "التسجيل بإستخدام فيس بوك"
+    google: "التسجيل بإستخدام جوجل"
+    or: "او"
+    name_placeholder: "الإسم الكامل"
+    email_placeholder: "البريد الإلكتروني"
+    mobile_placeholder: "رقم الهاتف (اختياري)"
+    password_placeholder: "كلمة السر"
+    submit: "التسجيل"
+    have_account: "لديك حساب بالفعل ؟"
+    log_in: "سجل دخولك"
+    policy: "بإنشائك للحساب فأنت موافق على الشروط والأحكام."

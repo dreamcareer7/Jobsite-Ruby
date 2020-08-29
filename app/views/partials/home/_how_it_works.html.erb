@@ -1,0 +1,27 @@
+<section class="section section--padded u-text-center how-it-works js-how-it-works">
+  <button class="how-it-works__close js-how-it-works-trigger">
+    <%= inline_svg("icons/close.svg", class: "icon") %>
+  </button>
+  <div class="site-wrap">
+    <div class="grid grid--padded grid--v-padded">
+      <div class="grid__col--xs-12 grid__col--md-4">
+        <%= image_tag("how-it-works/browse.png", class: "how-it-works__image") %>
+        <h3><%= t("how_it_works.professionals.head") %></h3>
+        <p><%= t("how_it_works.professionals.text" ) %></p>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-4">
+        <%= image_tag("how-it-works/match.png", class: "how-it-works__image") %>
+        <h3><%= t("how_it_works.match.head") %></h3>
+        <p><%= t("how_it_works.match.text" ) %></p>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-4">
+        <%= image_tag("how-it-works/hire.png", class: "how-it-works__image") %>
+        <h3><%= t("how_it_works.project.head") %></h3>
+        <p><%= t("how_it_works.project.text" ) %></p>
+      </div>
+      <div class="grid__col--xs-12">
+        <p class="mt3"><a class="u-hover-dark u-text-inherit u-text-underline" href="/pages/about"><%= t("how_it_works.learn_more.link") %></a> <%= t("how_it_works.learn_more.text") %> </p>
+      </div>
+    </div>
+  </div>
+</section>

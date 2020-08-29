@@ -1,0 +1,112 @@
+// General
+
+.modal,
+.modal__container {
+  backface-visibility: hidden; // Fix iOS bug
+}
+
+// Modal
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  text-align: center;
+  overflow: auto;
+  transition: opacity $time $curve, visibility $time $curve;
+  background-color: rgba($black, 0.5);
+  pointer-events: none;
+  @include z-index(modal);
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.modal__table {
+  display: table;
+  table-layout: fixed;
+  height: 100%;
+  width: 100%;
+}
+
+.modal__cell {
+  display: table-cell;
+  height: 100%;
+  width: 100%;
+  vertical-align: middle;
+  padding: $spacing-medium;
+
+  @include mq(small) {
+    padding: $spacing-large;
+  }
+
+  @include mq(medium) {
+    padding: $spacing-x-large;
+  }
+
+  @include mq(large) {
+    padding: $spacing-xxx-large;
+  }
+}
+
+// modal container
+
+.modal__container {
+  padding: $spacing-large;
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 420px;
+  background: $white;
+  border-radius: $border-radius;
+  opacity: 0;
+  overflow: hidden;
+  transform: scale(0.8);
+  transition: transform $time $curve, opacity $time $curve;
+  @include drop-shadow;
+  @include z-index(modal-container);
+
+  @include mq(medium) {
+    padding: $spacing-x-large;
+  }
+
+  &--wide {
+    max-width: 720px;
+  }
+
+  .is-visible & {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.modal__title {
+  line-height: 1.3;
+  margin-top: 0;
+  margin-bottom: 0.75em;
+  padding-left: $spacing-large;
+  padding-right: $spacing-large;
+}
+
+
+// Modal close
+
+.modal__close {
+  position: absolute;
+  display: block;
+  top: $spacing-large;
+  right: $spacing-large;
+
+  @include mq(medium) {
+    top: $spacing-x-large;
+    right: $spacing-x-large;
+  }
+}

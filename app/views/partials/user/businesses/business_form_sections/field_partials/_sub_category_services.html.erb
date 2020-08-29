@@ -1,0 +1,10 @@
+<div class="grid">
+  <% sub_categories.each do |sub_category| %>
+    <div class="grid__col--xs-12 grid__col--md-12 js-subcategory-services u-hide" data-subcategory="<%= sub_category.id %>" data-sub-category-name="<%= I18n.with_locale(:en){ sub_category.name } %>">
+      <div class="field">
+        <label class="field__label"><%= sub_category.name.singularize %> services</label>
+        <%= f.association :services, collection: sub_category.services.order(name: :asc), wrapper: :select2, input_html: { style: "width:100%" } %>
+      </div>
+    </div>
+  <% end %>
+</div>

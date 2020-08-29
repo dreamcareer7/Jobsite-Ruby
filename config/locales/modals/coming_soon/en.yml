@@ -1,0 +1,22 @@
+en:
+
+  coming_soon:
+    title: "Coming soon!"
+    notified: "Be notified when it comes out"
+
+    project:
+      user:
+        details: "Fill in your project details"
+        receive: "Receive quotes from businesses"
+        get: "Get your projects done"
+
+      business:
+        receive: "Receive new projects everyday"
+        get: "Get in touch with clients"
+        submit: "Quickly submit quotes"
+        revenue: "Increase your revenue"
+
+    user_upgrade:
+      details: "No limit to the amount of projects you can post"
+      receive: "Request quotes from as many businesses as you want"
+      get: "Get your projects done fast"

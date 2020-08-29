@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="js-cocoon-partial">
+    <%= f.simple_fields_for :self_added_projects do |fp| %>
+      <%= render "partials/user/businesses/business_form_sections/field_partials/featured_project_fields", f: fp %>
+    <% end %>
+    <div class="card__section card__section--top">
+      <%= link_to_add_association @business.self_added_projects.present? ? t("business_profile.add_another") : t("business_profile.add_project"), f, :self_added_projects, partial: "partials/user/businesses/business_form_sections/field_partials/featured_project_fields" %>
+    </div>
+     <div class="card__section card__section--top">
+        <%= f.submit t("form.update"), class: "mt1 btn btn--primary" %>
+      </div>
+  </div>
+</div>

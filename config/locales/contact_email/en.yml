@@ -1,0 +1,19 @@
+en:
+
+  contact_email:
+    heading: "Contact us"
+    heading_sales: "Sales & Marketing Opportunities"
+    office: "Office"
+    office_one_address: "twofour54,\nOffice #16, 3rd floor, Building 2\nMedia Zone Authority\nAbu Dhabi, UAE"
+    office_two_address: "Batarjee Street,\nOffice #20 & 21, 3rd floor\nJeddah 21431, Saudi Arabia"
+    sales_contact: "Marwan Zaibak - Sales Director"
+    sales_contact_extra: "Mob"
+    leave_message: "Leave a message"
+    name: "Full name"
+    email: "Email address"
+    subject_prompt: "Select an area of interest"
+    #the part after the comma should be left in english
+    subjects: [ ["Looking for a job opportunity", "job"], ["I want to add my business", "business"], ["Advertising on Muqawiloon", "advertise"], ["General enquiry", "general"], ["Other", "other"] ]
+    body: "Leave your message here"
+    submit: "Send message"
+    phone_number: "Phone number"

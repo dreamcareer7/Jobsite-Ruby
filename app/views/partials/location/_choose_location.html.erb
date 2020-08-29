@@ -1,0 +1,97 @@
+<% if (@business && action_name == "switch_form_section") || current_admin && current_namespace == "admin" %>
+  <div class="grid__col--xs-12 grid__col--md-6">
+    <div class="field">
+      <label class="field__label"><%= t("business_profile.fields.locations.type.label") %></label>
+      <div class="field__input-wrapper">
+        <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+        <%= l.input :location_type, collection: t("business_profile.fields.locations.type.options"), input_html: { class: "field__input field__input--right-add-on"}, label: false %>
+      </div>
+    </div>
+  </div>
+  <div class="grid__col--xs-12 grid__col--md-6">
+    <div class="field">
+      <label class="field__label"><%= t("business_profile.fields.locations.number.label") %></label>
+      <div class="field__input-wrapper">
+        <%= l.input :number, wrapper: "text_field", input_html: { class: "js-phone" }, label: false %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<div class="grid__col--xs-12 grid__col--md-6">
+  <div class="field">
+    <label class="field__label">* <%= t("business_profile.fields.locations.country.label") %></label>
+    <div class="field__input-wrapper">
+      <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+      <% if l.object.new_record? %>
+        <%= l.input :country_for_select, collection: @countries, input_html: { class: "field__input field__input--right-add-on rails-country-for-select"}, required: true, label: false  %>
+      <% else %>
+        <%= l.input :country_for_select, collection: @countries, input_html: { class: "field__input field__input--right-add-on rails-country-for-select"}, required: true, label: false, selected: l.object.city.country.id  %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="grid__col--xs-12 grid__col--md-6">
+  <div class="field">
+    <label class="field__label">* <%= t("business_profile.fields.locations.city.label") %></label>
+    <div class="field__input-wrapper">
+      <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+      <%= l.input :city_id, collection: @cities, input_html: { class: "field__input field__input--right-add-on js-city rails-display-cities"}, required: true, label: false %>
+    </div>
+  </div>
+</div>
+<% if (@business && action_name == "switch_form_section") || (current_admin && action_name == "edit") %>
+  <% I18n.available_locales.each do |locale| %>
+    <div class="grid__col--xs-12 grid__col--md-6">
+      <%= l.input "street_address_#{ locale }", wrapper: :text_field, input_html: { class: "js-street-address #{ input_text_direction(locale) }" }, required: false, label: "#{ t('add_business.fields.street_address.label', locale: locale) } (#{ locale })" %>
+    </div>
+  <% end %>
+<% else %>
+  <div class="grid__col--xs-12 grid__col--md-<%= (@business && action_name == "switch_form_section") || (current_admin && action_name == "edit") ? '6' : '12' %>">
+    <%= l.input :street_address, wrapper: :text_field, input_html: { class: "js-street-address" }, required: true, label: t("add_business.fields.street_address.label") %>
+  </div>
+<% end %>
+<div class="grid__col--xs-12 grid__col--md-6">
+  <%= l.input :latitude, wrapper: :text_field, input_html: { class: "js-latitude" }, required: true %>
+</div>
+<div class="grid__col--xs-12 grid__col--md-6">
+  <%= l.input :longitude, wrapper: :text_field, input_html: { class: "js-longitude" }, required: true %>
+</div>
+<div class="grid__col--xs-12 grid__col--md-12">
+  <p class="mb2"><%= t("map.confirm") %> <span data-modal="choose-location" class="js-open-modal js-confirm-location u-text-pointer u-text-accent u-text-underline"><%= t("map.use_map") %></span></p>
+</div>
+
+<%= content_tag :span, '', class: 'js-current-location', data: { coordinates: @current_coordinates } %>
+
+<%= javascript_include_tag "location-map" %>
+
+<script>
+  $(function() {
+    toggleCitySelection();
+    return $(document).on('input', '.rails-country-for-select', function(e) {
+      var $this = $(this);
+  
+      return $.ajax({
+        url: '/filter_cities',
+        type: 'GET',
+        dataType: 'script',
+        data: {
+          country_for_select: $this.val(),
+          target_element: $this.uniqueId().attr('id')
+        }
+      });
+    });
+
+  });
+
+  function toggleCitySelection() {
+    var countrySelect = $('.rails-country-for-select');
+  
+      if($(countrySelect).val()) {
+        setTimeout(function () { $('.js-city').prop('disabled', false) }, 1000);
+      } else {
+        $('.js-city').prop('disabled', true);
+      }
+  }
+  
+  $('.rails-country-for-select').on('input', toggleCitySelection);
+</script>

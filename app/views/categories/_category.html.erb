@@ -1,0 +1,53 @@
+<section class="section section--alt section--border-bottom pb3 pt0">
+
+  <div class="mb4 u-text-center section section--dark has-tint u-cover pl2 pr2", style="background-image: url('<%= category.category_metadata.present? ? category.category_metadata.banner.url(:large) : image_path("missing/hero.jpg") %>')">
+    <%= link_to category_path(id: category, filter_by: "Recommended"), class: "has-tint__content u-hover-underline u-text-contrast" do %>
+      <div class="media media--middle media--inline media--tight u-text-center">
+        <%= inline_svg("icons/#{ I18n.with_locale(:en){ category.name.downcase } }.svg", class: "u-hide--small-down media__figure icon icon--white") %>
+        <div class="media__body">
+          <h2 class="u-text-contrast"><%= category.headline(@current_city) %></h2>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="site-wrap">
+
+    <% if @featured_businesses.present? %>
+      <h4 class="mt0 u-text-center--medium-down"><%= t("listing.sponsored") %></h4>
+      <div class="grid grid--v-padded mb1">
+        <% @featured_businesses.each do |business| %>
+          <div class="grid__col--xs-4 u-hide--medium u-text-center">
+            <%= link_to business_path(id: business) do %>
+              <div class="u-inline-block u-relative">
+                <%= image_tag(business.logo.url(:listing), size: "80x80", class: "u-rounded u-border") %>
+              </div>
+            <% end %>
+          </div>
+          <div class="grid__col--xs-4 grid__col--md-4 u-hide--medium-down">
+            <div class="media media--middle">
+              <%= link_to business_path(id: business) do %>
+                <%= image_tag(business.logo.url(:listing), size: "64x64", class: "u-rounded u-border media__figure") %>
+              <% end %>
+              <div class="media__body">
+                <%= link_to business.name, business_path(id: business), class: "u-hover-underline h4 u-block mb0" %>
+                <small class="u-text-reset"><%= @current_city.name %> (<%= business.distance_from_user_to_s(@current_coordinates, @current_city)%> km)</small>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="grid">
+      <% sub_categories.each do |sub_category| %>
+        <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-3 grid__col--xlg-2">
+          <%= link_to sub_category_path(id: sub_category), class: "card photo-block has-tint has-tint--rounded u-cover", style: "background-image: url('#{ sub_category.category_metadata.present? && sub_category.category_metadata.banner.present? ? sub_category.category_metadata.banner.url(:square) : image_path("missing/hero.jpg") }')" do %>
+            <span class="photo-block__name has-tint__content u-text-shadow"><%= sub_category.name %> (<%= sub_category.active_businesses_in_city(@current_city) %>)</span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</section>

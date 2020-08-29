@@ -1,0 +1,130 @@
+<div class="js-admin-stats">
+  <div class="card">
+
+    <div class="card__section card__section--border">
+      <div class="grid grid--middle">
+        <div class="grid__col--xs-12 grid__col--md-8 grid__col--lg-9">
+          <h3><%= inline_svg("icons/graph.svg", class: "icon icon--dark icon--small") %>
+          <span class="u-text-light u-text-regular">Statistics / </span>
+          Analytics 
+          </h3>
+          <span id="auth-button"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="js-analytics-view">
+
+  <div class="mb2">
+    <small class="mr2">Data: </small>
+    <div class="segmented-control">
+      <span class="segmented-control__item btn btn--secondary js-switch-chart" data-analytics="sessions">Sessions</span>
+      <span class="segmented-control__item btn btn--secondary js-switch-chart" data-analytics="pageViews">Page views</span>
+      <span class="segmented-control__item btn btn--secondary js-switch-chart" data-analytics="users">Users</span>
+      <span class="segmented-control__item btn btn--secondary js-switch-chart" data-analytics="pagesPerSession">Pages per session</span>
+      <span class="segmented-control__item btn btn--secondary js-switch-chart" data-analytics="avgSession">Session duration</span>
+      <span class="segmented-control__item btn btn--secondary js-switch-chart" data-analytics="bounceRate">Bounce rate</span>
+    </div>
+  </div>
+
+  <span id="view-selector", class="u-hide"></span>
+
+  <div class="card">
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--md-12 js-chart js-chart-sessions">
+        <div class="card__section">
+          <div class="card__header">
+            <h4 class="card__title">Sessions</h4>
+            <p class="u-text-muted">Last 30 days</p>
+          </div>
+          <div class="grid">
+            <div class="grid__col--xs-12 grid__col--md-12">
+              <span id="sessions"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-12 u-hide js-chart js-chart-pageViews">
+        <div class="card__section">
+          <div class="card__header">
+            <h4 class="card__title">Page views</h4>
+            <p class="u-text-muted">Last 30 days</p>
+          </div>
+          <div class="grid">
+            <div class="grid__col--xs-12 grid__col--md-12">
+              <span id="page-views"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-12 u-hide js-chart js-chart-users">
+        <div class="card__section">
+          <div class="card__header">
+            <h4 class="card__title">Users</h4>
+            <p class="u-text-muted">Last 30 days</p>
+          </div>
+          <div class="grid">
+            <div class="grid__col--xs-12 grid__col--md-12">
+              <span id="users"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-12 u-hide js-chart js-chart-pagesPerSession">
+        <div class="card__section">
+          <div class="card__header">
+            <h4 class="card__title">Page views per session</h4>
+            <p class="u-text-muted">Last 30 days</p>
+          </div>
+          <div class="grid">
+            <div class="grid__col--xs-12 grid__col--md-12">
+              <span id="pages-per-session"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-12 u-hide js-chart js-chart-avgSession">
+        <div class="card__section">
+          <div class="card__header">
+            <h4 class="card__title">Average session duration</h4>
+            <p class="u-text-muted">Last 30 days</p>
+          </div>
+          <div class="grid">
+            <div class="grid__col--xs-12 grid__col--md-12">
+              <span id="avg-session"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-12 u-hide js-chart js-chart-bounceRate">
+        <div class="card__section">
+          <div class="card__header">
+            <h4 class="card__title">Bounce rate</h4>
+            <p class="u-text-muted">Last 30 days</p>
+          </div>
+          <div class="grid">
+            <div class="grid__col--xs-12 grid__col--md-12">
+              <span id="bounce-rate"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a href="https://analytics.google.com/analytics/web" target="_blank">View all analytics</a>
+
+</div>
+
+<%= content_tag :span, '', class: "js-ga-auth", data: { auth: @access_token } %>
+
+<%= content_for :page_scripts do %>
+  <%= javascript_include_tag "admin/analytics" %>
+  <script>
+    $(window).on('load', function() {
+      $('.js-switch-chart').first().click();
+    });
+  </script>
+<% end %>

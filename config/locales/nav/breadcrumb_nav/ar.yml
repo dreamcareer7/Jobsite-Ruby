@@ -1,0 +1,9 @@
+ar:
+
+  breadcrumb_nav:
+    home: "الرئيسية"
+    inbox: "صندوق الرسائل"
+    feed: "إشعارات المشروع"
+
+  search:
+    placeholder: "عن ماذا تبحث ؟"

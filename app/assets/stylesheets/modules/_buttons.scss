@@ -1,0 +1,233 @@
+// Button mixin
+
+@mixin filled-button($color) {
+  background-color: $color;
+
+  &:hover {
+    background-color: mix($color, $black, 95%);
+  }
+
+  &:active,
+  &:focus {
+    background-color: mix($color, $black, 90%);
+  }
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: $white;
+  }
+}
+
+// General styles
+
+.btn {
+  position: relative;
+  display: inline-block;
+  padding: 0 $spacing-medium;
+  height: $input-height;
+  min-width: $input-height;
+  line-height: $input-height;
+  color: $white;
+  text-align: center;
+  border-radius: $border-radius;
+  outline: 0;
+  cursor: pointer;
+  margin-bottom: $spacing-medium;
+  @include caps-bold;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &[disabled] {
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.4;
+    user-select: none;
+  }
+
+  &::-moz-focus-inner { 
+    padding:0;
+    border:0;
+  }
+}
+
+// Variants
+
+.btn--primary {
+  @include filled-button($red);
+}
+
+.btn--hover-red {
+  &:hover {
+    background-color: $red !important;
+  }
+
+  .primary-nav--transparent &:hover,
+  .primary-nav--dashboard &:hover {
+    background-color: transparent !important;
+  }
+}
+
+.btn--secondary {
+  box-shadow: inset 0 0 0 1px $border;
+  background-color: $white;
+  color: $grey;
+
+  &:hover {
+    color: $grey-dark;
+    box-shadow: inset 0 0 0 1px mix($border, $black, 85%);
+  }
+}
+
+.btn--contrast {
+  box-shadow: inset 0 0 0 1px rgba($white, 0.3);
+  background-color: transparent;
+
+  &:hover {
+    box-shadow: inset 0 0 0 1px rgba($white, 0.5);
+  }
+}
+
+.btn--link {
+  color: $red;
+  height: auto;
+  line-height: normal;
+  padding: 0;
+}
+
+// Colours
+
+.btn--positive {
+  @include filled-button($green);
+}
+
+.btn--yellow {
+  @include filled-button($yellow);
+}
+
+.btn--turquoise {
+  @include filled-button($turquoise);
+}
+
+.btn--grey {
+  @include filled-button($grey);
+}
+
+
+// Brands
+
+.btn--facebook {
+  @include filled-button(#3b5998);
+}
+
+.btn--google {
+  @include filled-button(#dc4e41);
+}
+
+.btn--linkedin {
+  @include filled-button(#0077b5);
+}
+
+.btn--twitter {
+  @include filled-button(#00aced);
+}
+
+
+// Sizes
+
+.btn--full {
+  width: 100%;
+}
+
+.btn--xs-full {
+  @include mq(small-down) {
+    width: 100%;
+  }
+}
+
+.btn--small {
+  height: $input-height*0.84;
+  line-height: $input-height*0.84;
+  padding: 0 $spacing-medium;
+}
+
+.btn--large {
+  height: $input-height*1.25;
+  line-height: $input-height*1.25;
+  padding: 0 $spacing-x-large;
+  font-size: 110%;
+}
+
+.btn-fixed--small {
+  display: inline-block;
+  height: $input-height*0.84;
+  line-height: $input-height*0.84;
+  padding: 0 $spacing-medium;
+  min-width: 200x;
+  width: 200px;
+}
+
+
+// Group
+
+.btn-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: -$spacing-small/2;
+
+  &--center {
+    justify-content: center;
+  }
+
+  &--full {
+    @include mq(small-down) {
+      display: flex !important;
+    }
+  }
+}
+
+.btn-group__item {
+  margin: $spacing-small/2 !important;
+}
+
+.btn-group__item--full-small-down {
+  @include mq(small-down) {
+    width: 100%;
+  }
+}
+
+.btn__icon {
+  position: relative;
+  top: -1.5px;
+
+  @include ltr {
+    margin-right: $spacing-small;
+  }
+
+  @include rtl {
+    margin-left: $spacing-small;
+  }
+}
+
+
+// Icon
+
+.btn__add-on {
+  right: $spacing-medium;
+  @include v-center(absolute);
+
+  @include rtl {
+    left: $spacing-medium;
+    right: auto;
+  }
+}
+
+.btn__add-on--center {
+  right: 0 !important; // Overwrite rtl specificity
+  left: 0 !important; // Overwrite rtl specificity
+  margin: auto;
+}

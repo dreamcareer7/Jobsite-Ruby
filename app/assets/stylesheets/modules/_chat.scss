@@ -1,0 +1,50 @@
+// Message
+
+.message {
+  display: flex;
+  margin-bottom: $spacing-medium;
+
+  @include mq(medium) {
+    margin-bottom: $spacing-large;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.message--sent {
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+
+// Bubble
+
+.message__bubble {
+  display: table; // Inline block + line break
+  padding: $spacing-small*1.5;
+  border: 1px solid $border;
+  border-radius: $border-radius;
+  line-height: 1.6;
+  background-color: mix($background, $white, 50%);
+  @include font-size($small-font-size);
+
+  @include mq(medium) {
+    max-width: 70%;
+  }
+
+  @include mq(large) {
+    max-width: 60%;
+  }
+
+  & + & {
+    margin-top: $spacing-small;
+  }
+}
+
+.message__bubble--sent {
+  background-color: $red;
+  color: $white;
+  border: 1px solid $red;
+}

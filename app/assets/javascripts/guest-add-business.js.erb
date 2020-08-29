@@ -1,0 +1,40 @@
+function storeBusiness() {
+  var services = $('.js-subcategory-services').find(':selected').map(function() { 
+    return parseInt($(this).val()) })
+
+  var business = {
+    businessDetails: {
+      name: $("input[name='business[name]']").val(),
+      email: $("input[name='business[email]']").val(),
+      telephone: $("input[name='business[telephone]']").val(),
+      website: $("input[name='business[website]']").val(),
+    },
+    categories: {
+      services: $(services).toArray()
+    },
+    location: {
+      city_id: $("select[name='business[locations_attributes][0][city_id]']").val(),
+      street_address: $("input[name='business[locations_attributes][0][street_address]']").val(),
+      latitude: $("input[name='business[locations_attributes][0][latitude]']").val(),
+      longitude: $("input[name='business[locations_attributes][0][longitude]']").val(),
+    },
+    contact_person: {
+      name: $("input[name='business[business_contact_attributes][name]']").val(),
+      email: $("input[name='business[business_contact_attributes][email]']").val(),
+      phone_number: $("input[name='business[business_contact_attributes][phone_number]']").val(),
+      position: $("select[name='business[business_contact_attributes][position]']").val(),
+    }
+  }
+
+  return business;
+}
+
+$('.js-submit').on('click', function() {
+  if(!$('#new_business')[0].checkValidity()){
+    //force submit for client side validation display
+    $('#new_business').find(':submit').click();
+  } else {
+    document.cookie = "loginTarget=" + encodeURIComponent(JSON.stringify(storeBusiness()));
+    $('.js-please-log-in').addClass('is-visible');
+  }
+});

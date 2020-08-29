@@ -1,0 +1,160 @@
+<footer class="footer" id="everywhere">
+  <div class="site-wrap">
+    <div class="footer__section">
+      <div class="grid grid--v-padded">
+        <div class="grid__col--xs-12 grid__col--sm-6 grid__col--md-4   grid__col--lg-3 u-hide--large-down">
+          <a href="/" class="u-inline-block mb3">
+            <%= inline_svg(locale == :ar ? "logo-ar.svg" : "logo.svg", class: "footer__logo") %>
+          </a>
+          <% if current_user %>
+            <li class="list__item"><%= link_to t("links.add_business"), new_user_business_path, class: "btn btn--contrast btn--small mb3" %></li>
+          <% else %>
+            <li class="list__item"><%= link_to t("main_nav.add_business"), new_business_path, class: "btn btn--contrast btn--small mb3" %></li>
+          <% end %>
+          <p class="u-text-contrast">Got a question? Get in touch!</p>
+          <p class="u-text-contrast"><div class="u-ltr u-text-left"><a class="u-text-contrast" href="tel:+966 503613445">+966 503613445</a></div><a class="u-text-contrast" href="mailto:sales@muqawiloon.com">sales@muqawiloon.com</a></p>
+        </div>
+        <div class="grid__col--xs-12 grid__col--sm-6 grid__col--md-3 grid__col--lg-3">
+
+          <!-- Desktop heading -->
+          <h4 class="mt0 u-text-contrast u-hide--small-down"><%= t("footer.explore") %></h4>
+
+          <div class="mobile-accordion">
+            <!-- Mobile heading -->
+            <button class="js-mobile-accordion-trigger u-hide--small mobile-accordion__trigger mobile-accordion__trigger--dark u-flex u-flex-middle u-full">
+              <h4 class="u-text-left u-flex-grow mb0 u-text-contrast"><%= t("footer.explore") %></h4>
+              <%= inline_svg("icons/dropdown.svg", class: "icon icon--white mobile-accordion__icon") %>
+            </button>
+            <ul class="mobile-accordion__list list--unstyled list u-text-center--medium-down mb0">
+                <li class="list__item"><%= link_to t("footer.near_you"), businesses_path(city: @current_city.slug, filter_by: "Distance"), class: "footer__link list__link u-link-contrast" %></li>
+              <li class="list__item">
+                <%= link_to t("footer.browse"), categories_path(city: @current_city.slug), class: "footer__link list__link u-link-contrast" %>
+              </li>
+              <% if current_user %>
+                <li class="list__item"><%= link_to t("footer.project"), new_user_project_path, class: "footer__link list__link u-link-contrast" %></li>
+              <% else %>
+                <li class="list__item"><button data-modal="please-log-in" data-modal-target="project" class="js-open-modal footer__link list__link u-link-contrast"><%= t("footer.project") %></button></li>
+              <% end %>
+              <li class="list__item"><%= link_to t("footer.gallery"), gallery_index_path, class: "footer__link list__link u-link-contrast" %></li>
+            </ul>
+          </div>
+
+        </div>
+        <div class="grid__col--xs-12 grid__col--sm-6 grid__col--md-3 grid__col--lg-3">
+
+          <!-- Desktop heading -->
+          <h4 class="mt0 u-text-contrast u-hide--small-down"><%= t("footer.for_business") %></h4>
+
+          <div class="mobile-accordion">
+            <!-- Mobile heading -->
+            <button class="js-mobile-accordion-trigger u-hide--small mobile-accordion__trigger mobile-accordion__trigger--dark u-flex u-flex-middle u-full">
+              <h4 class="u-text-left u-flex-grow mb0 u-text-contrast"><%= t("footer.for_business") %></h4>
+              <%= inline_svg("icons/dropdown.svg", class: "icon icon--white mobile-accordion__icon") %>
+            </button>
+            <ul class="mobile-accordion__list list--unstyled list u-text-center--medium-down mb0">
+              <% if current_user %>
+                <li class="list__item"><%= link_to t("links.add_business"), new_user_business_path, class: "footer__link list__link u-link-contrast" %></li>
+              <% else %>
+                <li class="list__item"><%= link_to t("main_nav.add_business"), new_business_path, class: "footer__link list__link u-link-contrast" %></li>
+              <% end %>
+              <li class="list__item"><a href="/pages/contact?advertise" class="footer__link list__link u-link-contrast"><%= t("footer.advertise") %></a></li>
+              <li class="list__item"><a href="/pages/contact" class="footer__link list__link u-link-contrast"><%= t("footer.support") %></a></li>
+            </ul>
+
+          </div>
+
+        </div>
+        <% if @current_city.present? %>
+          <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-3">
+
+            <!-- Desktop heading -->
+            <h4 class="mt0 u-text-contrast u-hide--small-down"><%= @current_city.country.name %></h4>
+
+            <div class="accordion">
+
+              <!-- Mobile heading -->
+              <button class="js-mobile-accordion-trigger u-hide--small mobile-accordion__trigger mobile-accordion__trigger--dark u-flex u-flex-middle u-full">
+                <h4 class="u-text-left u-flex-grow mb0 u-text-contrast"><%= @current_city.country.name %></h4>
+                <%= inline_svg("icons/dropdown.svg", class: "icon icon--white mobile-accordion__icon") %>
+              </button>
+
+              <ul class="mobile-accordion__list list list--unstyled mb0 list--two-col-all">
+                <% @current_city.country_cities.each do |city| %>
+                    <% next if city == @current_city %>
+                    <li class="list__item"><%= link_to city.name, city_choose_city_path(city), method: :put, class: "footer__link list__link u-link-contrast" %></li>
+                <% end %>
+              </ul>
+              <hr class="divider divider--tight divider--light mb0 u-hide--medium-down">
+              <a href="/countries" class="mt2 btn btn--link u-text-contrast u-hover-underline"><%= t("footer.countries") %></a>
+            </div>
+
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="footer__section">
+      <div class="grid grid--v-padded">
+        <div class="grid__col--xs-12 grid__col--md-8 u-text-left--medium">
+          <ul class="footer__list list--unstyled list list--inline u-text-center--medium-down mb0">
+            <li class="list__item"><a class="list__link u-link-contrast" href="/pages/about"><%= t("footer.about") %></a></li>
+            <li class="list__item"><a class="list__link u-link-contrast" href="/pages/contact"><%= t("footer.contact") %></a></li>
+          </ul>
+        </div>
+        <div class="grid__col--xs-12 grid__col--md-4 u-text-right--medium">
+          <ul class="footer__list list--unstyled list list--inline u-text-center--medium-down mb0">
+            <li class="list__item"><a class="u-hover-muted list__link u-link-contrast" target="_blank" href="https://www.facebook.com/muqawiloon/"><%= inline_svg("icons/facebook.svg", class: "icon icon--white") %></a></li>
+            <li class="list__item"><a class="u-hover-muted list__link u-link-contrast" target="_blank" href="https://twitter.com/muqawiloon"><%= inline_svg("icons/twitter.svg", class: "icon icon--white") %></a></li>
+            <li class="list__item"><a class="u-hover-muted list__link u-link-contrast" target="_blank" href="https://www.linkedin.com/company/muqawiloon/"><%= inline_svg("icons/linkedin.svg", class: "icon icon--white") %></a></li>
+            <li class="list__item"><a class="u-hover-muted list__link u-link-contrast" target="_blank" href="https://www.youtube.com/channel/UCWI_N4ez6Og9JpXZzjEaeIw"><%= inline_svg("icons/youtube.svg", class: "icon icon--white") %></a></li>
+            <li class="list__item"><a class="u-hover-muted list__link u-link-contrast" target="_blank" href="https://www.instagram.com/muqawiloon/"><%= inline_svg("icons/instagram.svg", class: "icon icon--white") %></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer__section">
+      <div class="grid grid--middle">
+        <div class="grid__col--middle grid__col--xs-12 grid__col--sm-7 grid__col--md-8 grid__col--lg-10 u-text-left--medium">
+          <small>&copy; Muqawiloon, Inc. | <a class="u-text-reset u-text-underline" href="http://thundercloudgroup.com/">by Thundercloud Group FZ LLC</a></small>
+        </div>
+        <div class="grid__col--middle grid__col--xs-12 grid__col--sm-5 grid__col--md-4 grid__col--lg-2 u-text-right--medium">
+          <div class="field field--full">
+            <div class="field__input-wrapper">
+              <%= inline_svg("icons/dropdown.svg", class: "icon icon--white field__add-on field__add-on--right field__add-on--clickthrough") %>
+              <select class="field__input field__input--ghost field__input--small u-text-contrast js-language-select">
+                <option class="u-text-dark" value="ar">العربية</option>
+                <option class="u-text-dark" value="en">English</option>
+              </select>
+              <%= link_to "Arabic", set_language_path(language: :ar), method: :put, class: "u-hide js-language-ar" %>
+              <%= link_to "English", set_language_path(language: :en), method: :put, class: "u-hide js-language-en" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<%= content_tag :span, '', class: "js-locale", data: { locale: I18n.locale.to_s } %>
+
+<%= content_for :page_scripts do %>
+  <script>
+    window.currentLocale = $('.js-locale').data('locale');
+
+    //selected value reflects current locale
+    $('.js-language-select').val(currentLocale);
+
+    //click hidden links with selectbox change
+    $('.js-language-select').on('change', function() {
+      locale = $(this).find(':selected').val();
+
+      $('.js-language-' + locale).click();
+    });
+
+    //Accordion links
+    $('.js-mobile-accordion-trigger').on('click', function() {
+      $(this).next('.mobile-accordion__list').toggleClass('is-visible');
+      $(this).parent('.mobile-accordion').toggleClass('is-visible');
+    });
+  </script>
+<% end %>
+

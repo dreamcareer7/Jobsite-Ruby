@@ -1,0 +1,90 @@
+$(document).ready( function() {
+  $('.js-certifications-table').dataTable({
+    serverSide: true,
+    bLengthChange: false,
+    bInfo: false,
+    ajax: $('.js-certifications-table').data('source'),
+    columns: [
+      {
+        data: 'logo',
+        render: function (data, type, row, meta) {
+          if (data.indexOf('missing') > -1) return "No logo uploaded";
+          return '<a href="/admin/certifications/' + row.id + '/edit"><img style="height: 75px;" src="' + data + '"></a>';
+        },
+        sortable: false
+      },
+      {
+        data: 'name_en',
+        render: function (data, type, row, meta) {
+          return '<a href="/admin/certifications/' + row.id + '/edit">' + data + '</a>';
+        }
+      },
+      {
+        data: 'name_ar',
+        render: function (data, type, row, meta) {
+          return '<a href="/admin/certifications/' + row.id + '/edit">' + data + '</a>';
+        }
+      },
+      {
+        data: 'country',
+        render: function (data, type, row, meta) {
+          return '<a href="/admin/countries/' + row.id + '/edit">' + data + '</a>';
+        }
+      },
+      {
+        data: null,
+        sortable: false,
+        render: function (data, type, row, meta) {
+          return '<a class="tooltip" title="Edit" href="/admin/certifications/' + row.id + '/edit"><%= image_tag("icons/pencil.svg", class: "icon icon--dark icon--small") %></a>' + (data.role === 'superadmin' ? '<a class="tooltip" title="Delete" rel="nofollow" data-method="delete" href="/admin/certifications/' + row.id + '" data-confirm="Are you sure?"><%= image_tag("icons/trash.svg", class: "icon icon--dark icon--small") %></a> ' : '');
+        }
+      },
+    ],
+    dom: "ritp",
+    pageLength: 30,
+    initComplete: function() {
+      var table = this;
+
+      // Select filters
+      $('.js-select-filter').each(function () {
+        var $filterSelect = $(this);
+        var columnIndex = +$filterSelect.data('column');
+        var column = table.api().column(columnIndex);
+
+        // Filter the column when the user picks an option
+        $filterSelect.on('change', function() {
+          var val = $.fn.dataTable.util.escapeRegex($filterSelect.val());
+          column.search(val ? val : '', false, false).draw();
+        });
+
+        // Add all possible options to the select
+        $filterSelect.append('<option value="">' + column.header().innerHTML + '</option>');
+
+        var entries = column.data().unique().sort().map( function (d, j) {
+          if (typeof d === 'object') {
+            return d.map(function(row) { return row.name || row; });
+          } else {
+            return d;
+          }
+        });
+
+        // undefined is falsey so filtering false values works to remove undefined
+        entries = _.uniq(_.flattenDeep(entries)).filter(function(value) { return value !== undefined; });
+
+        entries.forEach(function(entry) {
+          if (entry === true || entry === false) {
+            entry === true ? entry = 'Yes' : entry = 'No'
+          }
+
+          $filterSelect.append('<option value="' + entry + '">' + entry + '</option>');
+        });
+      });
+    }
+  }); // dataTable
+}); // document.on
+
+$('.js-certifications-table').on('draw.dt', function() {
+  $('.tooltip').tooltipster({
+    delay: 0,
+    animationDuration: 100
+  });
+});

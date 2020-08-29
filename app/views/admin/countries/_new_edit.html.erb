@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="card__section">
+    <div class="card__header">
+      <h4 class="card__title">Country</h4>
+    </div>
+    <%= simple_form_for [:admin, @country] do |f| %>
+      <fieldset class="fieldset">
+        <div class="grid">
+          <% I18n.available_locales.each do |locale| %>
+            <div class="grid__col--xs-12 grid__col--md-6">
+              <%= f.input "name_#{ locale }", wrapper: "text_field", placeholder: t("category_form.fields.name.placeholder", locale: locale), label: t("category_form.fields.name.label", locale: locale ), input_html: { class: " #{ locale == :ar ? 'rtl' : 'ltr' } " } %>
+            </div>
+          <% end %>
+        </div>
+        <div class="field">
+          <div class="btn-group">
+            <%= f.submit action_name == 'edit' ? t('form.update'): t('form.create'), class: 'btn btn--primary btn-group__item' %>
+          </div>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="grid__col--xs-12 grid__col--lg-flex u-text-right--large">
+  <div class="btn-group btn-group--full">
+    <% if @project.completed? %>
+      <span class="btn-group__item btn-group__item--full-small-down "><%= t("projects.project_complete") %></span>
+    <% elsif @project.pending_completion? %>
+      <%= link_to t("projects.confirm_completion"), user_project_confirm_completion_path(project_id: @project.id), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", id: "confirm-completion", method: :put %>
+      <%= link_to t("projects.deny_completion"), user_project_deny_completion_path(project_id: @project.id), class: "btn-group__item btn-group__item--full-small-down btn btn--secondary", id: "confirm-completion", method: :put %>
+    <% elsif @quote.present? %>
+      <% if @project.business_id.nil? %>
+        <%= link_to t("project.hire_now"), user_project_accept_quote_path(quote_id: @quote.id, project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", method: :put unless @project.business_id.present? %>
+      <% end %>
+      <%= link_to t("projects.no_longer_interested"), user_project_hide_business_path(@project, business_id: @project.business_id), class: "btn-group__item btn-group__item--full-small-down btn btn--secondary", method: :put %>
+    <% end %>
+  </div>
+</div>

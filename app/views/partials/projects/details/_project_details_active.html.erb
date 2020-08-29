@@ -1,0 +1,25 @@
+<div class="grid__col--xs-12 grid__col--md-4">
+  <div class="card">
+    <div class="card__section card__section--border">
+      <div class="grid grid--v-padded">
+        <% if @project.user == current_user && @quote.present? %>
+          <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-12 grid__col--lg-12">
+            <span data-modal="view-quote" class="js-open-modal btn btn--full btn--secondary"><%= t("project.view_quote") %></span>
+          </div>
+        <% end %>
+        <%= render partial: "partials/projects/details/project_details_sidebar" %>
+      </div>
+    </div>
+    <div class="card__section">
+      <p class="js-truncate-text u-text-paragraph"><%= @project.description %></p>
+      <% if @project.services.present? %>
+        <div class="pill-list">
+          <% @project.services.visible.distinct.each do |service| %>
+            <div class="pill-list__item pill"><%= service.name.capitalize %></div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <%= render partial: "partials/projects/instructions/business_instructions" %>
+</div>

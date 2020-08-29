@@ -1,0 +1,15 @@
+ar:
+
+  business_summary:
+
+    machinery: "يقدم %{master_category} خدمات ومنتجات منها %{services} متواجدة في %{city}, %{country} فروعها %{branch_count} في %{city_count}. تدير %{project_size} مشاريع %{service_area}. شركة %{business_type} تأسست منذ %{year_established}."
+
+    contractor: "%{master_category} متواجدة في %{city}, %{country} فروعها %{branch_count} في %{city_count}. تدير %{project_size} مشاريع %{service_area}. تقدم خدمات تشمل %{services}. شركة %{business_type} تأسست منذ %{year_established}."
+
+    supplier: "%{business_class} %{master_category} تقدم %{services} في %{country} فروعها %{branch_count} في %{city_count}. %{business_type} تأستت منذ %{year_established}."
+
+    consultant: "%{master_category} تقدم %{services} متواجدة في %{city}, %{country} فروعها %{branch_count} في %{city_count}. تدير %{project_size} مشاريع %{service_area}. %{business_type} تأسست منذ %{year_established}."
+
+    specialist: "%{master_category} متواجدة في %{city}, %{country} فروعها %{branch_count} في %{city_count}. تقدم %{services} تأسست منذ %{year_established}. تدير %{project_size} مشاريع %{service_area}."
+
+    municipal: "متواجدة في %{city}, %{country} فروعها %{branch_count} تقدم %{services}. تدير %{project_size} مشاريع %{service_area}."

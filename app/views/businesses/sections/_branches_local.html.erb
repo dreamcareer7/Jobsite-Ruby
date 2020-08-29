@@ -1,0 +1,6 @@
+<% if @business.locations.all_for_city(@current_city).present? %>
+  <div class="card js-toggle-truncate js-section js-branches">
+    <%= render partial: "businesses/sections/branches_base", locals: { business_locations: @business.locations.all_for_city(@current_city) } %>
+  </div>
+<% end %>
+

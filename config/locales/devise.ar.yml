@@ -1,0 +1,63 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
+ar:
+  devise:
+    confirmations:
+      confirmed: "لقد تم تأكيد بريدك الإلكتروني بنجاح."
+      send_instructions: "سوف تستلم رسالة مرفقة بتعليمات تأكيد بريدك الإلكتروني."
+      send_paranoid_instructions: "اذا كان بريدك الإلكتروني موجود مسبقاً، سوف تستلم رسالة مرفقة بتعليمات تأكيد بريدك الإلكتروني."
+    failure:
+      already_authenticated: "انت مسجل دخولك بالفعل."
+      inactive: "حسابك غير مفعل بعد."
+      invalid: "غير صالح %{authentication_keys} او كلمة سر غير صالحة"
+      locked: "حسابك مغلق."
+      last_attempt: "لديك محاولة أخيرة قبل ان يتم اغلاق حسابك."
+      not_found_in_database: "غير صالح %{authentication_keys} او كلمة سر غير صالحة."
+      timeout: "يرجى تسجيل الدخول للإستكمال"
+      unauthenticated: "يجب التسجيل او تسجيل الدخول قبل الإستكمال"
+      unconfirmed: "يجب تأكيد بريدك الإلكتروني قبل الإستكمال"
+    mailer:
+      confirmation_instructions:
+        subject: "تعليمات التأكيد"
+      reset_password_instructions:
+        subject: "تعليمات إستعادة كلمة المرور"
+      unlock_instructions:
+        subject: "تعليمات فتح الحساب"
+      password_change:
+        subject: "تم تغيير كلمة السر"
+    omniauth_callbacks:
+      failure: "لم يتم الإرتباط بشكل صحيح مع %{kind} بسبب \"%{reason}\"."
+      success: "تم الإرتباط بحساب %{kindt."
+    passwords:
+      no_token: "لايمكنك الدخول الى هذه الصفحة بدون رسالة إستعادة كلمة السر. اذا كنت بالفعل قادماً عن طريق إيميل الإستعادة، يرجى التأكد من إستعمال الرابط كاملاً وصحيحاً"
+      send_instructions: "سوف تستلم رسالة مع تعليمات إستعادة كلمة السر في دقائق قليلة."
+      send_paranoid_instructions: "اذا كان بريدك الإلكتروني موجود في قاعدتنا، ستصلك رسالة الى بريدك الإلكتروني مرفقة بتعليمات استعادة كلمة السر"
+      updated: "تم تغيير كلمة السر بنجاح، انت الآن مسجل دخولك."
+      updated_not_active: "تم تغير كلمة السر بنجاح."
+    registrations:
+      destroyed: "الى اللقاء! لقد تم الغاء حسابك، نتمنى رؤيتك مرة أخرى."
+      signed_up: "مرحبا! تم التسجيل بنجاح."
+      signed_up_but_inactive: "تم التسجيل بنجاح. ولكن، لم نستطع تسجيل دخولك حتى يتم تفعيل الحساب"
+      signed_up_but_locked: "تم التسجيل بنجاح. ولكن، لم نستطع تسجيل دخولك لأن الحساب مغلق"
+      signed_up_but_unconfirmed: "ستصلك رسالة مرفقة برابط تفعيل الحساب، يرجى متابعة التعليمات وتفيعل الحساب."
+      update_needs_confirmation: "تم تحديث الحساب بنجاح، ولكن يجب التأكد من البريد الإلكتروني الجديد. لقد تم ارسال رسالة مرفقة بتعليمات التأكيد."
+      updated: "تم تحديث حسابك بنجاح."
+    sessions:
+      signed_in: "تم تسجيل الدخول بنجاح."
+      signed_out: "تم تسجيل الخروج بنجاح."
+      already_signed_out: "تم تسجيل الخروج بنجاح"
+    unlocks:
+      send_instructions: "سوف تستلم رسالة مرفقة بتعليمات فتح الحساب في دقائق معدودة."
+      send_paranoid_instructions: "سوف تستلم رسالة مرفقة بتعليمات فتح الحساب في دقائق معدودة.ذا حسابك موجود بالفعل، ش"
+      unlocked: "تم فتح الحساب بنجاح، قم بتسجيل دخولك."
+  errors:
+    messages:
+      already_confirmed: "تم تأكيده مسبقاً، يرجى تسجيل الدخول"
+      confirmation_period_expired: "يجب تأكيده في خلال %{period}، او الطلب من جديد"
+      expired: "انتهت صلاحيته، اطلب من جديد"
+      not_found: "غير موجود"
+      not_locked: "غير مغلق"
+      not_saved:
+        one: "1 خطأ %{resource} يمنعه من الحفظ:"
+        other: "%{count} اخطاء تمنع %{resource} من الحفظ:"
+

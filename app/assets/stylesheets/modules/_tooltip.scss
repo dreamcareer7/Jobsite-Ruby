@@ -1,0 +1,54 @@
+// Tooltips
+
+.has-tooltip {
+  position: relative;
+  outline: 0;
+  display: none;
+
+  @include mq(medium) {
+    display: inline-block;
+  }
+}
+
+.tooltip {
+  @include font-size($small-font-size);
+  position: absolute;
+  left: 50%;
+  bottom: 150%;
+  background-color: rgba($grey-dark, 0.9);
+  color: $white;
+  padding: 0.75em 2em;
+  border-radius: $border-radius;
+  text-align: center;
+  line-height: 1.5;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all $time $curve;
+  transform: translate3d(-50%, 5px, 0);
+  transform-origin: center bottom;
+  @include z-index(tooltip);
+
+  .has-tooltip:hover &,
+  .has-tooltip:focus &,
+  &.tooltip--is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba($grey-dark, 0.9) transparent transparent transparent;
+    top: 100%;
+    left: 50%;
+    margin-left: -6px;
+  }
+}

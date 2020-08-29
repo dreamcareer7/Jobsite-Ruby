@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card__section">
+    <div class="card__header">
+      <h4 class="card__title"><%= inline_svg("icons/reward.svg", class: "icon icon--brand icon--small") %><%= t("business_profile.fields.header.certifications") %></h4>
+    </div>
+    <fieldset class="fieldset">
+      <div class="grid">
+        <div class="grid__col--xs-12 grid__col--md-12">
+          <%= f.association :certifications, collection: Certification.includes(:translations).order(name: :asc), wrapper: :select2, input_html: { style: "width:100%" }, label: t("business_profile.header.certifications") %>
+        </div>
+        <div class="field">
+          <div class="grid__col--xs-12 grid__col--md-12">
+            <%= f.submit t("form.update"), class: "mt1 btn btn--primary" %>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>

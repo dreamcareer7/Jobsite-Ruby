@@ -1,0 +1,76 @@
+<section class="section section--alt">
+
+  <div class="site-wrap">
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--lg-3">
+        <div class="card">
+          <div class="card__section">
+            <aside class="sidebar-menu">
+              <% if @categories.present? || @sub_categories.present? || @services.present? %>
+                <h3 class="sidebar-menu__heading js-sidebar-scroll-target"><%= t("dashboard_following.listings_followed") %></h3>
+
+                <% if @categories.present? %>
+                  <% @categories.each do |category| %>
+                    <%= link_to category_path(category), class: "u-hover-muted u-block card has-tint has-tint--rounded u-cover", style: "background-image: url('#{ category.category_metadata.present? && category.category_metadata.banner.present? ? category.category_metadata.banner.url(:small) : image_path("missing/hero.jpg") }')" do %>
+                      <div class="has-tint__content card__section">
+                        <span class="u-text-contrast u-text-shadow u-block u-truncate"><%= category.name %></span>
+                      </div>
+                    <% end %>
+                  <% end %>
+                <% end %>
+
+                <% if @sub_categories.present? %>
+                  <% @sub_categories.each do |sub_category| %>
+                    <%= link_to sub_category_path(sub_category), class: "u-hover-muted u-block card has-tint has-tint--rounded u-cover", style: "background-image: url('#{ sub_category.category_metadata.present? && sub_category.category_metadata.banner.present? ? sub_category.category_metadata.banner.url(:small) : image_path("missing/hero.jpg") }')" do %>
+                      <div class="has-tint__content card__section">
+                        <span class="u-text-contrast u-text-shadow u-block u-truncate"><%= sub_category.name %></span>
+                      </div>
+                    <% end %>
+                  <% end %>
+                <% end %>
+
+                <% if @services.present? %>
+                  <% @services.each do |service| %>
+                    <%= link_to service_path(service), class: "u-hover-muted u-block card has-tint has-tint--rounded u-cover", style: "background-image: url('#{ service.category_metadata.present? && service.category_metadata.banner.present? ? service.category_metadata.banner.url(:small) : image_path("missing/hero.jpg") }')" do %>
+                      <div class="has-tint__content card__section">
+                        <span class="u-text-contrast u-text-shadow u-block u-truncate"><%= service.name %></span>
+                      </div>
+                    <% end %>
+                  <% end %>
+                <% end %>
+
+              <% else %>
+                <p><%= t("dashboard_following.no_listings") %>.</p>
+                <%= link_to t("phrases.browse_categories"), categories_path(city: @current_city.slug), class: 'btn btn--primary btn--small' %>
+              <% end %>
+            </aside>
+          </div>
+        </div>
+      </div>
+      <div class="grid__col--xs-12 grid__col--lg-9">
+        <div class="grid">
+          <% if @businesses.present? %>
+            <% @businesses.each do |business| %>
+              <%= render partial: "partials/businesses/business_card", locals: { business: business } %>
+            <% end %>
+          <% else %>
+            <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-12">
+              <div class="card">
+                <div class="card__section card__section--border">
+                  <p><%= t("dashboard_following.no_businesses") %>.</p>
+                  <%= link_to t("links.browse"), categories_path(city: @current_city.slug), class: 'btn btn--primary btn--small' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <% if @businesses.total_pages > 1 %>
+          <div class="mt1">
+            <%= paginate @businesses %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</section>

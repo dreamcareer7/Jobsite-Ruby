@@ -1,0 +1,32 @@
+<div class="modal js-suggest-businesses">
+  <% if @suggested_businesses %>
+    <div class="modal__table">
+      <div class="modal__cell">
+        <div class="modal__container">
+          <button class="js-close-modal modal__close">
+            <%= inline_svg("icons/close.svg", class: "icon") %>
+          </button>
+          <h2 class="modal__title"><%= t("suggest_businesses.title") %></h2>
+          <p><%= t("suggest_businesses.description") %></p>
+          <% @suggested_businesses.first(3).each do |business| %>
+            <div class="media mb1">
+              <%= image_tag(business.logo.url(:small), size: "48x48", class: "u-rounded u-border media__figure") %>
+              <div class="media__body">
+                <h4 class="mb0">
+                  <%= link_to business.name, business_path(id: business.slug, city: @current_city.slug), class: "u-text-dark u-text-bold" %>
+                </h4>
+                <% if business.reviews.present? %>
+                  <div class="mb2 rating small">
+                    <%= render partial: "partials/businesses/reviews", locals: { business: business, star_modifier: "yellow"} %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          <%= link_to t("suggest_businesses.view_more"), category_path(@project.category.slug, city: @current_city.slug), filter_by: "Recommended", class: "btn btn--primary btn--full" %>
+          <a class="js-close-modal btn btn--secondary btn--full"><%= t("suggest_businesses.return") %></a>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

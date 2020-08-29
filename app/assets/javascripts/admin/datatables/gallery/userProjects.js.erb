@@ -1,0 +1,86 @@
+$('#js-business-projects-table').dataTable({
+  serverSide: true,
+  bLengthChange: false,
+  bInfo: false,
+  ajax: $('#js-business-projects-table').data('source'),
+  order: [[ 4, 'desc' ]],
+  columns: [
+    {
+      data: 'image',
+      render: function (data, type, row, meta) {
+        return '<a href="' + document.location.origin + data + '" target="_blank"><img width="150px" src="' + data + '"></a>'
+      },
+    },
+    {
+      data: 'project',
+      render: function (data, type, row, meta) {
+        return '<a href="/admin/users/' + row.user.id + '/edit">' + row.project.title + '</a>'
+      },
+    },
+    {
+      data: 'user',
+      render: function (data, type, row, meta) {
+        return '<a href="/admin/users/' + row.user.id + '/edit">' + row.user.name + '</a>'
+      },
+    },
+    {
+      data: 'city'
+    },
+    {
+      data: 'updated_at',
+      render: function (data, type, row, meta) {
+        return moment(data).format("DD/MM/YY");
+      }
+    },
+    {
+      data: null,
+      sortable: false,
+      render: function (data, type, row, meta) {
+        return (1 == 1 ? '<a class="tooltip" title="Delete" rel="nofollow" data-method="delete" href="/admin/gallery/destroy_attachment/' + row.image_name + '/' + row.id + '" data-confirm="Are you sure?"><%= image_tag("icons/trash.svg", class: "icon icon--dark icon--small") %></a>' : '')
+      }
+    },
+  ],
+  dom: "ritp",
+  pageLength: 30,
+  initComplete: function() {
+    var table = this;
+
+    // Select filters
+    $('.js-select-filter').each(function () {
+      var $filterSelect = $(this);
+      var columnIndex = +$filterSelect.data('column');
+      var column = table.api().column(columnIndex);
+
+      // Filter the column when the user picks an option
+      $filterSelect.on('change', function() {
+        var val = $.fn.dataTable.util.escapeRegex($filterSelect.val());
+        column.search(val ? val : '', false, false).draw();
+      });
+
+      // Add all possible options to the select
+      $filterSelect.append('<option value="">' + column.header().innerHTML + '</option>');
+
+      var entries = column.data().unique().sort().map( function (d, j) {
+        if (typeof d === 'object') {
+          return d.map(function(row) { return row.name || row })
+        } else {
+          return d;
+        }
+      });
+
+      // undefined is falsey so filtering false values works to remove undefined
+      entries = _.uniq(_.flattenDeep(entries)).filter(function(value) { return value !== undefined; });
+
+      entries.forEach(function(entry) {
+        $filterSelect.append('<option value="' + entry + '">' + entry + '</option>');
+      });
+    });
+  }
+});
+
+$('#js-banners-table').on('draw.dt', function() {
+  $('.tooltip').tooltipster({
+    delay: 0,
+    animationDuration: 100
+  });
+});

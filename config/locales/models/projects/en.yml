@@ -1,0 +1,10 @@
+en:
+  project:
+    status:
+      pending: "Pending"
+      completion_pending: "Completion pending"
+      active: "Active"
+      completed: "Completed"
+      cancelled: "Cancelled"
+      not_started: "Not started"
+      Planning: "Planning"

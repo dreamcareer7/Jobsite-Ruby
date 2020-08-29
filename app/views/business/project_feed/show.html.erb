@@ -1,0 +1,95 @@
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="grid grid--middle">
+      <div class="grid__col--xs-12">
+        <div class="breadcrumbs mb3">
+          <%= link_to t("breadcrumb_nav.feed"), business_project_feed_index_path, class: "breadcrumbs__item" %>
+          <span class="breadcrumbs__item breadcrumbs__item--current"><span class="u-text-dark"><%= @project.title %></span></span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card__section card__section--border">
+        <div class="grid mb3">
+          <div class="grid__col--xs-12 grid__col--md-8">
+            <h2><%= @project.title %></h2>
+          </div>
+          <% if @active && !@project.hired? %>
+            <div class="grid__col--xs-12 grid__col--md-4 u-text-right--medium">
+              <small><%= t("feed.shortlisted") %> <%= (@project.shortlists.count > 0 ? @project.shortlists.count - 1 : 0) %> <%= t("feed.others") %></small>
+            </div>
+          <% end %>
+        </div>
+        <div class="grid grid--v-padded">
+          <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-flex">
+            <div class="media media--middle">
+              <div class="media__figure">
+                <%= image_tag @project.user.profile_image.url, class: "avatar" %>
+              </div>
+              <div class="media__body">
+                <strong class="u-block mb0"><%= @project.user.name %></strong>
+                <p><%= @project.user.city_country %></p>
+              </div>
+            </div>
+          </div>
+          <% if @project.user.location.present? || @project.user.industry.present? %>
+            <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-flex">
+              <% if @project.user.location.present? %>
+                <div class="u-flex u-flex-middle">
+                  <%= inline_svg("icons/pin.svg", class: "icon icon--brand") %>&nbsp;<span class="u-text-dark"><%= @project.user.location.city_country %></span>
+                </div>
+              <% end %>
+            <% end %>
+            <% if @project.user.industry.present? %>
+              <div class="u-flex u-flex-middle">
+                <%= inline_svg("icons/briefcase.svg", class: "icon icon--brand") %>&nbsp;<span class="u-text-dark"><%= @project.user.industry.gsub("_", " ").titleize %></span>
+              </div>
+            </div>
+          <% end %>
+          <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-flex">
+            <div class="u-flex u-flex-middle">
+              <% if @project.user.mobile_number.present? %>
+                <% if @active %>
+                  <%= inline_svg("icons/phone.svg", class: "icon icon--brand") %>&nbsp;<a class="u-text-dark" href="tel:<%= @project.user.mobile_number %>"><%= @project.user.mobile_number %></a>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="u-flex u-flex-middle">
+              <% if @active %>
+                <%= inline_svg("icons/email.svg", class: "icon icon--brand") %>&nbsp;<a class="u-text-dark" href="mailto:<%= @project.user.email %>"><%= @project.user.email %></a>
+              <% end %>
+            </div>
+          </div>
+          <% unless @project.inactive? %>
+            <%= render partial: "partials/projects/controls/business_project_controls" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <% if @active && !@project.inactive? %>
+        <%= render partial: "partials/projects/details/project_details_active" %>
+      <% else %>
+        <%= render partial: "partials/projects/details/project_details_inactive" %>
+      <% end %>
+      <% if @active && !@project.inactive? %>
+        <%= render partial: "partials/conversation/project_conversation", locals: { url: business_messages_path(project: @project) } %>
+      <% end %>
+      <% if @project.attachments.present? %>
+        <div class="grid__col--xs-12 grid__col--md-12">
+          <div class="card">
+            <div class="card__section">
+              <div class="grid grid--v-padded">
+                <% @project.attachments.each do |attachment| %>
+                  <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-3">
+                    <%= image_tag(attachment.attachment.url, class: "u-rounded-half", size: "400x300", style: "min-width:100%;height:auto;max-width:initial !important;") %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+</section>

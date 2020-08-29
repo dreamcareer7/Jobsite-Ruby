@@ -1,0 +1,335 @@
+<aside class="sidebar-menu">
+
+  <ul class="sidebar-menu__list list u-text-left">
+    <%= link_to "Dashboard", admin_overview_index_path, class: "h4 u-block sidebar-menu__subheading" %>
+    <button class="h4 u-block sidebar-menu__subheading js-admin-sidebar-expand <%= 'expanded' if controller_name == "admin_notifications" %>">
+      Notification Centre (<%= @notifications && @notifications.unresolved.count %>)
+      <%= inline_svg("icons/dropdown.svg", class: "icon icon--dark") %>
+    </button>
+    <ul class="sidebar-menu__list list js-sidebar-list u-text-left" style="display: none;">
+
+      <li class="sidebar-menu__item">
+        <%= active_link_to inquiries_admin_admin_notifications_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+          <%= inline_svg("icons/info.svg", class: "icon icon--small") %>
+          Inquiries (<%= @notifications && @notifications.inquiries.unresolved.count %>)
+        <% end %>
+      </li>
+      <li class="sidebar-menu__item">
+        <%= active_link_to site_admin_admin_notifications_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+          <%= inline_svg("icons/eye.svg", class: "icon icon--small") %>
+          Problem reports (<%= @notifications && @notifications.site_notifications.unresolved.count %>)
+        <% end %>
+      </li>
+      <li class="sidebar-menu__item">
+        <%= active_link_to business_claim_admin_admin_notifications_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+          <%= inline_svg("icons/key.svg", class: "icon icon--small") %>
+          Business claims (<%= @notifications && @notifications.business_claims.unresolved.count %>)
+        <% end %>
+      </li>
+      <li class="sidebar-menu__item">
+        <%= active_link_to upgrade_admin_admin_notifications_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+          <%= inline_svg("icons/reward.svg", class: "icon icon--small") %>
+          Upgrade requests (<%= @notifications && @notifications.upgrade_requests.unresolved.count %>)
+        <% end %>
+      </li>
+      <li class="sidebar-menu__item">
+        <%= active_link_to new_projects_admin_admin_notifications_path, class: "sidebar-menu__link", class_active: 'is-active' do %>
+          <%= inline_svg("icons/paint.svg", class: "icon icon--small") %>
+          New projects (<%= @notifications && @notifications.by_type(:new_project).unresolved.count %>)
+        <% end %>
+      </li>
+      <li class="sidebar-menu__item">
+        <%= active_link_to new_businesses_admin_admin_notifications_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+          <%= inline_svg("icons/briefcase.svg", class: "icon icon--small") %>
+          New businesses (<%= @notifications && @notifications.by_type(:new_business).unresolved.count %>)
+        <% end %>
+      </li>
+      <li class="sidebar-menu__item">
+        <%= active_link_to new_reviews_admin_admin_notifications_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+          <%= inline_svg("icons/checkmark.svg", class: "icon icon--small") %>
+          New reviews (<%= @notifications && @notifications.by_type(:new_review).unresolved.count %>)
+        <% end %>
+      </li>
+      <li class="sidebar-menu__item">
+        <%= active_link_to new_callback_requests_admin_admin_notifications_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+          <%= inline_svg("icons/phone.svg", class: "icon icon--small") %>
+          New callbacks (<%= @notifications && @notifications.by_type(:new_callback_request).unresolved.count %>)
+        <% end %>
+      </li>
+    </ul>
+  </ul>
+
+  <ul class="sidebar-menu__list list u-text-left">
+    <button class="h4 u-block sidebar-menu__subheading js-admin-sidebar-expand <%= 'expanded' if controller_name == "projects" %>">
+      Projects
+      <%= inline_svg("icons/dropdown.svg", class: "icon icon--dark") %>
+    </button>
+    <ul class="sidebar-menu__list list js-sidebar-list u-text-left" style="display: none;">
+
+      <li class="sidebar-menu__item">
+        <%= active_link_to admin_projects_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+          <%= inline_svg("icons/paint.svg", class: "icon icon--small") %>
+          Projects
+        <% end %>
+      </li>
+
+    </ul>
+  </ul>
+
+  <ul class="sidebar-menu__list list u-text-left">
+    <button class="h4 u-block sidebar-menu__subheading js-admin-sidebar-expand <%= 'expanded' if controller_name == "statistics" %>">
+      Statistics
+      <%= inline_svg("icons/dropdown.svg", class: "icon icon--dark") %>
+    </button>
+    <ul class="sidebar-menu__list list js-sidebar-list u-text-left" style="display: none;">
+
+      <% if Admin::StatisticsPolicy.new(current_admin, nil).engagement? %>
+        <li class="sidebar-menu__item">
+          <%= active_link_to engagement_admin_statistics_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/graph.svg", class: "icon icon--small") %>
+            Engagement
+          <% end %>
+        </li>
+      <% end %>
+      <% if Admin::StatisticsPolicy.new(current_admin, nil).businesses? %>
+        <li class="sidebar-menu__item">
+          <%= active_link_to businesses_admin_statistics_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/graph.svg", class: "icon icon--small") %>
+            Businesses
+          <% end %>
+        </li>
+      <% end %>
+      <% if Admin::StatisticsPolicy.new(current_admin, nil).users? %>
+        <li class="sidebar-menu__item">
+          <%= active_link_to users_admin_statistics_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/graph.svg", class: "icon icon--small") %>
+            User Analytics
+          <% end %>
+        </li>
+      <% end %>
+      <% if Admin::StatisticsPolicy.new(current_admin, nil).categories? %>
+        <li class="sidebar-menu__item">
+          <%= active_link_to categories_admin_statistics_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/graph.svg", class: "icon icon--small") %>
+            Categories
+          <% end %>
+        </li>
+      <% end %>
+      <% if Admin::StatisticsPolicy.new(current_admin, nil).analytics? %>
+        <li class="sidebar-menu__item">
+          <%= active_link_to analytics_admin_statistics_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/graph.svg", class: "icon icon--small") %>
+            Analytics
+          <% end %>
+        </li>
+      <% end %>
+
+    </ul>
+  </ul>
+
+  <ul class="sidebar-menu__list list u-text-left">
+    <button class="h4 u-block sidebar-menu__subheading js-admin-sidebar-expand <%= 'expanded' if ["businesses", "reviews"].include? controller_name %>">
+      Businesses
+      <%= inline_svg("icons/dropdown.svg", class: "icon icon--dark") %>
+    </button>
+    <ul class="sidebar-menu__list list js-sidebar-list u-text-left" style="display: none;">
+
+      <% if Admin::BusinessPolicy.new(current_admin, nil).index? %>
+        <li class="sidebar-menu__item">
+          <%= active_link_to admin_businesses_path, class: "sidebar-menu__link", class_active: 'is-active' do %>
+            <%= inline_svg("icons/clipboard.svg", class: "icon icon--small") %>
+            Businesses
+          <% end %>
+        </li>
+      <% end %>
+      <% if Admin::ReviewPolicy.new(current_admin, nil).index? %>
+        <li class="sidebar-menu__item">
+          <%= active_link_to admin_reviews_path, class: "sidebar-menu__link", class_active: 'is-active' do %>
+            <%= inline_svg("icons/star.svg", class: "icon icon--small") %>
+            Reviews/Ratings
+          <% end %>
+        </li>
+      <% end %>
+
+    </ul>
+  </ul>
+
+  <ul class="sidebar-menu__list list u-text-left">
+    <button class="h4 u-block sidebar-menu__subheading js-admin-sidebar-expand <%= 'expanded' if ["users", "vendors", "admins"].include? controller_name %>">
+      Users
+      <%= inline_svg("icons/dropdown.svg", class: "icon icon--dark") %>
+    </button>
+    <ul class="sidebar-menu__list list js-sidebar-list u-text-left" style="display: none;">
+
+      <% if Admin::VendorPolicy.new(current_admin, nil).index? %>
+        <li class="sidebar-menu__item">
+          <%= active_link_to admin_vendors_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/briefcase.svg", class: "icon icon--small") %>
+            Business users
+          <% end %>
+        </li>
+      <% end %>
+      <% if Admin::UserPolicy.new(current_admin, nil).index? %>
+        <li class="sidebar-menu__item">
+          <%= active_link_to admin_users_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/user.svg", class: "icon icon--small") %>
+            Users
+          <% end %>
+        </li>
+      <% end %>
+      <% if Admin::AdminPolicy.new(current_admin, nil).index? %>
+        <li class="sidebar-menu__item">
+          <%= active_link_to admin_admins_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/key.svg", class: "icon icon--small") %>
+            Admins
+          <% end %>
+        </li>
+      <% end %>
+
+    </ul>
+  </ul>
+
+  <% if Admin::GalleryPolicy.new(current_admin, nil).index? %>
+    <ul class="sidebar-menu__list list u-text-left">
+      <button class="h4 u-block sidebar-menu__subheading js-admin-sidebar-expand <%= 'expanded' if controller_name == "galleries" %>">
+        Gallery
+        <%= inline_svg("icons/dropdown.svg", class: "icon icon--dark") %>
+      </button>
+      <ul class="sidebar-menu__list list js-sidebar-list u-text-left" style="display: none;">
+
+        <li class="sidebar-menu__item">
+          <%= active_link_to business_banners_admin_gallery_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/gallery.svg", class: "icon icon--small") %>
+            Business profile images
+          <% end %>
+        </li>
+        <li class="sidebar-menu__item">
+          <%= active_link_to business_logos_admin_gallery_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/gallery.svg", class: "icon icon--small") %>
+            Business logos
+          <% end %>
+        </li>
+        <li class="sidebar-menu__item">
+          <%= active_link_to business_projects_admin_gallery_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/gallery.svg", class: "icon icon--small") %>
+            Business gallery
+          <% end %>
+        </li>
+        <li class="sidebar-menu__item">
+          <%= active_link_to user_projects_admin_gallery_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/gallery.svg", class: "icon icon--small") %>
+            User projects
+          <% end %>
+        </li>
+
+      </ul>
+    </ul>
+  <% end %>
+
+  <% if Admin::BannerPolicy.new(current_admin, nil).index? %>
+    <ul class="sidebar-menu__list list u-text-left">
+      <button class="h4 u-block sidebar-menu__subheading js-admin-sidebar-expand <%= 'expanded' if controller_name == "banners" %>">
+        Advertisements
+        <%= inline_svg("icons/dropdown.svg", class: "icon icon--dark") %>
+      </button>
+      <ul class="sidebar-menu__list list js-sidebar-list u-text-left" style="display: none;">
+
+        <li class="sidebar-menu__item">
+          <%= active_link_to sidebar_admin_banners_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/megaphone.svg", class: "icon icon--small") %>
+            Sidebar banners
+          <% end %>
+        </li>
+        <li class="sidebar-menu__item">
+          <%= active_link_to dashboard_admin_banners_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/megaphone.svg", class: "icon icon--small") %>
+            Dashboard banners
+          <% end %>
+        </li>
+        <li class="sidebar-menu__item">
+          <%= active_link_to listing_admin_banners_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/megaphone.svg", class: "icon icon--small") %>
+            Listing banners
+          <% end %>
+        </li>
+
+      </ul>
+    </ul>
+  <% end%>
+
+  <ul class="sidebar-menu__list list u-text-left">
+    <button class="h4 u-block sidebar-menu__subheading js-admin-sidebar-expand <%= 'expanded' if ["categories", "sub_categories", "services", "countries", "cities", "verifications", "certifications"].include? controller_name %>">
+      Data Settings
+      <%= inline_svg("icons/dropdown.svg", class: "icon icon--dark") %>
+    </button>
+    <ul class="sidebar-menu__list list js-sidebar-list u-text-left" style="display: none;">
+
+      <% if Admin::CategoryPolicy.new(current_admin, nil).index? %>
+        <li class="sidebar-menu__item">
+          <%= active_link_to admin_categories_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/list.svg", class: "icon icon--small") %>
+            Categories
+          <% end %>
+        </li>
+      <% end %>
+      <% if Admin::CountryPolicy.new(current_admin, nil).index? %>
+        <li class="sidebar-menu__item">
+          <%= active_link_to admin_countries_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/globe.svg", class: "icon icon--small") %>
+            Countries
+          <% end %>
+        </li>
+      <% end %>
+      <% if Admin::VerificationPolicy.new(current_admin, nil).index? %>
+        <li class="sidebar-menu__item">
+          <%= active_link_to admin_verifications_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/trusted.svg", class: "icon icon--small") %>
+            Verifications
+          <% end %>
+        </li>
+      <% end %>
+      <% if Admin::CertificationPolicy.new(current_admin, nil).index? %>
+        <li class="sidebar-menu__item">
+          <%= active_link_to admin_certifications_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+            <%= inline_svg("icons/reward.svg", class: "icon icon--small") %>
+            Certifications
+          <% end %>
+        </li>
+      <% end %>
+      <li class="sidebar-menu__item">
+        <%= active_link_to admin_project_types_path, class: "sidebar-menu__link", class_active: 'is-active'  do %>
+          <%= inline_svg("icons/paint.svg", class: "icon icon--small") %>
+          Project types
+        <% end %>
+      </li>
+
+    </ul>
+  </ul>
+
+</aside>
+
+<%= content_for :page_scripts do %>
+  <script>
+    $(function() {
+      $('.js-sidebar-list').each(function() {
+        if ($(this).siblings('.js-admin-sidebar-expand').hasClass('expanded')) { 
+          $(this).removeAttr('style') 
+        };
+      });
+    });
+    
+    
+    $('.js-admin-sidebar-expand').click(function() {
+      var $this = $(this);
+    
+      if($this.hasClass('expanded')){
+        $this.removeClass('expanded');
+        $this.next('.js-sidebar-list').hide();
+        return;
+      }
+    
+      $(this).toggleClass('expanded');
+      $(this).next('.js-sidebar-list').toggle();
+    });
+  </script>
+<% end %>

@@ -1,0 +1,66 @@
+<div class="js-admin-stats">
+  <div class="card">
+
+    <div class="card__section card__section--border">
+      <div class="grid grid--middle">
+        <div class="grid__col--xs-12 grid__col--md-8 grid__col--lg-9">
+          <h3><%= inline_svg("icons/graph.svg", class: "icon icon--dark icon--small") %>
+            <span class="u-text-light u-text-regular">Statistics / </span>
+            Categories
+          </h3>
+        </div>
+        <div class="grid__col--xs-12 grid__col--md-4 grid__col--lg-1">
+          <p style="margin-right: 10px; display: none;" class="js-stats-loading">Loading...</p>
+        </div>
+        <div class="grid__col--xs-12 grid__col--md-4 grid__col--lg-2">
+          <div class="field">
+            <div class="field__input-wrapper">
+              <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+              <select class="field__input field__input--right-add-on js-stats-time-range">
+                <% filter_time_ranges.each do |range| %>
+                  <option value="<%= range[:from].to_i %>-<%= range[:to].to_i %>"<%= ' selected' if range[:default] %>><%= range[:title] %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card__section card__section--border">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th># of visits</th>
+            <th># of businesses</th>
+            <th># of projects</th>
+          </tr>
+        </thead>
+        <tbody rv-each-category="stats">
+          <tr class="category-name-row">
+            <td rv-text="category.name" class="u-text-bold"></td>
+            <td rv-text="category.visits"></td>
+            <td rv-text="category.businesses"></td>
+            <td rv-text="category.projects"></td>
+          </tr>
+          <tr rv-each-subcategory="category.sub_categories">
+            <td rv-text="subcategory.name" class="indented"></td>
+            <td rv-text="subcategory.visits"></td>
+            <td rv-text="subcategory.businesses"></td>
+            <td rv-text="subcategory.projects"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<% content_for :page_scripts do %>
+  <%= javascript_include_tag 'business-stats' %>
+
+  <script>
+    initStats({ endpointModule: 'categories' })
+  </script>
+<% end %>

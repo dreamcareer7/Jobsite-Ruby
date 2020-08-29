@@ -1,0 +1,210 @@
+ar:
+
+ business_profile:
+  add_another: “إضافة المزيد”
+  add_project: "إضافة مشاريع/منتجات"
+
+  menu:
+
+    general_information: “معلومات العمل”
+    locations: “المواقع”
+    social: “التواصل الإجتماعي“
+    services: “الخدمات”
+    team: “الفريق”
+    featured_projects: “مشاريع مميزة”
+    certifications: “الشهادات”
+    verifications: “التحقق”
+
+  fields:
+
+    project_types:
+      blurb: "ماهي انواع المشاريع المناسبة للشركة ؟ اختر واحد او اكثر"
+
+    header:
+      general_information: “معلومات الشركة”
+      additional_information: “معلونات اضافية”
+      locations: “المواقع”
+      social: “صفحات التواصل الإجتماعي“
+      services: “الخدمات”
+      team: “أعضاء الفريق”
+      certifications: “الشهادات”
+      verifications: “التحقق”
+      translations: “الترجمة”
+      hours_of_operation: “ساعات العمل”
+      main_contact_info: “معلومات جهة التواصل الرسمية”
+      contact_person: “جهات التواصل“
+      business_data: “البيانات التجارية”
+      branding: “العلامات التجارية”
+
+    general_information:
+      business_name:
+        label: “اسم الشركة”
+        field:
+        placeholder: “الإسم القانوني للشركة”
+      email:
+        label: “البريد الإلكتروني”
+        field:
+        placeholder: "business@example.com"
+      business_description:
+        label: “وصف الشركة”
+        field:
+        placeholder: “وصف عملك”
+      website:
+        label: “الموقع الالكتروني”
+        field:
+        placeholder: "www.google.com"
+      phone_number:
+        label: “رقم الهاتف”
+        field:
+        placeholder: "XXX-XXX-XXX"
+      edit_logo: “تعديل شعار”
+      edit_banner: “تعديل الخلفية“
+      business_hours:
+        label: “ساعات العمل”
+        field:
+        placeholder: “٩ صباحاً ‫-‬ ٩ مساء”
+        days: [“الأحد”, “الإثنين”, “الثلاثاء”, “الأربعاء”, “الخميس”, “الجمعة”, “السبت”]
+        start_day_label: “بداية اليوم”
+        end_day_label: “نهاية اليوم”
+        start_hour_label: “بداية الوقت”
+        start_hour_placeholder: “٩ صباحاً“
+        end_hour_label: “انتهاء الوقت”
+        end_hour_placeholder: “٩ مساء“
+      license_number:
+        label: “رقم الرخصة”
+        placeholder: "990003"
+
+    additional_information:
+      contact_person: “جهة التواصل”
+      edit_photo: “تعديل الصورة الشخصية“
+      name:
+        label: “الاسم”
+        field:
+        placeholder: “الاسم”
+      email:
+        label: “البريد الالكتروني”
+        field:
+        placeholder: "joe@example.com"
+      phone_number:
+        label: “رقم الجوال”
+        field:
+        placeholder:
+      number_of_employees:
+        label: “عدد الموظفين”
+        field:
+        placeholder: "100"
+      nb_projects_completed:
+        label: “عدد المشاريع المنجزة”
+      years_of_establishment:
+        label: “سنة التأسيس”
+        field:
+        placeholder: "1979"
+      budgets_managed:
+        label: “الميزانيات المدارة”
+        field:
+        placeholder:
+
+    locations:
+      street_address:
+        label: “العنوان”
+        field:
+        placeholder: “الشارع، الصندوق البريدي ، الحي”
+      city:
+        label: “مدينة”
+        field:
+        placeholder:
+      type:
+        label: "Location type"
+        options: [“المركز الرئيسي”, “مستودع”, “متجر” ]
+        field:
+        placeholder:
+      description:
+        label: “الوصف”
+        field:
+        placeholder:
+      number:
+        label: “رقم الهاتف”
+        field:
+        placeholder: "XXX-XXX-XXX"
+
+    social:
+      facebook:
+        label: "فيس بوك"
+        field:
+        placeholder: "Facebook"
+      twitter:
+        label: "تويتر"
+        field:
+        placeholder: "Twitter"
+      linkedin:
+        label: "لينكد ان"
+        field:
+        placeholder: "LinkedIn"
+      youtube:
+        label: "يوتيوب"
+        field:
+        placeholder: "Youtube"
+      instagram:
+        label: "انستقرام"
+        field:
+        placeholder: "Instagram"
+      google_plus:
+        label: "جوجل بلس"
+        field:
+        placeholder: "Google+"
+
+    services:
+      contractors: “خدمات المقاولون”
+      suppliers: “خدمات الموردين”
+      machinery: “خدمات الآلات”
+
+    team_members:
+      edit_photo: “تعديل الصورة الشخصية“
+      name:
+        label: “الإسم”
+        field:
+        placeholder: “الإسم”
+      role:
+        label: “المنصب”
+        field:
+        placeholder:
+
+    featured_projects:
+      title:
+        label: “العنوان”
+        field:
+        placeholder: “العنوان”
+      video_link:
+        label: “رابط اليوتيوب“
+        field:
+        placeholder:
+      description:
+        label: “الوصف”
+        field:
+        placeholder: “الوصف”
+      photo:
+        no_file: “لم تقم باختيار ملف”
+        browse: “إستعراض”
+
+    certifications:
+      title:
+        label: “العنوان”
+        field:
+        placeholder: “العنوان”
+      video_link:
+        label: “رابط اليوتيوب”
+        field:
+        placeholder:
+      description:
+        label: “الوصف”
+        field:
+        placeholder: “الوصف”
+      photo:
+        no_file: “لم تقم باختيار ملف“
+        browse: “إستعراض”
+
+    data:
+      type: “نوع الشركة”
+      class: “مستوى الشدكة”
+      service_area: “مجال الخدمات”
+      size: “حجم المشروع”

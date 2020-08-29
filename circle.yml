@@ -1,0 +1,11 @@
+machine:
+  timezone: America/New_York
+deployment:
+  production:
+    branch: master
+    commands:
+      - bundle exec cap production deploy
+  staging:
+    branch: development
+    commands:
+      - bundle exec cap staging deploy

@@ -1,0 +1,64 @@
+ar:
+
+  add_business:
+    submit: "إضافة شركة"
+    header:
+      edit: "تعديل"
+      add: "إضافة"
+      your_business: "شركتك"
+      sub_head: "سجل مجاناً! اوصل للمزيد من العملاء . زد المبيعات."
+      reach_customers:
+        title: "الوصول للعملاء مباشرة"
+        description: "صفحتك الشخصية هي موقعك المصغر، يمكنك تحديثها في اي وقت."
+      control:
+        title: "انت المتحكم"
+        description: "احصل على العديد من المشاريع والأعمال على قدر رغبتك."
+      no_commissions:
+        title: "بلا عمولة"
+        description: "لن يتم استقطاع اي عمولة من الصفقات."
+
+    fields:
+      header:
+        general_information: "معلومات الشركة"
+        contact_person: "جهات التواصل"
+      business_name:
+        label: "إسم الشركة"
+        field:
+        placeholder: "إسم الشركة القانوني"
+      category:
+        label: "الفئة"
+      email:
+        label: "البريد الإلكتروني"
+        field:
+        placeholder: "business@example.com"
+      website:
+        label: "الموقع الإلكتروني"
+        field:
+        placeholder: "www.google.com"
+      phone_number:
+        label: "رقم الهاتف"
+        field:
+        placeholder: "XXX-XXX-XXX"
+      street_address:
+        label: "العنوان"
+        field:
+        placeholder: "عنوان الشركة"
+
+      contact_person:
+        edit_photo: "تعديل الصورة الشخصية"
+        name:
+          label: "الإسم"
+          field:
+          placeholder: "الإسم"
+        email:
+          label: "البريد الإلكتروني"
+          field:
+          placeholder: "joe@example.com"
+        phone_number:
+          label: "رقم الهاتف"
+          field:
+          placeholder: "XXX-XXX-XXX"
+        position:
+          label: "المنصب"
+          field:
+          placeholder: "المنصب"

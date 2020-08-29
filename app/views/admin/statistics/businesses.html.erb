@@ -1,0 +1,107 @@
+<div class="js-admin-stats">
+  <div class="card">
+
+    <div class="card__section card__section--border">
+      <div class="grid grid--middle">
+        <div class="grid__col--xs-12 grid__col--md-8 grid__col--lg-9">
+          <h3><%= inline_svg("icons/graph.svg", class: "icon icon--dark icon--small") %>
+            <span class="u-text-light u-text-regular">Statistics / </span>
+            Businesses
+          </h3>
+        </div>
+        <div class="grid__col--xs-12 grid__col--md-4 grid__col--lg-1">
+          <p style="margin-right: 10px; display: none;" class="js-stats-loading">Loading...</p>
+        </div>
+        <div class="grid__col--xs-12 grid__col--md-4 grid__col--lg-2">
+          <div class="field">
+            <div class="field__input-wrapper">
+              <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+              <select class="field__input field__input--right-add-on js-stats-time-range">
+                <% filter_time_ranges.each do |range| %>
+                  <option value="<%= range[:from].to_i %>-<%= range[:to].to_i %>"<%= ' selected' if range[:default] %>><%= range[:title] %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card__section card__section--border">
+      <div class="grid">
+        <div class="grid__col--xs-12 grid__col--md-12">
+          <div class="grid">
+            <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-3">
+              <p class="mb0"><%= t("stats.total_businesses") %></p>
+              <h2 class="m0" rv-text="stats.total">-</h2>
+            </div>
+            <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-3">
+              <p class="mb0"><%= t("stats.total_paid_businesses") %></p>
+              <h2 class="m0" rv-text="stats.total_paid">-</h2>
+            </div>
+            <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-3">
+              <p class="mb0"><%= t("stats.new_businesses") %></p>
+              <h2 class="m0" rv-text="stats.new">-</h2>
+            </div>
+            <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-3">
+              <p class="mb0"><%= t("stats.new_paid_businesses") %></p>
+              <h2 class="m0" rv-text="stats.new_paid">-</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card__section card__section--border">
+      <div class="js-stats-graph" data-series="businesses"></div>
+    </div>
+
+    <div class="card__section card__section--border">
+      <div class="grid">
+        <div class="grid__col--xs-12 grid__col--md-6">
+          <p class="u-text-bold"><%= t 'stats.most_viewed' %></p>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Views</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr rv-each-business="stats.most_viewed">
+                <td rv-text="business.0"></td>
+                <td rv-text="business.1"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="grid__col--xs-12 grid__col--md-6">
+          <p class="u-text-bold"><%= t 'stats.most_followed' %></p>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Followers</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr rv-each-business="stats.most_followed">
+                <td rv-text="business.0"></td>
+                <td rv-text="business.1"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<% content_for :page_scripts do %>
+  <%= javascript_include_tag 'business-stats' %>
+
+  <script>
+    initStats({ endpointModule: 'businesses' })
+  </script>
+<% end %>

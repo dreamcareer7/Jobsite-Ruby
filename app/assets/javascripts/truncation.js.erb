@@ -1,0 +1,70 @@
+$( document ).on( 'turbolinks:load', function() {
+  var icons = $('.js-toggle-icons');
+
+    if ($(window).width() < 600) {
+    $('.js-toggle-truncate').each(function() {
+      $(this).find('.js-toggle-target').each(function(i) {
+        if(i>=2) { $(this).toggle(); }
+      });
+    });
+  } else { $('.js-view-all').hide(); }
+
+  $('.js-view-all').on('click', function() {
+    $(this).closest('.js-toggle-truncate').find('.js-toggle-target').each(function(i) {
+      if(i>=1 ) { $(this).toggle(); }
+    });
+  });
+
+  //truncate icons in business profile
+
+  if ($(window).width() > 600) {
+    //only show three if full page(sidebar)
+    toggleIcons(icons, 3, 2);
+  } else {
+    //show four when mobile to account for longer display
+    toggleIcons(icons, 4, 3);
+  }
+
+  $('.js-view-all-icons').on('click', function() {
+    if($(window).width() > 600) {
+      viewAllIcons(1, $(this));
+    } else {
+      viewAllIcons(3, $(this));
+    }
+  });
+
+  function toggleIcons(icons, minimumToToggle, numberToShow) {
+    icons.each(function(i) {
+      if ($(icons[i]).find('.js-toggle-target').length > minimumToToggle) {
+        $('.js-view-all-icons').removeClass('u-hide');
+
+        $(icons[i]).find('.js-toggle-target').each(function(i) {
+          if(i > numberToShow) { $(this).addClass('u-hide'); }
+        });
+
+      } else {
+        $('.js-view-all-icons').addClass('u-hide');
+      }
+    });
+  }
+
+  function viewAllIcons(toggleStart, target) {
+    target.parents('.js-toggle-icons').first().find('.js-toggle-target').each(function(i) {
+      if(i > toggleStart) { $(this).toggleClass('u-hide'); }
+    });
+  }
+
+});
+
+function setupReadMore() {
+  // Truncate text
+  $('.js-truncate-text').readmore({
+    speed: 200,
+    collapsedHeight: 100,
+    moreLink: '<p class="u-text-accent"><a href="">+ View more</a></p>',
+    lessLink: '<p class="u-text-accent"><a href="">- View less</a></p>'
+  });
+
+}
+
+$(document).ready(setupReadMore);

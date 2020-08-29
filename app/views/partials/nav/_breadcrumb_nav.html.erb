@@ -1,0 +1,16 @@
+<nav class="nav secondary-nav u-hide--medium-down">
+  <div class="grid grid--middle">
+    <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-6">
+      <div class="breadcrumbs">
+        <a href="/<%= @current_city.name %>" class="breadcrumbs__item"><%= t("breadcrumb_nav.home") %></a>
+        <% breadcrumbs.each do |path| %>
+          <%= link_to path[:url], class: "breadcrumbs__item" do %><%= path[:name] %><br><small class="u-text-muted"><%= number_with_delimiter(path[:count]) if path[:count].present? %></small><% end %>
+        <% end %>
+        <span class="breadcrumbs__item breadcrumbs__item--current u-text-dark"><%= current_breadcrumb[:name] %><br><small class="u-text-muted"><%= number_with_delimiter(current_breadcrumb[:count]) if current_breadcrumb[:count].present? %></small></span>
+      </div>
+    </div>
+    <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-6">
+      <%= render partial: "partials/social/like_buttons" %>
+    </div>
+  </div>
+</nav>

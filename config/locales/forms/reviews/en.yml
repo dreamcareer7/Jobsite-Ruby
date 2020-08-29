@@ -1,0 +1,16 @@
+en:
+  review_form:
+    feedback_blurb: "Your feedback is very important. Help let others know how your experience went and give them a clear idea about of the vendor you hired. Be honest and be fair no ones is perfect but there is always room to improve."
+    respond: "Respond to feedback"
+    response: "Response"
+    project: "Project name"
+    user: "User"
+    reliability: "Reliability"
+    tidiness: "Tidiness"
+    courtesy: "Courtesy"
+    workmanship: "Workmanship"
+    value: "Value for money"
+    recommended: "Recommended"
+    comment: "Comment"
+    leave_review: "Leave feedback"
+    business: "Business"

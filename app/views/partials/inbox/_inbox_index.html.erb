@@ -1,0 +1,34 @@
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="has-popover u-hide--medium mb2">
+      <%= render partial: "partials/filter_sort/filter_sort_mobile", locals: { filter_terms: @filter_terms, default_term: "Allmessages" } %>
+    </div>
+    <div class="u-hide--medium-down">
+      <div class="segmented-control mb4">
+        <%= render partial: "partials/filter_sort/filter_sort", locals: { filter_terms: @filter_terms, default_term: "Allmessages" } %>
+      </div>
+    </div>
+    <div class="card">
+      <% if @inbox.present? %>
+        <% @inbox.each do |entry| %>
+          <% Business.find(entry.business_id) rescue next if entry.is_a?(Notification)  %>
+          <% entry.business rescue next if entry.is_a?(Message) %>
+          <% if entry.is_a?(Notification) && entry.notification_type == "callback request" %>
+            <%= render partial: "partials/inbox/format_callback_entry", locals: { entry: entry } %>
+          <% else %>
+            <%= render partial: "partials/inbox/format_inbox_entry", locals: { entry: entry } %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <div class="card__section card__section--border">
+          <p><%= t("dashboard.no_notifications") %></p>
+        </div>
+      <% end %>
+    </div>
+    <% if @inbox.total_pages > 1 %>
+      <div class="mt3 pagination">
+        <%= paginate @inbox %>
+      </div>
+    <% end %>
+  </div>
+</section>

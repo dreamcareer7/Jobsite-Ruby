@@ -1,0 +1,9 @@
+en:
+  category_form:
+    fields:
+      name:
+        label: Name
+        placeholder: Name
+      subheadline:
+        label: Subheadline
+        placeholder: Subheadline

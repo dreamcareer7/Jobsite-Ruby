@@ -1,0 +1,29 @@
+// Pagination
+
+.pagination {
+  display: flex;
+  align-items: center;
+}
+
+.pagination__pages {
+  flex: 1;
+}
+
+.pagination__item {
+  display: inline-block;
+  color: $grey;
+  padding: 0 1em;
+  height: $input-height;
+  min-width: $input-height;
+  line-height: $input-height;
+  border-radius: $border-radius;
+
+  &:hover {
+    color: $grey-dark;
+  }
+
+  &.active {
+    background-color: $border;
+    color: $grey-dark;
+  }
+}

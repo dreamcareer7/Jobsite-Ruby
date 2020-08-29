@@ -1,0 +1,70 @@
+$('#js-banners-table').dataTable({
+  serverSide: true,
+  bFilter: false,
+  bLengthChange: false,
+  bInfo: false,
+  ajax: $('#js-banners-table').data('source'),
+  columns: [
+    {
+      data: 'image_en',
+      render: function (data, type, row, meta) {
+        if(data.indexOf('missing') > -1) { return "No photo chosen" }
+        else {
+          return '<a href="/admin/banners/' + row.id + '/edit"><img width="150px" src="' + data + '"></a>';
+        }
+      }
+    },
+    {
+      data: 'image_ar',
+      render: function (data, type, row, meta) {
+        if(data.indexOf('missing') > -1) { return "No photo chosen" }
+        else {
+          return '<a href="/admin/banners/' + row.id + '/edit"><img width="150px" src="' + data + '"></a>';
+        }
+      }
+    },
+    {
+      data: 'start_date',
+      render: function (data, type, row, meta) {
+        return moment(data).format("DD/MM/YY");
+      }
+    },
+    {
+      data: 'end_date',
+
+      render: function (data, type, row, meta) {
+        return moment(data).format("DD/MM/YY");
+      }
+    },
+    {
+      data: 'banner_locations',
+      render: function (data, type, row, meta) {
+        return data;
+      }
+    },
+    {
+      data: 'banner_listings',
+      render: function (data, type, row, meta) {
+        return data;
+      }
+    },
+    {
+      data: null,
+      sortable: false,
+      render: function (data, type, row, meta) {
+        return '<a class="tooltip" title="Edit" href="/admin/banners/' + row.id + '/edit"><%= image_tag("icons/pencil.svg", class: "icon icon--dark icon--small") %></a> ' + (data.role === "superadmin" ?
+          '<a class="tooltip" title="Delete" rel="nofollow" data-method="delete" href="/admin/banners/' + row.id + '" data-confirm="Are you sure?"><%= image_tag("icons/trash.svg", class: "icon icon--dark icon--small") %></a> ' : '') +
+          (row.enabled ? '<a class="tooltip" title="Disable" data-method="put" href="/admin/banners/' + row.id + '/disable"><%= image_tag("icons/close-small.svg", class: "icon icon--dark icon--small") %></a>' : '<a class="tooltip" title="Enable" data-method="put" href="/admin/banners/' + row.id + '/enable"><%= image_tag("icons/verified.svg", class: "icon icon--dark icon--small") %></a>');
+      }
+    },
+  ],
+  dom: "ritp",
+  pageLength: 30
+});
+
+$('#js-banners-table').on('draw.dt', function() {
+  $('.tooltip').tooltipster({
+    delay: 0,
+    animationDuration: 100
+  });
+});

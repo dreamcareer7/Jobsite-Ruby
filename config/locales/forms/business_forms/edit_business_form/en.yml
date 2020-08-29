@@ -1,0 +1,218 @@
+en:
+
+ business_profile:
+  add_another: "Add another"
+  add_project: "Add Projects/Products"
+
+  menu:
+
+    general_information: "Business information"
+    locations: "Locations"
+    social: "Social"
+    services: "Services"
+    team: "Team"
+    featured_projects: "Gallery"
+    certifications: "Certifications"
+    verifications: "Verifications"
+
+  fields:
+
+    project_types:
+      blurb: "Which of these projects does your business accept? Choose one or more"
+
+    header:
+      general_information: "Business information"
+      additional_information: "Additional information"
+      locations: "Locations"
+      social: "Social profiles"
+      services: "Services"
+      team: "Team members"
+      certifications: "Certifications"
+      verifications: "Verifications"
+      translations: "Translations"
+      hours_of_operation: "Hours of operation"
+      main_contact_info: "Business contact information"
+      contact_person: "Contact person"
+      business_data: "Business data"
+      branding: "Branding"
+
+    general_information:
+      business_name:
+        label: "Business name"
+        field:
+        placeholder: "Legal business name"
+      email:
+        label: "Email"
+        field:
+        placeholder: "business@example.com"
+      business_description:
+        label: "Business description"
+        field:
+        placeholder: "Describe your business"
+      website:
+        label: "Website"
+        field:
+        placeholder: "www.google.com"
+      phone_number:
+        label: "Phone number"
+        field:
+        placeholder: "XXX-XXX-XXX"
+      edit_logo: "Edit logo"
+      edit_banner: "Edit banner image"
+      business_hours:
+        label: "Hours of operation"
+        field:
+        placeholder: "9am - 9pm"
+        days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+        start_day_label: "Start day"
+        end_day_label: "End day"
+        start_hour_label: "Start time"
+        start_hour_placeholder: "9am"
+        end_hour_label: "End time"
+        end_hour_placeholder: "9pm"
+      license_number:
+        label: "License number"
+        placeholder: "990003"
+
+    additional_information:
+      contact_person: "Contact person"
+      edit_photo: "Edit profile photo"
+      name:
+        label: "Name"
+        field:
+        placeholder: "Name"
+      email:
+        label: "Email"
+        field:
+        placeholder: "joe@example.com"
+      phone_number:
+        label: "Phone number"
+        field:
+        placeholder:
+      number_of_employees:
+        label: "Number of employees"
+        field:
+        placeholder: "100"
+      nb_projects_completed:
+        label: "Number of projects completed"
+      years_of_establishment:
+        label: "Year of establishment"
+        field:
+        placeholder: "1979"
+      budgets_managed:
+        label: "Budgets managed"
+        field:
+        placeholder:
+
+    locations:
+      street_address:
+        label: "Street address"
+        field:
+        placeholder: "Street address"
+      country:
+        label: "Country"
+        field:
+        placeholder:
+      city:
+        label: "City"
+        field:
+        placeholder:
+      type:
+        label: "Location type"
+        options: ["Headquarters", "Warehouse", "Mega warehouse", "Branch", "Shop", "Office", "Center", "Workshop", "Factory", "Showroom", "Sales center", "Outlet" ]
+        field:
+        placeholder:
+      description:
+        label: "Description"
+        field:
+        placeholder:
+      number:
+        label: "Phone number"
+        field:
+        placeholder: "XXX-XXX-XXX"
+
+    social:
+      facebook:
+        label: "Facebook"
+        field:
+        placeholder: "Facebook"
+      twitter:
+        label: "Twitter"
+        field:
+        placeholder: "Twitter"
+      linkedin:
+        label: "LinkedIn"
+        field:
+        placeholder: "LinkedIn"
+      youtube:
+        label: "Youtube"
+        field:
+        placeholder: "Youtube"
+      instagram:
+        label: "Instagram"
+        field:
+        placeholder: "Instagram"
+      google_plus:
+        label: "Google+"
+        field:
+        placeholder: "Google+"
+      prequalification:
+        label: "Prequalification"
+        field:
+        placeholder:
+
+    services:
+      contractors: "Contractor services"
+      suppliers: "Supplier services"
+      machinery: "Machinery services"
+
+    team_members:
+      edit_photo: "Edit profile photo"
+      name:
+        label: "Name"
+        field:
+        placeholder: "Name"
+      role:
+        label: "Role"
+        field:
+        placeholder:
+
+    featured_projects:
+      title:
+        label: "Title"
+        field:
+        placeholder: "Title"
+      video_link:
+        label: "Youtube link"
+        field:
+        placeholder:
+      description:
+        label: "Description"
+        field:
+        placeholder: "Description"
+      photo:
+        no_file: "No file chosen"
+        browse: "Browse"
+
+    certifications:
+      title:
+        label: "Title"
+        field:
+        placeholder: "Title"
+      video_link:
+        label: "Youtube link"
+        field:
+        placeholder:
+      description:
+        label: "Description"
+        field:
+        placeholder: "Description"
+      photo:
+        no_file: "No file chosen"
+        browse: "Browse"
+
+    data:
+      type: "Business type"
+      class: "Business class"
+      service_area: "Service area"
+      size: "Project size"

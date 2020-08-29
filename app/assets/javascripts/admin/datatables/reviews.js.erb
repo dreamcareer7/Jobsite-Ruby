@@ -1,0 +1,115 @@
+$('#js-reviews-table').dataTable({
+  serverSide: true,
+  bLengthChange: false,
+  bInfo: false,
+  order: [[ 6, 'desc' ]],
+  ajax: {
+    url: $('#js-reviews-table').data('source')
+  },
+  columns: [
+    {
+      data: 'comment',
+      render: function (data, type, row, meta) {
+        return '<a href="/admin/reviews/' + row.id + '">' + data + '</a>';
+      }
+    },
+    {
+      data: 'average_score',
+      sortable: false
+    },
+    {
+      data: 'review_reply',
+      defaultContent: "-",
+      sortable: false
+    },
+    {
+      data: 'user',
+      render: function (data, type, row, meta) {
+        return '<a href="/admin/users/' + data.id + '/edit">' + data.name + '</a>';
+      },
+    },
+    {
+      data: 'business',
+      render: function (data, type, row, meta) {
+        return '<a href="/admin/businesses/' + data.id + '/edit">' + data.name + '</a>';
+      },
+    },
+    {
+      data: 'project',
+      render: function (data, type, row, meta) {
+        return '<a href="/admin/projects/' + data.id + '/edit">' + data.title + '</a>';
+      },
+    },
+    {
+      data: 'created_at',
+      render: function (data, type, row, meta) {
+        return moment(data).format("DD/MM/YY");
+      }
+    },
+    {
+      data: 'cities',
+      visible: false
+    },
+    {
+      data: null,
+      sortable: false,
+      render: function (data, type, row, meta) {
+        return (data.role === "superadmin" || data.role === "moderator" ? '<a class="tooltip" title="Delete" rel="nofollow" data-method="delete" href="/admin/reviews/' + row.id + '" data-confirm="Are you sure?"><%= image_tag("icons/trash.svg", class: "icon icon--dark icon--small") %></a>' : '');
+      }
+    }
+  ],
+  dom: "ritp",
+  pageLength: 30,
+  initComplete: function() {
+    var table = this;
+
+    // Select filters
+    $('.js-select-filter').each(function () {
+      var $filterSelect = $(this);
+      var columnIndex = +$filterSelect.data('column');
+      var column = table.api().column(columnIndex);
+
+      // Filter the column when the user picks an option
+      $filterSelect.on('change', function() {
+        var val = $.fn.dataTable.util.escapeRegex($filterSelect.val());
+        column.search(val ? '^'+val+'$' : '', true, false).draw();
+      });
+
+      // Add all possible options to the select
+      $filterSelect.append('<option value="">' + column.header().innerHTML + '</option>');
+
+      var cities = column.data().unique().sort().map( function (d, j) {
+        if(d.length > 0) {
+          return d[0].name;
+        }
+      });
+
+      // undefined is falsey so filtering false values works to remove undefined
+      cities = _.uniq(cities).filter(Boolean);
+
+      cities.forEach(function(city) {
+        $filterSelect.append('<option value="'+city+'">'+city+'</option>');
+      });
+    });
+
+    // Text filters
+    $('.js-text-filter').each(function() {
+      var $filterInput = $(this);
+      var columnIndex = +$filterInput.data('column');
+      var column = table.api().column(columnIndex);
+
+      $filterInput.on('keyup change', function() {
+        if (column.search() !== this.value) {
+          column.search(this.value).draw();
+        }
+      });
+    });
+  }
+});
+
+$('#js-reviews-table').on('draw.dt', function() {
+  $('.tooltip').tooltipster({
+    delay: 0,
+    animationDuration: 100
+  });
+});

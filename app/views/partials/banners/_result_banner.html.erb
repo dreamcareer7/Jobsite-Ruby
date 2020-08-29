@@ -1,0 +1,11 @@
+<% if @result_banners.present? %>
+  <% @result_banners.each do |banner| %>
+    <div class="grid__col--xs-12 grid__col--lg-6">
+      <div class="card ad ad-slider-wrapper">
+        <%= link_to banner.link_for_locale, target: "_blank" do %>
+          <%= image_tag(banner.image_for_locale.url(:results)) %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

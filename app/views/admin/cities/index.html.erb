@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card__section card__header card__section--border">
+    <% if @country %>
+      <h3 class="card__title">
+        <%= link_to "Countries / ", admin_countries_path,  class: 'u-text-light u-text-regular' %>
+        <%= @country.name %>
+      </h3>
+    <% else %>
+      <h3 class="card__title">Cities</h3>
+    <% end %>
+
+    <%= link_to "Add city", new_admin_city_path(country_id: @country.try(:id) || ''), class: "btn btn--xs-full btn--primary btn--small" %>
+  </div>
+
+  <div class="card__section">
+    <table class="js-cities-table" data-source="<%= admin_cities_path(format: :json) %>" data-country-id="<%= params[:country_id] %>" >
+      <thead>
+        <tr>
+          <th>Name (en)</th>
+          <th>Name (ar)</th>
+          <th>&nbsp;</th>
+          <th>Country</th>
+          <th>Businesses</th>
+          <th>Banner</th>
+          <th># of users</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+</script>
+
+<%= content_for :page_scripts do %>
+  <%= javascript_include_tag 'admin/datatables/cities' %>
+<% end %>

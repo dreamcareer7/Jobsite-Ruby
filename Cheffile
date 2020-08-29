@@ -1,0 +1,14 @@
+site "https://supermarket.chef.io/api/v1"
+
+cookbook 'apt'
+cookbook 'build-essential'
+cookbook 'postgresql', '~> 4.0.4'
+cookbook 'ruby_build'
+cookbook 'nodejs'
+cookbook 'rbenv', git: 'https://github.com/ianbrown78/chef-rbenv'
+cookbook 'vim'
+cookbook 'java', '~> 1.39.0'
+cookbook 'elasticsearch', '~> 2.2.0'
+cookbook 'redisio', '~> 2.3.0'
+cookbook 'imagemagick', '~> 0.2.3' # Needed for Paperclip image optimizations
+cookbook 'phantomjs', '~> 1.0.3' # Needed for the poltergeist test driver

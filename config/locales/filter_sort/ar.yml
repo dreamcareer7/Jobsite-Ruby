@@ -1,0 +1,20 @@
+ar:
+
+  filter_sort:
+    sort_by: "الترتيب حسب"
+    rating: "التقييم"
+    distance: "المسافة"
+    verified: "المعتمد"
+    recommended: "المقترح"
+    all_messages: "جميع الرسائل"
+    project_messages: "رسائل المشروع"
+    other_messages: "رسائل أخرى"
+    callback_requests: "طلبات معاودة الإتصال"
+    all_projects: "جميع المشاريع"
+    invited_only: "المدعوين فقط"
+    interested: "مهتم"
+    shortlisted: "تم عرضه"
+    active: "مفعل"
+    completed: "مكتمل"
+    latest: "مضاف حديثاً"
+    cancelled: "ملغي"

@@ -1,0 +1,62 @@
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="grid grid--center">
+      <div class="grid__col--xs-12 grid__col--sm-10 grid__col--md-6 grid__col--lg-5 grid__col--xlg-4">
+        <% if !resource.is_a?(Admin) %>
+          <div class="grid grid--tight">
+            <div class="grid__col--xs-4">
+              <%= link_to user_omniauth_authorize_path(:facebook), class: "btn btn--facebook btn--full" do %>
+                <span class="u-visuallyhidden"><%= t("log_in.facebook") %></span>
+                <%= inline_svg("icons/facebook.svg", class: "btn__add-on btn__add-on--center icon icon--white") %>
+              <% end %>
+            </div>
+            <div class="grid__col--xs-4">
+              <%= link_to user_omniauth_authorize_path(:google_oauth2), class: "btn btn--google btn--full" do %>
+                <span class="u-visuallyhidden"><%= t("log_in.google") %></span>
+                <%= inline_svg("icons/google_plus.svg", class: "btn__add-on btn__add-on--center icon icon--white") %>
+              <% end %>
+            </div>
+            <div class="grid__col--xs-4">
+              <%= link_to user_omniauth_authorize_path(:linkedin), class: "btn btn--linkedin btn--full" do %>
+                <span class="u-visuallyhidden"><%= t("log_in.google") %></span>
+                <%= inline_svg("icons/linkedin.svg", class: "btn__add-on btn__add-on--center icon icon--white") %>
+              <% end %>
+            </div>
+          </div>
+          <div class="or-divider">
+            <small class="or-divider__text"><%= t("log_in.or") %></small>
+          </div>
+        <% else %>
+          <a href="/">
+            <%= inline_svg("logo.svg", class: "mb2 icon--brand") %>
+          </a>
+          <p>Welcome admin. Please sign in.</p>
+        <% end %>
+        <div class="js-sign-in-error"></div>
+        <fieldset class="fieldset">
+          <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), remote: true) do |f| %>
+            <div class="field">
+              <div class="field__input-wrapper">
+                <%= f.input_field :email, type: "email", class: "field__input", id: "login-email", placeholder: t("log_in.email_placeholder"), value: "#{ params[:email] if params[:email].present? }", label: false %>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field__input-wrapper">
+                <%= f.input_field :password, type: "password", class: "field__input", id: "login-password", placeholder: t("log_in.password_placeholder"), label: false %>
+                <% unless resource.is_a?(Admin) %>
+                  <small class="field__add-on field__add-on--right"> <%= link_to t("log_in.forget"), new_password_path('user') %></small>
+                <% end %>
+              </div>
+            </div>
+            <div class="field">
+              <%= f.submit "Log In", id: "log-in", class: "btn btn--full btn--primary" %>
+            </div>
+          <% end %>
+        </fieldset>
+        <% unless resource.is_a?(Admin) %>
+          <p class="mt2 u-text-center"><%= t("log_in.have_account") %> <button data-modal="sign-up" class="u-text-accent u-hover-underline js-open-modal"><%= t("log_in.sign_up") %></button>.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

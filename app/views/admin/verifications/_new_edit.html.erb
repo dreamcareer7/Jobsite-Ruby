@@ -1,0 +1,42 @@
+<%= simple_form_for [:admin, @verification] do |f| %>
+
+  <div class="grid">
+    <div class="grid--xs-12 grid__col--md-12">
+      <div class="card">
+
+        <div class="card__section card__section--border">
+          <h3 class="card__title">
+            <%= link_to 'Certifications /', admin_certifications_path,  class: 'u-text-light u-text-regular' %> <%= action_name == 'edit' ? @verification.name : "New" %>
+          </h3>
+        </div>
+
+        <div class="card__section">
+          <div class="fieldset">
+            <div class="grid">
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <div class="field">
+                  <label class="field__label">* Name (en)</label>
+                  <%= f.input :name_en, wrapper: :text_field, label: false %>
+                </div>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <div class="field">
+                  <label class="field__label">* Name (en)</label>
+                  <%= f.input :name_ar, wrapper: :text_field, label: false %>
+                </div>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <div class="field">
+                  <div class="btn-group">
+                    <%= f.submit action_name == 'edit' ? t('form.update'): t('form.create'), class: 'btn btn--primary btn-group__item' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% end %>

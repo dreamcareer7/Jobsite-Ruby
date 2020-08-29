@@ -1,0 +1,17 @@
+// Tint
+
+.has-tint {
+  position: relative;
+  @include black-overlay;
+}
+
+.has-tint--rounded {
+  &:before,
+  &:after {
+    border-radius: $border-radius;
+  }
+}
+
+.has-tint__content {
+  position: relative;
+}

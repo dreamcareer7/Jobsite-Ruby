@@ -1,0 +1,25 @@
+<section class="section section--dark u-cover u-text-center" style="background-image: url('<%= image_path('add-business-header.jpg') %>')">
+  <div class="site-wrap">
+    <div class="section-heading">
+      <h1 class="u-text-contrast"><%= action_name == 'edit' ? t("add_business.header.edit") : t("add_business.header.add") %> <%= t("add_business.header.your_business") %></h1>
+      <h3 class="u-text-regular u-text-muted u-text-contrast"><%= t("add_business.header.sub_head") %></h3>
+    </div>
+    <div class="grid grid--v-padded">
+      <div class="grid__col--xs-12 grid__col--md-4">
+        <%= inline_svg("icons/profile.svg", class: "icon icon--medium icon--white") %>
+        <h4 class="u-text-contrast"><%= t("add_business.header.reach_customers.title") %></h4>
+        <p class="u-text-muted"><%= t("add_business.header.reach_customers.description") %></p>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-4">
+        <%= inline_svg("icons/briefcase.svg", class: "icon icon--medium icon--white") %>
+        <h4 class="u-text-contrast"><%= t("add_business.header.control.title") %></h4>
+        <p class="u-text-muted"><%= t("add_business.header.control.description") %></p>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-4">
+        <%= inline_svg("icons/zero.svg", class: "icon icon--medium icon--white") %>
+        <h4 class="u-text-contrast"><%= t("add_business.header.no_commissions.title") %></h4>
+        <p class="u-text-muted"><%= t("add_business.header.no_commissions.description") %></p>
+      </div>
+    </div>
+  </div>
+</section>

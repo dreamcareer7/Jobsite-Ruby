@@ -1,0 +1,15 @@
+ar:
+  review_form:
+    respond: “يجب الإستجابة للتقييم”
+    response: “الإستجابة”
+    project: “إسم المشروع”
+    user: “المستخدم”
+    reliability: "الموثوقية"
+    tidiness: “الترتيب”
+    courtesy: “التعامل”
+    workmanship: “جودة العمل”
+    value: “القيمة مستحقة”
+    recommended: “موصى به”
+    comment: “تعليق”
+    leave_review: "ترك التعليق"
+    business: “الشركة”

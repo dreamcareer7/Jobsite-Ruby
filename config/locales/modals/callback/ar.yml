@@ -1,0 +1,10 @@
+ar:
+
+  callback:
+    title: "طلب معاودة إتصال"
+    description_one: "المتحدث الرسمي من "
+    description_two: " سوف يتواصل معك بالرقم التالي"
+    no_number_placeholder: "الرجاء إدخال رقم هاتفك"
+    placeholder: "الرجاء إدخال رقمك"
+    submit: "تأكيد الرقم"
+    change_number: "تغيير الرقم"

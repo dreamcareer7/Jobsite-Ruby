@@ -1,0 +1,11 @@
+<section class="section section--dark u-cover has-tint u-text-center" <% if listing_banner.present? %> style="background-image: url('<%= listing_banner %>'); <% end %>">
+  <div class="site-wrap has-tint__content">
+    <h1 class="u-text-contrast u-text-shadow"><%= listing_type.headline(@current_city, filter) %></h1>
+    <h3 class="mb1 mt0 u-text-contrast u-text-shadow u-text-regular u-text-muted"><%= listing_type.sub_headline(@current_city) %></h3>
+    <% if current_user %>
+      <%= render partial: "partials/follows/follow", locals: { target: listing_type, follow: current_user.follows.where(follow_target_type: listing_type.class, follow_target_id: listing_type.id), classes: "mt2 btn btn--small btn--primary" } %>
+    <% else %>
+      <span data-modal="please-log-in" data-modal-target="follow" data-modal-redirect="<%= request.fullpath %>" class="js-open-modal mt2 btn btn--small btn--primary"><%= t("business.follow") %></span>
+    <% end %>
+  </div>
+</section>

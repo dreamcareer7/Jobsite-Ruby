@@ -1,0 +1,116 @@
+<%= yield :section_header %>
+
+<section class="section section--alt section--border-bottom">
+  <div class="site-wrap">
+    <div class="grid grid--v-padded">
+      <% @featured_businesses.each do |business| %>
+        <div class="grid__col--xs-12 grid__col--md-4">
+          <div class="media media--middle">
+            <%= link_to business_path(id: business.slug) do %>
+              <%= image_tag(business.logo.url(:small), class: "u-rounded u-border media__figure", width: "64") %>
+            <% end %>
+            <div class="media__body">
+              <%= link_to business_path(id: business.slug) do %>
+                <h4 class="mb0"><%= business.name %></h4>
+                <small class="u-text-reset"><%= @map_city.name %> (<%= business.distance_from_user_to_s(@current_coordinates, @map_city)%> km)</small>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="grid">
+      <div class="grid__col--lg-6 u-text-left mb3">
+        <%= link_to t("main_nav.post_a_project"), new_user_project_path, class: "btn btn--primary btn--xs-full" %>
+      </div>
+      <div class="grid__col--lg-6 u-text-right mb3">
+        <div class="segmented-control">
+          <a href="<%= @listing_path %>" class="segmented-control__item btn btn--secondary"><%= inline_svg("icons/list.svg", class: "icon segmented-control__icon") %><%= t("listing.list") %></a>
+          <span class= "segmented-control__item active btn btn--secondary"><%= inline_svg("icons/map.svg", class: "icon segmented-control__icon") %><%= t("listing.map") %></span>
+        </div>
+      </div>
+      <div class="grid__col--xs-12 grid__col--lg-4">
+        <div class="card search-results-sidebar">
+          <div class="search-results-sidebar__inner">
+            <% @businesses.each_with_index do |business, index| %>
+              <div class="card__section">
+                <div class="media media--middle">
+                  <%= image_tag(business.logo.url(:small), class: "u-rounded u-border media__figure", width: "48") %>
+                  <div class="media__body">
+                    <h4 class="mb0"><%= link_to "#{ index + 1 }. #{ business.name }", business_path(id: business.slug), class: "u-text-dark js-business", data: { business: business.id } %></h4>
+                    <% if business.reviews.present? %>
+                      <div class="rating small">
+                        <%= render partial: "partials/businesses/reviews", locals: { business: business, star_modifier: 'yellow' } %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="grid__col--xs-12 grid__col--lg-8">
+        <div class="map-wrapper">
+          <div id="listing-map" class="map">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight section--alt section--border-top">
+  <div class="site-wrap">
+    <div class="grid grid--v-padded mb2">
+      <% @featured_businesses.each do |business| %>
+        <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-3">
+          <div class="media">
+            <%= link_to business_path(id: business.slug) do %>
+              <%= image_tag(business.logo.url(:small), class: "u-rounded u-border media__figure", width: "48") %>
+            <% end %>
+            <div class="media__body">
+              <%= link_to business_path(id: business.slug) do %>
+                <h4 class="mb0"><%= business.name %></h4>
+                <small class="u-text-reset"><%= @map_city.name %> (<%= business.distance_from_user_to_s(@current_coordinates, @map_city)%> km)</small>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="grid">
+      <% @trending_sub_categories.each do |sub_category| %>
+        <div class="grid__col--xs-12 grid__col--sm-4 grid__col--md-6 grid__col--lg-3">
+          <%= link_to sub_category_path(id: sub_category), class: "card has-tint has-tint--rounded photo-block u-cover", style: "background-image: url('#{ sub_category.category_metadata.present? ? sub_category.category_metadata.banner.url(:small) : image_path("missing/hero.jpg") }')" do %>
+            <div class="photo-block__name has-tint__content">
+              <span class="u-text-shadow"><%= sub_category.name %></span><br>
+              <small class="u-text-muted u-text-shadow"><%= sub_category.active_businesses_in_city(@map_city) %> <%= t("listing.listings") %></small>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-3">
+        <div class="photo-block photo-block--no-backdrop card u-text-center u-bg-turquoise">
+          <div class="card__section">
+            <h4 class="u-text-contrast"><%= t("listing.business_prompt.header") %></h4>
+            <% if current_user %>
+              <%= link_to t("links.add_business"), new_user_business_path, class: "btn btn--contrast btn--small" %>
+            <% else %>
+              <%= link_to t("links.add_business"), new_business_path, class: "btn btn--contrast btn--small" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= content_tag :span, '', class: "js-business-locations", data: { markers: @markers.to_json } %>
+
+<%= javascript_include_tag "listing-map" %>

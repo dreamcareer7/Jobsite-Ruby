@@ -1,0 +1,40 @@
+$(document).ready(function() {
+  $('.js-verifications-table').dataTable({
+    processing: true,
+    serverSide: true,
+    bFilter: false,
+    bLengthChange: false,
+    bInfo: false,
+    ajax: $('.js-verifications-table').data('source'),
+    columns: [
+      {
+        data: 'name_en',
+        render: function (data, type, row, meta) {
+          return '<a href="/admin/verifications/' + row.id + '/edit">' + data + '</a> ';
+        }
+      },
+      {
+        data: 'name_ar',
+        render: function (data, type, row, meta) {
+          return '<a href="/admin/verifications/' + row.id + '/edit">' + data + '</a> ';
+        }
+      },
+      {
+        data: null,
+        sortable: false,
+        render: function (data, type, row, meta) {
+          return '<a class="tooltip" title="Edit" href="/admin/verifications/' + row.id + '/edit"><%= image_tag("icons/pencil.svg", class: "icon icon--dark icon--small") %></a>' + (data.role === 'superadmin' ? '<a class="tooltip" title="Delete" rel="nofollow" data-method="delete" href="/admin/verifications/' + row.id + '" data-confirm="Are you sure?"><%= image_tag("icons/trash.svg", class: "icon icon--dark icon--small") %></a> ' : '');
+        }
+      }
+    ],
+    dom: "ritp",
+    pageLength: 30
+  }); // dataTable
+}); // document.on
+
+$('.js-verifications-table').on('draw.dt', function() {
+  $('.tooltip').tooltipster({
+    delay: 0,
+    animationDuration: 100
+  });
+});

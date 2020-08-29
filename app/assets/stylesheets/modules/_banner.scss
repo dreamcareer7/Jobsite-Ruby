@@ -1,0 +1,23 @@
+// Banner
+
+.banner {
+  width: 100%;
+  padding: $spacing-medium;
+  text-align: center;
+  background-color: $white;
+
+  &--success {
+    color: $white;
+    background-color: $green;
+  }
+
+  &--error {
+    color: $red;
+    background-color: mix($red, $white, 25%);
+  }
+}
+
+.banner--primary {
+  background-color: $red;
+  color: $white;
+}

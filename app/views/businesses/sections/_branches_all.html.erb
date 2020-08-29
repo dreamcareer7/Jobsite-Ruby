@@ -1,0 +1,18 @@
+<% if @business.locations.present? %>
+  <div class="card js-toggle-truncate u-hide js-section js-empty js-branches-all">
+    <%= render partial: "businesses/sections/branches_base", locals: { business_locations: @business.locations } %>
+  </div>
+<% else %>
+  <div class="card js-branches-all js-empty u-hide">
+    <div class="card__section">
+      <div class="card__header">
+        <h3 class="card__title"><%= inline_svg("icons/location.svg", class: "icon icon--sm-small icon--brand") %><%= t("business.locations") %></h3>
+      </div>
+      <div class="grid grid--v-padded">
+        <div class="grid__col--xs-12">
+          <p><%= t("business.missing") %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

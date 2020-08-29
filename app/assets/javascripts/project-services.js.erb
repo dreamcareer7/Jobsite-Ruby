@@ -1,0 +1,47 @@
+var targetSubCat;
+
+$('.js-cocoon-fields').on('cocoon:after-insert', function() {
+  $.each($('.js-item-field'), function() {
+    if (this === $('.js-item-field').last()[0]) {
+      $(this).addClass('pb0');
+    } else {
+      $(this).removeClass('pb0');
+    }
+  })
+});
+
+$('.js-selected-subcat').on('change', function() {
+  var selectedSubCat = $(this).val();
+  targetSubCat = $(this);
+
+  $('.js-cocoon-fields').find('form')[0].reset();
+  $(this).val(selectedSubCat);
+
+  if ($(this).val()) {
+    $('.js-select-services, .js-more').removeClass('u-hide');
+    $('.js-select-services').not(':first').empty();
+  } else {
+    $('.js-select-services, .js-more').addClass('u-hide');
+  }
+  filterServices($(this));
+})
+
+function filterServices($this) {
+  if (!$this.val()) { return }
+  var projectID = $('.js-project-id').data('id');
+
+  return $.ajax({
+    url: '/user/projects/' + projectID + '/filter_services',
+    type: 'GET',
+    dataType: 'script',
+    data: {
+      sub_category_id: $this.val(),
+    }
+  });
+
+}
+
+$(function() {
+  $('.rails-service-fields').first().find('.js-remove-service-field').hide();
+  $('.js-cocoon-fields').on('cocoon:after-insert', function() { filterServices(targetSubCat) });
+})

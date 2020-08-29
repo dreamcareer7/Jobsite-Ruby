@@ -1,0 +1,23 @@
+var originalNavPosition;
+
+$(document).on('turbolinks:load', function() {
+  if( $('.js-sticky-nav').length < 1) { return };
+
+  //set value of original position only when page load #fix for safari
+  originalNavPosition = $('.js-sticky-nav').offset().top;
+})
+
+$(window).scroll(function() {
+  if( $('.js-sticky-nav').length < 1) { return };
+
+  var stickyNavHeight = $('.js-sticky-nav').outerHeight();
+
+  if($(window).scrollTop() > originalNavPosition){
+    $('.js-sticky-nav').addClass("is-fixed");
+    $('body').css('padding-top', stickyNavHeight);
+
+  } else if($(window).scrollTop() <= originalNavPosition) {
+    $('.js-sticky-nav').removeClass("is-fixed");
+    $('body').css('padding-top', 0);
+  }
+});

@@ -1,0 +1,194 @@
+// Nav
+
+.nav {
+  width: 100%;
+  padding: $spacing-medium;
+
+  @include mq(small) {
+    padding: $spacing-medium $spacing-large;
+  }
+
+  @include mq(medium) {
+    padding: $spacing-large;
+  }
+}
+
+.primary-nav {
+  background-color: $red;
+  @include z-index(primary-nav);
+
+  &--transparent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+  }
+}
+
+.primary-nav--dashboard {
+  background-color: $grey-dark;
+}
+
+.primary-nav__wrap {
+  display: flex;
+  align-items: center;
+}
+
+.primary-nav__left,
+.primary-nav__right {
+  display: flex;
+  align-items: center;
+}
+
+.primary-nav__left {
+  flex: 1;
+}
+
+
+// Search
+
+.nav__search {
+  margin-left: $spacing-medium;
+  margin-right: $spacing-medium;
+  flex: 1;
+
+  @include mq(large) {
+    margin-left: $spacing-large;
+    margin-right: $spacing-large;
+  }
+}
+
+
+// Secondary
+
+.secondary-nav {
+  background-color: $white;
+  position: relative;
+  white-space: nowrap;
+  @include z-index(secondary-nav);
+  @include drop-shadow;
+
+  &.is-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+}
+
+.secondary-nav--has-tabs {
+  padding: 0;
+
+  @include mq(medium-down) {
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+
+// Nav logo
+
+.nav__logo {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  fill: $white;
+  flex-shrinK: 0;
+}
+
+.nav__logo--mobile {
+  width: $spacing-x-large;
+  height: $spacing-x-large;
+
+  @include mq(large) {
+    display: none;
+  }
+}
+
+.nav__logo--full-mobile {
+  height: $spacing-x-large;
+
+  @include mq(large) {
+    display: none;
+  }
+}
+
+.nav__logo--desktop {
+  width: 140px;
+  height: 30px;
+
+  @include mq(large) {
+    width: 160px;
+    height: 36px;
+  }
+
+  @include mq(x-large) {
+    width: 170px;
+    height: 38px;
+  }
+
+  @include mq(large-down) {
+    display: none;
+  }
+}
+
+
+// Hamburger
+
+.nav__hamburger {
+  outline: 0;
+
+  @include mq(medium) {
+    display: none;
+  }
+}
+
+
+// List
+
+.nav__list {
+  display: inline-flex;
+  align-items: center; // Make sure nav divider is vertically centered
+}
+
+
+// Link
+
+.nav__link {
+  color: $white;
+  transform: translate3d(0, 0, 0); // Safari antialiasing bug
+  @include caps-bold;
+
+  &:hover {
+    opacity: 0.92;
+  }
+
+  &:hover,
+  &:focus,
+  &:visited {
+    color: $white,
+  }
+}
+
+
+// Divider
+
+.nav__divider {
+  display: inline-block;
+  width: 1px;
+  height: $spacing-large;
+  background-color: rgba($white, 0.2);
+  margin: 0 $spacing-medium;
+  flex-shrink: 0;
+
+  @include mq(medium) {
+    margin: 0 $spacing-large;
+  }
+}
+
+.nav__divider--tight {
+  margin: 0 $spacing-small;
+
+  @include mq(medium) {
+    margin: 0 $spacing-medium;
+  }
+}

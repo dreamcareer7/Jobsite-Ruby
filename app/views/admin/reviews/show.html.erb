@@ -1,0 +1,81 @@
+<div class="card">
+
+  <div class="card__section card__section--border">
+    <h3><%= link_to 'Reviews & Ratings /', admin_reviews_path,  class: 'u-text-light u-text-regular' %> Details</h3>
+  </div>
+
+  <div class="card__section card__section--border">
+
+    <p class="u-text-italic"><%= @review.comment %></p>
+
+    <div class="grid grid--v-padded">
+      <div class="grid__col--xs-12 grid__col--md-4">
+        <strong>User</strong><br>
+        <%= link_to @review.user.name, edit_admin_user_path(@review.user) %>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-4">
+        <strong>Post date</strong><br>
+        <%= @review.created_at.to_s :datetime %>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-4">
+        <strong>Actions</strong><br>
+        <%= link_to "Delete", admin_review_path(@review), method: :delete %>
+      </div>
+    </div>
+  </div>
+
+  <% if @review.review_reply %>
+    <div class="card__section card__section--border">
+      <h3 class="card__title">Business reply</h3>
+      
+      <p class="u-text-italic"><%= @review.review_reply.body %></p>
+
+      <div class="grid grid--v-padded">
+        <div class="grid__col--xs-12 grid__col--md-4">
+          <strong>Business</strong><br>
+          <%= link_to @review.review_reply.business.name, edit_admin_business_path(@review.review_reply.business) %>
+        </div>
+        <div class="grid__col--xs-12 grid__col--md-4">
+          <strong>Post date</strong><br>
+          <%= @review.review_reply.created_at.to_s :datetime %>
+        </div>
+        <div class="grid__col--xs-12 grid__col--md-4">
+          <strong>Actions</strong><br>
+          <%= link_to "Delete", admin_review_reply_path(@review.review_reply), method: :delete %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="card__section card__section--border">
+    <h3>Scores <span class="u-text-muted">(average of <%= @review.average_score %>)</span></h3>
+    <div class="grid grid--v-padded">
+      <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-3 grid__col--lg-2">
+        <strong>Reliability</strong><br>
+        <%= @review.reliability %>
+      </div>
+      <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-3 grid__col--lg-2">
+        <strong>Tidiness</strong><br>
+        <%= @review.tidiness %>
+      </div>
+      <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-3 grid__col--lg-2">
+        <strong>Courtesy</strong><br>
+        <%= @review.courtesy %>
+      </div>
+      <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-3 grid__col--lg-3">
+        <strong>Workmanship</strong><br>
+        <%= @review.workmanship %>
+      </div>
+      <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-3 grid__col--lg-3">
+        <strong>Value for money</strong><br>
+        <%= @review.value_for_money %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card__section card__section--border">
+    <h3>Associated project</h3>
+    <p><%= link_to @review.project.title, edit_admin_category_path(@review.project) %></p>
+  </div>
+
+</div>

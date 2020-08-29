@@ -1,0 +1,13 @@
+ar:
+
+  log_in:
+    title: "تسجيل الدخول"
+    facebook: "بإستخدام فيس بوك"
+    google: "بإستخدام جوجل"
+    or: "او"
+    email_placeholder: "البريد الإلكتروني"
+    password_placeholder: "كلمة السر"
+    forget: "نسيت ؟"
+    submit: "تسجيل الدخول"
+    have_account: "لاتمتلك حساب ؟"
+    sign_up: "سجل الآن"

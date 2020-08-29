@@ -1,0 +1,27 @@
+<div class="grid__col--xs-4 grid__col--lg-3">
+  <div class="gallery-item u-cover" style="background-image: url('<%= get_thumbnail(item.video_link) %>')">
+    <button data-modal="video-player" data-video-link="<%= item.video_link %>" class="js-open-modal gallery-item__play">
+      <%= inline_svg("icons/play-video.svg", class: "icon icon--white icon--x-large") %>
+    </button>
+    <div class="gallery-item__description">
+      <div class="grid">
+        <div class="grid__col--xs-8">
+          <div class="media media--middle">
+            <%= link_to business_path(id: item.business.slug, city: @current_city.slug) do %>
+              <%= image_tag(item.business.logo.url(:small), class: "media__figure u-rounded-half u-hide--medium-down #{ 'fallback-logo' unless item.business.logo.present? }", width: "40") %>
+            <% end %>
+            <%= link_to business_path(id: item.business.slug, city: @current_city.slug), class: 'u-hover-underline u-text-contrast' do %>
+              <div class="media__body u-truncate">
+                <strong class="u-text-left u-text-contrast"><%= item.business.name %></strong><br>
+                <small class="u-text-contrast"><%= t("gallery.uploaded") %> <%= item.business.business_contact.present? ? item.business.business_contact.name : item.business.name %></small>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="grid__col--xs-4 u-text-right">
+          <small class="u-text-muted"><%= time_ago_in_words(item.business.created_at).gsub("about", "") %></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

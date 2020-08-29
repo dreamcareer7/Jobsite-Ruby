@@ -1,0 +1,53 @@
+<div class="card">
+  <div class="card__section">
+
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--sm-8 mb1">
+        <h3 class="mb2">Projects</h3>
+      </div>
+    </div>
+
+    <div class="fieldset">
+      <div class="grid grid--tight">
+        <div class="grid__col--xs-4 grid__col--md-3">
+          <div class="field">
+            <div class="field__input-wrapper">
+              <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
+              <select class="field__input field__input--right-add-on js-select-filter" data-column="2"></select>
+            </div>
+          </div>
+        </div>
+        <div class="grid__col--xs-4 grid__col--md-3">
+          <div class="field">
+            <div class="field__input-wrapper">
+              <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
+              <select class="field__input field__input--right-add-on js-select-filter" data-column="3"></select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table id="js-projects-table" data-source="<%= admin_projects_path(format: :json) %>">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Category</th>
+          <th>City</th>
+          <th>Status</th>
+          <th>Approved</th>
+          <th>User</th>
+          <th>Business</th>
+          <th>Date posted</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+  </div>
+</div>
+
+<% content_for :page_scripts do %>
+  <%= javascript_include_tag 'admin/datatables/projects' %>
+<% end %>

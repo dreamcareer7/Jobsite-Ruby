@@ -1,0 +1,16 @@
+<ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content popover u-box-shadow list list--unstyled autocomplete--default js-no-results">
+  <span class="popover__link"><%= t("search.no_results") %></span>
+</ul>
+
+<%= content_for :page_scripts do %>
+  <script>
+    $(document).ready(function() {
+      $('.js-no-results').css({top: $('.js-search-box').position().top} + 16 + 'px');
+    });
+
+    $('.search').on('click', function() {
+      $('.js-no-results').removeClass('is-visible');
+    });
+
+  </script>
+<% end %>

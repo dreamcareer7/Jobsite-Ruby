@@ -1,0 +1,94 @@
+en:
+
+  post_project:
+    service_type: "What kind of %{category} are you looking for?"
+    project_type: "Please select what best describes your project"
+    project_services: "Please specify what types of products and services you need"
+    project_requirements: "Select requirements"
+    project_services_needed: "What %{category} do you need?"
+    project_services_specific: "Please choose the specific service you need"
+    information: "Project information"
+    submit: "Continue"
+    section_header:
+      add: "Post a project"
+      sub_head: "Put your project in front of the best businesses on Muqawiloon. Get it done right."
+      connect:
+        title: "Connect with reliable businesses"
+        description: "Muqawiloon vets and verifies businesses to save you time."
+      control:
+        title: "You’re in control"
+        description: "You decide the business that is best for your project."
+      no_commissions:
+        title: "No commissions"
+        description: "We don’t ask for any commissions on any deal."
+    header:
+      post_project: "Post a project"
+      details: "Timeline and Budget"
+      general: "General information"
+      location: "Where is your project located?"
+      attachments: "Attachments"
+      contact: "Project contact"
+      project_details: "Project details"
+    prompt:
+      post: "Put your project in front of the best businesses on Muqawiloon. Get bids and quotes from reliable businesses that have already been vetted and verified." 
+
+    fields:
+      project_name:
+        label: "Project name"
+        field:
+        placeholder: "Choose a project name"
+      category:
+        label: "What do you need?"
+      description:
+        label: "Describe what you are looking for"
+        field:
+        placeholder: "Provide a thorough description of your project (i.e. size of area, special requirements, etc.) to get the attention of the best businesses on Muqawiloon."
+      budget:
+        label: "Budget"
+      currency:
+        label: "Currency"
+      timeline:
+        label: "Timeline"
+      status:
+        label: "Project status"
+        options: ["Ready to hire", "Planning", "On hold"]
+      start_date:
+        label: "Project start date"
+      end_date:
+        label: "Project end date"
+      location:
+        label: "Project location"
+        placeholder: "Street address"
+      owner_type:
+        label: "I am the"
+        owner: "Project owner"
+        consultant: "Consultant"
+      location_type:
+        label: "What type of location is it?"
+        commercial: "Commercial"
+        residential: "Residential"
+        government: "Government"
+        private: "Private"
+        other: "Other"
+        placeholder: "Please specify"
+      historical_structure:
+        label: "Is work required on a historical structure?"
+        yes: "Yes"
+        no: "No"
+      attachments:
+        label: "Add attachments (JPG, PDF, DOC under 1MB)"
+        no_file: "No file chosen"
+        browse: "Browse"
+        add_attachment: "+ Add attachment"
+      contact:
+        name:
+          label: "Name"
+          placeholder: "John Doe"
+        email:
+          label: "Email"
+          placeholder: "you@example.com"
+        number:
+          label: "Phone number"
+          placeholder: "XXX-XXX-XXX"
+        role:
+          label: "Role"

@@ -1,0 +1,38 @@
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="card">
+      <div class="card__section">
+        <div class="grid grid--v-padded">
+          <div class="grid__col--xs-12 grid__col--md-6 grid__col--middle">
+            <div class="media media--middle">
+              <%= image_tag(@message.is_sender?("", @current_business) ? @message.receiver.profile_image.url : @message.sender.profile_image.url, width: "50", class: "media__figure u-rounded u-border") %>
+              <div class="media__body">
+                <h2 class="mb0"><%= @message.is_sender?("", @current_business) ? @message.receiver.name : @message.sender.name %></h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card__section card__section--border chat-wrapper">
+        <% @conversation_messages.each_with_index do |message, index| %>
+          <%= render partial: "partials/inbox/format_conversation_body", locals: { message: message, previous_message: index == 0 ? "" : @conversation_messages[index - 1] } %>
+        <% end %>
+      </div>
+      <div class="card__section">
+        <fieldset class="fieldset">
+          <%= simple_form_for(Message.create, url: business_messages_path(conversation_id: @conversation.id), method: :post) do |f| %>
+            <div class="field">
+              <%= f.input :body, type: "text", wrapper: :text_area, placeholder: t("messages.placeholder"), label: false %>
+            </div>
+            <div class="field u-text-right">
+              <%= f.submit t("messages.submit"), class: "btn btn--primary btn--xs-full" %>
+            </div>
+          <% end %>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</section>
+

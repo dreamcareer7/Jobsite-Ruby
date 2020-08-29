@@ -1,0 +1,65 @@
+en:
+
+  how_it_works:
+    professionals:
+      head: "Browse professionals"
+      text: "Muqawiloon is the fastest way to discover qualified industry experts and suppliers for every kind of project."
+    match:
+      head: "Find the perfect match"
+      text: "Connect with businesses to receive and compare quotes, ask all the questions and get all the details you need to make it a perfect match."
+    project:
+      head: "Hire and complete your project"
+      text: "Document, rate and review your Muqawiloon experience and share the real outcome of your project with others as amazing or awful as it may be."
+    learn_more:
+      link: "Learn more"
+      text: " about listing your business on Muqawiloon and start connecting with your customers today."
+
+  home_page:
+    quote: "Looking for a quote?"
+    header:
+      head: "Hire Trusted Contractors, Suppliers & Specialists"
+      sub_head: "Muqawiloon helps you find & hire the most qualified businesses and professionals for your building & construction projects in %{current_city}."
+      sub_head_link: "How it works"
+      search_box_placeholder: "Search for categories & businesses"
+      trending_services: "Trending services:"
+    explore:
+      head: "Explore Muqawiloon"
+      browse: "Browse"
+      view_all: "View all categories"
+      listings_available: "Over %{listing_count} listings"
+    trending:
+      head: "Latest on Muqawiloon"
+      sub_head: "Daily updates on Construction, Building and Contractor businesses in %{current_city}"
+      view_profile: "View profile"
+      view_review: "View full review"
+
+  trending_section:
+    added: "Latest businesses"
+    upgraded: "Premium members"
+    latest: "Latest on gallery"
+    latest_reviews: "Latest reviews"
+    review: "View full review"
+    project: "View full project"
+    business: "View full profile"
+    view_more_businesses: "View more businesses"
+
+  cta:
+    head: Join up to get notified about the latest bids, projects and more happening in and around %{current_city}.
+    professional_profile:
+      title: Professional company profile
+      description: Show comprehensive company details and prequalifications.
+    no_commissions:
+      title: No commissions
+      description: We don't interfere in your leads and deals; absolutely no commissions.
+    exclusive_membership:
+      title: Exclusive membership
+      description: Become a member of only the best and trusted businesses.
+    upgrade: Become a premium user!
+
+  promo:
+    head: Match the best people to get the job done right.
+    sub_head: recommended, verified and monitored businesses in
+
+  popular:
+    trade_services: Popular trades & services in
+    services_in: services in

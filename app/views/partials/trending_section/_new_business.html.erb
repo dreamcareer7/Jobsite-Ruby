@@ -1,0 +1,13 @@
+<div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-3">
+  <%= link_to business_path(id: business.slug, city: @current_city.slug), target: :blank, class: "u-hover-muted u-block" do %>
+    <div class="media media--middle">
+      <%= image_tag(business.logo.url(:large), size: "84", class: "u-border u-rounded media__figure") %>
+      <div class="media__body">
+        <small class="trending-category-label u-text-reset u-text-muted"><%= business.categories.limit(1).collect(&:name).join(', ') %></small>
+        <strong class="u-block u-truncate"><%= business.name %></strong>
+        <small class="u-text-reset u-block u-truncate"><%= business.sub_categories.visible.distinct.limit(3).collect(&:name).join(', ') %></small>
+        <small class="u-text-reset u-text-muted"><%= time_ago_in_words(business.updated_at).gsub("about", "") %> <%= t("words.ago") %></small>
+      </div>
+    </div>
+  <% end %>
+</div>

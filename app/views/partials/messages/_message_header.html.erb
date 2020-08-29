@@ -1,0 +1,45 @@
+<div class="grid grid--v-padded">
+  <div class="grid__col--xs-12 grid__col--md-6 grid__col--middle">
+    <div class="media media--middle">
+      <%= link_to business_path(id: business.id, city: @current_city.slug) do %>
+        <%= image_tag(business.logo.url(:small), width: "50", class: "media__figure u-rounded u-border") %>
+      <% end %>
+      <div class="media__body">
+        <%= link_to business_path(id: business.id, city: @current_city.slug) do %>
+          <h2 class="mb0"><%= business.name %></h2>
+        <% end %>
+        <p><%= business_location %></p>
+      </div>
+    </div>
+  </div>
+  <% if business_contact.present? %>
+    <div class="grid__col--xs-12 grid__col--md-6 grid__col--middle">
+      <div class="grid grid--full">
+        <div class="grid__col--xs-6 grid__col--middle">
+          <div class="media media--middle">
+            <%= image_tag(business_contact.profile_image.url, width: "50", class: "media__figure u-hide--small-down u-circle u-rounded u-border") %>
+            <div class="media__body">
+              <h4 class="mb0"><%= business.business_contact.name %></h4>
+              <% if business.business_contact.position.present? %>
+                <p><%= business.business_contact.position %></p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="grid__col--xs-6 grid__col--middle">
+          <p>
+          <% if business.business_contact.phone_number.present? %>
+            <%= inline_svg("icons/phone.svg", class: "icon icon--brand icon--small") %><%= business.business_contact.phone_number %>
+            <br>
+          <% end %>
+          <% if business.business_contact.email.present? %>
+            <%= mail_to business.business_contact.email do %>
+              <%= inline_svg("icons/email.svg", class: "icon icon--brand icon--small") %><%= business.business_contact.email %>
+            <% end %>
+          <% end %>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

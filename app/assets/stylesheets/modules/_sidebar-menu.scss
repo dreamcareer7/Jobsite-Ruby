@@ -1,0 +1,117 @@
+// Sidebar menu
+
+.sidebar-menu--map {
+  max-height: 600px;
+  overflow-y: scroll;
+}
+
+.sidebar-menu__list {
+  @include ltr {
+    padding-left: $spacing-large;
+    margin-left: -$spacing-large;
+  }
+
+  @include rtl {
+    padding-right: $spacing-large;
+    margin-right: -$spacing-large;
+  }
+}
+
+
+// Item
+
+.sidebar-menu__item {
+  display: block;
+  margin-bottom: 0.75em;
+}
+
+.sidebar-menu__item--inline {
+  display: inline-block;
+  margin-bottom: 0.75em;
+}
+
+// Subheading
+
+.sidebar-menu__subheading {
+  white-space: nowrap;
+  
+  @include ltr {
+    text-align: left;
+  }
+
+  @include rtl {
+    text-align: rtl;
+  }
+}
+
+
+// Icon
+
+.sidebar-menu__heading .icon {
+  transition: transform $time $curve;
+  transform: rotate(-90deg);
+}
+
+.sidebar-menu__heading.expanded .icon {
+  transform: none;
+}
+
+.sidebar-menu__subheading .icon {
+  transition: transform $time $curve;
+  transform: rotate(-90deg);
+}
+
+.sidebar-menu__subheading.expanded .icon {
+  transform: none;
+}
+
+// Link
+
+.sidebar-menu__link {
+  display: block;
+  position: relative;
+  color: $grey;
+  line-height: 1.3; // Tighter spacing on sidebar menu links
+  @include font-size($small-font-size);
+
+  &:hover,
+  &.is-active {
+    color: $grey-dark;
+  }
+
+  &.is-active {
+    @include font-bold;
+
+    &:before {
+      content: "";
+      width: 2px;
+      position: absolute;
+      background-color: $red;
+      top: 0;
+      height: 100%;
+
+      @include ltr {
+        left: -($spacing-large);
+      }
+
+      @include rtl {
+        right: -($spacing-large);
+      }
+    }
+
+    &.is-inline {
+      display: inline-block;
+    }
+  }
+}
+
+.sidebar-menu__link--regular {
+  @include font-size($regular-font-size);
+}
+
+// Heading
+
+.menu-heading--has-underline {
+  border-bottom: 1px solid $border;
+  padding-bottom: $spacing-small;
+}

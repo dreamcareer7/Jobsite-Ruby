@@ -1,0 +1,43 @@
+<% if @reviews.present? %>
+  <div class="card js-section js-reviews">
+    <div class="card__section">
+      <div class="card__header">
+        <h3 class="card__title"><%= inline_svg("icons/star.svg", class: "icon icon--sm-small icon--brand") %><%= t("business.reviews") %></h3>
+        <span class="btn btn--link js-section-toggle js-view-all-target" data-toggle="reviews-all"><%= t("phrases.view_all") %></span>
+      </div>
+      <div class="grid grid--v-padded">
+        <% @reviews.first(2).each do |review| %>
+          <div class="grid__col--xs-12">
+            <div class="media small">
+              <div class="media__figure u-hide--small-down">
+                <%= image_tag review.user.profile_image.url, class: "avatar" %>
+              </div>
+              <div class="media__body">
+                <strong class="u-block mb1">By <%= review.user.name %>, <%= review.user.city.name if review.user.city.present?  %> on <%= review.created_at.strftime("%B %d, %Y") %></strong>
+                <div class="rating mb1">
+                  <%= render partial: "partials/stars/star_helper", locals: { full_stars: review.full_stars, half_star: review.half_star, empty_stars: review.empty_stars, star_modifier: "yellow" } %>
+                </div>
+                <p class="u-text-paragraph js-truncate-text"><%= review.comment %></p>
+                <p class="small">Reliability <strong><%= review.reliability %></strong> • Tidiness <strong><%= review.tidiness %></strong> • Courtesy <strong><%= review.courtesy %></strong> • Workmanship <strong><%= review.workmanship %></strong> • Value for money <strong><%= review.value_for_money %></strong></p>
+                <span class="recommended-badge badge badge--success"><%= t("words.recommended") %></span>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="card js-reviews js-empty u-hide">
+    <div class="card__section">
+      <div class="card__header">
+        <h3 class="card__title"><%= inline_svg("icons/star.svg", class: "icon icon--sm-small icon--brand") %><%= t("business.reviews") %></h3>
+      </div>
+      <div class="grid grid--v-padded">
+        <div class="grid__col--xs-12">
+          <p><%= t("reviews.no_reviews") %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,27 @@
+<div class="has-popover">
+  <button class="js-open-popover btn btn--full btn--secondary u-text-left mb0 select-business">
+    <% if ["user", "users"].include? current_namespace %>
+      <% if current_user.unread_business_notifications.present? %>
+        <span class="badge badge--primary mr1"><%= current_user.unread_business_notifications %></span>
+      <% end %>
+      <%= t("profile_nav.user.switch_to_business") %>
+      <%= inline_svg("icons/dropdown.svg", class: "icon btn__add-on") %>
+    <% else %>
+      <%= t("dashboard.switch_user") %>
+      <%= inline_svg("icons/dropdown.svg", class: "icon btn__add-on") %>
+    <% end %>
+  </button>
+  <div class="popover popover--full popover--arrow-ne popover--arrow">
+    <% current_user.businesses.each do |business| %>
+      <%= button_to business_switch_business_path(business: business.id), method: :put, class: "popover__link" do %>
+        <span class="u-flex u-flex-middle">
+          <%= image_tag(business.logo.url(:small), class: "u-rounded-half u-border mr1", width: "24") %>
+          <span class="u-truncate u-flex-grow"><%= business.name %></span>
+          <% if business.unread_notifications.present? %>
+            <span class="badge badge--primary ml1"><%= business.unread_notifications.count %></span>
+          <% end %>
+        </span>
+      <% end %>
+    <% end %>
+  </div>
+</div>

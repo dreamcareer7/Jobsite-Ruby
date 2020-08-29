@@ -1,0 +1,22 @@
+<div class="modal js-request-quote">
+  <div class="modal__table">
+    <div class="modal__cell">
+      <div class="modal__container">
+        <button class="js-close-modal modal__close">
+          <%= inline_svg("icons/close.svg", class: "icon") %>
+        </button>
+        <h2 class="modal__title">Quote limit reached</h2>
+        <p>You’ve reached your limit of <strong>3 monthly quotes</strong>. If you’d like to request more quotes, you can upgrade to Muqawiloon Premium.</p>
+        <hr class="divider">
+        <ul class="u-text-left list list--stacked list--unstyled">
+          <li class="list__item list__item--has-icon"><%= inline_svg("icons/checkmark.svg", class: "icon list__icon icon--brand") %>Interviewed by Muqawiloon</li>
+          <li class="list__item list__item--has-icon"><%= inline_svg("icons/checkmark.svg", class: "icon list__icon icon--brand") %>Insurance checked</li>
+          <li class="list__item list__item--has-icon"><%= inline_svg("icons/checkmark.svg", class: "icon list__icon icon--brand") %>ID checked</li>
+          <li class="list__item list__item--has-icon"><%= inline_svg("icons/checkmark.svg", class: "icon list__icon icon--brand") %>References checked</li>
+        </ul>
+        <a href="#" class="mt3 btn btn--primary btn--full">Go Premium</a>
+        <a href="#" class="btn btn--secondary btn--full">No, Thanks</a>
+      </div>
+    </div>
+  </div>
+</div>

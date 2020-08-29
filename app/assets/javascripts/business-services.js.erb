@@ -1,0 +1,95 @@
+function showOrHideAll() {
+  showOrHideProjectTypes()
+
+  $('.js-categories').each(function() {
+    var $this = $(this);
+    var category = $this.data('category');
+    var categoryCard = $('.js-category-' + category);
+
+    if($this.prop('checked')) {
+      showSubCategories(categoryCard);
+      categoryCard.removeClass('u-hide');
+    } else {
+      categoryCard.addClass('u-hide');
+    }
+  });
+}
+
+function showOrHideCategories() {
+  var $this = $(this);
+  var category = $this.data('category');
+  var categoryCard = $('.js-category-' + category);
+
+  showOrHideProjectTypes()
+
+  if($this.prop('checked')) {
+    showSubCategories(categoryCard);
+
+    if(!$('.js-new-business').data('new') === true) {
+      categoryCard.removeClass('u-hide');
+    };
+
+  } else {
+    removeSubCategories(categoryCard);
+    categoryCard.addClass('u-hide');
+  }
+}
+
+function showOrHideProjectTypes() {
+  var checked = $('.js-categories:checked').map(function() { return $(this).data('type') });
+  $('.js-category-type-cards').addClass('u-hide');
+
+  checked.map(function(categoryType) {
+    $('.js-category-type-cards[data-category-type="' + checked[categoryType] + '"]').removeClass('u-hide')
+  })
+}
+
+function showOrHideSubCategories() {
+  var categoryCard = $(this).parents('.js-category');
+  showSubCategories(categoryCard);
+}
+
+function removeSubCategories(categoryCard){
+  categoryCard.find('.select').val('').change();
+}
+
+function showSubCategories(categoryCard) {
+  categoryCard.find($('.js-chosen-subcategories')).each(function() {
+    showServices(categoryCard, $(this).val());
+  });
+}
+
+function showServices(categoryCard, selectedSubCategories) {
+  var selectedSubs = selectedSubCategories;
+  categoryCard.find('[data-subcategory]').map(function() {
+    checkIfSelected(selectedSubs, $(this));
+  });
+}
+
+function checkIfSelected(selectedSubs, service) {
+  if(selectedSubs === null){
+    service.find('select').val('').change();
+    return;
+  }
+
+  if(selectedSubs.indexOf(service.data('subcategory').toString()) > -1) {
+    if(service.data('sub-category-name') === "None"){ return handleNoneSubCategory(service); }
+    var services = service.find('option')
+    services.filter(function() { return $(this).text() === 'None' }).prop('selected', true);
+    service.removeClass('u-hide');
+  } else {
+    service.addClass('u-hide');
+    service.find('select').val('').change();
+  }
+}
+
+function handleNoneSubCategory(service) {
+  var targetValue = $(service).find('option').val();
+
+  $(service).find('select').val(targetValue).change();
+}
+
+//show or hide category/subcategory/service pick lists depending on if chosen
+$(document).ready(showOrHideAll);
+$('.js-categories').on('change', showOrHideCategories);
+$('.js-chosen-subcategories').on('change', showOrHideSubCategories);

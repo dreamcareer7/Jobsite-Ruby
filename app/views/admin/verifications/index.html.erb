@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card__section">
+
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--sm-8">
+        <h3 class="mb2">Verifications</h3>
+      </div>
+      <div class="grid__col--xs-12 grid__col--sm-4 u-text-right--small">
+        <a class="btn btn--xs-full btn--primary btn--small" href="/admin/verifications/new/">Add verification</a>
+      </div>
+    </div>
+
+    <table class="js-verifications-table" data-source="<%= admin_verifications_path(format: :json) %>">
+      <thead>
+        <tr>
+          <th>Name (en)</th>
+          <th>Name (ar)</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+  </div>
+</div>
+
+<%= content_for :page_scripts do %>
+  <%= javascript_include_tag 'admin/datatables/verifications' %>
+<% end %>

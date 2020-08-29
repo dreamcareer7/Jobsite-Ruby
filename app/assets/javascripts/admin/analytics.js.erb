@@ -1,0 +1,147 @@
+// Segmented controls
+
+$('.js-switch-chart').on('click', function() {
+  var targetChart = $(this).data('analytics');
+
+  $('.js-chart').addClass('u-hide');
+
+  $('.js-chart-' + targetChart).removeClass('u-hide');
+});
+
+// Load Analytics Embed API
+(function(w,d,s,g,js,fjs){
+  g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(cb){this.q.push(cb)}};
+  js=d.createElement(s);fjs=d.getElementsByTagName(s)[0];
+  js.src='https://apis.google.com/js/platform.js';
+  fjs.parentNode.insertBefore(js,fjs);js.onload=function(){g.load('analytics')};
+}(window,document,'script'));
+
+// Setup data
+gapi.analytics.ready(function() {
+
+  gapi.analytics.auth.authorize({
+    'serverAuth': {
+      'access_token': $('.js-ga-auth').data('auth').access_token
+    }
+  });
+
+  var viewSelector = new gapi.analytics.ViewSelector({
+    container: 'view-selector'
+  });
+
+  var sessions = new gapi.analytics.googleCharts.DataChart({
+    reportType: 'ga',
+    query: {
+      'ids': 'ga:126700665',
+      'dimensions': 'ga:date',
+      'metrics': 'ga:sessions',
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday',
+    },
+    chart: {
+      type: 'LINE',
+      container: 'sessions',
+      options: {
+        width: '100%'
+      }
+    },
+  });
+
+  var users = new gapi.analytics.googleCharts.DataChart({
+    reportType: 'ga',
+    query: {
+      'ids': 'ga:126700665',
+      'dimensions': 'ga:date',
+      'metrics': 'ga:users',
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday',
+    },
+    chart: {
+      type: 'LINE',
+      container: 'users',
+      options: {
+        width: '100%'
+      }
+    },
+  });
+
+  var pageViews = new gapi.analytics.googleCharts.DataChart({
+    reportType: 'ga',
+    query: {
+      'ids': 'ga:126700665',
+      'dimensions': 'ga:date',
+      'metrics': 'ga:pageviews',
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday',
+    },
+    chart: {
+      type: 'LINE',
+      container: 'page-views',
+      options: {
+        width: '100%'
+      }
+    },
+  });
+
+  var pagesPerSession = new gapi.analytics.googleCharts.DataChart({
+    reportType: 'ga',
+    query: {
+      'ids': 'ga:126700665',
+      'dimensions': 'ga:date',
+      'metrics': 'ga:pageviewsPerSession',
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday',
+    },
+    chart: {
+      type: 'LINE',
+      container: 'pages-per-session',
+      options: {
+        width: '100%'
+      }
+    },
+  });
+
+  var avgSession = new gapi.analytics.googleCharts.DataChart({
+    reportType: 'ga',
+    query: {
+      'ids': 'ga:126700665',
+      'dimensions': 'ga:date',
+      'metrics': 'ga:avgSessionDuration',
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday',
+    },
+    chart: {
+      type: 'LINE',
+      container: 'avg-session',
+      options: {
+        width: '100%'
+      }
+    },
+  });
+
+  var bounceRate = new gapi.analytics.googleCharts.DataChart({
+    reportType: 'ga',
+    query: {
+      'ids': 'ga:126700665',
+      'dimensions': 'ga:date',
+      'metrics': 'ga:bounceRate',
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday',
+    },
+    chart: {
+      type: 'LINE',
+      container: 'bounce-rate',
+      options: {
+        width: '100%'
+      }
+    },
+  });
+
+  sessions.execute();
+
+  $('.js-switch-chart').on('click', function() {
+    //need to rerender chart when unhidden or width is not respected
+    eval($(this).data('analytics')).execute();
+  }); 
+
+});

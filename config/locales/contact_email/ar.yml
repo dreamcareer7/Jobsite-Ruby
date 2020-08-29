@@ -1,0 +1,19 @@
+ar:
+
+  contact_email:
+    heading: "اتصل بنا"
+    heading_sales: "المبيعات / التسويق"
+    office: "مكتب"
+    office_one_address: "Twentyfour54, ابو ظبي"
+    office_two_address: "جميل سكوير، شارع التحلية، جدة"
+    sales_contact: "مروان الزيبق - مدير المبيعات"
+    sales_contact_extra: "هاتف"
+    leave_message: "اترك رسالتك"
+    name: "الاسم الكامل"
+    email: "البريد الالكتروني"
+    subject_prompt: "اختر الموضوع"
+    #the part after the comma should be left in english
+    subjects: [ ["ابحث عن فرصة عمل", "job"], [ "اريد اضافة شركتي في مقاولون", "business" ], [ "الإعلان لدينا", "advertise" ], [ "مسألة عامة", "general" ], [ "اخرى", "other"] ]
+    body: "اترك رسالتك هنا"
+    submit: "إرسال"
+    phone_number: "رقم الهاتف"

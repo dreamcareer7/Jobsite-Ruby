@@ -1,0 +1,28 @@
+// Pill
+
+.pill-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin: -$spacing-small/2;
+}
+
+.pill-list__item {
+  margin: $spacing-small/2;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  line-height: 30px;
+  padding-left: $spacing-small;
+  padding-right: $spacing-small;
+  background-color: $grey;
+  color: $white;
+  border-radius: $border-radius/2;
+  @include font-size($small-font-size);
+}
+
+.pill__icon {
+  margin-left: $spacing-small/2;
+}

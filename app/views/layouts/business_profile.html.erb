@@ -1,0 +1,17 @@
+<%= content_for :sub_nav do %>
+  <%= render partial: "partials/business/profile/profile_header" %>
+  <%= render partial: "partials/nav/profile_nav", locals: {
+    nav_links: [
+      { name: t("profile_nav.dashboard"), path: business_profile_index_path },
+      { name: t("profile_nav.inbox"), path: business_inbox_index_path },
+      { name: t("profile_nav.business.feed"), path: business_project_feed_index_path },
+      { name: t("profile_nav.projects"), path: business_projects_path },
+      { name: t("profile_nav.business.profile"), path: edit_business_business_path(@business || @current_business) },
+      { name: t("profile_nav.business.reviews"), path: business_reviews_path },
+      { name: t("profile_nav.business.stats"), path: business_stats_path }
+    ],
+    business: @current_business || current_user.businesses.first
+  } %>
+<% end %>
+
+<%= render template: "layouts/application" %>

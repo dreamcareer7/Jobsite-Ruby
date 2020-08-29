@@ -1,0 +1,109 @@
+<div class="grid">
+  <div class="grid__col--xs-12 grid__col--md-12">
+    <h3><%= link_to 'Notifications /', site_admin_admin_notifications_path,  class: 'u-text-light u-text-regular' %> <%= @notification.humanise_type %> - <%= @notification.user_name %></h3>
+    <div class="card">
+      <div class="card__section card__section--padded">
+        <div class="grid grid--v-padded">
+          <div class="grid__col--xs-12 grid__col--md-12">
+            <fieldset class="fieldset">
+              <div class="grid">
+                <div class="grid__col--xs-12 grid__col--md-6">
+                  <div class="field">
+                    <label class="field__label u-text-bold u-text-dark">Date</label>
+                    <div class="field__input-wrapper">
+                      <span><%= @notification.created_at %></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid__col--xs-12 grid__col--md-6">
+                  <%= simple_form_for [:admin, @notification] do |f| %>
+                    <div class="field">
+                      <span class="field__label u-text-bold u-text-dark">Resolved?</span>
+                      <div class="control-group">
+                        <label class="control-group__item control">
+                          <%= f.radio_button :resolved, true, class: "control__input js-resolved-toggle" %>
+                          <span class="control__indicator control__indicator--radio">
+                            <%= inline_svg("icons/dot.svg", class: "control__icon icon icon--small icon--white") %>
+                          </span>
+                          <span class="control__label"><%= t("post_project.fields.historical_structure.yes") %></span>
+                        </label>
+                        <label class="control-group__item control">
+                          <%= f.radio_button :resolved, false, class: "control__input js-resolved-toggle" %>
+                          <span class="control__indicator control__indicator--radio">
+                            <%= inline_svg("icons/dot.svg", class: "control__icon icon icon--small icon--white") %>
+                          </span>
+                          <span class="control__label"><%= t("post_project.fields.historical_structure.no") %></span>
+                        </label>
+                      </div>
+                    </div>
+                </div>
+              <% end %>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <div class="field">
+                  <label class="field__label u-text-bold u-text-dark">Notification type</label>
+                  <div class="field__input-wrapper">
+                    <span><%= @notification.humanise_type %></span>
+                  </div>
+                </div>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-12">
+                <div class="field">
+                  <label class="field__label u-text-bold u-text-dark">Content</label>
+                  <div class="field__input-wrapper">
+                    <span><%= @notification.content %></span>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <div class="card__section card__section--padded card__section--border">
+        <div class="grid grid--v-padded">
+          <div class="grid__col--xs-12 grid__col--md-<%= @notification.business.present? ? '6' : '12' %>">
+            <div class="card__header">
+              <h4 class="card__title">User information</h4>
+            </div>
+            <fieldset class="fieldset">
+              <div class="grid">
+                <div class="grid__col--xs-12 grid__col--md-6">
+                  <div class="field">
+                    <label class="field__label u-text-bold u-text-dark">Name</label>
+                    <div class="field__input-wrapper">
+                      <%= @notification.user_name %>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid__col--xs-12 grid__col--md-6">
+                  <div class="field">
+                    <label class="field__label u-text-bold u-text-dark">Email</label>
+                    <div class="field__input-wrapper">
+                      <%= @notification.user_email %>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid__col--xs-12 grid__col--md-6">
+                  <div class="field">
+                    <label class="field__label u-text-bold u-text-dark">Phone</label>
+                    <div class="field__input-wrapper">
+                      <span><%= @notification.user_number %></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= content_for :page_scripts do %>
+  <script>
+    $('.js-resolved-toggle').on('change', function() {
+      this.form.submit();
+    });
+  </script>
+<% end %>

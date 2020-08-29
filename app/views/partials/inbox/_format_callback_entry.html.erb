@@ -1,0 +1,25 @@
+<div class="card__section card__section--border">
+  <a href="tel: #{ entry.body }">
+    <div class="grid grid--v-padded js-mark-as-read" data-value="<%= entry.id %>">
+      <div class="grid__col--xs-12 grid__col--lg-4">
+        <div class="media">
+          <div class="media__figure u-hide--medium-down">
+            <%= image_tag(entry.sender.profile_image.url, class: "avatar") %>
+          </div>
+          <div class="media__body">
+            <h4 class="mb0"><%= entry.sender.name %></h4>
+            <small class="u-text-reset"><%= entry.sender.city_country %></small>
+          </div>
+        </div>
+      </div>
+      <div class="grid__col--xs-12 grid__col--lg-6">
+        <p class="u-text-dark <%= 'u-text-bold' unless entry.read? %>">
+        <%= render partial: "partials/inbox/format_notification_body", locals: { notification: entry } %>
+        </p>
+      </div>
+      <div class="grid__col--xs-12 grid__col--lg-2 u-text-right--large">
+        <small class="u-text-dark"><%= time_ago_in_words(entry.created_at) %> <%= t("words.ago") %></small>
+      </div>
+    </div>
+  </a>
+</div>

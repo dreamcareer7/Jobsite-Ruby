@@ -1,0 +1,13 @@
+<% if business.reviews_count > 0 %>
+  <% business.full_stars.times do %>
+    <%= inline_svg( "icons/star.svg", class: "icon icon--small rating__star icon--#{star_modifier}" ) %>
+  <% end %>
+  <% business.half_star.times do %>
+    <%= inline_svg("icons/star-half.svg", class: "icon icon--small rating__star icon--#{star_modifier}") %>
+  <% end %>
+  <% business.empty_stars.times do %>
+    <%= inline_svg("icons/star-inactive.svg", class: "icon icon--small rating__star icon--#{star_modifier}") %>
+  <% end %>
+
+  &nbsp;<span class="u-text-inherit"><%= pluralize(business.reviews_count, t("words.review")) %></span>
+<% end %>

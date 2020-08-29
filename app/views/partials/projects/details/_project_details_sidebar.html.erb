@@ -1,0 +1,35 @@
+<% if @project.project_budget.present? %>
+  <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-12 grid__col--lg-6">
+    <p><small><%= t("feed.budget") %></small><br><span class="u-text-dark"><%= @project.project_budget %></span></p>
+  </div>
+<% end %>
+<% if @project.project_status.present? %>
+  <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-12 grid__col--lg-6">
+    <p><small><%= t("feed.status") %></small><br><span class="u-text-dark"><%= @project.status_to_s %></span></p>
+  </div>
+<% end %>
+<% if @project.start_date.present? %>
+  <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-12 grid__col--lg-6">
+    <p><small><%= t("feed.start_date") %></small><br><span class="u-text-dark"><%= @project.start_date.strftime("%B %d, %Y") %></span></p>
+  </div>
+<% end %>
+<% if @project.end_date.present? %>
+  <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-12 grid__col--lg-6">
+    <p><small><%= t("feed.end_date") %></small><br><span class="u-text-dark"><%= @project.end_date.strftime("%B %d, %Y") %></span></p>
+  </div>
+<% end %>
+<% if @project.location_type.present? %>
+  <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-12 grid__col--lg-6">
+    <p><small><%= t("feed.location") %></small><br><span class="u-text-dark"><%= @project.location_type.capitalize %></span></p>
+  </div>
+<% end %>
+<% if @project.historical_structure.present? %>
+  <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-12 grid__col--lg-6">
+    <p><small><%= t("feed.historical_structure") %></small><br><span class="u-text-dark"><%= @project.historical_structure ? t("words.yes") : t("words.no") %></span></p>
+  </div>
+<% end %>
+<% if @project.project_owner_type.present? %>
+  <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-12 grid__col--lg-6">
+    <p><small><%= t("feed.role") %></small><br><span class="u-text-dark"><%= @project.project_owner_type%></span></p>
+  </div>
+<% end %>

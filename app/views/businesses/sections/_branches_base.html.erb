@@ -1,0 +1,38 @@
+<div class="card__section">
+  <div class="card__header">
+    <h3 class="card__title"><%= inline_svg("icons/location.svg", class: "icon icon--sm-small icon--brand") %><%= t("business.locations") %></h3>
+  </div>
+  <div class="grid">
+    <% business_locations.each_with_index do |location, index| %>
+      <div class="grid__col--xs-12">
+        <div class="grid grid--v-padded">
+          <div class="grid__col--xs-12 grid__col--md-<%= location.number.present? || @business.telephone.present? ? '8' : '3' %>">
+            <strong><%= "#{ location.street_address.titleize } - " if location.street_address.present? %></strong> <%= location.city.name.capitalize %><%= ", #{ location.country.name.titleize }" if location.country.present? %>
+            <% if location.location_type.present? %>
+              <br>
+              <small><%= location.location_type %></small>
+            <% end %>
+            <% if location.description.present? %>
+              <br>
+              <small class="u-text-paragraph js-truncate-text"><%= location.description %></small>
+            <% end %>
+            <small class="u-block mb1"><%= @current_coordinates.present? && location.coords_to_a.present? && !location.coords_to_a.include?(nil) ? distance_to_s(@current_coordinates, location.coords_to_a) : '> 200' %> km</small>
+          </div>
+          <div class="grid__col--xs-12 u-text-right--large grid__col--md-<%= location.number.present? || @business.telephone.present? ? '4' : '3' %>">
+            <div class="btn-group btn-group--full">
+              <button data-modal="business-profile-map" data-coordinates="<%= [location.latitude, location.longitude] %>" class="js-open-modal js-branch btn-group__item btn btn--xs-full btn--primary"><%= t("business.map") %></button>
+              <% if location.number.present? %>
+                <button data-modal="call-now" data-impression="number_view" class="js-open-modal js-impressionist btn-group__item btn btn--xs-full btn--secondary" data-business-name="<%= @business.name %>" data-business-hours="<%= @business.business_hours.to_json %>" data-phone="<%= Base64.encode64(location.number) %>"><%= t("listing.call") %></button>
+              <% elsif @business.telephone.present? %>
+                <button data-modal="call-now" data-impression="number_view" class="js-open-modal js-impressionist btn-group__item btn btn--xs-full btn--secondary" data-business-name="<%= @business.name %>" data-business-hours="<%= @business.business_hours.to_json %>" data-phone="<%= Base64.encode64(@business.telephone) %>"><%= t("listing.call") %></button>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <% unless business_locations.distinct.size == index + 1 %>
+          <hr class="divider divider--tight">
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

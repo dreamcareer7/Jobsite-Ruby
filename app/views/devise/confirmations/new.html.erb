@@ -1,0 +1,28 @@
+<section class="section section--alt">
+  <div class="site-wrap">
+    <h1 class="section-heading">Resend confirmation instructions</h1>
+    <div class="grid grid--center">
+      <div class="grid__col--xs-12 grid__col--sm-10 grid__col--md-6 grid__col--lg-5 grid__col--xlg-4">
+        <fieldset class="fieldset">
+          <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+            <div class='grid__col--xs-12 mb2'>
+              <%= f.error_notification %>
+              <%= f.full_error :confirmation_token %>
+            </div>
+
+            <div class="field">
+              <div class="field__input-wrapper">
+                <%= f.input :email, required: true, autofocus: true, wrapper: :text_field, class: "field_input" %>
+              </div>
+            </div>
+
+            <div class="field">
+              <%= f.button :submit, "Resend confirmation instructions", class: "btn btn--full btn--primary" %>
+            </div>
+          <% end %>
+        </fieldset>
+      </div>
+
+    </div>
+  </div>
+</section>

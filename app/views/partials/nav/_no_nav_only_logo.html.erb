@@ -1,0 +1,14 @@
+<nav class="nav primary-nav <%='primary-nav--transparent' if current_page?('/cities') %>">
+  <div class="grid grid--middle">
+    <div class="grid__col--xs-9 grid__col--md-3 grid__col--lg-4 grid__col--middle">
+      <a href="/">
+        <% if controller_name == "cities" %>
+          <%= inline_svg(locale == :ar ? "logo-ar.svg" : "logo.svg", class: "nav__logo nav__logo--full-mobile") %>
+        <% else %>
+          <%= inline_svg("logo-mark.svg", class: "nav__logo nav__logo--mobile") %>
+        <% end %>
+        <%= inline_svg("logo.svg", class: "nav__logo nav__logo--desktop") %>
+      </a>
+    </div>
+  </div>
+</nav>

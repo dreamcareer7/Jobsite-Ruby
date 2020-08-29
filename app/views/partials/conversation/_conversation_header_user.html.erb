@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card__section">
+    <div class="grid grid--v-padded">
+      <div class="grid__col--xs-12 grid__col--md-6 grid__col--middle">
+        <div class="media media--middle">
+          <%= image_tag(@message.is_sender?("", @current_business) ? @message.receiver.profile_image.url : @message.sender.profile_image.url, width: "50", class: "media__figure u-rounded u-border") %>
+          <div class="media__body">
+            <h2 class="mb0"><%= @message.is_sender?("", @current_business) ? @message.receiver.name : @message.sender.name %></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

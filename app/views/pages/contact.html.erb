@@ -1,0 +1,71 @@
+<% content_for :breadcrumbs do %>
+  <%= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [], current_breadcrumb: { name: "Contact" } } %>
+<% end %>
+
+<section class="section section--dark u-cover u-text-center" style="background-image: url('<%= image_path('add-business-header.jpg') %>')">
+  <div class="site-wrap">
+    <div class="section-heading">
+      <h1 class="section-heading__heading u-text-contrast"><%= t("contact_email.heading") %></h1>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="site-wrap">
+    <h1 class="section-heading"></h1>
+    <div class="grid grid--center">
+      <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-8">
+        <div class="card">
+          <div class="card__section card__section--padded card__section--border">
+            <div class="card__header">
+              <h4 class="card__title"><%= t("contact_email.office") %></h4>
+            </div>
+            <div class="grid grid--v-padded">
+              <div class="grid__col--xs-12 grid__col--md-6">
+              <a href="https://maps.google.com/?q=twofour54+post+production+abu+dhabi" target="_blank">
+
+                <%= image_tag("http://maps.googleapis.com/maps/api/staticmap?center=twofour54+abu+dhabi&zoom=15&scale=false&size=1000x450&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7Ctwofour54+abu+dhabi&key=#{ ENV['G_KEY'] }", class: "mb2 u-rounded") %>
+                </a>
+                <p class="u-text-paragraph"><%= t("contact_email.office_one_address") %><div class='u-ltr u-text-left'><a href="tel:+971 2 4012688">+971 2 401 2688</a></div></p>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <a href="https://maps.google.com/?q=thunder+cloud+group" target="_blank">
+                  <%= image_tag("http://maps.googleapis.com/maps/api/staticmap?center=3936+al+batarji+jeddah+saudi+arabia&zoom=17&scale=false&size=1000x450&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:1%7C3936+al+batarji+jeddah+saudi+arabia&key=#{ ENV['G_KEY'] }", class: "mb2 u-rounded") %>
+                </a>
+                <p class="u-text-paragraph"><%= t("contact_email.office_two_address") %><div class='u-ltr u-text-left'><a href="tel:+966 12 682 4442">+966 12 682 4442</a></div></p>
+              </div>
+            </div>
+          </div>
+          <div class="card__section card__section--padded card__section--border">
+            <div class="card__header">
+              <h4 class="card__title"><%= t("contact_email.heading_sales") %></h4>
+            </div>
+            <a href="mailto:sales@muqawiloon.com">sales@muqawiloon.com</a><br><%= t("contact_email.sales_contact_extra") %><div class='u-ltr u-text-left'><a href="tel:+966 503613445">+966 50 361 3445</a></div>
+          </div>
+          <div class="card__section card__section--padded card__section--border">
+            <div class="card__header">
+              <h4 class="card__title"><%= t("contact_email.leave_message") %></h4>
+            </div>
+            <%= render partial: "partials/contact_form/contact_form" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= content_for :page_scripts do %>
+  <script>
+    $(document).ready(function() {
+      if(window.location.href.indexOf('?') > 0) { 
+        var target = window.location.href.split('?').pop();
+
+        $('.js-subject-select').val(target);
+      }
+    });
+
+    $('.js-subject-select').on('change', function() {
+      $('.js-subject-target').val($(this).val());
+    });
+  </script>
+<% end %>

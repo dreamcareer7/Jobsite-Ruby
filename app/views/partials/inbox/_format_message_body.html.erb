@@ -1,0 +1,6 @@
+<% if message.project.present? %>
+  <%= message.project.title %>
+  </br>
+<% end %>
+<%= t("words.you") if message.is_sender?(current_user, @current_business) %>
+<%= truncate(message.body, length: 50 ) %>

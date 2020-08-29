@@ -1,0 +1,44 @@
+// listen for clicks
+$(document).on('click', '.js-file-upload-button', function() {
+  $(this).parents('.js-upload-fields').find('.js-file-upload').click();
+});
+
+// listen for files waiting to upload
+$(document).on('change', '.js-file-upload', function(e) {
+  var $this = $(this);
+
+  renderPreviewImage(e, $this);
+  setFileUploadName($this);
+  unlockBusinessForm();
+});
+
+// remove image
+$(document).on('click', '.js-remove-image', function() {
+  var uploadFields = $(this).parents('.js-upload-fields');
+  var placeholder = uploadFields.find('.js-photo-placeholder');
+
+  placeholder.attr('src', '<%= image_path("missing/side_banner") %>');
+  $(this).hide();
+
+  // unlock form update button
+  $('.simple_form').first().find('input[type="submit"]').prop('disabled', false);
+});
+
+function setFileUploadName($this) {
+  var uploadButton = $this.parents('.js-upload-fields').find('.js-file-upload');
+
+  $this.parents('.js-upload-fields').find('.js-file-upload-name').text(uploadButton.val().split('\\').pop());
+}
+
+function renderPreviewImage(e, $this) {
+  var files = e.target.files;
+  var image = files[0];
+  var reader = new FileReader();
+  var placeholder = $this.parents('.js-upload-fields').find('.js-photo-placeholder');
+
+  reader.onload = function(file) {
+    placeholder.attr('src', file.target.result);
+  };
+
+  reader.readAsDataURL(image);
+}

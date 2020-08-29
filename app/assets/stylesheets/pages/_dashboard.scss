@@ -1,0 +1,50 @@
+// Dashboard
+
+// .select-business:after {
+//   content: "";
+//   position: absolute;
+//   width: $spacing-medium;
+//   height: $spacing-medium;
+//   background-color: $red;
+//   border-radius: 50%;
+//   right: -$spacing-small;
+//   top: -$spacing-small;
+// }
+
+
+// Business
+
+.add-business {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: $border-radius;
+  border: 2px dashed $border;
+  min-height: 140px;
+  margin-bottom: $spacing-medium; // Match card margin
+  transition: border-color $time $curve;
+
+  @include mq(medium) {
+    margin-bottom: $gutter;
+    min-height: 180px;
+  }
+
+  @include mq(large) {
+    min-height: 200px;
+  }
+}
+
+
+// Expanded project card
+
+.project-sidebar {
+  @include mq(medium-down) {
+    border-bottom: 1px solid $border;
+  }
+  
+  @include mq(medium) {
+    border-right: 1px solid $border;
+  }
+}

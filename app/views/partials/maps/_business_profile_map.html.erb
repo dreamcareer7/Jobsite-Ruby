@@ -1,0 +1,43 @@
+<div class="location-map-wrapper">
+  <div id="business-profile-map" class="map"></div>
+</div>
+<button class="js-close-modal modal__close">
+  <%= inline_svg("icons/close.svg", class: "icon") %>
+</button>
+
+<% if @markers.present? %>
+  <%= content_tag :span, '', class: "js-business-markers", data: { markers: @markers.to_json } %>
+<% end %>
+
+<%= content_for :page_scripts do %>
+  <script>
+    var branchHandler;
+
+    $(document).on('turbolinks:load', function() {
+      if ($('.js-business-markers').length < 1) { return };
+
+      var business_markers = $('.js-business-markers').data('markers');
+      branchHandler = Gmaps.build('Google');
+
+      branchHandler.buildMap({
+        provider: { disableDefaultUI: true, draggable: true },
+        internal: { id: 'business-profile-map' }
+      },
+      function(){
+        markers = branchHandler.addMarkers(business_markers);
+
+        _.each(markers, function(marker){
+          google.maps.event.trigger(marker.getServiceObject(), 'click');
+        });
+
+      });
+    });
+
+
+  $('.js-branch').on('click', function() {
+    branchHandler.map.centerOn($(this).data('coordinates'));
+    branchHandler.getMap().setZoom(12);
+  });
+
+  </script>
+<% end %>

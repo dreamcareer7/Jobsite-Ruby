@@ -1,0 +1,14 @@
+<%= render partial: "partials/nav/no_nav_only_logo" %>
+
+<section class="section section--padded section--alt u-text-center">
+  <div class="site-wrap">
+    <div class="section-heading">
+      <%= inline_svg("icons/email-check.svg", class: "mb1 icon icon--brand icon--x-large") %>
+      <h1 class="section-heading__heading"><%= t("confirmation.heading") %></h1>
+    </div>
+    <p><%= t("confirmation.body_one") %> <strong><%= @email %></strong>.</p>
+    <p><%= t("confirmation.body_two") %></p>
+  </div>
+</section>
+
+<%= render partial: "partials/nav/footer" %>

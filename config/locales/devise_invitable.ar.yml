@@ -1,0 +1,32 @@
+ar:
+  devise:
+    failure:
+      invited: "لديك دعوة معلقة، قم بقبولها لكي تكمل انشاء الحساب."
+    invitations:
+      send_instructions: "تم ارسال الدعوة الى %{email}."
+      invitation_token_invalid: "رابط الدعوة المرسل غير فعال!"
+      updated: "تم تحديث كلمة السر، انت الآن مسجل."
+      updated_not_active: "تم تحديث كلمة السر."
+      no_invitations_remaining: "لايوجد دعوات متبقية"
+      invitation_removed: "لقد تم حذف الدعوة"
+      new:
+        header: "إرسال دعوة"
+        submit_button: "إرسال"
+      edit:
+        header: "تحديث كلمة السر"
+        submit_button: "حدث كلمة السر"
+    mailer:
+      invitation_instructions:
+        subject: "لقد تم دعوتك الى مقاولون"
+        hello: "مرحباً %{email}"
+        someone_invited_you: "لقد تم دعوتك الى %{url}, يمكنك قبول الدعوة من الرابط التالي."
+        accept: "قبول الدعوة"
+        accept_until: "هذه الدعوة صالحة حتى %{due_date}."
+        ignore: "في حالة عدم الرغبة بقبول الدعوة، تجاهل الرسالة الآتية<br />لن يتم إنشاء حسابك حتى تقبل الدعوة"
+  time:
+    formats:
+      devise:
+        mailer:
+          invitation_instructions:
+            accept_until_format: "%B %d, %Y %I:%M %p"
+

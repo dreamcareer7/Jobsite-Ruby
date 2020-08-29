@@ -1,0 +1,19 @@
+<% if @business.business_hours.present? && @business.business_hours != "Information not available" %>
+  <div class="card">
+    <div class="card__section">
+      <div class="media mb2">
+        <div class="media__figure">
+          <%= inline_svg("icons/clock.svg", class: "icon icon--brand") %>
+        </div>
+        <div class="media__body">
+          <strong class="strong"><%= t("business.hours") %></strong><br>
+        </div>
+      </div>
+      <div class="media">
+        <div class="media__body">
+          <%= render partial: "partials/businesses/business_hours", locals: { business: @business } %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

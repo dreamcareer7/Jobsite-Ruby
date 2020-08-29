@@ -1,0 +1,55 @@
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="card">
+      <% if @reviews.present? %>
+        <% @reviews.each do |review| %>
+          <div class="card__section card__section--border">
+            <div class="grid grid--v-padded">
+              <div class="grid__col--xs-12">
+                <div class="media media--middle mb2">
+                  <div class="media__figure u-hide--small-down">
+                    <%= image_tag review.user.profile_image.url, class: "avatar avatar--large" %>
+                  </div>
+                  <div class="media__body">
+                    <h4 class="mb1"><%= review.user.name %>, <%= review.user.city.name if review.user.city.present? %></h4>
+                    <p class="mb1"> <%= link_to review.project.title, business_project_feed_path(review.project) %></p>
+                    <div class="rating">
+                      <%= render partial: "partials/stars/star_helper", locals: { full_stars: review.full_stars, half_star: review.half_star, empty_stars: review.empty_stars, star_modifier: "yellow" } %>
+                    </div>
+                  </div>
+                </div>
+                <p class="small"><%= review.comment %></p>
+                <p class="small">
+
+                <%= t("words.reliability") %> <strong><%= review.reliability %></strong> • 
+                <%= t("words.tidiness") %> <strong><%= review.tidiness %></strong> • 
+                <%= t("words.courtesy") %> <strong><%= review.courtesy %></strong> • 
+                <%= t("words.workmanship") %> <strong><%= review.workmanship %></strong> • 
+                <%= t("words.value") %> <strong><%= review.value_for_money %></strong>
+                </p>
+                <% if review.recommended %>
+                  <div class="u-relative">
+                    <span class="recommended-badge badge badge--success"><%= t("words.recommended") %></span>
+                  </div>
+                <% end %>
+                <p class="small">
+                <div class="btn-group btn-group--full">
+                  <% if review.review_reply.present? %>
+                    <%= link_to t("reviews.respond"), edit_business_review_reply_path(review.review_reply) %>
+                  <% else %>
+                    <%= link_to t("reviews.respond"), new_business_review_reply_path(review: review) %>
+                  <% end %>
+                </div>
+                </p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="card__section">
+          <p><%= t("reviews.no_reviews") %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

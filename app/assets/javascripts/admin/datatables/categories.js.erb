@@ -1,0 +1,45 @@
+$('.js-categories-table').dataTable({
+  serverSide: true,
+  bLengthChange: false,
+  bInfo: false,
+  ajax: $('.js-categories-table').data('source'),
+  columns: [
+    {
+      data: 'name_en',
+      render: function (data, type, row, meta) {
+        return '<a href="/admin/sub_categories/?category_id=' + row.id + '">' + data + '</a>';
+      }
+    },
+    {
+      data: 'name_ar',
+      render: function (data, type, row, meta) {
+        return '<a href="/admin/sub_categories/?category_id=' + row.id + '">' + data + '</a>';
+      }
+    },
+    {
+      data: 'businesses',
+      sortable: false
+    },
+    {
+      data: 'banner',
+      render: function (data, type, row, meta) {
+        return data ? 'Yes' : 'No'
+      }
+    },
+    {
+      data: null,
+      sortable: false,
+      render: function (data, type, row, meta) {
+        return '<a class="tooltip" title="View" target="_blank" href="/categories/' + row.id + '"><%= image_tag("icons/eye.svg", class: "icon icon--dark icon--small") %></a> <a class="tooltip" title="Edit" href="/admin/categories/' + row.id + '/edit"><%= image_tag("icons/pencil.svg", class: "icon icon--dark icon--small") %></a>';
+      }
+    }
+  ],
+  dom: "ritp"
+}); // dataTable
+
+$('.js-categories-table').on('draw.dt', function() {
+  $('.tooltip').tooltipster({
+    delay: 0,
+    animationDuration: 100
+  });
+});

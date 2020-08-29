@@ -1,0 +1,16 @@
+// Upgrade
+
+.promo-block {
+  text-align: center;
+  background-image: image-url("home/hero.jpg");
+  @include vertical-padding(2em);
+  @include black-overlay;
+
+  @include mq(medium) {
+    @include vertical-padding(3em);
+  }
+}
+
+.promo-block__content {
+  position: relative;
+}

@@ -1,0 +1,31 @@
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="grid">
+      <% @businesses.each do |business| %>
+        <div class="grid__col--xs-12 grid__col--md-6">
+          <div class="card">
+            <div class="card__section">
+              <div class="media">
+                <%= image_tag(business.logo(:small), class: "u-hide--small-down u-border u-rounded media__figure", width: "50") %>
+                <div class="media__body">
+                  <h4 class="mb0"><%= link_to business.name, business_profile_index_path(business: business), class: "u-text-dark" %></h4>
+                  <small class="u-block mb2"><%= business.city_country %></small>
+                  <div class="btn-group btn-group--full">
+                    <%= link_to "Make default profile", user_change_default_profile_path(current_user, business: business), class: "btn-group__item btn btn--xs-full btn--secondary", method: :put, id: "make #{ business.id } default profile" %>
+                    <%= link_to "Remove business", user_business_path(business), class: "btn-group__item btn btn--xs-full btn--secondary", method: :delete %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="grid__col--xs-12 grid__col--md-6 u-flex">
+        <%= link_to new_user_business_path, class: "add-business" do %>
+          <%= inline_svg("icons/plus.svg", class: "icon icon--medium icon--light") %>
+          <span class="h3 mt0 u-text-light">Add business</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,5 @@
+en:
+  map:
+    confirm: "Confirm or update coordinates"
+    use_map: "using a map"
+    confirm_location: "Confirm location"

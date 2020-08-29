@@ -1,0 +1,47 @@
+<div class="card js-subscriptions">
+  <div class="card__section">
+
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--sm-8">
+        <h3 class="mb2">Interactions</h3>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Business</th>
+          <th>Business user</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @interactions.each do |s| %>
+          <tr>
+            <td>
+              <%= s.class == Business ? "Accepted business" : s.class %>
+            </td>
+            <td>
+              <% if s.class == Business %>
+                <%= link_to s.name, edit_admin_business_path(s) %>
+              <% else %>
+                <%= link_to s.business.name, edit_admin_business_path(s.business) %>
+              <% end %>
+            </td>
+            <td>
+              <% if s.class == Business %>
+                <%= link_to s.user.name, edit_admin_business_path(s.user) %>
+              <% else %>
+                <%= link_to s.business.user.name, edit_admin_user_path(s.business.user) %>
+              <% end%>
+            </td>
+            <td><%= s.created_at %></td>
+
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>

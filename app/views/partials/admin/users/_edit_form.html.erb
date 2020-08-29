@@ -1,0 +1,90 @@
+<%= simple_form_for [:admin, @user]  do |f| %>
+  <div class="grid grid--center">
+    <div class="grid__col--xs-12 grid__col--md-12 grid__col--lg-12">
+      <div class="card">
+        <div class="card__section card__section--padded">
+          <%= f.error_notification %>
+          <fieldset class="fieldset">
+            <div class="grid">
+              <div class="grid__col--xs-12 grid__col--md-12">
+                <div class="field">
+                  <div class="media media--middle js-upload-fields u-text-pointer">
+                    <div class="media__figure" style="width:72px">
+                      <%= image_tag(@user.profile_image.url, width: "72", class: "media__figure u-circle u-text-pointer js-file-upload-button js-photo-placeholder") %>
+                    </div>
+                    <div class="media__body">
+                      <div class="field__input-wrapper">
+                        <span class="u-text-left u-text-dark js-file-upload-button"><%= t("business_profile.fields.additional_information.edit_photo") %></span><br>
+                        <%= f.input :profile_image, as: :file, input_html: { class: "js-file-upload", hidden: "true" }, label: false %>
+                      </div>
+                      <small>200x200</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <div class="field">
+                  <label class="field__label">Name</label>
+                  <%= f.input :name, wrapper: :text_field, placeholder: "Your name", label: false %>
+                </div>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <div class="field">
+                  <label class="field__label">Email</label>
+                  <%= f.input :prevent_autocomplete, as: :fake, input_html: { class: "u-hide", name: "user[email]", type: "text" }, label: false %>
+                  <%= f.input :email, wrapper: :text_field, placeholder: "Email", label: false %>
+                </div>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <div class="field">
+                  <label class="field__label">Password</label>
+                  <%= f.input :prevent_autocomplete, as: :fake, input_html: { class: "u-hide", name: "user[password]", type: "password" }, label: false %>
+                  <%= f.input :password, wrapper: :text_field, placeholder: "Password", label: false %>
+                </div>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <div class="field">
+                  <label class="field__label">Telephone</label>
+                  <%= f.input :mobile_number, wrapper: :text_field, placeholder: "XXX-XXX-XXX", label: false %>
+                </div>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <div class="field">
+                  <label class="field__label">Nationality</label>
+                  <%= f.input :nationality, wrapper: :text_field, label: false %>
+                </div>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <div class="field">
+                  <label class="field__label">What industry do you work in?</label>
+                  <%= f.input :industry, wrapper: :text_field, label: false %>
+                </div>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <div class="field">
+                  <label class="field__label">Age</label>
+                  <%= f.input :age, wrapper: :text_field, label: false %>
+                </div>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <div class="field">
+                  <label class="field__label">Gender</label>
+                  <%= f.input :gender, wrapper: :text_field, label: false %>
+                </div>
+              </div>
+            </div> <!-- grid -->
+          </fieldset>
+        </div>
+      </div>
+      <%= f.submit "Save", class: "btn btn--full btn--primary", id: "new-business" %>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $(".edit_user").submit( function(){
+    if( $("#user_password").val().length === 0 ){
+      $('#user_password').prop("disabled", true);
+    } // if
+  });
+</script>

@@ -1,0 +1,19 @@
+ar:
+
+  post_project:
+    machinery:
+      header: “تفاصيل الآلات”
+      add_more: “أضف المزيد”
+
+      fields:
+        machinery_category:
+          label: “الفئة”
+        sub_category:
+          label: “الفئة الفرعية”
+        quantity:
+          label: “الكمية”
+        option:
+          label: "Buy or Rent"
+          options: [“الشراء”, “الإستئجار”]
+        details:
+          label: “التفاصيل”

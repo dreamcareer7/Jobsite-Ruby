@@ -1,0 +1,7 @@
+en:
+
+  request_quote:
+    title: "Invite to bid"
+    create_project: "+ Create a project"
+    prompt: "Choose from your existing projects or create a new one."
+    no_project_prompt: "please create a project before requesting a quote."

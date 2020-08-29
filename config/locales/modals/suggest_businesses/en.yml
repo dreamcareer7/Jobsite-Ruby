@@ -1,0 +1,7 @@
+en:
+
+  suggest_businesses:
+    title: "Project posted!"
+    description: "Thank you for posting your job! Your project has been posted successfully and is under moderation. Our team may contact you within the next 48 hours. In the meantime, browse more businesses to invite them!"
+    view_more: "View more businesses"
+    return: "Return to project"

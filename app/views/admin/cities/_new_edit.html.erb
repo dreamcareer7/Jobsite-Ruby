@@ -1,0 +1,74 @@
+<div class="grid">
+  <div class="grid__col--xs-12 grid__col--md-10">
+    <div class="card">
+      <div class="card__section card__header card__section--border">
+        <h3 class="card__title">
+          <%= link_to "Countries / ", admin_countries_path,  class: 'u-text-light u-text-regular' %>
+          <% if @city.country.present? %>
+            <%= link_to "#{@city.country.name} / ", admin_cities_path(country_id: @city.country.id),  class: 'u-text-light u-text-regular' %>
+          <% elsif params[:country_id].present? %>
+            <%= link_to "#{Country.find(params[:country_id]).name} / ", admin_cities_path(country_id: params[:country_id]),  class: 'u-text-light u-text-regular' %>
+          <% end %>
+          <%= @city.name %>
+        </h3>
+      </div>
+
+      <%= simple_form_for [:admin, @city] do |f| %>
+        <div class="card__section">
+          <fieldset class="fieldset js-location-fields">
+            <div class="grid">
+              <% I18n.available_locales.each do |locale| %>
+                <div class="grid__col--xs-12 grid__col--md-6">
+                  <%= f.input "name_#{ locale }", wrapper: "text_field", placeholder: t("category_form.fields.name.placeholder", locale: locale), label: t("category_form.fields.name.label", locale: locale ), input_html: { class: " #{ locale == :ar ? 'rtl' : 'ltr' } js-street-address " } %>
+                </div>
+              <% end %>
+              <div class="grid__col--xs-12">
+                <div class="field">
+                  <label class="field__label">* Country</label>
+                  <div class="field__input-wrapper">
+                    <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                    <%= f.association :country, :selected => @city.country.present? ? @city.country.id : params[:country_id], input_html: { class: "field__input field__input--right-add-on js-city" }, label: false %>
+                  </div>
+                </div>
+              </div>
+              <div class="grid__col--xs-12 grid__col--xlg-6">
+                <div class="field">
+                  <%= f.input :latitude, wrapper: :text_field, input_html: { class: "js-latitude" } %>
+                </div>
+              </div>
+              <div class="grid__col--xs-12 grid__col--xlg-6">
+                <div class="field">
+                  <%= f.input :longitude, wrapper: :text_field, input_html: { class: "js-longitude" } %>
+                </div>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-12">
+                <p class="mb2">Confirm or update coordinates <span data-modal="choose-location" class="js-open-modal js-confirm-location u-text-pointer u-text-accent u-text-underline">using a map</span></p>
+              </div>
+            </div>
+            <div class="js-cocoon-partial">
+              <%= f.simple_fields_for :city_banners do |cb| %>
+                <%= render partial: "city_banner_fields", locals: { f: cb } %>
+              <% end %>
+              <div class="grid__col--xs-12 grid__col-md-6 mb2">
+                <%= link_to_add_association @city.city_banners.present? ? t("business_profile.add_another") : t("business_profile.add_project"), f, :city_banners, partial: "city_banner_fields" %>
+              </div>
+            </div>
+            <div class="grid__col--xs-12 grid__col-md-6">
+              <div class="field">
+                <%= f.submit action_name == 'edit' ? t('form.update'): t('form.create'), class: 'btn btn--primary' %>
+              </div>
+            </div>
+          </fieldset>
+
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "location-map" %>
+<%= content_for :page_scripts do %>
+  <script>
+    $('.js-cocoon-partial').children('.js-cocoon-fields').first().find('.js-remove-field').hide();
+  </script>
+<% end %>

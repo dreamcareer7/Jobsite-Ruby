@@ -1,0 +1,12 @@
+en:
+
+  feed:
+    shortlisted: "Shortlisted with "
+    others: "others"
+    budget: "Budget"
+    status: "Project status"
+    start_date: "Start date"
+    end_date: "End date"
+    location: "Location type"
+    Role: "Role"
+    historical: "Historical structure"

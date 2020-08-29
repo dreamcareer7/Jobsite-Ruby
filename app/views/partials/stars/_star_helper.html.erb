@@ -1,0 +1,11 @@
+<% full_stars.times do %>
+  <%= inline_svg( "icons/star.svg", class: "icon icon--small rating__star icon--#{star_modifier}" ) %>
+<% end %>
+<% if half_star.present? %>
+  <% half_star.times do %>
+    <%= inline_svg( "icons/star-half.svg", class: "icon icon--small rating__star icon--#{star_modifier}" ) %>
+  <% end %>
+<% end %>
+<% empty_stars.times do %>
+  <%= inline_svg("icons/star-inactive.svg", class: "icon icon--small rating__star icon--#{star_modifier}") %>
+<% end %>

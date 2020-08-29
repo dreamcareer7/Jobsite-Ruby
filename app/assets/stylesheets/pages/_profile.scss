@@ -1,0 +1,52 @@
+// Profile
+
+.profile-logo {
+  width: 60px;
+
+  @include mq(small) {
+    width: 70px;
+  }
+
+  @include mq(medium) {
+    width: 80px;
+  }
+
+  @include mq(large) {
+    width: 100px;
+  }
+}
+
+.profile-update {
+  position: absolute;
+  bottom: $spacing-large;
+  right: $spacing-large;
+
+  @include mq(large-down) {
+    display: none; // Hide profile update on smaller screens
+  }
+}
+
+.profile-claim {
+
+  @include mq(large) {
+    position: absolute;
+    bottom: $spacing-large;
+    left: $spacing-large;
+  }
+}
+
+.recommended-badge {
+  @include mq(medium) {
+    top: $spacing-x-large;
+    right: $spacing-x-large;
+  }
+}
+
+.profile-avatar {
+  border: 2px solid $white;
+}
+
+
+.profile-followers {
+  white-space: nowrap;
+}

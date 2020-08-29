@@ -1,0 +1,187 @@
+// Input reset
+
+input, select, textarea {
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  background-color: $white;
+  outline: 0;
+  border: 0;
+  border-radius: 0;
+  -webkit-font-smoothing: subpixel-antialiased; // Safari transform bug
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  resize: vertical;
+}
+
+//work-around for radio buttons. Simple form + styling radio buttons is a block. Will revisit
+.radio-no-reset {
+  -webkit-appearance: radio;
+  -moz-appearance: radio;
+}
+
+.fieldset {
+  margin-bottom: -$spacing-medium;
+}
+
+
+// Field
+
+.field {
+  display: block;
+
+  .fieldset & {
+    margin-bottom: $spacing-medium;
+  }
+}
+
+.field--full {
+  width: 100%;
+}
+
+
+// Field input wrapper
+
+.field__input-wrapper {
+  position: relative;
+
+  .field--has-btn & {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.field__btn {
+  flex-shrink: 0;
+
+  @include ltr {
+    margin-left: $spacing-small;
+  }
+
+  @include rtl {
+    margin-right: $spacing-small;
+  }
+}
+
+// Field input
+
+.field__input {
+  width: 100%;
+  padding: 0 $spacing-medium;
+  outline: 0;
+  border: 0;
+  height: $input-height;
+  line-height: $input-height;
+  box-shadow: inset 0 0 0 1px $border;
+  color: $grey-dark;
+  border-radius: $border-radius;
+  transition: box-shadow $time $curve;
+  resize: none;
+
+  &:focus {
+    box-shadow: inset 0 0 0 1px $red, 0 0 0 1px $red;
+  }
+
+  &--textarea {
+    height: auto;
+    padding: $spacing-medium;
+    line-height: 1.5;
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  &--small {
+    height: $input-height/1.25;
+    line-height: $input-height/1.25;
+  }
+
+  &--ghost {
+    box-shadow: none;
+    background-color: transparent;
+
+    &:hover,
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.field__input--right-add-on {
+  @include ltr {
+    padding-right: $spacing-xxx-large;
+  }
+
+  @include rtl {
+    padding-left: $spacing-xxx-large;
+  }
+}
+
+
+// Field add ons
+
+.field__add-on {
+  @include v-center(absolute);
+
+  &--right {
+    right: $spacing-medium;
+
+    @include rtl {
+      left: $spacing-medium;
+      right: auto;
+    }
+  }
+
+  &--clickthrough {
+    pointer-events: none;
+  }
+}
+
+
+// Field Label
+
+.field__label {
+  display: block;
+  margin-bottom: $spacing-small;
+  @include font-size($small-font-size);
+
+  @include ltr {
+    text-align: left;
+  }
+
+  @include rtl {
+    text-align: right;
+  }
+}
+
+
+// Inline form
+
+.inline-form {
+  position: relative;
+
+  @include mq(medium) {
+    display: flex;
+  }
+}
+
+.inline-form__field {
+  flex: 1;
+}
+
+.inline-form__btn {
+  flex-shrink: 0;
+
+  @include mq(medium-down) {
+    margin-top: $spacing-medium;
+  }
+
+  @include mq(medium) {
+    @include ltr {
+      margin-left: $spacing-small;
+    }
+
+    @include rtl {
+      margin-right: $spacing-small;
+    }
+  }
+}

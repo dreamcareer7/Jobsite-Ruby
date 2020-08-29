@@ -1,0 +1,10 @@
+en:
+
+  callback:
+    title: "Request call back"
+    description_one: "A representative from "
+    description_two: " will get in touch with you at the number below."
+    no_number_placeholder: "Please enter a number below"
+    placeholder: "Please enter your number"
+    submit: "Confirm number"
+    change_number: "Change number"

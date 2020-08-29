@@ -1,0 +1,6 @@
+en:
+  no_cities:
+    header: "Oops!"
+    line_one: "We're sorry, something went wrong."
+    line_two: "If you're an admin, please login or contact support"
+    line_three: "Thank you for your patience"

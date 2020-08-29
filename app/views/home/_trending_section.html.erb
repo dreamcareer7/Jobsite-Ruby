@@ -1,0 +1,61 @@
+<!-- Latest businesses -->
+
+<% if @new_businesses.present? %>
+  <section class="trending-section">
+    <div class="trending-heading">
+      <div class="u-flex u-flex-middle">
+        <h4 class="mb0 u-flex-grow"><%= t("trending_section.added") %></h4>
+        <%= link_to t("phrases.view_all"), businesses_path(city: @current_city.slug, filter_by: "Latest"), class: "btn btn--link u-hover-underline" %>
+      </div>
+    </div>
+
+    <div class="grid grid--v-padded">
+      <% @new_businesses.each do |item| %>
+        <% next if item.nil? %>
+        <%= render partial: "partials/trending_section/new_business", locals: { business: item } %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+
+<!-- Featured businesses -->
+
+<% if @new_premium_businesses.present? %>
+  <section class="trending-section">
+    <div class="trending-heading">
+      <div class="u-flex u-flex-middle">
+        <h4 class="mb0 u-flex-grow"><%= t("trending_section.upgraded") %></h4>
+        <%= link_to t("phrases.view_all"), businesses_path(city: @current_city.slug, filter_by: 'Verified'), class: "btn btn--link u-hover-underline" %>
+      </div>
+    </div>
+
+    <div class="grid grid--v-padded">
+      <% @new_premium_businesses.each do |item| %>
+        <% next if item.nil? %>
+        <%= render partial: "partials/trending_section/featured_businesses", locals: { business: item } %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+
+<!-- Projects -->
+
+<% if @new_projects.present? %>
+  <section class="trending-section">
+    <div class="trending-heading">
+      <div class="u-flex u-flex-middle">
+        <h4 class="mb0 u-flex-grow"><%= t("trending_section.latest") %></h4>
+        <%= link_to t("phrases.view_all"), gallery_index_path, class: "btn btn--link u-hover-underline" %>
+      </div>
+    </div>
+
+    <div class="grid grid--v-padded">
+      <% @new_projects.each do |item| %>
+        <% next if item.business.nil? %>
+        <%= render partial: "partials/trending_section/new_project", locals: { project: item } %>
+      <% end %>
+    </div>
+  </section>
+<% end %>

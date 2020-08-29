@@ -1,0 +1,62 @@
+<% if @business.self_added_projects.present? %>
+  <% @business.self_added_projects.each do |project| %>
+    <div class="card js-section u-hide js-empty js-projects-all">
+      <div class="card__section">
+        <h4><%= project.title %></h4>
+        <% if project.description.present? %>
+          <p class="u-text-paragraph js-truncate-text"><%= project.description %></p>
+        <% end %>
+        <% if project.video_link.present? || project.photos.present? %>
+          <% if project.video_link.present? %>
+            <div class="video-container mb2">
+              <iframe src="<%= project.video_link %>" frameborder="0" allowfullscreen></iframe>
+            </div>
+          <% else %>
+            <% if browser.device.mobile? %>
+              <div class="video-container mb2 js-open-image" data-photolink="<%= project.photos.first.url(:large) %>">
+                <%= image_tag project.photos.first.url(:large) %>
+              </div>
+            <% end %>
+          <% end %>
+          <div class="js-photos">
+            <% if project.photos.present? %>
+              <% project.photos.shift if browser.device.mobile? && project.video_link.blank? %>
+              <div class="grid grid--v-padded u-hide--medium-down js-photo-target">
+                <% project.photos.each do |photo| %>
+                  <% next if browser.device.mobile? && photo == project.photos.first %>
+                  <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-4">
+                    <div class="gallery-thumbnail js-open-image" data-photolink="<%= photo.url(:large) %>" style="background-image: url('<%= photo.url(:large) %>');"></div>
+                  </div>
+                <% end %>
+              </div>
+              <% if browser.device.mobile? %>
+                <button class="btn btn--xs-full btn--secondary js-toggle-photos"><%= t("phrases.view_all_photos") %></button>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <div class="card js-projects-all js-empty u-hide">
+    <div class="card__section">
+      <div class="card__header">
+        <h3 class="card__title"><%= inline_svg("icons/briefcase.svg", class: "icon icon--sm-small icon--brand") %><%= t("business.completed_projects") %></h3>
+      </div>
+      <div class="grid grid--v-padded">
+        <div class="grid__col--xs-12">
+          <p><%= t("projects.no_projects") %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :page_scripts do %>
+  <script>
+$('.js-toggle-photos').on('click', function() {
+  $(this).parents('.js-photos').find('.js-photo-target').toggleClass('u-hide--medium-down');
+});
+  </script>
+<% end %>

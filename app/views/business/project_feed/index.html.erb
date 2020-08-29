@@ -1,0 +1,67 @@
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="segmented-control mb4">
+      <%= render partial: "partials/filter_sort/filter_sort", locals: { filter_terms: @filter_terms, default_term: "Allprojects" } %>
+    </div>
+    <div class="card">
+      <% if @project_feed.present? %>
+        <% @project_feed.each do |project| %>
+          <div class="card__section card__section--border">
+            <div class="grid mb2">
+              <div class="grid__col--xs-12 grid__col--md-8">
+                <%= link_to business_project_feed_path(project), class: "u-text-inherit" do %>
+                  <% if @current_business.trusted? %>
+                    <h3><%= project.title %></h3>
+                  <% else %>
+                    <h3><%= t("feed.obscured_title") %></h3>
+                    <small><%= t("feed.obscured_blurb") %></small>
+                  <% end %>
+                <% end %>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-4 u-text-right--medium">
+                <small class="m0 u-hide--medium-down"><%= t("feed.posted") %> <%= time_ago_in_words(project.created_at) %> <%= t("feed.ago") %></small>
+                <small class="m0 u-hide--medium"><%= time_ago_in_words(project.created_at) %> <%= t("feed.ago") %></small>
+              </div>
+            </div>
+            <div class="grid grid--v-padded">
+              <div class="grid__col--xs-6 grid__col--lg-3 grid__col--xlg-flex">
+                <p><small><%= t("feed.location") %></small><br><span class="u-text-dark"><%= project.city_country %></span></p>
+              </div>
+              <div class="grid__col--xs-6 grid__col--lg-3 grid__col--xlg-flex">
+                <p><small><%= t("feed.distance") %></small><br><span class="u-text-dark"><%= project.distance_from_business_to_s(@current_coordinates) <= 100 ? project.distance_from_business_to_s(@current_coordinates) : "> 100" %> km</span></p>
+              </div>
+              <div class="grid__col--xs-6 grid__col--lg-3 grid__col--xlg-flex">
+                <% if project.start_date.present? %>
+                  <p><small><%= t("feed.start_date") %></small><br><span class="u-text-dark"><%= project.start_date.strftime("%B %d, %Y") %></span></p>
+                <% end %>
+              </div>
+              <div class="grid__col--xs-6 grid__col--lg-3 grid__col--xlg-flex">
+                <% if project.end_date.present? %>
+                  <p><small><%= t("feed.end_date") %></small><br><span class="u-text-dark"><%= project.end_date.strftime("%B %d, %Y") %></span></p>
+                <% end %>
+              </div>
+              <div class="grid__col--xs-12 grid__col--lg-8 grid__col--xlg-flex">
+                <p><small><%= t("feed.services") %></small><br><span class="u-text-dark"><%= truncate(project.display_services, length: 35) %></span></p>
+              </div>
+              <div class="grid__col--xs-12 grid__col--lg-4 grid__col--xlg-flex u-text-right--large">
+                <div class="btn-group btn-group--full">
+                  <%= link_to t("feed.apply"), business_project_apply_to_project_path(project_id: project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", method: :put %>
+                  <%= link_to t("feed.details"), business_project_feed_path(project), class: "btn-group__item btn-group__item--full-small-down btn btn--secondary" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="card__section">
+          <p><%= t("feed.no_projects") %></p>
+        </div>
+      <% end %>
+    </div>
+    <% if @project_feed.total_pages > 1 %>
+      <div class="mt3">
+        <%= paginate @project_feed %>
+      </div>
+    <% end %>
+  </div>
+</section>

@@ -1,0 +1,17 @@
+<%= simple_form_for resource, as: resource_name, url: url do |f| %>
+  <fieldset class="fieldset">
+    <%= devise_error_messages! %>
+
+    <% resource.class.invite_key_fields.each do |field| -%>
+      <%= f.input field, wrapper: :text_field %>
+    <% end -%>
+
+    <%= f.association :countries, wrapper: :select2 %>
+
+    <%= f.association :cities, wrapper: :select2 %>
+
+    <%= f.input :role, wrapper: :text_field, include_blank: false %>
+
+    <%= f.button :submit, button_text, class: "mt1 btn btn--primary" %>
+  </fieldset>
+<% end %>

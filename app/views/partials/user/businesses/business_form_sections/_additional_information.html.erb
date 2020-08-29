@@ -1,0 +1,63 @@
+<div class="card">
+  <div class="card__section">
+    <div class="card__header">
+      <h4 class="card__title"><%= inline_svg("icons/user.svg", class: "icon icon--brand icon--small") %><%= t("business_profile.fields.additional_information.contact_person") %></h4>
+    </div>
+    <fieldset class="fieldset">
+      <%= f.simple_fields_for :business_contact do |bc| %>
+        <div class="grid">
+          <div class="grid__col--xs-12 grid__col--md-6">
+            <div class="field">
+              <div class="media media--middle js-upload-fields u-text-pointer">
+                <div class="media__figure" style="width:72px">
+                  <%= image_tag(@business.business_contact.profile_image, width: "72", class: "media__figure u-circle u-text-pointer js-file-upload-button js-photo-placeholder") %>
+                </div>
+                <div class="media__body">
+                  <div class="field__input-wrapper">
+                    <span class="u-text-left u-text-dark js-file-upload-button"><%= t("business_profile.fields.additional_information.edit_photo") %></span><br>
+                    <%= bc.input :profile_image, as: :file, input_html: { class: "js-file-upload", hidden: "true" }, label: false %>
+                  </div>
+                  <small>200x200</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid__col--xs-12 grid__col--md-6">
+            <%= bc.input :name, wrapper: :text_field, label: t("business_profile.fields.additional_information.name.label"), required: true %>
+          </div>
+          <div class="grid__col--xs-12 grid__col--md-6">
+            <%= bc.input :email, wrapper: :text_field, label: t("business_profile.fields.additional_information.email.label"), required: false %>
+          </div>
+          <div class="grid__col--xs-12 grid__col--md-6">
+            <%= bc.input :phone_number, wrapper: :text_field, label: t("business_profile.fields.additional_information.phone_number.label"), required: false %>
+          </div>
+        </div>
+      <% end %>
+    </fieldset>
+  </div>
+  <div class="card__section">
+    <div class="card__header">
+      <h4 class="card__title"><%= inline_svg("icons/clock.svg", class: "icon icon--brand icon--small") %><%= t("business_profile.fields.header.business_hours") %></h4>
+    </div>
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--md-12">
+        <%= f.input :business_hours, wrapper: :text_field, label: t("business_profile.fields.additional_information.business_hours.label"), placeholder: t("business_profile.fields.additional_information.business_hours.placeholder"), required: false %>
+      </div>
+    </div>
+  </div>
+  <div class="card__section">
+    <div class="card__header">
+      <h4 class="card__title"><%= inline_svg("icons/briefcase.svg", class: "icon icon--brand icon--small") %>Other</h4>
+    </div>
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--md-6">
+        <%= f.input :number_of_employees, wrapper: :text_field, label: t("business_profile.fields.additional_information.number_of_employees.label"), placeholder: t("business_profile.fields.additional_information.number_of_employees.placeholder"), required: false %>
+      </div>
+    </div>
+  </div>
+  <div class="card__section">
+    <div class="field">
+      <%= f.submit t("form.update"), class: "mt1 btn btn--primary" %>
+    </div>
+  </div>
+</div>

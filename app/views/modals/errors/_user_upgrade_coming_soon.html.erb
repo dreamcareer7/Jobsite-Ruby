@@ -1,0 +1,40 @@
+<div class="modal js-user-upgrade-coming-soon">
+  <div class="modal__table">
+    <div class="modal__cell">
+      <div class="modal__container">
+
+        <button class="js-close-modal modal__close">
+          <%= inline_svg("icons/close.svg", class: "icon") %>
+        </button>
+
+        <h2 class="modal__title"><%= t("coming_soon.title") %></h2>
+
+        <div class="media media--tight mb1">
+          <%= inline_svg("icons/checkmark.svg", class: "media__figure icon icon--green") %>
+          <div class="media__body"><%= t("coming_soon.user_upgrade.details") %></div>
+        </div>
+        <div class="media media--tight mb1">
+          <%= inline_svg("icons/checkmark.svg", class: "media__figure icon icon--green") %>
+          <div class="media__body"><%= t("coming_soon.user_upgrade.receive") %></div>
+        </div>
+        <div class="media media--tight mb1">
+          <%= inline_svg("icons/checkmark.svg", class: "media__figure icon icon--green") %>
+          <div class="media__body"><%= t("coming_soon.user_upgrade.get") %></div>
+        </div>
+
+        <% unless current_user %>
+          <div class="mt3">
+            <p class="mb2"><%= t("coming_soon.notified") %></p>
+            <div class="btn-group u-flex">
+              <button class="btn-group__item btn btn--primary btn--full js-open-modal" data-modal="sign-up"><%= t("modal.sign_up") %></button>  
+              <button class="btn-group__item btn btn--secondary btn--full js-open-modal" data-modal="log-in"><%= t("modal.log_in") %></button>  
+            </div>          
+          </div>
+
+          <button class="mt2 js-close-modal u-text-underline"><%= t("please_log_in.looking_around") %></button>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

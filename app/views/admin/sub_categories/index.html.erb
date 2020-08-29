@@ -1,0 +1,33 @@
+<div class="card">
+
+  <div class="card__section card__header card__section--border">
+    <% if @category %>
+      <h3 class="card__title"><%= link_to "Categories / ", admin_categories_path,  class: 'u-text-light u-text-regular' %> <%= @category.try(:name) %></h3>
+    <% else %>
+      <h3 class="card__title">Sub-categories</h3>
+    <% end %>
+    <a class="btn btn--xs-full btn--primary btn--small" href="/admin/sub_categories/new/?category_id=<%= params[:category_id] %>">Add sub-category</a>
+  </div>
+
+  <div class="card__section">
+    <table class="js-subcategories-table" data-source="<%= admin_sub_categories_path(format: :json) %>" data-category-id="<%= params[:category_id] %>">
+      <thead>
+        <tr>
+          <th>Name (en)</th>
+          <th>Name (ar)</th>
+          <th>&nbsp;</th>
+          <th>Category</th>
+          <th>Businesses</th>
+          <th>Banner?</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+</div>
+
+<%= content_for :page_scripts do %>
+  <%= javascript_include_tag 'admin/datatables/subCategories' %>
+<% end %>

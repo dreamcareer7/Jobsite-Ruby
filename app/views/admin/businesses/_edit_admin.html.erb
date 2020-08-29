@@ -1,0 +1,56 @@
+<div class="card">
+  <div class="card__section">
+    <div class="card__header">
+      <h4 class="card__title"><%= inline_svg("icons/user.svg", class: "icon icon--dark icon--small") %>Vendor</h4>
+    </div>
+    <fieldset class="fieldset">
+      <div class="grid">
+        <div class="grid__col--xs-12 grid__col--md-12">
+          <div class="field">
+            <% if @business.user.present? %>
+              <%= f.association :user, collection: User.all, :selected => @business.user.id, wrapper: :select2,  input_html:{ style: "width:100%" } %>
+            <% else %>
+              <%= f.association :user, collection: User.all, wrapper: :select2, input_html: { style: "width:100%" } %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <div class="card__section">
+    <div class="card__header">
+      <h4 class="card__title"><%= inline_svg("icons/social.svg", class: "icon icon--dark icon--small") %>Statuses</h4>
+    </div>
+    <fieldset class="fieldset">
+      <div class="grid">
+        <div class="grid__col--xs-12">
+          <label class="control">
+            <%= f.input_field :approved, class: "control__input" %>
+            <span class="control__indicator control__indicator--toggle"></span>
+            <span class="control__label">Approved</span>
+          </label>
+        </div>
+
+        <div class="grid__col--xs-12">
+          <label class="control">
+            <%= f.input_field  :disabled, class: "control__input" %>
+            <span class="control__indicator control__indicator--toggle"></span>
+            <span class="control__label">Disabled</span>
+          </label>
+        </div>
+        <div class="grid__col--xs-12">
+          <label class="control">
+            <%= f.input_field :flagged, class: "control__input" %>
+            <div class="control__indicator control__indicator--toggle"></div>
+            <span class="control__label">Problem</span>
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <div class="card__section">
+    <div class="field">
+      <%= f.submit action_name == 'edit' ? t("form.update"): t("form.create"), class: "mt1 btn btn--primary" %>
+    </div>
+  </div>
+</div>

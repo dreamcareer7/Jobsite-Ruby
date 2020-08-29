@@ -1,0 +1,28 @@
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="grid grid--middle">
+      <div class="grid__col--xs-12">
+        <div class="breadcrumbs mb3">
+          <%= link_to t("breadcrumb_nav.inbox"), business_inbox_index_path, class: "breadcrumbs__item" %>
+          <span class="breadcrumbs__item breadcrumbs__item--current"><span class="u-text-dark"><%= @notification.sender.name %></span></span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card__section card__section--border chat-wrapper">
+        <div class="message media">
+          <%= image_tag @notification.sender.profile_image, class: "u-hide--large-down avatar media__figure" %>
+          <div class="media__body">
+            <div class="message__bubble">
+              <% if @notification.notification_type == "callback request" %>
+                <p class="u-text-dark"><%= inline_svg("icons/phone.svg", class: "icon icon--brand") %><a href="tel:#{entry.body}"><%= @notification.body %></a></p>
+              <% else %>
+                <p class="u-text-dark"><%= @notification.body %></p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

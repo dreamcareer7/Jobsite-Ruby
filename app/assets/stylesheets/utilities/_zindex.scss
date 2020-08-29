@@ -1,0 +1,17 @@
+// Z Index
+
+$z-indexed-items:
+  'content',
+  'primary-nav',
+  'secondary-nav',
+  'popover',
+  'mobile-nav-backdrop',
+  'mobile-nav',
+  'modal',
+  'modal-container',
+  'tooltip',
+  'home-city__tooltip';
+
+@mixin z-index($key) {
+  z-index: index($z-indexed-items, $key);
+}

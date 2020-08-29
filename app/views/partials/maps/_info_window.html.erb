@@ -1,0 +1,22 @@
+<% if location.street_address.present? %>
+  <% if current_namespace == "listing_map" %>
+    <div class="media media--tight">
+      <%= link_to business_path(id: location.owner) do %>
+        <%= image_tag(location.owner.logo.url(:small), class: "media__figure u-border u-rounded-half u-hide--medium-down", width: "40") %>
+      <% end %>
+      <%= link_to business_path(id: location.owner) do %>
+        <div class="media__body">
+          <strong class="u-block"><%= location.owner.name %></strong>
+          <span class="u-block u-text-reset"><%= location.street_address %></span>
+          <div class="rating u-text-reset">
+            <%= render partial: "partials/businesses/reviews", locals: { business: location.owner, star_modifier: 'yellow' } %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <a class="u-block" href="https://maps.google.com/?q=<%= location.latitude %>, <%= location.longitude %>" target="_blank">
+      <span class="u-block u-text-dark"><%= location.street_address %></span>
+    </a>
+  <% end %>
+<% end %>

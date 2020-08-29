@@ -1,0 +1,22 @@
+en:
+
+  listing:
+    list: "List"
+    map: "Map"
+    related_services: "Related services"
+    added: "Added"
+    experience: "Experience"
+    projects: "Projects"
+    employees: "Employees"
+    call: "Call now"
+    listings: "listing"
+    sponsored: "Our sponsors"
+    switch_category: "Switch category"
+    cat_headline: "The best %{cat_name} for your works and projects in %{city_name}"
+    service_headline: "The best %{cat_name} for %{service_name} works and projects in %{city_name}"
+    business_prompt: 
+      header: "Are you a business owner?"
+      copy: "Nullam scelerisque lobortis placerat. Nulla malesuada eros non ex venenatis, et porttitor turpis vehicula. Vestibulum quis lorem felis."
+    project_prompt:
+      header: "Need a quotation?"
+      copy: "Post your project here to receive and compare quotations from several listed businesses."

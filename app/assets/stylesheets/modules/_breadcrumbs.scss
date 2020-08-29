@@ -1,0 +1,44 @@
+// Breadcrumbs
+
+.breadcrumbs {
+  display: flex;
+}
+
+.breadcrumbs__item {
+  position: relative;
+  color: $grey;
+  margin-right: 2em;
+  @include font-size($small-font-size);
+  
+  &:after {
+    position: absolute;
+    top: 0;
+    content: "›";
+
+    @include ltr {
+      left: calc(100% + 1em);
+      transform: translateX(-50%);
+    }
+
+    @include rtl {
+      right: calc(100% + 1em);
+      transform: translateX(50%);
+    }
+  }
+
+  &:last-child:after {
+    display: none;
+  }
+
+  small {
+    @include font-regular;
+  }
+}
+
+.breadcrumbs__item:not(.breadcrumbs__item--current):hover {
+  color: $grey-dark;
+}
+
+.breadcrumbs__item--current {
+  @include font-bold;
+}

@@ -1,0 +1,118 @@
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="grid grid--middle grid--v-padded mb1">
+      <div class="grid__col--xs-12 grid__col--md-8 grid__col--lg-9">
+        <h2><%= @current_business.name %></h2>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-4 grid__col--lg-3">
+        <div class="field">
+          <div class="field__input-wrapper">
+            <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+            <select class="field__input field__input--right-add-on js-stats-time-range">
+              <% filter_time_ranges.each do |range| %>
+                <option value="<%= range[:from].to_i %>-<%= range[:to].to_i %>"<%= ' selected' if range[:default] %>><%= range[:title] %></option>
+              <% end %>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card__section card__section--border">
+        <div class="card__header">
+          <h4 class="card__title"><%= inline_svg("icons/graph.svg", class: "icon icon--brand icon--small") %><%= t("stats.my_page") %></h4>
+        </div>
+        <div class="grid grid--v-padded">
+          <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-3 grid__col--xlg-2">
+            <p class="mb0"><%= t("stats.profile") %></p>
+            <h2 class="m0 js-stat" data-stat='profile_views'>-</h2>
+          </div>
+          <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-3 grid__col--xlg-2">
+            <p class="mb0"><%= t("stats.portfolio") %></p>
+            <h2 class="m0 js-stat" data-stat='project_views'>-</h2>
+          </div>
+          <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-3 grid__col--xlg-2">
+            <p class="mb0"><%= t("stats.listing") %></p>
+            <h2 class="m0 js-stat" data-stat='listing_views'>-</h2>
+          </div>
+          <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-3 grid__col--xlg-2">
+            <p class="mb0"><%= t("stats.favourites") %></p>
+            <h2 class="m0 js-stat" data-stat='favourites'>-</h2>
+          </div>
+        </div>
+      </div>
+      <div class="card__section card__section--border">
+        <p><strong><%= t("stats.image_blurb") %></strong></p>
+        <div class="js-impressions-graph"></div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--md-6">
+        <div class="card">
+          <div class="card__section">
+            <div class="card__header">
+              <h4 class="card__title"><%= inline_svg("icons/user.svg", class: "icon icon--brand icon--small") %><%= t("stats.user_actions.header") %></h4>
+            </div>
+            <div class="grid grid--v-padded">
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-4">
+                <p class="mb0"><%= t("stats.user_actions.website") %></p>
+                <h2 class="m0 js-stat" data-stat='website_visits'>-</h2>
+              </div>
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-4">
+                <p class="mb0"><%= t("stats.user_actions.number") %></p>
+                <h2 class="m0 js-stat" data-stat='phone_number_reveals'>-</h2>
+              </div>
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-4">
+                <p class="mb0"><%= t("stats.user_actions.callback") %></p>
+                <h2 class="m0 js-stat" data-stat='callback_requests'>-</h2>
+              </div>
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-4">
+                <p class="mb0"><%= t("stats.user_actions.social") %></p>
+                <h2 class="m0 js-stat" data-stat='social_media_visits'>-</h2>
+              </div>
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-4">
+                <p class="mb0"><%= t("stats.user_actions.messages") %></p>
+                <h2 class="m0 js-stat" data-stat='new_messages'>-</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-6">
+        <div class="card">
+          <div class="card__section">
+            <div class="card__header">
+              <h4 class="card__title"><%= inline_svg("icons/briefcase.svg", class: "icon icon--brand icon--small") %><%= t("stats.my_projects.header") %></h4>
+            </div>
+            <div class="grid grid--v-padded">
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-4">
+                <p class="mb0"><%= t("stats.my_projects.applied") %></p>
+                <h2 class="m0 js-stat" data-stat='projects_applied'>-</h2>
+              </div>
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-4">
+                <p class="mb0"><%= t("stats.my_projects.shortlisted") %></p>
+                <h2 class="m0 js-stat" data-stat='projects_shortlisted'>-</h2>
+              </div>
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-4">
+                <p class="mb0"><%= t("stats.my_projects.won") %></p>
+                <h2 class="m0 js-stat" data-stat='projects_won'>-</h2>
+              </div>
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-4">
+                <p class="mb0"><%= t("stats.my_projects.reviews") %></p>
+                <h2 class="m0 js-stat" data-stat='customer_reviews'>-</h2>
+              </div>
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-6 grid__col--lg-4">
+                <p class="mb0"><%= t("stats.my_projects.completed") %></p>
+                <h2 class="m0 js-stat" data-stat='projects_completed'>-</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<% content_for :page_scripts do %>
+  <%= javascript_include_tag 'stats' %>
+<% end %>

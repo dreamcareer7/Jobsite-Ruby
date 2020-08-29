@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card__section card__section--border">
+    <div class="grid__col--xs-12 grid__col--lg-flex u-text-right--large">
+      <div class="btn-group btn-group--full">
+        <% if @quote.status == "pending" %>
+          <%= link_to t("messages.shortlist"), business_quote_update_quote_status_path(quote_id: @notification.quote_id, status: "shortlist"), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", id: "shortlist-quote", method: :put %>
+        <% elsif @quote.status == "shortlist" %>
+          <%= link_to t("messages.accept"), business_quote_update_quote_status_path(quote_id: @notification.quote_id, status: "accepted"), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", id: "shortlist-quote", method: :put %>
+        <% end %>
+        <%= link_to t("messages.deny"), business_quote_update_quote_status_path(quote_id: @notification.quote_id, status: "denied"), class: "btn-group__item btn-group__item--full-small-down btn btn--secondary", id: "deny-quote", method: :put %>
+      </div>
+    </div>
+  </div>
+</div>

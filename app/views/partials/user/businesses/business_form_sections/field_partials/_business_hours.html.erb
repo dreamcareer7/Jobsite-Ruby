@@ -1,0 +1,49 @@
+<div class="card__section <%= week_period == "weekend" && @business.hours_for("weekend").blank? ? 'u-hide js-weekend-hours' : '' %>">
+  <%= hoo.input :week_period, input_html: { value: hoo.index == 0 ? "weekday" : "weekend" }, as: :hidden %>
+  <div class="card__header">
+    <h4 class="card__title"><%= week_period.capitalize %></h4>
+          <small class="u-text-accent"><%= link_to "(Clear)", clear_business_hours_admin_business_path(week_period: week_period, shift: "all"), method: :put %></small>
+  </div>
+
+  <fieldset class="fieldset">
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--md-6">
+        <div class="field">
+          <label class="field__label"><%= t("business_profile.fields.general_information.business_hours.start_day_label", locale: locale) %></label>
+          <div class="field__input-wrapper">
+            <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+            <%= hoo.input "start_day", collection: t("business_profile.fields.general_information.business_hours.days", locale: locale), input_html: { class: "field__input field__input--right-add-on"}, label: false, required: false %>
+          </div>
+        </div>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-6">
+        <div class="field">
+          <label class="field__label"><%= t("business_profile.fields.general_information.business_hours.end_day_label", locale: locale) %></label>
+          <div class="field__input-wrapper">
+            <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+            <%= hoo.input "end_day", collection: t("business_profile.fields.general_information.business_hours.days", locale: locale), input_html: { class: "field__input field__input--right-add-on"}, label: false, required: false %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>
+<div class="card__section <%= week_period == "weekend" && @business.hours_for("weekend").blank? ? 'u-hide js-weekend-hours' : '' %>">
+  <fieldset class="fieldset">
+    <div class="grid">
+      <% [:shift_one, :shift_two].each do |shift| %>
+        <div class="grid__col--xs-12 grid__col--md-4 u-text-center">
+          <span class="u-text-underline"><%= shift.to_s.gsub("_", " ").capitalize %></span> 
+          <br>
+          <small class="u-text-accent"><%= link_to "(Clear)", clear_business_hours_admin_business_path(week_period: week_period, shift: shift), method: :put %></small>
+        </div>
+        <div class="grid__col--xs-12 grid__col--md-4 js-select-time">
+          <%= hoo.input "#{ shift }_start", wrapper: :text_field, input_html: { class: 'field__input', style: "width:45%" }, as: :time, label: t("business_profile.fields.general_information.business_hours.start_hour_label", locale: locale), placeholder: t("business_profile.fields.general_information.business_hours.start_hour_placeholder", locale: locale), required: false, ampm: true, minute_step: 15, include_blank: true, default: nil %>
+        </div>
+        <div class="grid__col--xs-12 grid__col--md-4 js-select-time">
+          <%= hoo.input "#{ shift }_end", wrapper: :text_field, input_html: { class: 'field__input', style: "width:45%" }, as: :time, label: t("business_profile.fields.general_information.business_hours.end_hour_label", locale: locale), placeholder: t("business_profile.fields.general_information.business_hours.end_hour_placeholder", locale: locale), required: false, ampm: true, minute_step: 15, include_blank: true %>
+        </div>
+      <% end %>
+    </div>
+  </fieldset>
+</div>

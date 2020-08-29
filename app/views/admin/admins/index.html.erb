@@ -1,0 +1,61 @@
+<div class="card">
+  <div class="card__section">
+
+    <div class="grid">
+      <div class="grid__col--xs-12 grid__col--sm-8">
+        <h3 class="mb2">Admins</h3>
+      </div>
+      <div class="grid__col--xs-12 grid__col--sm-4 u-text-right--small">
+        <a class="btn btn--xs-full btn--primary btn--small" href="<%= new_admin_invitation_path %>">Invite a new admin</a>
+      </div>
+    </div>
+
+    <div class="fieldset">
+      <div class="grid grid--tight">
+        <div class="grid__col--xs-6 grid__col--md-4">
+          <div class="field">
+            <div class="field__input-wrapper">
+              <input type="text" class="field__input js-text-filter" placeholder="Name" data-column="0">
+            </div>
+          </div>
+        </div>
+        <div class="grid__col--xs-6 grid__col--md-8"></div>
+        <div class="grid__col--xs-4 grid__col--md-3">
+          <div class="field">
+            <div class="field__input-wrapper">
+              <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
+              <select class="field__input field__input--right-add-on js-select-filter" data-column="3"></select>
+            </div>
+          </div>
+        </div>
+        <div class="grid__col--xs-4 grid__col--md-3">
+          <div class="field">
+            <div class="field__input-wrapper">
+              <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
+              <select class="field__input field__input--right-add-on js-select-filter" data-column="4"></select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table id="js-admins-table" data-source="<%= admin_admins_path(format: :json) %>">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Cities</th>
+          <th>Countries</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+  </div>
+</div>
+
+<% content_for :page_scripts do %>
+  <%= javascript_include_tag 'admin/datatables/admins' %>
+<% end %>

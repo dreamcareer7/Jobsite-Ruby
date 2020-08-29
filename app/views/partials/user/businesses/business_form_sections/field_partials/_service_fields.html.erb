@@ -1,0 +1,22 @@
+<div class="card u-hide js-category js-category-<%= category.name(loacle: :en).downcase %>">
+  <div class="card__section">
+    <div class="card__header">
+      <h4 class="card__title"><%= inline_svg("icons/#{ category.name(locale: :en).downcase }.svg", class: "icon icon--brand icon--small") %><%= category.name.singularize %></h4>
+    </div>
+    <fieldset class="fieldset">
+      <div class="grid">
+        <div class="grid__col--xs-12 grid__col--md-12">
+          <div class="field">
+            <label class="field__label u-text-dark u-text-bold"><%= category.name.singularize %> subcategories</label>
+            <% if category.sub_categories.find_by(name: "None").present? %>
+              <%= f.input :sub_categories_chosen, collection: category.sub_categories.order(name: :asc), selected: @business.sub_categories.where(category: category).pluck(:id) + category.sub_categories.where(name: "None").pluck(:id), wrapper: :select2, input_html: { style: "width:100%", multiple: true, class: 'js-chosen-subcategories' }%>
+            <% else %>
+              <%= f.input :sub_categories_chosen, collection: category.sub_categories.order(name: :asc), selected: @business.sub_categories.where(category: category).pluck(:id), wrapper: :select2, input_html: { style: "width:100%", multiple: true, class: 'js-chosen-subcategories' }%>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <span class="sub-category-services-<%= category.name(locale: :en).downcase %>"><%= render partial: "partials/user/businesses/business_form_sections/field_partials/sub_category_services", locals: { f: f, sub_categories: category.sub_categories } %></span>
+    </fieldset>
+  </div>
+</div>

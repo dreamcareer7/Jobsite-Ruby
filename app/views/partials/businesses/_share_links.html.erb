@@ -1,0 +1,20 @@
+<ul class="list list--inline u-text-right">
+  <li class="list__item">
+    <a href="https://twitter.com/home?status=<%= request.original_url %>" title="Share on Twitter" target="_blank"><%= inline_svg("icons/twitter.svg", class: "icon") %></a>
+  </li>
+  <li class="list__item">
+    <a href="https://www.facebook.com/sharer/sharer.php?u=<%= request.original_url %>" title="Share on Facebook" target="_blank"><%= inline_svg("icons/facebook.svg", class: "icon") %></a>
+  </li>
+  <li class="list__item">
+    <a href="https://plus.google.com/share?url=<%= request.original_url %>" title="Share on Google+" target="_blank"><%= inline_svg("icons/google_plus.svg", class: "icon") %></a>
+  </li>
+  <li class="list__item">
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=<%= request.original_url %>" title="Share on LinkedIn" target="_blank"><%= inline_svg("icons/linkedin.svg", class: "icon") %></a>
+  </li>
+  <li class="list__item">
+    <a href="mailto:?subject=your%20subject&amp;body=<%= request.original_url %>"><%= inline_svg("icons/email.svg", class: "icon") %></a>
+  </li>
+  <li class="list__item">
+    <a href="whatsapp://send?text=<%= request.original_url %>"><%= inline_svg("icons/whatsapp.svg", class: "icon") %></a>
+  </li>
+</ul>

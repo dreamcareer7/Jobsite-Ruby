@@ -1,0 +1,4 @@
+<%= link_to toggle_user_follow_path(id: current_user.id, target_id: target.id, target_class: target.class), class: "#{ classes } js-toggle-follow #{ 'btn--positive' if follow.present? } ", id: "favourite #{ target.id }", method: :put, remote: true do %>
+  <span class="js-follow <%= 'u-hide' if follow.present? %>"><%= t("business.follow") %></span>
+  <span class="js-following <%= 'u-hide' unless follow.present? %>"><%= t("business.following") %></span>
+<% end %>

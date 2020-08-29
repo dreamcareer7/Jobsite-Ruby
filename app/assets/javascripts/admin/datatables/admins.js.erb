@@ -1,0 +1,107 @@
+$('#js-admins-table').dataTable({
+  serverSide: true,
+  bLengthChange: false,
+  bInfo: false,
+  ajax: {
+    url: $('#js-admins-table').data('source')
+  },
+  columns: [
+    {
+      data: 'name',
+      render: function (data, type, row, meta) {
+        return '<a href="/admin/admins/' + row.id + '/edit">' + data + '</a>';
+      }
+    },
+    {
+      data: 'email'
+    },
+    {
+      data: 'admin_role',
+      render: function(data) {
+        if (!data) return '-';
+        return data[0].toUpperCase() + data.slice(1);
+      }
+    },
+    {
+      data: 'cities',
+      render: function(data, type, row, meta) {
+        if (data.length === 0) return '-';
+        return data.map(function(city) {
+          return '<a href="/admin/cities/' + city.id + '/edit">' + city.name + '</a>';
+        }).join(', ');
+      }
+    },
+    {
+      data: 'countries',
+      render: function(data, type, row, meta) {
+        if (data.length === 0) return '-';
+        return data.map(function(country) {
+          return '<a href="/admin/countries/' + country.id + '/edit">' + country.name + '</a>';
+        }).join(', ');
+      }
+    },
+    {
+      data: null,
+      sortable: false,
+      render: function(data, type, row, meta) {
+        return '<a class="tooltip" title="Edit" href="/admin/admins/' + row.id + '/edit"><%= image_tag("icons/pencil.svg", class: "icon icon--dark icon--small") %></a> ' +
+        (data.role === "superadmin" ? '<a class="tooltip" title="Delete" rel="nofollow" data-method="delete" href="/admin/admins/' + row.id + '" data-confirm="Are you sure?"><%= image_tag("icons/trash.svg", class: "icon icon--dark icon--small") %></a> ' : '') +
+        (row.disabled ? '<a class="tooltip" title="Enable" data-method="put" href="/admin/admins/' + row.id + '/enable"><%= image_tag("icons/verified.svg", class: "icon icon--dark icon--small") %></a>' : '<a class="tooltip" title="Disable" data-method="put" href="/admin/admins/' + row.id + '/disable"><%= image_tag("icons/close-small.svg", class: "icon icon--dark icon--small") %></a>');
+      }
+    }
+  ],
+  dom: "ritp",
+  pageLength: 30,
+  initComplete: function() {
+    var table = this;
+
+    // Select filters
+    $('.js-select-filter').each(function () {
+      var $filterSelect = $(this);
+      var columnIndex = +$filterSelect.data('column');
+      var column = table.api().column(columnIndex);
+
+      // Filter the column when the user picks an option
+      $filterSelect.on('change', function() {
+        var val = $.fn.dataTable.util.escapeRegex($filterSelect.val());
+        column.search(val ? '^'+val+'$' : '', true, false).draw();
+      });
+
+      // Add all possible options to the select
+      $filterSelect.append('<option value="">' + column.header().innerHTML + '</option>');
+
+      var cities = column.data().unique().sort().map( function (d, j) {
+        if(d.length > 0) {
+          return d[0].name;
+        }
+      });
+
+      // undefined is falsey so filtering false values works to remove undefined
+      cities = _.uniq(cities).filter(Boolean);
+
+      cities.forEach(function(city) {
+        $filterSelect.append('<option value="'+city+'">'+city+'</option>');
+      });
+    });
+
+    // Text filters
+    $('.js-text-filter').each(function() {
+      var $filterInput = $(this);
+      var columnIndex = +$filterInput.data('column');
+      var column = table.api().column(columnIndex);
+
+      $filterInput.on('keyup change', function() {
+        if (column.search() !== this.value) {
+          column.search(this.value).draw();
+        }
+      });
+    });
+  }
+});
+
+$('#js-admins-table').on('draw.dt', function() {
+  $('.tooltip').tooltipster({
+    delay: 0,
+    animationDuration: 100
+  });
+});

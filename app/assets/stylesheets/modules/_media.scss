@@ -1,0 +1,52 @@
+// Media
+
+.media {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+
+  @include ltr {
+    text-align: left;
+  }
+
+  @include rtl {
+    text-align: right;
+  }
+
+  &--middle {
+    align-items: center;
+  }
+
+  &--inline {
+    display: inline-flex;
+  }
+}
+
+.media__figure {
+  flex-shrink: 0;
+  
+  @include ltr {
+    margin-right: $spacing-medium;
+  }
+
+  .media--tight & {
+    @include ltr {
+      margin-right: $spacing-small;
+    }
+  }
+
+  @include rtl {
+    margin-left: $spacing-medium;
+  }
+
+  .media--tight & {
+    @include rtl {
+      margin-left: $spacing-small;
+    }
+  }
+}
+
+.media__body {
+  flex: 1;
+  min-width: 0; 
+}

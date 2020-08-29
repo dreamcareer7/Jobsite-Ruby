@@ -1,0 +1,42 @@
+<% if @business.self_added_projects.present? %>
+  <div class="card js-section js-projects">
+    <div class="card__section">
+      <div class="card__header">
+        <h3 class="card__title"><%= inline_svg("icons/briefcase.svg", class: "icon icon--sm-small icon--brand") %><%= t("business.completed_projects") %> <%= "(#{ @business.self_added_projects_count})" if @business.self_added_projects.present? %></h3>
+        <button class="btn btn--link js-section-toggle js-view-all-target" data-toggle="projects-all"><%= t("phrases.view_all") %></button>
+      </div>
+      <div class="u-block js-section-toggle" data-toggle="projects-all">
+        <% if @business.self_added_projects.first.photos.first.present? %>
+          <div class="grid grid--v-padded">
+            <% @business.self_added_projects.first.photos.each do |photo| %>
+              <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-4">
+                <div class="gallery-thumbnail" style="background-image: url('<%= photo.url(:large) %>');"></div>
+              </div>
+            <% end %>
+          </div>
+        <% elsif @business.self_added_projects.first.video_link.present? %>
+          <div class="grid grid--v-padded">
+            <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-4">
+              <div class="gallery-thumbnail" style="background-image: url('<%= get_thumbnail(@business.self_added_projects.first.video_link) %>');"></div>
+            </div>
+          </div>
+        <% end %>
+        <strong class="u-block mb1 mt2"><%= @business.self_added_projects.first.title %></strong>
+        <span class="u-block mb1 u-text-reset"><%= truncate(@business.self_added_projects.first.description, length: 200) %></span>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="card js-projects js-empty u-hide">
+    <div class="card__section">
+      <div class="card__header">
+        <h3 class="card__title"><%= inline_svg("icons/briefcase.svg", class: "icon icon--sm-small icon--brand") %><%= t("business.completed_projects") %></h3>
+      </div>
+      <div class="grid grid--v-padded">
+        <div class="grid__col--xs-12">
+          <p><%= t("projects.no_projects") %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

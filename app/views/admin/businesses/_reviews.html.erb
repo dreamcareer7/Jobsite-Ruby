@@ -1,0 +1,10 @@
+<div class="card">
+  <div class="card__section card__section--border">
+    <h4 class="card__title"><%= inline_svg("icons/star.svg", class: "icon icon--dark icon--small") %>Reviews</h4>
+  </div>
+  <% @business.reviews.each do |review| %>
+    <div class="card__section card__section--border">
+      <%= link_to review.comment, admin_review_path(review) %>
+    </div>
+  <% end %>
+</div>

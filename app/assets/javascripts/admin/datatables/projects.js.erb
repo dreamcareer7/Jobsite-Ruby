@@ -1,0 +1,142 @@
+$('#js-projects-table').dataTable({
+  serverSide: true,
+  bLengthChange: false,
+  bInfo: false,
+  ajax: $('#js-projects-table').data('source'),
+  order: [[ 7, 'desc' ]],
+  fnRowCallback: function (nRow, aData, iDisplayIndex) {
+    if (!aData.approved) { $(nRow).removeClass().addClass('unapproved'); }
+  },
+  columns: [
+    {
+      data: 'title',
+      render: function (data, type, row, meta) {
+        if (data) {
+        return '<a href="/admin/projects/' + row.id + '/edit">' + trimString(data) + '</a>';
+        } 
+        
+        return "";
+      }
+    },
+    {
+      data: 'category',
+      render: function (data, type, row, meta) {
+        return '<a href="/admin/categories/' + data.id + '/edit">' + data.name + '</a>';
+      }
+    },
+    {
+      data: 'city',
+      render: function (data, type, row, meta) {
+        return '<span>' + data + '</span>';
+      }
+    },
+    {
+      data: 'status',
+      render: function (data, type, row, meta) {
+        return '<span>' + data.name + '</span>';
+      }
+    },
+    {
+      data: 'approved',
+      render: function (data, type, row, meta) {
+        return '<span>' + (data ? 'Yes' : 'No') + '</span>';
+      }
+    },
+    {
+      data: 'user',
+      render: function (data, type, row, meta) {
+        return '<a href="/admin/users/' + data.id + '/edit">' + data.name + '</a>';
+      }
+    },
+    {
+      data: 'business',
+      render: function (data, type, row, meta) {
+        if (data) {
+          return '<a href="/admin/businesses/' + data.id + '/edit">' + data.name + '</a>';
+        } else {
+          return 'No business selected'
+        }
+      }
+    },
+    {
+      data: 'created_at',
+      render: function (data, type, row, meta) {
+        return moment(data).format("DD/MM/YY");
+      }
+    },
+    {
+      data: null,
+      sortable: false,
+      render: function (data, type, row, meta) {
+        return (data.role === "superadmin" || data.role === "moderator" ? '<a class="tooltip" title="Delete" rel="nofollow" data-method="delete" href="/admin/projects/' + row.id + '" data-confirm="Are you sure?"><%= image_tag("icons/trash.svg", class: "icon icon--dark icon--small") %></a>' : '');
+      }
+    }
+  ],
+  dom: "ritp",
+  pageLength: 30,
+  initComplete: function() {
+    var table = this;
+
+    // Select filters
+    $('.js-select-filter').each(function () {
+      var $filterSelect = $(this);
+      var columnIndex = +$filterSelect.data('column');
+      var column = table.api().column(columnIndex);
+
+      // Filter the column when the user picks an option
+      $filterSelect.on('change', function() {
+        var val = $.fn.dataTable.util.escapeRegex($filterSelect.val());
+        column.search(val ? val : '', false, false).draw();
+      });
+
+      // Add all possible options to the select
+      if (column.header().innerHTML !== 'Status') {
+      $filterSelect.append('<option value="">' + column.header().innerHTML + '</option>');
+
+      var entries = column.data().unique().sort().map( function (d, j) {
+        if (typeof d === 'object') {
+          return d.map(function(row) { return row.name || row })
+        } else {
+          return d;
+        }
+      });
+
+      // undefined is falsey so filtering false values works to remove undefined
+      entries = _.uniq(_.flattenDeep(entries)).filter(function(value) { return value !== undefined; });
+
+      entries.forEach(function(entry) {
+        if (entry === true || entry === false) {
+          entry === true ? entry = 'Yes' : entry = 'No'
+        }
+        $filterSelect.append('<option value="' + entry + '">' + entry + '</option>');
+      });
+      } else {
+
+       $filterSelect.append('<option value="">' + column.header().innerHTML + '</option>');
+    
+      var entries = column.data().unique().sort().map( function (d, j) {
+          return d;
+      });
+  
+      // undefined is falsey so filtering false values works to remove undefined
+      entries = _.uniqWith(entries, _.isEqual);
+      entries = _.uniq(_.flattenDeep(entries)).filter(function(value) { return value.name !== undefined; });
+      
+      entries.forEach(function(entry) {
+        if (entry === true || entry === false) {
+          entry === true ? entry = 'Yes' : entry = 'No'
+        }
+        $filterSelect.append('<option value="' + entry.project_status + '">' + entry.name + '</option>');
+      });
+      }
+      
+    });
+  }
+});
+
+$('#js-projects-table').on('draw.dt', function() {
+  $('.tooltip').tooltipster({
+    delay: 0,
+    animationDuration: 100
+  });
+});

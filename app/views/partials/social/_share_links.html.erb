@@ -1,0 +1,33 @@
+<div class="social-share-list">
+  <a href="https://www.facebook.com/sharer/sharer.php?u=<%= request.original_url %>" title="Share on Facebook" target="_blank" class="social-share">
+    <%= inline_svg("icons/facebook.svg", class: "social-share__icon icon icon--small icon--facebook") %>
+    <small class="social-share__label"><%= t("phrases.share_facebook") %></small>
+  </a>
+  <a href="https://twitter.com/home?status=<%= request.original_url %>" title="Share on Twitter" target="_blank" class="social-share">
+    <%= inline_svg("icons/twitter.svg", class: "social-share__icon icon icon--small icon--twitter") %>
+    <small class="social-share__label"><%= t("phrases.share_twitter") %></small>
+  </a>
+  <div class="has-popover social-share">
+    <button class="js-open-popover">
+      <small><%= t("words.share").capitalize %> ▾</small>
+    </button>
+    <div class="popover popover--right popover--arrow popover--arrow-ne">
+      <a class="popover__link" href="https://plus.google.com/share?url=<%= request.original_url %>" title="Share on Google+" target="_blank">
+        <%= inline_svg("icons/google_plus.svg", class: "social-share__icon icon icon--small") %>
+        Google+
+      </a>
+      <a class="popover__link" href="https://www.linkedin.com/shareArticle?mini=true&url=<%= request.original_url %>" title="Share on LinkedIn" target="_blank">
+        <%= inline_svg("icons/linkedin.svg", class: "social-share__icon icon icon--small") %>
+        LinkedIn
+      </a>
+      <a class="popover__link" href="mailto:?subject=Your%20subject&amp;body=<%= request.original_url %>">
+        <%= inline_svg("icons/email.svg", class: "social-share__icon icon icon--small") %>
+        Email
+      </a>
+      <a class="popover__link" href="whatsapp://send?text=<%= request.original_url %>">
+        <%= inline_svg("icons/whatsapp.svg", class: "social-share__icon icon icon--small") %>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</div>

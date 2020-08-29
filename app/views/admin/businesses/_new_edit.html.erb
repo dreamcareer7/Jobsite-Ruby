@@ -1,0 +1,98 @@
+<div class="grid__col--xs-12 grid__col--md-12">
+  <h3><%= link_to 'Businesses /', admin_businesses_path,  class: 'u-text-light u-text-regular' %> <%= action_name.capitalize %> <% if @business.name %>: <span class="u-text-accent"><%= @business.name.titleize %></span> <% end %></h3>
+
+  <div class="js-business-tabs">
+    <% if action_name == 'edit' %>
+      <%= render partial: "edit_menu" %>
+    <% end %>
+
+    <div id="tabs_general">
+      <%= simple_form_for [:admin, @business] do |f| %>
+        <%= render partial: "partials/user/businesses/business_form_sections/general_information", locals: { f: f} %>
+      <% end %>
+    </div>
+
+    <% if action_name == 'edit' %>
+
+      <div id="tabs_services">
+        <%= simple_form_for [:admin, @business] do |f| %>
+          <%= render partial: "partials/user/businesses/business_form_sections/services", locals: { f: f} %>
+        <% end %>
+      </div>
+      <div id="tabs_locations">
+        <%= simple_form_for [:admin, @business] do |f| %>
+          <%= render partial: "partials/user/businesses/business_form_sections/locations", locals: { f: f} %>
+        <% end %>
+      </div>
+      <div id="tabs_team">
+        <%= simple_form_for [:admin, @business] do |f| %>
+          <%= render partial: "partials/user/businesses/business_form_sections/team", locals: { f: f} %>
+        <% end %>
+      </div>
+      <div id="tabs_featured-projects">
+        <%= simple_form_for [:admin, @business] do |f| %>
+          <%= render partial: "partials/user/businesses/business_form_sections/featured_projects", locals: { f: f} %>
+        <% end %>
+      </div>
+      <div id="tabs_social">
+        <%= simple_form_for [:admin, @business] do |f| %>
+          <%= render partial: "partials/user/businesses/business_form_sections/social", locals: { f: f} %>
+        <% end %>
+      </div>
+      <div id="tabs_certifications">
+        <%= simple_form_for [:admin, @business] do |f| %>
+          <%= render partial: "partials/user/businesses/business_form_sections/certifications", locals: { f: f} %>
+        <% end %>
+      </div>
+      <div id="tabs_verifications">
+        <%= simple_form_for [:admin, @business] do |f| %>
+          <%= render partial: "verifications", locals: { f: f } %>
+        <% end %>
+      </div>
+      <div id="tabs_reviews">
+        <%= render partial: "reviews" %>
+      </div>
+      <div id="tabs_subscriptions">
+        <%= render partial: "subscriptions" %>
+      </div>
+      <div id="tabs_brand">
+        <%= simple_form_for [:admin, @business] do |f| %>
+          <%= render partial: "brand", locals: { f: f } %>
+        <% end %>
+      </div>
+      <div id="tabs_account_details">
+        <%= render partial: "account_details" %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>
+
+<% if params[:tab].present? %>
+  <%= content_tag :span, '', class: "js-linked-tab", data: { tab: params[:tab] } %>
+<% end %>
+
+<script>
+
+  $('.edit_business').on('submit', function() {
+    localStorage.setItem('currentTab', $('.js-business-tabs').tabs('option', 'active'));
+  });
+
+  $(function() {
+
+    $('.js-business-tabs').tabs({
+      active: localStorage.getItem('currentTab'),
+      load: localStorage.removeItem('currentTab'),
+
+    });
+
+    if ($('.js-linked-tab').data('tab')) {
+      tab = $('.js-linked-tab').data('tab');
+      $('a[href="' + tab + '"]').click();
+    }
+
+    //hide remove option for first cocoon field
+    $('.js-cocoon-partial').children('.js-cocoon-fields').first().find('.js-remove-field').hide();
+  });
+</script>

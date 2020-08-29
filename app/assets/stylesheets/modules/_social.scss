@@ -1,0 +1,49 @@
+// Muqawiloon follows
+
+.social-btn-list {
+  display: flex;
+  justify-content: flex-end; // Right-align
+
+  > * {
+    vertical-align: top !important;
+  }
+}
+
+.social-btn-list__item + .social-btn-list__item {
+  margin-left: $spacing-small;
+}
+
+.fb-like.fb_iframe_widget span {
+  vertical-align: top !important; // Overwrite plugin styles to align buttons properly
+}
+
+
+// Profile shares
+
+.social-share-list {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; // Right-align
+}
+
+.social-share {
+  display: flex;
+  align-items: center;
+
+  & + & {
+    margin-left: $spacing-medium;
+  }
+}
+
+.social-share__icon {
+  margin-top: -1px; // Align icon with text slightly better
+  margin-right: $spacing-small;
+}
+
+.social-share__label {
+  color: $grey;
+
+  .social-share:hover & {
+    color: $grey-dark;
+  }
+}

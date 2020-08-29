@@ -1,0 +1,57 @@
+// Gallery
+
+.gallery-item {
+  position: relative;
+  padding-bottom: 100%; // Ensure square aspect ratio
+  border-radius: $border-radius;
+  overflow: hidden;
+  @include gradient-overlay;
+
+  &:after {
+    @include mq(large-down) {
+      display: none; // Hide gradient overlay when there's no caption
+    }
+  }
+}
+
+.gallery-item__description {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: $spacing-medium;
+  z-index: 1;
+  color: $white;
+
+  @include mq(medium) {
+    padding: $spacing-large;
+  }
+
+  @include mq(large-down) {
+    display: none;
+  }
+}
+
+.gallery-item__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  opacity: 0.6;
+  z-index: 1;
+  transition: transform $time $curve, opacity $time $curve;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+
+// Thumbnail
+
+.gallery-thumbnail {
+  padding-bottom: 100%;
+  border-radius: $border-radius;
+  background-size: cover;
+  background-position: center;
+}

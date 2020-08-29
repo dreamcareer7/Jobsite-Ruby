@@ -1,0 +1,81 @@
+// Segmented control
+
+.segmented-control {
+  display: inline-flex;
+}
+
+.segmented-control--full {
+  width: 100%;
+
+  > .segmented-control__item {
+    flex: 1;
+  }
+}
+
+.segmented-control__item {
+  margin-bottom: 0;
+  background-color: mix($background, $white, 60%);
+  color: $grey-lightest;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  cursor: pointer;
+
+  &:hover {
+    position: relative;
+    z-index: 1;
+  }
+
+  &.active {
+    color: $grey;
+    background-color: $white;
+  }
+
+  &:first-child {
+    @include ltr {
+      border-radius: $border-radius 0 0 $border-radius;
+    }
+
+    @include rtl {
+      border-radius: 0 $border-radius $border-radius 0;
+    }
+  }
+
+  &:not(:first-child) {
+    @include ltr {
+      margin-left: -1px;
+    }
+
+    @include rtl {
+      margin-right: -1px;
+    }
+  }
+
+  &:last-child {
+    @include ltr {
+      border-radius: 0 $border-radius $border-radius 0;
+    }
+
+    @include rtl {
+      border-radius: $border-radius 0 0 $border-radius;
+    }
+  }
+}
+
+.segmented-control__icon {
+  fill: $grey-lightest;
+  transition: fill $time $curve;
+
+  .segmented-control__item.active & {
+    fill: $grey;
+  }
+
+  @include ltr {
+    margin-right: $spacing-small;
+  }
+
+  @include rtl {
+    margin-left: $spacing-small;
+  }
+}

@@ -1,0 +1,49 @@
+<div class="card">
+  <div class="card__section">
+    <div class="card__header">
+      <h4 class="card__title">Subcategory</h4>
+    </div>
+    <%= simple_form_for [:admin, @subcategory] do |f| %>
+      <fieldset class="fieldset">
+        <div class="field">
+          <%= f.association :category, :selected => @category.id, wrapper: :text_field %>
+        </div>
+        <div class="grid">
+          <% I18n.available_locales.each do |locale| %>
+            <div class="grid__col--xs-12 grid__col--md-6">
+              <%= f.input "name_#{ locale }", wrapper: "text_field", placeholder: t("category_form.fields.name.placeholder", locale: locale), label: t("category_form.fields.name.label", locale: locale ), input_html: { class: " #{ locale == :ar ? 'rtl' : 'ltr' } " } %>
+            </div>
+          <% end %>
+        </div>
+        <%= f.simple_fields_for :category_metadata do |cm| %>
+          <div class="grid">
+            <% I18n.available_locales.each do |locale| %>
+              <div class="grid__col--xs-12 grid__col--md-6">
+                <%= cm.input "subheadline_#{ locale }", wrapper: "text_field", placeholder: t("category_form.fields.subheadline.placeholder", locale: locale), label: t("category_form.fields.subheadline.label", locale: locale ), input_html: { class: " #{ locale == :ar ? 'rtl' : 'ltr' } " } %>
+              </div>
+            <% end %>
+          </div>
+          <div class="field">
+            <div class="media media--middle js-upload-fields u-text-pointer">
+              <div class="media__figure" style="width:200px">
+                <%= image_tag( @subcategory.category_metadata.banner, class: "media__figure u-rounded u-border u-text-pointer js-file-upload-button js-photo-placeholder") %>
+              </div>
+              <div class="media__body">
+                <div class="field__input-wrapper">
+                  <span class="u-text-left u-text-dark js-file-upload-button">Banner</span><br>
+                  <%= cm.input :banner, as: :file, input_html: { class: "js-file-upload", hidden: "true" }, label: false %>
+                </div>
+                <small>1600x400</small>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <div class="field">
+          <div class="btn-group">
+            <%= f.submit action_name == 'edit' ? t('form.update'): t('form.create'), class: 'btn btn--primary btn-group__item' %>
+          </div>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<!doctype html>
+
+<html class="<%= text_direction %>">
+  <head>
+    <meta charset="utf-8">
+    <title>Muqawiloon</title>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content=<%= yield :meta_url %> >
+    <meta property="og:image" content=<%= yield :meta_image %> >
+    <meta property="og:title" content="<%= 'Muqawiloon | Cities' %>">
+    <meta property="og:description" content="<%= yield :meta_description %>">
+    <meta name="description" content='<%= yield :meta_description %>'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="<%= image_path('apple-touch-icon.png') %>">
+    <%= csrf_meta_tags %>
+    <%= action_cable_meta_tag %>
+    <%= favicon_link_tag "favicon.png" %>
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag "//maps.google.com/maps/api/js?v=3&key=#{ ENV['G_KEY'] }" %>
+    <%= javascript_include_tag "//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js" %>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+  </head>
+
+  <body>
+
+    <div class="page-wrap">
+      <%= yield %>
+    </div>
+
+    <% if Rails.env.production? %>
+      <%= render partial: "layouts/google_analytics" %>
+    <% end %>
+
+    <%= yield :page_scripts %>
+
+  </body>
+</html>

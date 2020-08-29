@@ -1,0 +1,48 @@
+// Map
+
+.map-wrapper {
+  position: relative;
+  height: 600px;
+  border-radius: $border-radius;
+  overflow: hidden;
+}
+
+.location-map-wrapper {
+  position: relative;
+  height: 600px;
+  border-radius: $border-radius;
+  overflow: hidden;
+
+  @include mq(medium-down) {
+    height: 450px;
+  }
+
+  @include mq(small-down) {
+    height: 350px;
+  }
+}
+
+.map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: $border-radius;
+}
+
+.map-result {
+  position: absolute;
+  @include z-index(content);
+  display: inline-flex;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: $red;
+  color: $white;
+  border: 3px solid $white;
+  @include font-bold;
+}

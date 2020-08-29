@@ -1,0 +1,28 @@
+en:
+
+  user_form:
+    header: "Update your profile"
+    information: "Your information"
+    submit: "Update your profile"
+    name:
+      label: "Name"
+      placeholder: "Your name"
+    phone:
+      label: "Telephone"
+      placeholder: "XXX-XXX-XXX"
+    nationality:
+      label: "Nationality"
+      placeholder: "Canadian"
+    industry:
+      label: "What industry do you work in?"
+    birthday:
+      label: "Date of birth"
+    email:
+      label: "Email"
+      placeholder: "Email"
+    gender:
+      label: "Gender"
+    password:
+      label: "Password"
+      placeholder_present: "*******"
+      placeholder_empty: "Password"

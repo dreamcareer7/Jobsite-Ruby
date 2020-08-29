@@ -1,0 +1,60 @@
+<!doctype html>
+<html class="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Muqawiloon</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="<%= image_path('apple-touch-icon.png') %>">
+    <%= csrf_meta_tags %>
+    <%= action_cable_meta_tag %>
+    <%= favicon_link_tag "favicon.png" %>
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag "//maps.google.com/maps/api/js?v=3&key=#{ ENV['G_KEY'] }" %>
+    <%= javascript_include_tag "//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js" %>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+    <!-- For Analytics embed -->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  </head>
+
+  <body data-turbolinks="false">
+    <% flash.each do |name, msg| %>
+      <% if msg.class == Array %>
+        <% msg.each do |message| %>
+          <div class="banner banner--disappearing banner--<%= name %>">
+            <%= message %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="banner banner--disappearing banner--<%= name %>">
+          <%= msg %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <%= render partial: "partials/admin/layout/nav" %>
+
+    <section class="section section--alt">
+      <div class="site-wrap">
+        <div class="grid">
+          <%= render partial: "partials/admin/layout/sidebar_nav" %>
+          <div class="grid__col--xs-12 grid__col--md-9 grid__col--lg-10">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <%= render partial: "partials/admin/layout/footer" %>
+
+    <%= render partial: "modals/map/choose_location" %>
+    <%= render partial: "partials/nav/mobile_nav/admin" %>
+
+    <% if controller.action_name.include?('new') || controller.action_name.include?('edit') %>
+      <%= render partial: "layouts/h5_validate" %>
+    <% end %>
+
+    <%= yield :page_scripts %>
+  </body>
+</html>

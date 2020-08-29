@@ -1,0 +1,14 @@
+// Base
+
+.notification {
+  border-radius: $border-radius;
+  background-color: $border;
+  padding: $spacing-medium;
+  margin-bottom: $spacing-medium;
+  @include font-size($small-font-size);
+}
+
+.notification--error {
+  background-color: mix($red, $white, 25%);
+  color: $red;
+}

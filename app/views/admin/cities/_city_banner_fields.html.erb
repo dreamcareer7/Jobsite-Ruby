@@ -1,0 +1,20 @@
+<div class="grid__col--xs-12 grid__col-md-12 js-cocoon-fields">
+  <hr class='divider'>
+  <div class="field">
+    <div class="media media--middle js-upload-fields">
+      <%= image_tag(f.object.image.url, width: "200", class: "media__figure u-rounded u-border u-text-pointer js-file-upload-button js-photo-placeholder") %>
+
+      <div class="media__body">
+        <div class="field__input-wrapper">
+          <span class="u-text-left u-text-dark u-text-pointer js-file-upload-button">Banner</span><br>
+          <%= f.input :image, as: :file, input_html: { class: "js-file-upload", hidden: "true" }, label: false %>
+        </div>
+        <small>1600x1000</small>
+        <%= link_to_remove_association f, { wrapper_class: "js-cocoon-fields", class: "js-remove-field" } do %><%= t("words.remove") %><% end %>
+      </div>
+    </div>
+  </div>
+  <%= f.input :link, label: "Add a link for for the image", wrapper: :text_field %>
+  <%= f.input :description_en, label: 'Description of image (en)', wrapper: :text_field %>
+  <%= f.input :description_ar, label: 'Description of image (ar)',  wrapper: :text_field %>
+</div>

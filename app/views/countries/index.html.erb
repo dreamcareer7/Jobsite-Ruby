@@ -1,0 +1,25 @@
+<% content_for :breadcrumbs do %>
+  <%= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [], current_breadcrumb: { name: "Countries" } } %>
+<% end %>
+
+<section class="section section--dark u-cover" style="background-image: url('<%= image_path('countries-header.jpg') %>')">
+  <div class="site-wrap">
+    <h1 class="u-text-contrast u-text-center"><%= t("cities_page.head") %></h1>
+    <h3 class="u-text-regular u-text-muted u-text-contrast u-text-center"><%= t("cities_page.sub_head") %></h3>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="site-wrap">
+
+    <div class="grid grid--v-padded grid--padded">
+      <% @countries.each do |country| %>
+        <% next if country.cities.blank? %>
+        <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-4 mb4">
+          <%= render partial: "partials/countries/countries", locals: { target_country: country, random_city: country.cities.where.not(banner_file_name: nil).shuffle.first } %>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</section>

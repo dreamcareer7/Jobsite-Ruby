@@ -1,0 +1,65 @@
+<%= simple_form_for [:admin, @certification] do |f| %>
+
+  <div class="grid">
+    <div class="grid--xs-12 grid__col--md-12">
+      <div class="card">
+
+        <div class="card__section card__section--border">
+          <h3 class="card__title">
+            <%= link_to 'Certifications /', admin_certifications_path,  class: 'u-text-light u-text-regular' %> <%= action_name == 'edit' ? @certification.name : "New" %>
+          </h3>
+        </div>
+
+        <div class="card__section">
+          <div class="fieldset">
+            <div class="grid">
+            <div class="grid__col--xs-12 grid__col--md-6">
+              <div class="field">
+                <label class="field__label">* Name (en)</label>
+                <%= f.input :name_en, wrapper: :text_field, label: false %>
+              </div>
+            </div>
+            <div class="grid__col--xs-12 grid__col--md-6">
+              <div class="field">
+                <label class="field__label">* Name (en)</label>
+                <%= f.input :name_ar, wrapper: :text_field, label: false %>
+              </div>
+            </div>
+            <div class="grid__col--xs-12 grid__col--md-6">
+              <div class="field">
+                <label class="field__label">Country</label>
+                <div class="field__input-wrapper">
+                  <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                  <%= f.association :country, input_html: { class: "field__input field__input--right-add-on" }, label: false %>
+                </div>
+              </div>
+            </div>
+            <div class="grid__col--xs-12 grid__col--md-6">
+              <div class="field">
+                <div class="media media--middle js-upload-fields">
+                  <%= image_tag(@certification.logo.present? ? @certification.logo.url : "missing/side_banner.png", width: "100", class: "media__figure u-rounded u-border u-text-pointer js-file-upload-button js-photo-placeholder") %>
+                  <div class="media__body">
+                    <div class="field__input-wrapper">
+                      <span class="u-text-left u-text-dark u-text-pointer js-file-upload-button"><%= t("business_profile.fields.general_information.edit_logo") %></span><br>
+                      <%= f.input :logo, as: :file, input_html: { class: "js-file-upload", hidden: "true" }, label: false %>
+                    </div>
+                    <small>200x200</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="grid__col--xs-12 grid__col--md-6">
+              <div class="field">
+                <div class="btn-group">
+                  <%= f.submit action_name == 'edit' ? t('form.update'): t('form.create'), class: 'btn btn--primary btn-group__item' %>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% end %>

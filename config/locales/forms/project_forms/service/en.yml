@@ -1,0 +1,6 @@
+en:
+  post_project:
+    service:
+      fields:
+        service_services:
+          label: "Choose one or many services that apply to your project"

@@ -1,0 +1,40 @@
+<div class="js-cocoon-fields">
+  <div class="grid">
+    <div class="grid__col--xs-12 grid__col--lg-12">
+      <div class="field">
+        <div class="media media--middle js-upload-fields u-text-pointer">
+          <div class="media__figure" style="width:72px;">
+            <%= image_tag(f.object.profile_image, class: "u-circle u-border js-file-upload-button js-photo-placeholder") %>
+          </div>
+          <div class="media__body">
+            <div class="field__input-wrapper">
+              <span class="u-text-left u-text-dark u-text-pointer js-file-upload-button"><%= t("business_profile.fields.team_members.edit_photo") %></span><br>
+              <%= f.input :profile_image, as: :file, input_html: { class: "js-file-upload", hidden: "true" }, label: false %>
+            </div>
+            <small>200x200</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% I18n.available_locales.each do |locale| %>
+      <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-6">
+        <%= f.input "name_#{ locale }", wrapper: :text_field, label: t("business_profile.fields.team_members.name.label", locale: locale), input_html: { class: input_text_direction(locale) }, required: false %>
+      </div>
+    <% end %>
+    <% I18n.available_locales.each do |locale| %>
+      <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-6">
+        <%= f.input "role_#{ locale }", wrapper: :text_field, label: t("business_profile.fields.team_members.role.label", locale: locale), input_html: { class: input_text_direction(locale) }, required: false %>
+      </div>
+    <% end %>
+    <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-6">
+      <%= f.input :email, wrapper: :text_field, label: t("business_profile.fields.general_information.email.label"), required: false %>
+    </div>
+    <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-6">
+      <%= f.input :phone_number, wrapper: :text_field, label: t("business_profile.fields.general_information.phone_number.label"), input_html: { class: "js-phone" }, required: false %>
+    </div>
+    <div class="grid__col--xs-12">
+      <%= link_to_remove_association f, { wrapper_class: "js-cocoon-fields", class: "js-remove-field" } do %><%= t("words.remove") %><% end %>
+    </div>
+  </div>
+  <hr class="divider">
+</div>

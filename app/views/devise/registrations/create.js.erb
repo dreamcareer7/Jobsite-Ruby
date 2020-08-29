@@ -1,0 +1,3 @@
+<% if resource.errors.any? %>
+    $('.js-error').empty().append("<%= resource.errors.full_messages.first %>");
+<% end %>

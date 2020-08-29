@@ -1,0 +1,27 @@
+<div class="modal js-quote-request js-invite">
+  <div class="modal__table">
+    <div class="modal__cell">
+      <div class="modal__container">
+        <button class="js-close-modal modal__close">
+          <%= inline_svg("icons/close.svg", class: "icon") %>
+        </button>
+        <h2 class="modal__title"><%= t("request_quote.title") %></h2>
+        <% if current_user && @business && @projects %>
+          <% if current_user.projects.present? %>
+            <p><%= t("request_quote.prompt") %></p>
+            <% @projects.each do |project| %>
+              <%= button_to user_quote_requests_path(quote_request: { business_id: @business.id, user_id: current_user.id, project_id: project.id }), class: "btn btn--full btn--secondary u-text-left", id: project.title do %>
+                <span class="u-truncate"><%= project.title %></span>
+                <%= inline_svg("icons/right-chevron.svg", class: "icon icon--small btn__add-on") %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <%= link_to t("request_quote.create_project"), new_user_project_path, class: "btn btn--full btn--primary" %>
+        <% else %>
+          <p><%= t("request_quote.no_project_prompt") %></p>
+          <%= link_to t("request_quote.create_project"), new_user_project_path, class: "btn btn--full btn--primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

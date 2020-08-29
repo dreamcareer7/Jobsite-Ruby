@@ -1,0 +1,39 @@
+en:
+
+  location_classes:
+    commercial: 'Commercial'
+    residential: 'Residential'
+    government: 'Government'
+    industrial: 'Industrial'
+  contact_roles:
+    agent: 'Agent'
+    ceo: 'CEO'
+    employee: 'Employee'
+    general_manager: 'General manager'
+    marketing_manager: 'Marketing manager'
+    owner: 'Owner'
+    other: 'Other'
+    project_consultant: 'Project consultant'
+    project_manager: 'Project manager'
+    project_owner: 'Project owner'
+  timeline_types:
+    flexible: 'Flexible'
+    urgent: 'Urgent'
+  currency_types:
+    american_dollar: 'American Dollars - USD'
+    bahrain: 'Bahrain - BHD'
+    british_pound: 'British pounds - GBP'
+    egyptian_pound: 'Egyptian Pound - EGP'
+    jordan: 'Jordan - JOD'
+    kuwaiti_dinar: 'Kuwaiti Dinar - KWD'
+    omani_riyal: 'Omani Riyal - OMR'
+    qatar: 'Qatar - QAR'
+    turkey: 'Turkey - TRY'
+    saudi_riyal: 'Saudi Riyal - SAR'
+    uae_dirham: 'UAE Dirham - AED'
+  project_status:
+    new_project: "New"
+    in_process: "In process"
+    completion_pending: "Completion pending"
+    completed: "Completed"
+    cancelled: "Cancelled"

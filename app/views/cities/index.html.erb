@@ -1,0 +1,26 @@
+<%= render partial: "partials/meta_tags/cities", locals: { url: request.original_url } %>
+<%= render partial: "partials/nav/no_nav_only_logo" %>
+
+<header class="section section--dark hero u-text-center" style="background-image: url('<%= image_path('missing/defaultcity.jpg')  %>')">
+  <div class="site-wrap">
+    <div class="hero__content">
+      <h1 class="hero__title u-text-contrast u-text-shadow mb0"><%= t("home_page.header.head") %></h1>
+      <h2 class="mt1 hero__subtitle mb2 u-text-contrast u-text-muted u-text-shadow"><%= t("home_page.header.sub_head", current_city: t("phrases.your_city").downcase) %></h2>
+      <a href="#cities" class="btn btn--primary"><%= t("cities_page.choose_your_city") %></a>
+    </div>
+  </div>
+</header>
+
+<section class="section section--alt" id="cities">
+  <div class="site-wrap">
+    <div class="grid grid--v-padded grid--padded">
+      <% @countries.each do |country| %>
+        <% next if country.cities.blank? %>
+        <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-4 mb4">
+          <%= render partial: "partials/countries/countries", locals: { target_country: country, random_city: country.cities.enabled.where.not(banner_file_name: nil).shuffle.first } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+<%= render partial: "partials/nav/city_footer" %>

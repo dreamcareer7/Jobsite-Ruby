@@ -1,0 +1,55 @@
+<div class="modal js-log-in">
+  <div class="modal__table">
+    <div class="modal__cell">
+      <div class="modal__container">
+        <button class="js-close-modal modal__close">
+          <%= inline_svg("icons/close.svg", class: "icon") %>
+        </button>
+        <h2 class="modal__title"><%= t("log_in.title") %></h2>
+        <div class="grid grid--tight">
+          <div class="grid__col--xs-4">
+            <%= link_to user_omniauth_authorize_path(:facebook), class: "btn btn--facebook btn--full" do %>
+              <span class="u-visuallyhidden"><%= t("log_in.facebook") %></span>
+              <%= inline_svg("icons/facebook.svg", class: "btn__add-on btn__add-on--center icon icon--white") %>
+            <% end %>
+          </div>
+          <div class="grid__col--xs-4">
+            <%= link_to user_omniauth_authorize_path(:google_oauth2), class: "btn btn--google btn--full" do %>
+              <span class="u-visuallyhidden"><%= t("log_in.google") %></span>
+              <%= inline_svg("icons/google_plus.svg", class: "btn__add-on btn__add-on--center icon icon--white") %>
+            <% end %>
+          </div>
+          <div class="grid__col--xs-4">
+            <%= link_to user_omniauth_authorize_path(:linkedin), class: "btn btn--linkedin btn--full" do %>
+              <span class="u-visuallyhidden"><%= t("log_in.google") %></span>
+              <%= inline_svg("icons/linkedin.svg", class: "btn__add-on btn__add-on--center icon icon--white") %>
+            <% end %>
+          </div>
+        </div>
+        <div class="or-divider">
+          <small class="or-divider__text"><%= t("log_in.or") %></small>
+        </div>
+        <div class="js-sign-in-error"></div>
+        <fieldset class="fieldset">
+          <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), remote: true) do |f| %>
+            <div class="field">
+              <div class="field__input-wrapper">
+                <%= f.input_field :email, type: "email", class: "field__input", id: "login-email", placeholder: t("log_in.email_placeholder"), label: false %>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field__input-wrapper">
+                <%= f.input_field :password, type: "password", class: "field__input", id: "login-password", placeholder: t("log_in.password_placeholder"), label: false %>
+                <small class="field__add-on field__add-on--right"> <%= link_to t("log_in.forget"), new_password_path('user'), class: 'u-text-underline u-text-reset' %></small>
+              </div>
+            </div>
+            <div class="field">
+              <%= f.submit t("log_in.submit"), id: "log-in", class: "btn btn--full btn--primary" %>
+            </div>
+          <% end %>
+        </fieldset>
+        <p class="mt2"><%= t("log_in.have_account") %> <button data-modal="sign-up" class="u-text-accent u-hover-underline js-open-modal"><%= t("log_in.sign_up") %></button>.</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+// Star rating
+
+.rating {
+  display: inline-flex;
+  align-items: center;
+}
+
+.rating__star {
+  margin-right: $spacing-small/2;
+}

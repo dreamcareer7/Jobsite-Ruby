@@ -1,0 +1,9 @@
+en:
+  profile_nav:
+    user:
+      favourites: "Favourites"
+      reviews: "Reviews"
+      invite_share: "Invite and share"
+      switch_to_business: "Switch to business"
+      following: "My lists"
+      settings: "Settings"

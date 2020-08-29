@@ -1,0 +1,16 @@
+<% content_for :breadcrumbs do %>
+  <%= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [ { name: "Project details", url: wizard_path(:project_details )}], current_breadcrumb: { name: "#{ @category.name_to_singular.capitalize} (2 #{ t("words.of") } 2)" } } %>
+<% end %>
+
+<section class="section section--alt">
+  <div class="site-wrap">
+
+    <h1 class="section-heading"> <%= @project_type_header %> (<%= @category.name_to_singular %>) </h1>
+
+    <div class="grid grid--center">
+      <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-8">
+        <%= render partial: I18n.with_locale(:en) { @category.name.downcase } %>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,65 @@
+// Badge
+
+.badge {
+  padding: 0 $spacing-small;
+  border-radius: $border-radius;
+  text-align: center;
+  background-color: $grey-light;
+  color: $white;
+  height: $spacing-large;
+  line-height: $spacing-large;
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal;
+  @include font-regular;
+  @include font-size($small-font-size);
+}
+
+.badge--small {
+ @include font-size($smallest-font-size); 
+}
+
+.badge--primary {
+  background: $red;
+}
+
+.badge--reverse {
+  background: $white;
+  color: $grey-dark;
+}
+
+.badge--success {
+  background: $green;
+}
+
+.badge--yellow {
+  background: $yellow;
+}
+
+.badge--facebook {
+  background: #3b5998;
+}
+
+.badge--twitter {
+  background: #00aced;
+}
+
+.badge--google {
+  background: #dc4e41;
+}
+
+// Sponsor
+
+.sponsor-badge {
+  position: absolute;
+  top: -$spacing-small;
+  pointer-events: none; // Click through badge
+
+  @include ltr {
+    left: -$spacing-small;
+  }
+
+  @include rtl {
+    right: -$spacing-small;
+  }
+}

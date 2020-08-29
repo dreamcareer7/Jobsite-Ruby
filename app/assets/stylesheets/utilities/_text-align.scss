@@ -1,0 +1,97 @@
+.u-text-left {
+  text-align: left !important;
+
+  @include rtl {
+    text-align: right !important;
+  }
+
+  @include mq(medium) {
+    &--medium {
+      text-align: left !important;
+
+      @include rtl {
+        text-align: right !important;
+      }
+    }
+  }
+}
+
+.u-text-center {
+  text-align: center !important;
+
+  @include mq(large-down) {
+    &--large-down {
+      text-align: center !important;
+    }
+  }
+
+  @include mq(medium-down) {
+    &--medium-down {
+      text-align: center !important;
+    }
+  }
+
+  @include mq(small-down) {
+    &--small-down {
+      text-align: center !important;
+    }
+  }
+}
+
+.u-text-right {
+  text-align: right !important;
+
+  @include rtl {
+    text-align: left !important;
+  }
+
+  @include mq(small) {
+    &--small {
+      text-align: right !important;
+
+      @include rtl {
+        text-align: left !important;
+      }
+    }
+  }
+
+  @include mq(medium) {
+    &--medium {
+      text-align: right !important;
+
+      @include rtl {
+        text-align: left !important;
+      }
+    }
+  }
+
+  @include mq(large) {
+    &--large {
+      text-align: right !important;
+
+      @include rtl {
+        text-align: left !important;
+      }
+    }
+  }
+
+  @include mq(x-large) {
+    &--x-large {
+      text-align: right !important;
+
+      @include rtl {
+        text-align: left !important;
+      }
+    }
+  }
+  
+  @include mq(medium-down) {
+    &--medium-down {
+      text-align: right;
+
+      @include rtl {
+        text-align: left;
+      }
+    }
+  }
+}

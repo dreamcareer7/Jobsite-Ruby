@@ -1,0 +1,37 @@
+<div class="modal js-please-upgrade">
+  <div class="modal__table">
+    <div class="modal__cell">
+      <div class="modal__container">
+        <button class="js-close-modal modal__close">
+          <%= inline_svg("icons/close.svg", class: "icon") %>
+        </button>
+
+        <h2 class="modal__title"><%= t("please_upgrade.title") %></h2>
+        <p class="mb2"><%= t("please_upgrade.description") %></p>
+
+        <div class="media media--tight mb1">
+          <%= inline_svg("icons/checkmark.svg", class: "media__figure icon icon--green") %>
+          <div class="media__body"><%= t("please_upgrade.views") %></div>
+        </div>
+        <div class="media media--tight mb1">
+          <%= inline_svg("icons/checkmark.svg", class: "media__figure icon icon--green") %>
+          <div class="media__body"><%= t("please_upgrade.engage") %></div>
+        </div>
+        <div class="media media--tight mb1">
+          <%= inline_svg("icons/checkmark.svg", class: "media__figure icon icon--green") %>
+          <div class="media__body"><%= t("please_upgrade.projects") %></div>
+        </div>
+        <div class="media media--tight mb1">
+          <%= inline_svg("icons/checkmark.svg", class: "media__figure icon icon--green") %>
+          <div class="media__body"><%= t("please_upgrade.revenue") %></div>
+        </div>
+
+        <div class="mt3">
+          <div class="btn-group u-flex">
+            <%= link_to t("words.upgrade"), "/pages/contact", class: "btn-group__item btn btn--primary btn--full" %>
+          </div>          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

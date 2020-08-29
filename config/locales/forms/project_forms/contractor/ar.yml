@@ -1,0 +1,11 @@
+ar:
+
+  post_project:
+    contractor:
+      header: “تفاصيل المقاول”
+
+    fields:
+      contractor_type:
+        label: “نوع المقاول”
+      contractor_services:
+        label: "اختر احد او العديد من الخدمات التي يمكن تطبيقها على مشروعك"

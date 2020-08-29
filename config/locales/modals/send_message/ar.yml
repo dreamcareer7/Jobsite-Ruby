@@ -1,0 +1,8 @@
+ar:
+
+  send_message:
+    title: “ارسال رسالة“
+    create_project: "+ انشاء مشروع”
+    prompt: “ارسال الى "
+    submit: “إرسال”
+    placeholder: “اكتب رسالتك‫…‬“

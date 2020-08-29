@@ -1,0 +1,47 @@
+<div class="card">
+  <div class="card__section">
+
+    <h3 class="mb2">Business users</h3>
+
+    <div class="fieldset">
+      <div class="grid grid--tight">
+        <div class="grid__col--xs-6 grid__col--md-4">
+          <div class="field">
+            <div class="field__input-wrapper">
+              <input type="text" class="field__input js-text-filter" placeholder="Name" data-column="0">
+            </div>
+          </div>
+        </div>
+        <div class="grid__col--xs-6 grid__col--md-8"></div>
+        <div class="grid__col--xs-4 grid__col--md-3">
+          <div class="field">
+            <div class="field__input-wrapper">
+              <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
+              <select class="field__input field__input--right-add-on js-select-filter" data-column="2"></select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table class="js-vendors-table" data-source="<%= admin_vendors_path(format: :json) %>">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Location</th>
+          <th>Businesses</th>
+          <th>Last Login</th>
+          <th>Signup date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+  </div>
+</div>
+
+<%= content_for :page_scripts do %>
+  <%= javascript_include_tag 'admin/datatables/vendors' %>
+<% end %>

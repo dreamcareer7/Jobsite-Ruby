@@ -1,0 +1,6 @@
+<% if notification.notification_type == "callback request" %>
+  <%= inline_svg("icons/phone.svg", class:"icon icon--brand") %> <%= notification.sender.name %> <%= format_notification_body(notification)[:blurb] %> <span class="u-text-underline"><%= notification.body %></span>
+<% elsif project.present? %>
+  <%= notification.sender.name %> <%= format_notification_body(notification)[:blurb] %> <span class="u-text-underline"><%= link_to project.title, user_type == "user" ? user_project_path(project) : business_project_feed_path(project) %></span>
+<% end %>
+ 

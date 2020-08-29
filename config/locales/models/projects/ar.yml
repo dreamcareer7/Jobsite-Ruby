@@ -1,0 +1,10 @@
+ar:
+  project:
+    status:
+      pending: "معلق"
+      completion_pending: "إنهاء التعليق"
+      active: "فعال"
+      completed: "مكتمل"
+      cancelled: "ملغي"
+      not_started: "لم يبدأ"
+      Planning: "تحت التخطيط"

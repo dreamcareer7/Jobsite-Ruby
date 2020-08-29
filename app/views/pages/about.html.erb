@@ -1,0 +1,55 @@
+<% content_for :breadcrumbs do %>
+  <%= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [], current_breadcrumb: { name: "About" } } %>
+<% end %>
+
+<section class="section section--padded section--dark u-cover u-text-center has-tint" style="background-image: url('<%= image_path("about/contractor-2.jpg") %>')">
+  <div class="site-wrap has-tint__content">
+    <h1 class="u-text-contrast u-text-shadow"><%= t("about_us.header") %></h1>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="site-wrap">
+
+    <div class="grid grid--center">
+      <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-8">
+        <div class="card">
+          <div class="card__section card__section--padded card__section--border">
+            <h2><%= t("about_us.section_one.header") %></h2>
+            <p><%= t("about_us.section_one.body") %></p>
+            <div class="btn-group btn-group--full">
+              <%= link_to t("about_us.section_one.link"), categories_path(city: @current_city.present? ? @current_city.slug : City.first.name), class: "btn-group__item btn--xs-full btn btn--secondary" %>
+              <% if current_user %>
+                <%= link_to t("main_nav.post_a_project"), new_user_project_path, class: "btn-group__item btn--xs-full btn btn--primary" %>
+                <%= link_to t("main_nav.add_business"), new_user_business_path, class: "btn-group__item btn--xs-full btn btn--positive" %>
+              <% else %>
+                <button data-modal="please-log-in", data-modal-target="project", class="js-open-modal btn-group__item btn btn--primary btn--xs-full"><%= t("links.post_project") %></button>
+                <%= link_to t("main_nav.add_business"), new_business_path, class: "btn-group__item btn btn--positive btn--xs-full" %>
+              <% end %>
+            </div>
+          </div>
+          <div class="card__section card__section--padded card__section--border">
+            <h2><%= t("about_us.section_two.header") %></h2>
+            <p><%= t("about_us.section_two.body") %></p>
+            <%= image_tag("about/contractor.jpg", class: "u-rounded") %>
+          </div>
+          <div class="card__section card__section--padded card__section--border">
+            <h2><%= t("about_us.section_three.header") %></h2>
+            <p><%= t("about_us.section_three.body") %></p>
+          </div>
+          <div class="card__section card__section--padded card__section--border">
+            <h2><%= t("about_us.section_four.header") %></h2>
+            <p><%= t("about_us.section_four.body") %></p>
+            <p><%= t("about_us.section_four.careers_blurb") %></p>
+          </div>
+          <div class="card__section card__section--padded card__section--border">
+            <h2><%= t("about_us.section_five.header") %></h2>
+            <p><%= t("about_us.section_five.body") %></p>
+            <%= image_tag("about/team.jpg", class: "u-rounded") %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

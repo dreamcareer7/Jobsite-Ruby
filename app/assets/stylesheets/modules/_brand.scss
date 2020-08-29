@@ -1,0 +1,13 @@
+// Certifications
+
+.brand {
+  width: 64px;
+  height: 64px;
+  border: 1px solid $grey-light;
+
+  @include mq(medium) {
+    width: 80px;
+    height: 80px;
+  }
+}
+

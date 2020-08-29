@@ -1,0 +1,32 @@
+// Masonry Grid
+
+$gutter: $spacing-large;
+
+.masonry-grid {
+  column-gap: $gutter;
+
+  @include mq(small) {
+    column-count: 2;
+  }
+
+  @include mq(medium) {
+    column-count: 3;
+  }
+
+  @include mq(large) {
+    column-count: 4;
+  }
+
+  @include mq(x-large) {
+    column-count: 5;
+  }
+}
+
+
+// Columns
+
+.masonry-grid__col {
+  display: inline-block;
+  width: 100%;
+  break-inside: avoid;
+}

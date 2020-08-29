@@ -1,0 +1,11 @@
+en:
+
+  post_project:
+    contractor:
+      header: "Contractor details"
+
+    fields:
+      contractor_type:
+        label: "Type of contractor"
+      contractor_services:
+        label: "Choose one or many services that apply to your project"

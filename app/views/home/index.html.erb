@@ -1,0 +1,134 @@
+<%= render partial: "partials/meta_tags/home", locals: { banner: @city_image.present? ? @city_image.image.url(:small) : @current_city.default_city_image , url: request.original_url } %>
+
+<section class="section section--dark hero u-text-center" style="background-image: url('<%= @city_image.present? ? @city_image.image.url(:large) : @current_city.default_city_image %>')">
+  <div class="site-wrap">
+    <div class="grid grid--center js-search-field">
+      <div class="grid__col--xs-12 grid__col--sm-10 grid__col--md-8 grid__col--lg-7">
+        <div class="hero__content">
+          <h1 class="hero__title u-text-contrast u-text-shadow mb0"><%= t("home_page.header.head") %></h1>
+          <h2 class="mt1 hero__subtitle u-text-contrast u-text-muted u-text-shadow"><%= t("home_page.header.sub_head", current_city: @current_city.name) %> <button class="u-text-inherit u-text-underline js-how-it-works-trigger u-hide--medium-down"><%= t("home_page.header.sub_head_link") %></button></h2>
+          <div class="field js-search-box">
+            <div class="field__input-wrapper">
+              <%= inline_svg("icons/search.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
+              <form>
+                <input type="text" class="field__input search" placeholder="<%= t("home_page.header.search_box_placeholder") %>">
+              </form>
+                <%= render partial: "partials/auto_complete/default_results" %>
+                <%= render partial: "partials/auto_complete/no_results" %>
+            </div>
+          </div>
+          <p class="u-block mt3"><span class="u-text-muted mr2"><%= t("home_page.quote") %></span>
+          <div class="btn-group">
+            <% if current_user %>
+              <%= link_to t("main_nav.hire_professional"), new_user_project_path(project_type: "default"), class: "btn btn--primary btn-fixed--small btn-group__item" %>
+              <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "supplier"), class: "btn btn--turquoise btn-fixed--small btn-group__item" %>
+              <%= link_to t("main_nav.buy_rent"), new_user_project_path(project_type: "machinery"), class: "btn btn--yellow btn-fixed--small btn-group__item" %>
+              <%= link_to t("main_nav.post_a_project"), new_user_project_path, class: "btn btn--grey btn-fixed--small btn-group__item" %>
+            <% else %>
+              <button data-modal="please-log-in" data-modal-target="project" class="js-open-modal btn btn--primary btn-fixed--small btn-group__item"><%= t("main_nav.hire_professional") %></button>
+              <button data-modal="please-log-in" data-modal-target="project" class="js-open-modal btn btn--turquoise btn-fixed--small btn-group__item"><%= t("main_nav.get_supplies") %></button>
+              <button data-modal="please-log-in" data-modal-target="project" class="js-open-modal btn btn--yellow btn-fixed--small btn-group__item"><%= t("main_nav.buy_rent") %></button>
+              <button data-modal="please-log-in" data-modal-target="project" class="js-open-modal btn btn--grey btn-fixed--small btn-group__item"><%= t("main_nav.post_a_project") %></button>
+            <% end %>
+          </div>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if @city_image.present? && @city_image.description.present? %>
+    <a href="<%= @city_image.link.present? ? full_path(@city_image.link) : '' %>" class="home-city__tooltip tooltip u-hide--large-down" title="<%= @city_image.description %>" target="_blank">
+      <%= inline_svg("icons/info.svg", class: "icon icon--small") %>
+    </a>
+  <% end %>
+</section>
+
+<section class="section p0">
+  <div class="home-promo">
+    <div class="home-promo__content media media--middle media--inline u-text-center">
+      <%= inline_svg("icons/checkmark-circle.svg", class: "icon icon--x-large icon--white media__figure mr3 u-hide--large-down") %>
+      <div class="media__body">
+        <h2 class="u-text-contrast mb1"><%= t("promo.head") %></h2>
+        <h3 class="u-text-contrast m0 u-text-regular u-text-muted"><%= @current_city.businesses.count %> <%= t("promo.sub_head") %> <%= @current_city.name %>.</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="site-wrap">
+    <div class="trending-section">
+      <div class="grid grid--v-padded">
+        <% @categories.first(4).each do |category| %>
+          <div class="grid__col--xs-12 grid__col--sm-6 grid__col--md-3 u-text-center">
+            <%= link_to category_path(id: category), class: "home-category u-text-center mb2" do %>
+              <%= inline_svg("icons/#{ I18n.with_locale(:en){ category.name.downcase } }.svg", class: "icon icon--large icon--dark") %>
+              <h3 class="m0"><%= category.name %></h3>
+              <p class="u-text-reset"><%= t("home_page.explore.listings_available", listing_count: number_with_delimiter(category.active_businesses_in_city(@current_city), delimiter: ", ")) %></p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class="u-text-center">
+        <%= link_to "#{ t('home_page.explore.view_all') } ›", categories_path(city: @current_city.slug), class: "mt2 btn btn--primary" %>
+      </div>
+    </div>
+    <div class="trending-section">
+      <div class="trending-heading">
+        <div class="u-flex u-flex-middle">
+          <h3 class="mb0 u-flex-grow"><%= t("popular.trade_services") %> <%= @current_city.name %> </h3>
+        </div>
+      </div>
+      <% if @popular_sub_categories.present? %>
+        <div class="grid grid--padded">
+          <% @popular_sub_categories.each do |sub_category| %>
+            <div class="grid__col--xs-12 grid__col--sm-6 grid__col--lg-3">
+              <%= link_to sub_category_path(id: sub_category), class: "card has-tint has-tint--rounded photo-block u-cover", style: "background-image: url('#{ sub_category.category_metadata.present? ? sub_category.category_metadata.banner.url(:small) : image_path("missing/hero.jpg") }')" do %>
+                <div class="photo-block__name has-tint__content">
+                  <span class="u-text-shadow"><%= sub_category.name %></span><br>
+                  <small class="u-text-muted u-text-shadow"><%= pluralize(sub_category.active_businesses_in_city(@current_city), t("listing.listings")) %></small>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <% if @specialist.present? && @specialist.services.present? %>
+      <div class="trending-section">
+        <div class="trending-heading">
+          <div class="u-flex u-flex-middle">
+            <h3 class="mb0 u-flex-grow"><%= @specialist.name.capitalize %> <%= t("popular.services_in") %> <%= @current_city.name %></h3>
+            <%= link_to t("phrases.view_all"), category_path(id: @specialist.slug, city: @current_city.slug), class: "btn btn--link u-hover-underline" %>
+          </div>
+        </div>
+        <div class="grid">
+          <% @specialist.services.visible.shuffle.first(16).in_groups_of(4) do |service_group| %>
+            <div class="grid__col--xs-12 grid__col--sm-6 grid__col--lg-3">
+              <% service_group.each do |service| %>
+                <% next if service == nil %>
+                <%= link_to service.name.capitalize, service_path(id: service, sort_by: "Recommended"), class: "mb1 u-block" %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<section class="section section--border-top section--alt trending">
+  <div class="site-wrap">
+    <div class="section-heading">
+      <h2 class="mb1"><%= t("home_page.trending.head") %></h2>
+      <p><%= t("home_page.trending.sub_head", current_city: @current_city.name) %></p>
+    </div>
+    <%= render partial: "trending_section" %>
+  </div>
+</section>
+
+<%= render partial: "partials/cta/add_business" %>
+
+<%= content_for :page_scripts do %>
+  <%= javascript_include_tag 'auto_complete.js' %>
+<% end %>

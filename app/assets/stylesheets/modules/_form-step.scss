@@ -1,0 +1,49 @@
+// Form step
+
+.form-step {
+  position: relative;
+  display: block;
+
+  &:not(:last-child):after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 1px;
+    width: calc(100% - 4em);
+    margin: 0;
+    top: 21px;
+    left: 100%;
+    transform: translate3d(-50%, 0, 0);
+    background-color: $border;
+  }
+}
+
+.form-step__number,
+.form-step__name {
+  color: $grey;
+}
+
+.form-step__number {
+  width: 42px;
+  height: 42px;
+  line-height: 42px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: inset 0 0 0 1px $border;
+
+  .form-step--current & {
+    background-color: $red;
+    color: $white;
+    box-shadow: none;
+  }
+}
+
+.form-step__name {
+  margin-top: $spacing-small;
+  display: block;
+
+  .form-step--current & {
+    color: $grey-dark;
+    @include font-bold;
+  }
+}

@@ -1,0 +1,36 @@
+// Auto complete widget
+
+.autocomplete--default {
+  width: 100%;
+  left: 0;
+  margin: 0;
+}
+
+
+// Category
+
+.autocomplete-category {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 0 $spacing-medium;
+  background-color: $background;
+  height: $input-height;
+  line-height: $input-height;
+  color: $grey-dark;
+  border-bottom: 1px solid $border;
+  text-transform: capitalize;
+  @include font-bold;
+  @include font-size($h4-font-size);
+
+  @include ltr {
+    text-align: left;
+  }
+
+  @include rtl {
+    text-align: right;
+  }
+}
+
+// hide default help message
+.ui-helper-hidden-accessible { display:none; }

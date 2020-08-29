@@ -1,0 +1,23 @@
+<% if @business.services.present? %>
+  <div class="card js-toggle-truncate js-section js-services">
+    <div class="card__section">
+      <div class="card__header">
+        <h3 class="card__title"><%= inline_svg("icons/paint.svg", class: "icon icon--sm-small icon--brand") %>Services</h3>
+        <span class="btn btn--link js-view-all"><%= t("business.view_all") %></span>
+      </div>
+      <div class="grid">
+        <% @sub_categories.each_with_index do |sub_category, index| %>
+          <div class="grid__col--xs-12 js-toggle-target">
+            <strong class="u-block"><%= sub_category.name %></strong>
+            <small>
+              <%= @services.select{ |service| service.sub_category == sub_category }.map(&:name).join(' • ') %>
+            </small>
+            <% unless @sub_categories.distinct.size == index + 1 %>
+              <hr class="divider divider--tight">
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

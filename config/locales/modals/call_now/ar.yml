@@ -1,0 +1,8 @@
+ar:
+
+  call_now:
+    title: “إتصل الآن“
+    description_first: “يمكنك التواصل مع "
+    description_second: " مستخدماً رقم الهاتف الآتي”
+    working_hours: “اوقات عملهم  "
+    got_it: “فهمت”

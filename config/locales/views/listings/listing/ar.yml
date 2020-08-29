@@ -1,0 +1,22 @@
+ar:
+
+  listing:
+    list: "قائمة"
+    map: "خريطة"
+    related_services: "خدمات متشابهة"
+    added: "إضافي"
+    experience: "الخبرة"
+    projects: "المشاريع"
+    employees: "الموظفين"
+    call: "إتصل الآن"
+    listings: "المعروض"
+    sponsored: "الرعاة"
+    switch_category: "تغيير الفئة"
+    cat_headline: "أفضل %{cat_name} لمشروعك في %{city_name}"
+    service_headline: "أفضل %{cat_name} لـ %{service_name} في %{city_name}"
+    business_prompt: 
+      header: "هل أنت صاحب شركة ؟"
+      copy: "Nullam scelerisque lobortis placerat. Nulla malesuada eros non ex venenatis, et porttitor turpis vehicula. Vestibulum quis lorem felis."
+    project_prompt:
+      header: "تحتاج الى معرفة الأسعار ؟"
+      copy: "انشئ مشروعك واستلم وقارن عروض الأسعار المختلفة من الشركات المدرجة في مقاولون"

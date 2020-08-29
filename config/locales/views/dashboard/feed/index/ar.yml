@@ -1,0 +1,17 @@
+ar:
+
+  feed:
+    view_more: "+ عرض المزيد"
+    obscured_title: "مشروع جديد"
+    obscured_blurb: "أضف اشتراك للمزيد من التفاصيل"
+    posted: "منشور"
+    ago: "مضت"
+    location: "نوع الموقع"
+    Distance: "المسافة"
+    start_date: "تاريخ البدء"
+    end_date: "تاريخ الإنتهاء"
+    Services: "الخدمات"
+    apply: "التقديم"
+    details: "التفاصيل"
+    no_projects: "إستعرض آخر المشاريع في مقاولون"
+    missing_information: "المعلومات غير متوفرة"

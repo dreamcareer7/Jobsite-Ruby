@@ -1,0 +1,142 @@
+<%= render partial: "partials/form_headers/new_business" %>
+
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="grid grid--center">
+      <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-8">
+        <div class="card">
+          <div class="card__section card__section--padded">
+            <div class="card__header">
+              <h4 class="card__title"><%= inline_svg("icons/briefcase.svg", class: "icon icon--brand icon--small") %><%= t("add_business.fields.header.general_information") %></h4>
+            </div>
+            <%= f.error_notification %>
+            <fieldset class="fieldset">
+              <div class="grid">
+                <div class="grid__col--xs-12 grid__col--md-6">
+                  <label class="field__label">* <%= t("add_business.fields.business_name.label") %></label>
+                  <%= f.input :name, type: "text", wrapper: "text_field", placeholder: t("add_business.fields.business_name.placeholder"), label: false, required: true %>
+                </div>
+                <div class="grid__col--xs-12 grid__col--md-6">
+                  <div class="field">
+                    <label class="field__label"><%= t("add_business.fields.email.label") %></label>
+                    <%= f.input :prevent_autocomplete, as: :fake, input_html: { class: "u-hide", name: "business[email]", type: "text" }, label: false %>
+                    <%= f.input :email, wrapper: "text_field", placeholder: t("add_business.fields.email.placeholder"), label: false %>
+                  </div>
+                </div>
+                <div class="grid__col--xs-12 grid__col--md-6">
+                  <div class="field">
+                    <label class="field__label"><%= t("add_business.fields.phone_number.label") %></label>
+                    <div class="field__input-wrapper">
+                      <%= f.input :telephone, wrapper: 'text_field', type: "tel", class: "field__input", placeholder: "XXX-XXX-XXXX", input_html: { class: 'js-phone' }, label: false %>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid__col--xs-12 grid__col--md-6">
+                  <div class="field">
+                    <label class="field__label"><%= t("add_business.fields.website.label") %></label>
+                    <%= f.input :website, wrapper: "text_field", placeholder: t("add_business.fields.phone_number.placeholder"), label: false %>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="card__section card__section--padded">
+            <div class="card__header">
+              <h4 class="card__title"><%= inline_svg("icons/paint.svg", class: "icon icon--brand icon--small") %><%= t("phrases.main_categories") %></h4>
+            </div>
+            <fieldset class="fieldset">
+              <div class="grid">
+                <div class="grid__col--xs-12 grid__col--md-12">
+                  <div class="field">
+                    <div class="control-group">
+                      <% Category.order_by_type.each do |category| %>
+                        <label class="control-group__item control">
+                          <%= f.check_box(:category_list, { class: "control__input js-categories js-chosen-category-#{ category.name(locale: :en).downcase }", multiple: true, checked: @business.has_category?(category) ? true : false, data: { category: category.name(locale: :en).downcase } }, "#{ category.id }", nil) %>
+                          <span class="control__indicator control__indicator--checkbox">
+                            <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
+                          </span>
+                          <span class="control__label"><%= category.name.singularize %></span>
+                        </label>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="card__section card__section--padded js-location-fields">
+            <div class="card__header">
+              <h4 class="card__title"><%= inline_svg("icons/marker.svg", class: "icon icon--brand icon--small") %><%= t("add_business.fields.header.location") %></h4>
+            </div>
+            <fieldset class="fieldset">
+              <div class="grid">
+                <%= f.simple_fields_for :locations do |l| %>
+                  <%= render partial: "partials/location/choose_location", locals: { l: l } %>
+                <% end %>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__section card__section--padded">
+            <div class="card__header">
+              <h4 class="card__title"><%= inline_svg("icons/user.svg", class: "icon icon--brand icon--small") %><%= t("add_business.fields.header.contact_person") %></h4>
+            </div>
+            <fieldset class="fieldset">
+              <%= f.simple_fields_for :business_contact do |bc| %>
+                <div class="grid">
+                  <% if current_user %>
+                    <div class="grid__col--xs-12 grid__col--md-6">
+                      <div class="field">
+                        <div class="media media--middle js-upload-fields u-text-pointer">
+                          <div class="field__input-wrapper">
+                            <%= image_tag(@business.business_contact.profile_image, width: "72", class: "media__figure u-circle u-text-pointer js-file-upload-button js-photo-placeholder") %>
+                          </div>
+                          <div class="media__body">
+                            <div class="field__input-wrapper">
+                              <span class="u-text-left u-text-dark js-file-upload-button"><%= t("add_business.fields.contact_person.edit_photo") %></span><br>
+                              <%= bc.input :profile_image, as: :file, input_html: { class: "js-file-upload", hidden: "true" }, label: false %>
+                            </div>
+                            <small>200x200</small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <%= bc.input :name, wrapper: :text_field, label: t("add_business.fields.contact_person.name.label"), required: true %>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <%= bc.input :prevent_autocomplete, as: :fake, input_html: { class: "u-hide", name: "business[business_contact_attributes][email]", type: "text" }, label: false %>
+                    <%= bc.input :email, wrapper: :text_field, label: t("add_business.fields.contact_person.email.label"), required: false %>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <%= bc.input :phone_number, wrapper: :text_field, label: t("add_business.fields.contact_person.phone_number.label"), input_html: { class: 'js-phone' }, required: false %>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-6">
+                    <%= bc.input :position, wrapper: "text_field", placeholder: t("add_business.fields.contact_person.position.placeholder"), label: t("add_business.fields.contact_person.position.label") %>
+                  </div>
+                </div>
+              <% end %>
+            </fieldset>
+          </div>
+        </div>
+        <% Category.includes(:sub_categories, :services).each do |category| %>
+          <%= render partial: "partials/user/businesses/business_form_sections/field_partials/service_fields", locals: { f: f, category: category, hidden: true } %>
+        <% end %>
+
+        <%= f.submit t("add_business.submit"), class: "btn btn--full btn--primary #{ 'u-hide' unless current_user }", id: "new-business" %>
+        <% unless current_user %>
+          <span class="js-submit btn btn--full btn--primary"><%= t("main_nav.add_business") %></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= content_tag :span, '', class: "js-new-business", data: { new: true } %>
+
+<%= content_for :page_scripts do %>
+  <%= javascript_include_tag "business-services" %>
+  <%= javascript_include_tag "guest-add-business" %>
+<% end %>

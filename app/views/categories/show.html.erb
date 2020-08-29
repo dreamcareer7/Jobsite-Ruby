@@ -1,0 +1,14 @@
+<%= render partial: "partials/meta_tags/listing", locals: { listing_type: @category, banner: @listing_banner, city: @current_city, count: @unpaginated_businesses.count } %>
+
+<% if params[:filter_by].present? || params[:business_listing].present? %>
+  <%= render partial: "category_business_listing" %>
+<% else %>
+  <% content_for :breadcrumbs do %>
+    <%= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [], current_breadcrumb: { name: @category.name, count: @category.active_businesses_in_city(@current_city) } } %>
+  <% end %>
+
+  <%= render partial: 'category', locals: { category: @category, sub_categories: @sub_categories } %>
+
+  <%= render partial: 'partials/cta/add_business' %>
+
+<% end %>

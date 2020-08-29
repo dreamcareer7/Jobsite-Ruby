@@ -1,0 +1,63 @@
+// Data table
+
+.dataTables_paginate {
+  text-align: center;
+  margin-top: $spacing-large;
+
+  @include mq(medium) {
+    margin-top: $spacing-x-large;
+  }
+}
+
+.paginate_button,
+.ellipsis {
+  display: inline-block;
+  padding: $spacing-small $spacing-medium;
+  border: 1px solid $border;
+  margin-left: -1px;
+  cursor: pointer;
+  color: $grey;
+
+  &.previous {
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+  }
+
+  &.next {
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+  }
+
+  &:hover {
+    color: $grey-dark;
+  }
+
+  &.current,
+  &.disabled {
+    cursor: auto;
+    background-color: $background;
+    color: $grey-light;
+  }
+}
+
+.ellipsis {
+  cursor: auto;
+  background-color: $background;
+  color: $grey-light;
+}
+
+// Highlight unapproved businesses
+tr.unapproved {
+  background-color: rgba(0, 96, 193, 0.30) !important;
+}
+
+// Highlight paid businesses
+tr.paid {
+  background-color: rgba(114, 38, 38, 0.30) !important;
+}
+
+// Make category headers more distinct
+.category-name-row {
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+}
