@@ -17,8 +17,9 @@ en:
   home_page:
     quote: "Looking for a quote?"
     header:
-      head: "Hire Trusted Contractors, Suppliers & Specialists"
-      sub_head: "Muqawiloon helps you find & hire the most qualified businesses and professionals for your building & construction projects in %{current_city}."
+      head: "The New Way to Design & Build"
+      # sub_head: "Muqawiloon helps you find & hire the most qualified businesses and professionals for your building & construction projects in %{current_city}."
+      sub_head: "Contractor, Suppliers & Professionals in %{current_city}."
       sub_head_link: "How it works"
       search_box_placeholder: "Search for categories & businesses"
       trending_services: "Trending services:"
