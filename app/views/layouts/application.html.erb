@@ -51,6 +51,9 @@
       <%= render partial: "modals/errors/suggest_upgrade" %>
     <% end %>
 
+    <%= render partial: "modals/home/tell_use_your_needs" if controller_name == "home" %>
+
+
     <% if current_user && @business && controller_name == "businesses" %>
       <%= render partial: "modals/admin_notification/claim_business" %>
     <% end %>
