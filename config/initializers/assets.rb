@@ -22,5 +22,7 @@ Rails.application.config.assets.precompile += [
   'guest-add-business.js',
   'business-profile.js',
   'project-services.js',
-  'sticky-nav.js'
+  'sticky-nav.js',
+  'user_dashboard.css',
+  'user_dashboard.js'
 ]

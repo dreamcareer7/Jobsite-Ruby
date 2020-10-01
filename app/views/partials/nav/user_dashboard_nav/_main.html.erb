@@ -1,0 +1,86 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="#"><%= image_tag "user_dashboard_logo.png" %></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+          <%= link_to user_profile_index_path, class: "nav-link #{'active' if current_page?(user_profile_index_path)}" do %>
+            <li class="nav-item">
+              <%= t("profile_nav.dashboard") %>
+            </li>
+          <% end %>
+          <%= link_to user_inbox_index_path, class: "nav-link #{'active' if current_page?(user_inbox_index_path)}" do %>
+            <li class="nav-item">
+              <%= t("profile_nav.inbox") %>
+            </li>
+          <% end %>
+          <%= link_to user_projects_path, class: "nav-link #{'active' if current_page?(user_projects_path)}" do %>
+            <li class="nav-item">
+              <%= t("profile_nav.projects") %>
+            </li>
+          <% end %>
+        </ul>
+
+
+        <ul class="nav navbar-nav ml-auto mr-auto" id="global-search-section">
+          <li class="nav-item">
+            <form class="form-inline" id="global-search-form">
+              <div class="input-group">
+                <div class="input-group-btn" id="global-search-input-box-search-icon-container">
+                  <i class="fa fa-search" aria-hidden="true" id="global-search-input-box-search-icon"></i>
+                </div>
+                <input class="form-control search" 
+                    type="text" placeholder="Search for contractors and suppliers" 
+                    name="search"
+                    aria-label="Search" id="global-search-input-box"/>
+              </div>
+            </form>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav ml-auto mr-auto">
+          <li class="nav-item dropdown">
+            <div class="row">
+                <a class="nav-link" href="#" id="profile-city-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <%= @current_city.name %>
+                </a>
+              <div class="dropdown-menu" aria-labelledby="profile-city-dropdown">
+                <% if @current_city %>
+                  <% @current_city.country_cities.order(:name).each do |city| %>
+                    <% next if city == @current_city %>
+                    <%= link_to city.name, city_choose_city_path(city), method: :put, class: "dropdown-item" %>
+                  <% end %>
+
+                  <a href="/countries" class="dropdown-item">
+                    <span class="u-flex u-flex-middle">
+                      <span class="u-text-dark u-flex-grow"><%= t("footer.countries") %></span>
+                      <%= inline_svg("icons/external.svg", class: "icon icon--small icon--dark") %>
+                    </span>
+                  </a>
+                <% end %>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="profile-setting-logout-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= image_tag current_user.profile_image.url, class: "user-profile-image" %><%= current_user.name.split.first %>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="profile-setting-logout-dropdown">
+                <a class="dropdown-item" href="#"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
+                <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do  %><i class="fa fa-sign-out" aria-hidden="true"></i>
+                  <%= t("main_nav.log_out") %>
+                <% end %>
+              </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

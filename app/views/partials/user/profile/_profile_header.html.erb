@@ -1,24 +1,29 @@
-<section class="section section--dark u-cover u-text-center has-tint" style="background-image: url('<%= @current_city.city_image ? @current_city.city_image.image.url(:large) : @current_city.default_city_image %>')">
-  <div class="site-wrap has-tint__content">
-    <%= image_tag current_user.profile_image.url, class: "profile-avatar u-box-shadow avatar avatar--large" %>
-    <h1 class="mb0 u-text-contrast u-text-shadow"><%= t("user_dashboard.greeting") %> <span><%= current_user.name.split.first %></span>!</h1>
-    <h3 class="mt1 u-text-contrast u-text-shadow u-text-regular">
-      <span class="u-text-shadow"><%= t("user_dashboard.your_profile") %></span>
-      <strong class="<%= percentage_to_colour(current_user.profile_completion) %> u-text-shadow">
-        <%= current_user.profile_completion.round %>%
-      </strong>
-      <span class="u-text-shadow"><%= t("user_dashboard.completed") %></span>
-      <%= link_to current_user.profile_completion == 100 ?
-        t("user_dashboard.edit") :
-        t("user_dashboard.complete_it"),
-        edit_user_path(current_user), class: "u-text-underline u-text-shadow" %>
-  </h3>
-  <% if current_user.businesses.present? %>
-    <div class="grid grid--center">
-      <div class="grid__col--xs-12 grid__col--sm-10 grid__col--md-8 grid__col--lg-6 grid__col--xlg-4">
-        <%= render partial: "partials/nav/business_drop_list", locals: { business: @current_business } %>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sub-menu" aria-controls="sub-menu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="sub-menu">
+      <ul class="navbar-nav ml-auto mr-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="#">SUPPLIERS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">PROFESSIONALS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">MACHINERY</a>
+        </li>   
+        <li class="nav-item">
+          <a class="nav-link" href="#">GALLERY</a>
+        </li>    
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fa fa-lock" aria-hidden="true"></i> PROJECTS</a>
+        </li>   
+        <li class="nav-item">
+          <a class="nav-link" href="#">MORE...</a>
+        </li>                                          
+      </ul>
     </div>
-  <% end %>
   </div>
-</section>
+</nav>
