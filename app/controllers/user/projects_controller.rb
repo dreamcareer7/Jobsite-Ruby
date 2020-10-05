@@ -83,9 +83,11 @@ class User::ProjectsController < User::BaseController
 
   def destroy
     authorize @project
-
     @project.destroy
-    redirect_to user_projects_path
+      respond_to do |format|
+      format.html { redirect_to user_projects_path }
+      format.js { render layout: false }
+    end
   end
 
   private

@@ -9,21 +9,23 @@
         <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
           <%= link_to user_profile_index_path, class: "nav-link #{'active' if current_page?(user_profile_index_path)}" do %>
             <li class="nav-item">
-              <%= t("profile_nav.dashboard") %>
+              <!-- DASHBOARD -->
+              <%= t("profile_nav.dashboard").upcase %>
             </li>
           <% end %>
           <%= link_to user_inbox_index_path, class: "nav-link #{'active' if current_page?(user_inbox_index_path)}" do %>
             <li class="nav-item">
-              <%= t("profile_nav.inbox") %>
+              <!-- MESSAGES -->
+              <%= t("profile_nav.inbox").upcase %>
             </li>
           <% end %>
           <%= link_to user_projects_path, class: "nav-link #{'active' if current_page?(user_projects_path)}" do %>
             <li class="nav-item">
-              <%= t("profile_nav.projects") %>
+              <!-- MY PROJECTS -->
+              <%= t("profile_nav.projects").upcase %>
             </li>
           <% end %>
         </ul>
-
 
         <ul class="nav navbar-nav ml-auto mr-auto" id="global-search-section">
           <li class="nav-item">
@@ -43,26 +45,36 @@
 
         <ul class="nav navbar-nav ml-auto mr-auto">
           <li class="nav-item dropdown">
-            <div class="row">
-                <a class="nav-link" href="#" id="profile-city-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <%= @current_city.name %>
-                </a>
-              <div class="dropdown-menu" aria-labelledby="profile-city-dropdown">
+            <div class="input-group" id="location-search-input-box">
+              <a class="nav-link dropdown-toggle " href="#" id="location-two-column-drop-down" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-map-marker" aria-hidden="true" style="margin-right: 10px"></i>
+                <%= @current_city.present? ? @current_city.name : t("main_nav.choose_city") %>
+              </a>
+              <ul  class="dropdown-menu" aria-labelledby="location-two-column-drop-down" id="location-two-column-drop-down-list-item-container">
                 <% if @current_city %>
-                  <% @current_city.country_cities.order(:name).each do |city| %>
-                    <% next if city == @current_city %>
-                    <%= link_to city.name, city_choose_city_path(city), method: :put, class: "dropdown-item" %>
-                  <% end %>
+                  <li  id="location-two-column-drop-down-list-item">
+                    <div class="row" style="width:400px;">
+                      <% @current_city.country_cities.order(:name).each do |city| %>
+                        <% next if city == @current_city %>
+                        <ul class="list-unstyled col-md-6">
+                          <li><%= link_to city.name, city_choose_city_path(city), method: :put, class: "dropdown-item" %></li>
+                        </ul>
+                      <% end %>
 
-                  <a href="/countries" class="dropdown-item">
-                    <span class="u-flex u-flex-middle">
-                      <span class="u-text-dark u-flex-grow"><%= t("footer.countries") %></span>
-                      <%= inline_svg("icons/external.svg", class: "icon icon--small icon--dark") %>
-                    </span>
-                  </a>
+                      <ul class="list-unstyled col-md-6">
+                        <li>
+                          <a href="/countries" class="dropdown-item">
+                            <span class="u-flex u-flex-middle">
+                              <span class="u-text-dark u-flex-grow"><%= t("footer.countries") %></span>
+                              <%= inline_svg("icons/external.svg", class: "icon icon--small icon--dark") %>
+                            </span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
                 <% end %>
-              </div>
+              </ul>
             </div>
           </li>
         </ul>
@@ -70,10 +82,13 @@
         <ul class="nav navbar-nav ml-auto">
           <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="profile-setting-logout-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <%= image_tag current_user.profile_image.url, class: "user-profile-image" %><%= current_user.name.split.first %>
+                <%= image_tag current_user.profile_image.url, class: "user-profile-image" %>
+                <%= current_user.name.split.first %>
               </a>
               <div class="dropdown-menu" aria-labelledby="profile-setting-logout-dropdown">
-                <a class="dropdown-item" href="#"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
+                <%= link_to edit_user_path(current_user), class: "dropdown-item" do %>
+                  <i class="fa fa-user" aria-hidden="true"></i> Profile
+                <% end %>
                 <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do  %><i class="fa fa-sign-out" aria-hidden="true"></i>
                   <%= t("main_nav.log_out") %>
                 <% end %>
