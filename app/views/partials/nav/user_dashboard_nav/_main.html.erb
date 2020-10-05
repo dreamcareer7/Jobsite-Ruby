@@ -50,7 +50,7 @@
                 <i class="fa fa-map-marker" aria-hidden="true" style="margin-right: 10px"></i>
                 <%= @current_city.present? ? @current_city.name : t("main_nav.choose_city") %>
               </a>
-              <ul  class="dropdown-menu" aria-labelledby="location-two-column-drop-down" id="location-two-column-drop-down-list-item-container">
+              <ul  class="dropdown-menu dropdown-city" aria-labelledby="location-two-column-drop-down" id="location-two-column-drop-down-list-item-container">
                 <% if @current_city %>
                   <li  id="location-two-column-drop-down-list-item">
                     <div class="row" style="width:400px;">
