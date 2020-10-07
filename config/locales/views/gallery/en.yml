@@ -1,6 +1,15 @@
 en:
 
   gallery:
-    header: "Gallery"
-    blurb: "Get inspired with the latest pictures and projects uploaded by our businesses"
+    header: "Get Inspired"
+    blurb: "Scroll through the gallery and explore all your project needs with your own eyes"
     uploaded: "Uploaded by"
+    machinery: MACHINERY
+    interior_design: INTERIOR DESIGN
+    projects: PROJECTS
+    furniture: FURNITURE
+    tool_and_hardware: TOOLS & HARDWARE
+    building_materials: BUILDING MATERIALS
+    show_more: SHOW MORE
+    loading: Loading...
+    save: Save

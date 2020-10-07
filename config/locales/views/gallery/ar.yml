@@ -1,6 +1,15 @@
 ar:
 
   gallery:
-    header: "المعرض"
-    blurb: "تصفح آخر الصور والمشاريع المنشورة من قبل الشركات"
+    header: "اشعل حماسك"
+    blurb: "قم بالتمرير عبر المعرض واستكشف جميع احتياجات مشروعك بأم عينيك"
     uploaded: "تم رفعه من قبل"
+    machinery: الات
+    interior_design: تصميم داخلي
+    projects: المشاريع
+    furniture: أثاث المنزل
+    tool_and_hardware: أدوات وأجهزة
+    building_materials: مواد بناء
+    show_more: أظهر المزيد
+    loading: جار التحميل...
+    save: حفظ

@@ -11,6 +11,9 @@ class GalleryController < ApplicationController
     end
 
     @gallery_items = Kaminari.paginate_array(@sorted_items.reverse!).page(params[:page]).per(12)
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
-
 end

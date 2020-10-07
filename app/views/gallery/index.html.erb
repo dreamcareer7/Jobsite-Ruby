@@ -1,39 +1,70 @@
-<% content_for :breadcrumbs do %>
+<main class="gallery-page">
+  <!-- start breadcrumb Box -->
+  <% content_for :breadcrumbs do %>
   <%= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [], current_breadcrumb: { name: "Gallery" } } %>
 <% end %>
 
-<section class="section section--dark u-cover u-text-center" style="background-image: url('<%= image_path('add-business-header.jpg') %>')">
-  <div class="site-wrap">
-    <div class="section-heading">
-      <h1 class="section-heading__heading u-text-contrast"><%= t("gallery.header") %></h1>
-      <h3 class="section-heading__subheading u-text-contrast"><%= t("gallery.blurb") %></h3>
+  <div class="gallery-page-heading-with-background-image">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h1 class="page-heading"><%= t("gallery.header") %></h1>
+          <p class="page-heading-description"><%= t("gallery.blurb") %></p>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </div><!--
+  <section class="section section--dark u-cover u-text-center" style="background-image: url('<%#= image_path('add-business-header.jpg') %>')">
+    <div class="site-wrap">
+      <div class="section-heading">
+        <h1 class="section-heading__heading u-text-contrast"><%#= t("gallery.header") %></h1>
+        <h3 class="section-heading__subheading u-text-contrast"><%#= t("gallery.blurb") %></h3>
+      </div>
+    </div>
+  </section> -->
 
-<section class="section section--alt">
-  <div class="site-wrap">
-    <div class="grid grid--tight grid--v-padded">
-      <% @gallery_items.each do |item| %>
-        <% if item.is_a?(Business) %>
-          <%= render partial: "gallery/gallery_item_image", locals: { owner: item, item: item.banner } %>
-        <% elsif item.is_a?(SelfAddedProject) && (item.photos.present? || item.video_link.present?) %>
-          <% next unless item.business.present? %>
-          <% if item.photos.present? %>
-            <%= render partial: "gallery/gallery_item_image", locals: { owner: item, item: item.photos.sample } %>
-          <% end %>
-          <% if item.video_link.present? %>
-            <%= render partial: "gallery/gallery_item_video", locals: { item: item } %>
-          <% end %>
-        <% elsif item.is_a?(Attachment) %>
-          <%= render partial: "gallery/gallery_item_image", locals: { owner: item.owner, item: item.attachment } %>
-        <% end %>
-      <% end %>
+  <div class="container">
+    <!-- Start Row -->
+    <div class="row category-buttons text-center mb-4 mt-4">
+      <!--  -->
+      <div class="col-md-12">
+        <div class="btn btn-outline-primary">
+          <%= t("gallery.machinery") %>
+        </div>
+        <div class="btn btn-outline-primary">
+          <%= t("gallery.interior_design") %>
+        </div>
+        <div class="btn btn-outline-primary">
+          <%= t("gallery.projects") %>
+        </div>
+        <div class="btn btn-outline-primary">
+          <%= t("gallery.furniture") %>
+        </div>
+        <div class="btn btn-outline-primary">
+          <%= t("gallery.tool_and_hardware") %>
+        </div>
+        <div class="btn btn-outline-primary">
+          <%= t("gallery.building_materials") %>
+        </div>
+      </div>
+      <!--  -->
     </div>
-    <% if @gallery_items.total_pages > 1 %>
-      <div class="mt2">
-        <%= paginate @gallery_items %>
+
+    <div class="row">
+      <div class="gallery-page-product-list">
+        <% @gallery_items.each do |item| %>
+          <%= render partial: "gallery/gallery_product", locals: { item: item } %>
+        <% end %>
+      </div>
+    </div>
+    <% if @gallery_items.next_page.present? %>
+      <div class="row">
+        <div class="col-md-12 text-center mb-4 mt-3 pagination-load-more">
+
+          <%= link_to t('gallery.show_more'), gallery_index_path(page: @gallery_items.next_page), remote: true, data: { "disable-with": t('gallery.loading') }, class: "btn btn-primary" %>
+
+        </div>
       </div>
     <% end %>
   </div>
-</section>
+</main>

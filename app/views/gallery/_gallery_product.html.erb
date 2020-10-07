@@ -1,0 +1,69 @@
+<% owner =  item.is_a?(Attachment) ? item.owner : item %>
+<% multi_image = false %>
+<% video = false %>
+<% if item.is_a?(Business) %>
+  <% images = [item.banner] %>
+<% elsif item.is_a?(Attachment) %>
+  <% images = [item.attachment] %>
+<% elsif item.is_a?(SelfAddedProject) && (item.photos.present? || item.video_link.present?) %>
+    <% if item.photos.present? %>
+      <% multi_image = false %>
+      <% images = item.photos %>
+    <% end %>
+    <% if item.video_link.present? %>
+      <% video = true %>
+      <% images = [get_thumbnail(item.video_link)] %>
+    <% end %>
+<% end %>
+
+
+<div class="product-card">
+  <div class="product-card-thumbnail">
+    <% div_id = "single-product-image-carousel_#{item.id}" %>
+    <div id="<%= div_id%>" class="single-product-image-carousel carousel carousel-dark slide" data-ride="carousel" data-interval="false">
+      <div class="carousel-inner">
+        <% images.each_with_index do |img, index| %>
+          <div class="carousel-item <%= 'active' if index.zero? %>">
+            <% img_url = video ? img : img.url(:large) %>
+            <%= image_tag img_url, class: "d-block w-100 js-open-image", data: { photolink: img_url } %>
+          </div>
+        <% end %>
+      </div>
+      <% if images.size > 1 %>
+        <a class="carousel-control-prev" href="#<%= div_id%>" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <!-- <span class="visually-hidden">Previous</span> -->
+        </a>
+        <a class="carousel-control-next" href="#<%= div_id%>" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <!-- <span class="visually-hidden">Next</span> -->
+        </a>
+        <ol class="carousel-indicators">
+          <% images.each_with_index do |img, index| %>
+            <li data-target="#<%= div_id%>" data-slide-to="<%= index %>" class="<%= 'active' if index.zero? %>"></li>
+          <% end %>
+        </ol>
+      <% end %>
+    </div>
+  </div>
+  <div class="product-name-and-footer-container">
+    <div class="product-card-name-and-by-container">
+      <div class="product-card-product-name"><%= gallery_tile_title(owner) %></div>
+      <div class="product-card-product-by"><%= gallery_tile_company(owner) %></div>
+    </div>
+    <div class="product-card-footer-container">
+      <div class="favorite-share-and-add-button-container">
+        <div class="product-action-button">
+          <i class="fa fa-heart-o" aria-hidden="true"></i> 13
+        </div>
+        <div class="product-action-button">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </div>
+        <div class="product-action-button">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="save-button-container"><%= t('gallery.save') %></div>
+    </div>
+  </div>
+</div>
