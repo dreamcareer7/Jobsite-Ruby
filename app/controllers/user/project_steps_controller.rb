@@ -4,7 +4,7 @@ class User::ProjectStepsController < User::BaseController
   include RestoreProjectOnError
   include EmailHelper
 
-  steps :project_details, :additional_information
+  steps :project_details
 
   def show
     handle_prefilled_project_type
@@ -14,14 +14,14 @@ class User::ProjectStepsController < User::BaseController
 
     @edit_path = wizard_path
     @project =  Project.find(params[:project_id])
-    @category = check_next_step
+    @category = check_next_step(params[:project_type])
     @project_types = ProjectType.appropriate_project_types(@category)
     @services = @category ? @category.services : Service.all
     restore_on_validation_error
 
+    @project.project_services.build unless @project.project_services.present?
     @project.attachments.build if step == :project_details
     @project.build_location if step == :project_details && @project.location.blank?
-    @project.project_services.build if step == :additional_information
 
     if params[:sort_by].present?
       @services = SubCategory.find(params[:sort_by]).services.visible
@@ -33,7 +33,7 @@ class User::ProjectStepsController < User::BaseController
   def update
     @edit_path = wizard_path
     @project = Project.find(params[:project_id])
-    @finished = false
+    @finished = true
     params[:project][:user_id] = current_user.id
 
     required_category = params[:project][:required_category]
@@ -48,13 +48,14 @@ class User::ProjectStepsController < User::BaseController
     end
 
     if @project.update_attributes(project_params)
+
       params[:project][:creation_status] = step.to_s
 
       if required_category.present?
         @project.update_attributes(category_id: required_category, project_status: :new_project)
       end
 
-      final_step(params[:project], "active") if step == steps.last
+      final_step(params[:project], "active")
 
       return if @finished
 
@@ -64,16 +65,18 @@ class User::ProjectStepsController < User::BaseController
       redirect_back(fallback_location: user_profile_index_path)
       flash[:error] = @project.errors.full_messages.first
     end
-
   end
 
-  def check_next_step
+  def check_next_step(type)
     #used to decide which form to push to after basic details are inputted and submitted
-    return unless step == :additional_information
+    # return unless step == :additional_information
 
-    project = Project.find(params[:project_id])
+    # project = Project.find(params[:project_id]i)
+    category = Category.find_by_slug(type)
 
-    Category.find(project.category_id)
+    @project.update(category_id: category.id)
+
+    return category
   end
 
   def final_step(params, creation_status)

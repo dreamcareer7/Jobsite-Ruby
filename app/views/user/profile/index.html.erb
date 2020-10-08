@@ -1,49 +1,47 @@
-<div class="row">
-  <div class="col-md-8 mt-3">
-    <div class="center-container">
-      <h3 class="activity-section-title">Latest Activity</h3>
-      <% if @projects.present? %>
-        <!-- start Single Service list -->
-        <% @projects.each do |project| %>
-          <div class="single-latest-activity-box">
-            <div class="heading-container">
-                <h5 class="heading"><%= project.title %></h5>
-                <div class="sub-heading"><%= time_ago_in_words(project.updated_at) %> <%= t("words.ago") %> - 112 Views - <%= project.number_applied %> interested</div>
-                <div class="sub-heading">
-                  <%= link_to user_project_path(project),  style: "text-decoration: none;color:black" do %>
-                    <span class="activity-preview-button"><i class="fa fa-external-link" aria-hidden="true"></i> Preview</span>
-                  <% end %>
-                  <%= link_to edit_user_project_path(project),  style: "text-decoration: none;color:black" do %>
-                    <span class="activity-edit-button"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span>
-                  <% end %>
-                  <%= link_to user_project_path(project), method: :delete, class: "delete_project", style: "text-decoration: none;color:black", data:{confirm: "Are you sure to delete?"} , remote:true  do %>
-                    <span class="activity-delete-button"><i class="fa fa-times" aria-hidden="true"></i> Delete</span>
-                  <% end %>
-                </div>
-            </div>
-            <div class="icon-container">
-              <div class="icon-and-value">
-                <i class="fa fa-envelope" aria-hidden="true"></i> <span class="value"><%= project.messages.count %></span>
+<div class="col-md-6 mt-3">
+  <div class="center-container">
+    <h3 class="activity-section-title">Latest Activity</h3>
+    <% if @projects.present? %>
+      <!-- start Single Service list -->
+      <% @projects.each do |project| %>
+        <div class="single-latest-activity-box">
+          <div class="heading-container">
+              <h5 class="heading"><%= project.title %></h5>
+              <div class="sub-heading"><%= time_ago_in_words(project.updated_at) %> <%= t("words.ago") %> - 112 Views - <%= project.number_applied %> interested</div>
+              <div class="sub-heading">
+                <%= link_to user_project_path(project),  style: "text-decoration: none;color:black" do %>
+                  <span class="activity-preview-button"><i class="fa fa-external-link" aria-hidden="true"></i> Preview</span>
+                <% end %>
+                <%= link_to edit_user_project_path(project),  style: "text-decoration: none;color:black" do %>
+                  <span class="activity-edit-button"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span>
+                <% end %>
+                <%= link_to user_project_path(project), method: :delete, class: "delete_project", style: "text-decoration: none;color:black", data:{confirm: "Are you sure to delete?"} , remote:true  do %>
+                  <span class="activity-delete-button"><i class="fa fa-times" aria-hidden="true"></i> Delete</span>
+                <% end %>
               </div>
+          </div>
+          <div class="icon-container">
+            <div class="icon-and-value">
+              <i class="fa fa-envelope" aria-hidden="true"></i> <span class="value"><%= project.messages.count %></span>
             </div>
           </div>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <%= link_to t("main_nav.hire_professional"), new_user_project_path(project_type: "default"), class: "btn btn-outline-primary btn-block mt-3" %>
-    <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "supplier"), class: "btn btn-outline-primary btn-block" %>
-    <%= link_to t("main_nav.buy_rent"), new_user_project_path(project_type: "machinery"), class: "btn btn-outline-primary btn-block" %>
-    <%= link_to t("main_nav.add_business"), new_user_business_path,  class:'btn btn-outline-primary btn-block mb-3'  %> 
-    <% unless current_user.pro? %>
-      <div class="card promo-block u-cover">
-        <div class="card__section promo-block__content">
-          <h3 class="u-text-contrast u-text-shadow"><%= t("upgrade.header") %></h3>
-          <p class="u-text-shadow u-text-contrast u-text-muted"><%= t("upgrade.blurb") %></p>
-          <span data-modal="user-upgrade-coming-soon" class="js-open-modal btn btn-outline-primary"><%= t("words.upgrade") %></span>
         </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
+</div>
+<div class="col-md-3">
+  <%= link_to t("main_nav.hire_professional"), new_user_project_path(project_type: "default"), class: "btn btn-outline-primary btn-block mt-3" %>
+  <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "supplier"), class: "btn btn-outline-primary btn-block" %>
+  <%= link_to t("main_nav.buy_rent"), new_user_project_path(project_type: "machinery"), class: "btn btn-outline-primary btn-block" %>
+  <%= link_to t("main_nav.add_business"), new_user_business_path,  class:'btn btn-outline-primary btn-block mb-3'  %> 
+  <% unless current_user.pro? %>
+    <div class="card promo-block u-cover">
+      <div class="card__section promo-block__content">
+        <h3 class="u-text-contrast u-text-shadow"><%= t("upgrade.header") %></h3>
+        <p class="u-text-shadow u-text-contrast u-text-muted"><%= t("upgrade.blurb") %></p>
+        <span data-modal="user-upgrade-coming-soon" class="js-open-modal btn btn-outline-primary"><%= t("words.upgrade") %></span>
+      </div>
+    </div>
+  <% end %>
 </div>

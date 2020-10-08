@@ -1,15 +1,15 @@
-<% content_for :breadcrumbs do %>
-  <%= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [], current_breadcrumb: { name: "#{ t("post_project.header.project_details") } (1 #{ t("words.of") } 2)" } } %>
-<% end %>
+<%# content_for :breadcrumbs do %>
+  <%#= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [], current_breadcrumb: { name: "#{ t("post_project.header.project_details") } (1 #{ t("words.of") } 2)" } } %>
+<%# end %>
 
-<section class="section section--alt">
+<!-- <section class="section section--alt">
   <div class="site-wrap">
-    <h1 class="section-heading"><%= @project_type_header %></h1>
+    <h1 class="section-heading"><%#= @project_type_header %></h1> -->
     <%= simple_form_for @project, url: wizard_path do |f| %>
       <%= render partial: "partials/projects/project_form", locals: { f: f } %>
     <% end %>
-  </div>
-</section>
+<!--   </div>
+</section> -->
 
 <%# restore fields on server validation error %>
 <% if @required_categories.present? %>

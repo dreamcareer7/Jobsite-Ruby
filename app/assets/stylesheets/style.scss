@@ -87,6 +87,7 @@ $ad-background-color:#d6d6d6;
 $body-background-color:#F5F5F5;
 $border-color:#333333;
 $header-menu-background-color:#f8f9fa;
+$category-box-background-color:#F8E5E4;
 
 
 @mixin listing-box-shadow {
@@ -536,4 +537,195 @@ a.sidebar-link {
     transform: translateX(-50%);
 
   }
+}
+
+#estimate-budget-container .input-group-text{
+  padding: unset;
+  border: none;
+  background: unset;
+}
+.form-container-background{
+  background: $white-color;
+}
+.form-label {
+  font-weight: 500;
+}
+.custom-breadcrumb-title{
+  font-weight: 500;
+  font-size: 23px;
+}
+.custom-breadcrumb-title-right{
+  line-height: 35px;
+}
+.form-check-input:checked{
+  background-color: $primary-color;
+  border: $primary-color;
+}
+.form-check-input:focus{
+  box-shadow: 0 0 0 0.2rem rgba($primary-color,.25);
+}
+.form-control:focus {
+  border-color:$primary-color;
+  box-shadow: 0 0 0 0.2rem rgba($primary-color,.25);
+}
+.form-select:focus {
+  border-color:$primary-color;
+  box-shadow: 0 0 0 0.2rem rgba($primary-color,.25);
+}
+
+
+
+.product-name-and-footer-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 15px;
+}
+.product-card-name-and-by-container {
+  border-bottom: 1px solid $border-color;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+.product-card-product-by{
+  font-size: 12px;
+}
+
+.favorite-share-and-add-button-container{
+  display: flex;
+}
+.favorite-share-and-add-button-container .product-action-button{
+  margin-right: 10px;
+}
+
+.btn-primary{
+  background: $primary-color;
+  border-color: $primary-color;
+}
+
+.btn-primary:hover{
+  background: $primary-color;
+  border-color: $primary-color;
+  opacity: 0.8;
+}
+#single-product-image-carousel .carousel-indicators li{
+    filter: invert(1);
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+}
+
+#single-product-image-carousel .carousel-control-next, #single-product-image-carousel .carousel-control-prev{
+  filter: invert(1);
+}
+#single-product-image-carousel .carousel-indicators{
+  margin-bottom: 0rem;
+}
+@media screen and (max-width: 768px) {
+  .gallery-page-product-list .product-card{
+    flex-basis: calc(50% - 15px);
+  }
+}
+
+
+.hire-a-professional-category-container{
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(100% + 15px);
+
+  .hire-a-professional-category-box{
+    background-color: rgba($white-color,1);
+    box-shadow: 0 4px 10px rgba($border-color,.15);
+    @include border-radius;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: calc(50% - 15px);
+    height: auto;
+    transition: .3s;
+    margin-right: 15px;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    cursor: pointer;
+    // border: 1px solid rgba($primary-color,1);
+  }
+  .category-image{
+    width: 50px;
+    height: 50px;
+    margin-bottom: 15px;
+  }
+
+
+  input[type="radio"] {
+    opacity: 0;
+    position: fixed;
+    width: auto;
+  }
+  label {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    padding: 40px 15px;
+    border: 1px solid rgba($border-color,0.43);
+    @include border-radius;
+  }
+
+  label:hover {
+    background-color: rgba($category-box-background-color,1);
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba($primary-color,1);
+    @include border-radius;
+  }
+  input[type="radio"]:focus + label {
+    border: 1px solid rgba($primary-color,1);
+    @include border-radius;
+  }
+  input[type="radio"]:checked {
+    border: 1px solid rgba($primary-color,1);
+    @include border-radius;
+  }
+  input[type="radio"]:checked + label {
+    background-color: rgba($category-box-background-color,1);
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba($primary-color,1);
+    @include border-radius;
+  }
+
+}
+.text-warning{
+  color: $primary-color !important;
+}
+.three-column-checkbox-list{
+  padding-left: 0;
+  column-count: 3;
+  column-gap: 2rem;
+}
+.three-column-checkbox-list li{
+  list-style-type: none;
+}
+.two-column-checkbox-list{
+  padding-left: 0;
+  column-count: 2;
+  column-gap: 2rem;
+}
+.two-column-checkbox-list li{
+  list-style-type: none;
+}
+
+.remove-attachment-button {
+    display: none;
+}
+
+.field-input-padding {
+  padding: 0 0 16px 16px !important;
+}
+
+.btn-browse {
+  padding: 0.750rem 1rem;
 }

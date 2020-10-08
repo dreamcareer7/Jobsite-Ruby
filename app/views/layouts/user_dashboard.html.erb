@@ -27,7 +27,7 @@
 
     <div class="page-wrap">
       <%= render partial: "partials/nav/user_dashboard_nav/main" unless current_page?(controller: '/home') || current_page?(controller: '/cities') %>
-      <%= yield :sub_nav %>
+      <%= render partial: "partials/user/profile/profile_header" %>
       <%= yield :breadcrumbs %>
       <div class="container">
         <div class="row">
@@ -54,10 +54,9 @@
           </div>
         </div>
         <div class="row mt-2">
-          <%= yield :side_bar %>
-          <div class="col-md-9">
-            <%= yield %>
-          </div>
+          <%#= yield :side_bar %>
+          <%= yield :sub_nav %>
+          <%= yield %>
         </div>
       </div>
       <%= render partial: "partials/nav/user_dashboard_nav/footer" %>

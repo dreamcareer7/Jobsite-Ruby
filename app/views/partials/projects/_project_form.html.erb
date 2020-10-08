@@ -1,52 +1,52 @@
-<%= content_for :section_header do %>
-  <%= render partial: "partials/form_headers/new_project" %>
-<% end %>
+<!-- <%##= content_for :section_header do %>
+  <%#= render partial: "partials/form_headers/new_project" %>
+<%# end %>
 
 <div class="grid grid--center js-location-fields">
-  <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-<%= action_name == 'edit' ? '12' : '8' %> ">
+  <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-<%#= action_name == 'edit' ? '12' : '8' %> ">
     <div class="card">
 
       <div class="card__section card__section--padded">
-        <% unless current_admin %>
+        <%# unless current_admin %>
           <div class="mb2">
-            <small><%= t("post_project.prompt.post") %></small>
+            <small><%#= t("post_project.prompt.post") %></small>
           </div>
-        <% end %>
+        <%# end %>
         <div class="card__header">
-          <h4 class="card__title"><%= inline_svg("icons/briefcase.svg", class: "icon icon--dark icon--small") %><%= t("post_project.header.general") %></h4>
+          <h4 class="card__title"><%#= inline_svg("icons/briefcase.svg", class: "icon icon--dark icon--small") %><%#= t("post_project.header.general") %></h4>
         </div>
         <fieldset class="fieldset">
           <div class="grid">
             <div class="grid__col--xs-12 grid__col--md-12">
               <div class="field">
-                <%= f.input :title, wrapper: :text_field, placeholder: t("post_project.fields.project_name.placeholder"), label: t("post_project.fields.project_name.label"), required: true %>
+                <%#= f.input :title, wrapper: :text_field, placeholder: t("post_project.fields.project_name.placeholder"), label: t("post_project.fields.project_name.label"), required: true %>
               </div>
             </div>
-            <% unless action_name == "edit" %>
+            <%# unless action_name == "edit" %>
               <div class="grid__col--xs-12 grid__col--md-12">
                 <div class="field">
-                  <label class="field__label">* <%= t("post_project.fields.category.label") %></label>
+                  <label class="field__label">* <%#= t("post_project.fields.category.label") %></label>
                   <div class="control-group">
-                    <% Category.order_by_type.each do |category| %>
-                      <% if @project_type.present? %>
-                        <% next unless @project_type.include?(category) %>
-                      <% end %>
+                    <%# Category.order_by_type.each do |category| %>
+                      <%# if @project_type.present? %>
+                        <%# next unless @project_type.include?(category) %>
+                      <%# end %>
                       <label class="control-group__item control">
-                        <%= f.radio_button :required_category, category.id, class: "control__input js-required-category", checked: @project_type.present? && @project_type.length == 1 %>
+                        <%#= f.radio_button :required_category, category.id, class: "control__input js-required-category", checked: @project_type.present? && @project_type.length == 1 %>
                         <span class="control__indicator control__indicator--checkbox">
-                          <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
+                          <%#= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
                         </span>
-                        <span class="control__label"><%= category.name.singularize %></span>
+                        <span class="control__label"><%#= category.name.singularize %></span>
                       </label>
-                    <% end %>
+                    <%# end %>
                   </div>
                 </div>
               </div>
-            <% end %>
+            <%# end %>
             <div class="grid__col--xs-12 grid__col--md-12">
               <div class="field">
                 <div class="field__input-wrapper">
-                  <%= f.input :description, as: :text, wrapper: :text_area, placeholder: t("post_project.fields.description.placeholder"), label: t("post_project.fields.description.label"), required: true %>
+                  <%#= f.input :description, as: :text, wrapper: :text_area, placeholder: t("post_project.fields.description.placeholder"), label: t("post_project.fields.description.label"), required: true %>
                 </div>
               </div>
             </div>
@@ -56,66 +56,66 @@
 
       <div class="card__section card__section--padded">
         <div class="card__header">
-          <h4 class="card__title"><%= inline_svg("icons/location.svg", class: "icon icon--dark icon--small") %><%= t("post_project.header.location") %></h4>
+          <h4 class="card__title"><%#= inline_svg("icons/location.svg", class: "icon icon--dark icon--small") %><%#= t("post_project.header.location") %></h4>
         </div>
         <fieldset class="fieldset">
           <div class="grid">
-            <%= f.simple_fields_for :location do |l| %>
-              <%= render partial: "partials/location/choose_location", locals: { l: l } %>
-            <% end %>
+            <%#= f.simple_fields_for :location do |l| %>
+              <%#= render partial: "partials/location/choose_location", locals: { l: l } %>
+            <%# end %>
           </div>
         </fieldset>
       </div>
 
       <div class="card__section card__section--padded">
         <div class="card__header">
-          <h4 class="card__title"><%= inline_svg("icons/pencil.svg", class: "icon icon--dark icon--small") %><%= t("post_project.header.details") %></h4>
+          <h4 class="card__title"><%#= inline_svg("icons/pencil.svg", class: "icon icon--dark icon--small") %><%#= t("post_project.header.details") %></h4>
         </div>
         <fieldset class="fieldset">
           <div class="grid">
             <div class="grid__col--xs-12 grid__col--xlg-6">
               <div class="field">
-                <label class="field__label">* <%= t("post_project.fields.currency.label") %></label>
+                <label class="field__label">* <%#= t("post_project.fields.currency.label") %></label>
                 <div class="field__input-wrapper">
-                  <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-                  <%= f.input :currency_type, collection: Project.i18n_enum_collection(:currency_types), as: :select, input_html: { class: "field__input field__input--right-add-on" }, label: false, required: true, include_blank: true %>
+                  <%#= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                  <%#= f.input :currency_type, collection: Project.i18n_enum_collection(:currency_types), as: :select, input_html: { class: "field__input field__input--right-add-on" }, label: false, required: true, include_blank: true %>
                 </div>
               </div>
             </div>
             <div class="grid__col--xs-12 grid__col--xlg-6">
               <div class="field">
-                <label class="field__label">* <%= t("post_project.fields.budget.label") %></label>
+                <label class="field__label">* <%#= t("post_project.fields.budget.label") %></label>
                 <div class="field__input-wrapper">
-                  <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-                  <%= f.input :project_budget, selected: @project.project_budget.present? ? @project.project_budget : '', input_html: { class: "field__input field__input--right-add-on" }, label: false, required: true, include_blank: true %>
+                  <%#= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                  <%#= f.input :project_budget, selected: @project.project_budget.present? ? @project.project_budget : '', input_html: { class: "field__input field__input--right-add-on" }, label: false, required: true, include_blank: true %>
                 </div>
               </div>
             </div>
             <div class="grid__col--xs-12 grid__col--xlg-6">
               <div class="field">
-                <label class="field__label">* <%= t("post_project.fields.timeline.label") %></label>
+                <label class="field__label">* <%#= t("post_project.fields.timeline.label") %></label>
                 <div class="field__input-wrapper">
-                  <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-                  <%= f.input :timeline_type, collection: Project.i18n_enum_collection(:timeline_types), as: :select, input_html: { class: "field__input field__input--right-add-on" }, label: false, required: true, include_blank: true %>
+                  <%#= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                  <%#= f.input :timeline_type, collection: Project.i18n_enum_collection(:timeline_types), as: :select, input_html: { class: "field__input field__input--right-add-on" }, label: false, required: true, include_blank: true %>
                 </div>
               </div>
             </div>
             <div class="grid__col--xs-12 grid__col--xlg-6"></div>
             <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
               <div class="field">
-                <label class="field__label">* <%= t("post_project.fields.start_date.label") %></label>
+                <label class="field__label">* <%#= t("post_project.fields.start_date.label") %></label>
                 <div class="field__input-wrapper">
-                  <%= inline_svg("icons/calendar.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
-                  <%= f.input :start_date, wrapper: :date_picker, as: :date_picker_future, required: true %>
+                  <%#= inline_svg("icons/calendar.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
+                  <%#= f.input :start_date, wrapper: :date_picker, as: :date_picker_future, required: true %>
                 </div>
               </div>
             </div>
             <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
               <div class="field">
-                <label class="field__label">* <%= t("post_project.fields.end_date.label") %></label>
+                <label class="field__label">* <%#= t("post_project.fields.end_date.label") %></label>
                 <div class="field__input-wrapper">
-                  <%= inline_svg("icons/calendar.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
-                  <%= f.input :end_date, wrapper: :date_picker, as: :date_picker_future, required: true %>
+                  <%#= inline_svg("icons/calendar.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
+                  <%#= f.input :end_date, wrapper: :date_picker, as: :date_picker_future, required: true %>
                 </div>
               </div>
             </div>
@@ -125,22 +125,22 @@
 
       <div class="card__section card__section--padded">
         <div class="card__header">
-          <h4 class="card__title"><%= inline_svg("icons/gallery.svg", class: "icon icon--dark icon--small") %><%= t("post_project.header.attachments") %></h4>
+          <h4 class="card__title"><%#= inline_svg("icons/gallery.svg", class: "icon icon--dark icon--small") %><%#= t("post_project.header.attachments") %></h4>
         </div>
         <fieldset class="fieldset">
           <div class="grid">
             <div class="grid__col--xs-12 grid__col--md-12">
               <div class="field field--has-btn">
-                <label class="field__label"><%= t("post_project.fields.attachments.label") %></label>
-                <%= f.simple_fields_for :attachments do |attachment| %>
-                  <%= render 'user/project_steps/existing_attachment_fields', f: attachment unless attachment.object.new_record? %>
-                <% end %>
-                <%= f.simple_fields_for :attachments do |attachment| %>
-                  <%= render 'user/project_steps/attachment_fields', f: attachment if attachment.object.new_record? %>
-                <% end %>
+                <label class="field__label"><%#= t("post_project.fields.attachments.label") %></label>
+                <%#= f.simple_fields_for :attachments do |attachment| %>
+                  <%#= render 'user/project_steps/existing_attachment_fields', f: attachment unless attachment.object.new_record? %>
+                <%# end %>
+                <%#= f.simple_fields_for :attachments do |attachment| %>
+                  <%#= render 'user/project_steps/attachment_fields', f: attachment if attachment.object.new_record? %>
+                <%# end %>
                 <div class="field">
                   <div class="field__input-wrapper">
-                    <%= link_to_add_association t("post_project.fields.attachments.add_attachment"), f, :attachments, partial: "user/project_steps/attachment_fields" %>
+                    <%#= link_to_add_association t("post_project.fields.attachments.add_attachment"), f, :attachments, partial: "user/project_steps/attachment_fields" %>
 
                   </div>
                 </div>
@@ -152,33 +152,33 @@
 
       <div class="card__section card__section--padded card__section--border">
         <div class="card__header">
-          <h4 class="card__title"><%= inline_svg("icons/user.svg", class: "icon icon--dark icon--small") %><%= t("post_project.header.project_contact") %></h4>
+          <h4 class="card__title"><%#= inline_svg("icons/user.svg", class: "icon icon--dark icon--small") %><%#= t("post_project.header.project_contact") %></h4>
         </div>
         <fieldset class="fieldset">
           <div class="grid">
             <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
               <div class="field">
-                <%= f.input :contact_name, wrapper: :text_field, placeholder: t("post_project.fields.contact.name.placeholder"), label: t("post_project.fields.contact.name.label"), input_html: { value: current_user.present? ? current_user.name : @project.user.name }, required: true %>
+                <%#= f.input :contact_name, wrapper: :text_field, placeholder: t("post_project.fields.contact.name.placeholder"), label: t("post_project.fields.contact.name.label"), input_html: { value: current_user.present? ? current_user.name : @project.user.name }, required: true %>
               </div>
             </div>
             <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
               <div class="field">
-                <%= f.input :prevent_autocomplete, as: :fake, input_html: { class: "u-hide", name: "project[contact_email]", type: "text" }, label: false %>
-                <%= f.input :contact_email, wrapper: :text_field, placeholder: t("post_project.fields.contact.email.placeholder"), label: t("post_project.fields.contact.email.label"), input_html: { value: current_user.present? ? current_user.email : @project.user.email }, required: true %>
+                <%#= f.input :prevent_autocomplete, as: :fake, input_html: { class: "u-hide", name: "project[contact_email]", type: "text" }, label: false %>
+                <%#= f.input :contact_email, wrapper: :text_field, placeholder: t("post_project.fields.contact.email.placeholder"), label: t("post_project.fields.contact.email.label"), input_html: { value: current_user.present? ? current_user.email : @project.user.email }, required: true %>
               </div>
             </div>
             <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
               <div class="field">
-                <label class="field__label">* <%= t("post_project.fields.contact.role.label") %></label>
+                <label class="field__label">* <%#= t("post_project.fields.contact.role.label") %></label>
                 <div class="field__input-wrapper">
-                  <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-                  <%= f.input :contact_role, collection: Project.project_roles, as: :select, input_html: { class: "field__input field__input--right-add-on" }, label: false, required: true, include_blank: true %>
+                  <%#= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                  <%#= f.input :contact_role, collection: Project.project_roles, as: :select, input_html: { class: "field__input field__input--right-add-on" }, label: false, required: true, include_blank: true %>
                 </div>
               </div>
             </div>
             <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
               <div class="field">
-                <%= f.input :contact_number, wrapper: :text_field, placeholder: t("post_project.fields.contact.number.placeholder"), label: t("post_project.fields.contact.number.label"), input_html: { value: @project && @project.contact_number ? @project.contact_number : current_user ? current_user.mobile_number : nil, class: "js-phone" }, required: true %>
+                <%#= f.input :contact_number, wrapper: :text_field, placeholder: t("post_project.fields.contact.number.placeholder"), label: t("post_project.fields.contact.number.label"), input_html: { value: @project && @project.contact_number ? @project.contact_number : current_user ? current_user.mobile_number : nil, class: "js-phone" }, required: true %>
               </div>
             </div>
           </div>
@@ -190,7 +190,7 @@
           <div class="grid">
             <div class="grid__col--xs-12 grid__col--md-12 u-text-right">
               <div class="field">
-                <%= f.submit action_name == "edit" ? t("form.update") : t("post_project.submit"), class: "btn btn--xs-full btn--primary" %>
+                <%#= f.submit action_name == "edit" ? t("form.update") : t("post_project.submit"), class: "btn btn--xs-full btn--primary" %>
               </div>
             </div>
           </div>
@@ -200,3 +200,6 @@
     </div>
   </div>
 </div>
+ -->
+ 
+<%= render partial: I18n.with_locale(:en) { @category.name.downcase }, locals: { f: f } %>

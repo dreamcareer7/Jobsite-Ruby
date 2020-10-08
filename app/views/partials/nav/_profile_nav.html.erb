@@ -1,4 +1,4 @@
-<div class="col-md-3">
+<div class="col-md-3 mt-3">
   <div class="dashboard-sidebar-profile-container">
     <%= image_tag current_user.profile_image.url %>
     <p class="dashboard-sidebar-username"><%= current_user.name.split.first %></p>
@@ -12,7 +12,7 @@
       <%= current_user.profile_completion == 100 ?
         t("user_dashboard.edit") :
         t("user_dashboard.complete_it") %>
-        <i class="fa fa-pencil" aria-hidden="true"></i></span>
+        <i class="fa fa-pencil" aria-hidden="true"></i>
       <% end %>
     </p>
   </div>
