@@ -104,6 +104,7 @@
 
     <% if controller_name == "gallery" %>
       <%= render partial: "modals/video_player/video_player" %>
+      <%= render partial: "modals/image/show" %>
     <% end %>
 
     <% if ["businesses", "sub_categories", "services", "categories", "projects"].include? controller_name %>

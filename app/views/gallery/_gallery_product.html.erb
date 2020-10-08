@@ -16,7 +16,6 @@
     <% end %>
 <% end %>
 
-
 <div class="product-card">
   <div class="product-card-thumbnail">
     <% div_id = "single-product-image-carousel_#{item.id}" %>
@@ -24,8 +23,13 @@
       <div class="carousel-inner">
         <% images.each_with_index do |img, index| %>
           <div class="carousel-item <%= 'active' if index.zero? %>">
-            <% img_url = video ? img : img.url(:large) %>
-            <%= image_tag img_url, class: "d-block w-100 js-open-image", data: { photolink: img_url } %>
+            <% img_url = video ? images[0] : img.url(:large) %>
+            <% if video %>
+              <%= image_tag img_url, class: "d-block w-100", data: { modal: "video-player", "video-link": item.video_link } %>
+            <% else %>
+              <%= image_tag img_url, class: "d-block w-100 js-open-modal", data: { photolink: img_url, modal: "image-viewer" } %>
+            <% end %>
+
           </div>
         <% end %>
       </div>
@@ -49,18 +53,28 @@
   <div class="product-name-and-footer-container">
     <div class="product-card-name-and-by-container">
       <div class="product-card-product-name"><%= gallery_tile_title(owner) %></div>
-      <div class="product-card-product-by"><%= gallery_tile_company(owner) %></div>
+      <div class="product-card-product-by">
+        <%= link_to business_path(id: gallery_item_slug(owner), city: @current_city.slug, targetSection: 'projects-all'), class: '' do %>
+        <%= gallery_tile_company(owner) %>
+          <%end%>
+        </div>
     </div>
+
     <div class="product-card-footer-container">
       <div class="favorite-share-and-add-button-container">
         <div class="product-action-button">
-          <i class="fa fa-heart-o" aria-hidden="true"></i> 13
+          <%= like_gallery_button(item) %>
+          <%= item.favoratable_count %>
         </div>
-        <div class="product-action-button">
-          <i class="fa fa-share-alt" aria-hidden="true"></i>
-        </div>
-        <div class="product-action-button">
-          <i class="fa fa-plus" aria-hidden="true"></i>
+        <div class="product-action-button has-popover">
+          <i class="fa fa-share-alt js-open-popover " aria-hidden="true"></i>
+          <div class="popover popover--right">
+            <%= link_to 'facebook', fb_share_url(owner), class: "popover__link", target: "_blank" %>
+            <%= link_to "linkedin", linkedin_share_url(owner), class: "popover__link", target: "_blank" %>
+            <%= link_to "whatsapp", whatsapp_share_url(owner), class: "popover__link", target: "_blank" %>
+            <%= link_to "twitter", twitter_share_url(owner), class: "popover__link", target: "_blank" %>
+            <%= link_to "Mail", "mailto:?subject=&body=" + business_share_url(owner), class: "popover__link", target: "_blank" %>
+          </div>
         </div>
       </div>
       <div class="save-button-container"><%= t('gallery.save') %></div>

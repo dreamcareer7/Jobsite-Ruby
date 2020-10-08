@@ -89,8 +89,8 @@ class Business < ApplicationRecord
   has_one :business_contact
   has_one :social_links, as: :owner, dependent: :destroy
   has_one :photo_gallery, as: :owner, dependent: :destroy
-
   has_one :brand
+
   has_many :quotes
   has_many :reviews
   has_many :shortlists
@@ -124,6 +124,7 @@ class Business < ApplicationRecord
   has_many :hours_of_operation
   has_many :branch_hours_of_operation, through: :locations, source: :hours_of_operation
   has_many :admin_notifications, dependent: :destroy
+  has_many :favorites, as: :favoratable
 
   has_many :outgoing_notifications, -> (business) { where(sending_user_id: business.id, sending_user_type: 'Business' )}, class_name: "Notification", foreign_key: :sending_user_id
   has_many :incoming_notifications, -> (business) { where(receiving_user_id: business.id, receiving_user_type: 'Business' )}, class_name: "Notification", foreign_key: :receiving_user_id
@@ -494,7 +495,7 @@ class Business < ApplicationRecord
     ]
 
     completed = (
-      ((fields_for_complete_profile.count(&:present?).to_f / 
+      ((fields_for_complete_profile.count(&:present?).to_f /
         fields_for_complete_profile.count.to_f) * 100)
       .round)
 
@@ -517,7 +518,7 @@ class Business < ApplicationRecord
       .pluck(:project_id)).where(project_status: :new_project)
 
     outstanding = projects.select do |project|
-      !project.applied_to_projects.pluck(:business_id).include?(self.id) && 
+      !project.applied_to_projects.pluck(:business_id).include?(self.id) &&
         !project.shortlists.pluck(:business_id).include?(self.id) &&
         !self.hidden_resources.pluck(:project_id).include?(project.id)
     end

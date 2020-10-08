@@ -27,7 +27,8 @@ setupModals = function() {
   $(document).on('click', '.js-open-modal', function() {
     if ($(this).data('modal') === 'call-now') handleDecodeNumber( $(this).attr('data-phone'), $(this) );
     if ($(this).data('modal') === 'video-player') handleVideoPlayer( $(this).attr('data-video-link'), $(this) );
-    if ($(this).data('modal') === 'please-log-in') setupLoginRedirect( $(this).attr('data-modal-target'), $(this).attr('data-modal-target-business'), $(this).attr('data-modal-redirect') );
+    if ($(this).data('modal') === 'please-log-in')setupLoginRedirect( $(this).attr('data-modal-target'), $(this).attr('data-modal-target-business'), $(this).attr('data-modal-redirect') );
+    if ($(this).data('modal') === 'image-viewer')handleImageViewer( $(this).attr('data-photolink'), $(this) );
 
     $('.modal').removeClass('is-visible');
     $('.js-' + $(this).data('modal')).addClass('is-visible');
@@ -58,6 +59,10 @@ setupModals = function() {
 
   function handleVideoPlayer(video, $this) {
     $('.js-video-target').prop('src', video + '?autoplay=1');
+  }
+
+  function handleImageViewer(image, $this) {
+    $('.js-image-target').prop('src', image);
   }
 
   //Setup redirect to appropriate form
@@ -98,7 +103,7 @@ setupModals = function() {
         weekend = weekendHours + shiftOneWeekend + shiftTwoWeekend;
       } else if (businessHours.weekend_hours.shift_one_start) {
         weekend =  weekendHours + shiftOneWeekend;
-      } 
+      }
 
     }
 

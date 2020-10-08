@@ -50,6 +50,7 @@ Rails.application.routes.draw do
 
   namespace :user do
     resources :photo_gallery
+    resources :like_gallery, only: [:create, :destroy]
     resources :profile, only: [:index]
     resources :messages
     resources :inbox, only: [:index, :show]

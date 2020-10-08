@@ -14,7 +14,9 @@ class User < ApplicationRecord
   has_one :photo_gallery, as: :owner, dependent: :destroy
 
   has_many :reviews
+  has_many :favorites
   has_many :follows
+  has_many :favorites
   has_many :businesses
   has_many :followed_businesses, through: :follows, source: :follow_target, source_type: "Business"
   has_many :favourites
@@ -145,7 +147,7 @@ class User < ApplicationRecord
   def unread_business_notifications
     return unless self.businesses.present?
 
-    unread = self.businesses.reduce(0) do |total, business| 
+    unread = self.businesses.reduce(0) do |total, business|
       total += business.unread_notifications.count
     end
 
@@ -200,7 +202,7 @@ class User < ApplicationRecord
     ]
 
     completed = (
-      ((fields_for_complete_profile.count(&:present?).to_f / 
+      ((fields_for_complete_profile.count(&:present?).to_f /
         fields_for_complete_profile.count.to_f) * 100)
       .round)
 
@@ -228,7 +230,7 @@ class User < ApplicationRecord
 
   def update_sendgrid_contacts
     # only add contacts on prod
-    
+
     prepare_user_contact(self) if ENV["DOMAIN"] == "muqawiloon.com"
   end
 
