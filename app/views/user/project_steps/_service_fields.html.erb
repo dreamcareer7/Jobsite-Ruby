@@ -1,112 +1,205 @@
-<%= simple_form_for @project, url: @edit_path do |f| %>
+<%#= simple_form_for @project, url: @edit_path do |f| %>
 
-  <div class="card">
+
+
+  <!-- <div class="card">
     <div class="card__section card__section--padded">
       <div class="card__header">
         <div class="card__title">
-          <h4 class="card__title"><%= inline_svg("icons/paint.svg", class: 'icon icon--dark icon--small') %><%= t("post_project.project_type") %></h4>
+          <h4 class="card__title"><%#= inline_svg("icons/paint.svg", class: 'icon icon--dark icon--small') %><%#= t("post_project.project_type") %></h4>
         </div>
       </div>
       <fieldset class="fieldset">
         <div class="grid">
-          <div class="grid__col--xs-12 grid__col--md-12">
-            <%= f.association :project_types, collection: @project_types, selected: @project.project_types.pluck(:id), input_html: { style: "width:100%", multiple: true }, wrapper: :select2, label: false %>
-            <%# end%>
+          <div class="grid__col--xs-12 grid__col--md-012"> -->
+            <%#= f.association :project_types, collection: @project_types, selected: @project.project_types.pluck(:id), input_html: { style: "width:100%", multiple: true }, wrapper: :select2, label: false %>
+            <!-- <%# end%>
           </div>
         </div>
       </fieldset>
     </div>
-  </div>
+  </div> -->
 
-  <div class="card">
+  <!-- <div class="card">
 
     <div class="card__section card__section--padded">
       <div class="card__header">
         <div class="card__title">
-          <h4 class="card__title"><%= inline_svg("icons/#{ I18n.with_locale(:en){ @category.name.downcase } }.svg", class: "icon icon--small icon--dark")%> <%= t("post_project.service_type", category: @category.name.downcase.singularize) %></h4>
+          <h4 class="card__title"><%#= inline_svg("icons/#{ I18n.with_locale(:en){ @category.name.downcase } }.svg", class: "icon icon--small icon--dark")%> <%#= t("post_project.service_type", category: @category.name.downcase.singularize) %></h4>
         </div>
-      </div>
-      <fieldset class="fieldset">
+      </div> -->
+      <!-- <fieldset class="fieldset">
         <div class="grid">
           <div class="grid__col--xs-12 grid__col--md-12">
             <div class="field">
-              <div class="field__input-wrapper">
-                <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-                <%= f.input :project_services, collection: @project.category.sub_categories.visible, selected: @project.sub_categories.present? ? @project.sub_categories.first.id : '', input_html: { class: "field__input field__input--right-add-on js-selected-subcat" }, label: false, required: true, include_blank: true %>
-              </div>
+              <div class="field__input-wrapper"> -->
+                <%#= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                <%#= f.input :project_services, collection: @project.category.sub_categories.visible, selected: @project.sub_categories.present? ? @project.sub_categories.first.id : '', input_html: { class: "field__input field__input--right-add-on js-selected-subcat" }, label: false, required: true, include_blank: true %>
+              <!-- </div>
             </div>
           </div>
         </div>
       </fieldset>
-    </div>
+    </div> -->
 
-    <% @category.sub_categories.visible.each do |sub_category| %>
-      <div class="card__section card__section--padded js-select-services <%= 'u-hide' unless @project.sub_categories.include?(sub_category) %>" data-sub-cat="<%= sub_category.id %>">
-        <div class="card__header">
-          <div class="card__title">
-            <h4 class="card__title"><%= sub_category.name.singularize %> <%= t("words.services") %></h4>
-          </div>
-        </div>
-        <fieldset class="fieldset">
-          <div class="grid">
-            <div class="grid__col--xs-12 grid__col--md-12">
-              <div class="field">
-                <label class="field__label">* <%= t("post_project.project_services") %></label>
-                <%= f.association :services, collection: sub_category.services.visible, selected: @project.services.pluck(:id), input_html: { multiple: true, style: "width:100%", class: "js-selected-services" }, wrapper: :select2, label: false %>
-              </div>
-            </div>
-          </div>
+    <div class="mb-4"><!-- start field -->
+      <div>
+        <label for="looking-for" class="form-label">What type of contractors are you looking for?</label>
       </div>
-    <% end %>
 
-  </div>
+      <%= f.input :project_services, collection: @project.category.sub_categories.visible, selected: @project.sub_categories.present? ? @project.sub_categories.first.id : '', input_html: { class: "form-select js-selected-subcat", aria: { label: "Default select example" }, style: "height:calc(1.5em + .75rem + 2px);" }, label: false, required: true, include_blank: true %>
+    </div><!-- End field -->
 
-  <div class="card">
-    <div class="card__section">
-      <fieldset class="fieldset">
-        <div class="grid">
-          <div class="grid__col--xs-12 grid__col--md-12">
-            <div class="field u-text-right">
-              <div class="btn-group btn-group--full">
-                <%= f.submit t("post_project.submit"), class: "btn-group__item btn--xs-full btn btn--primary js-submit" %>
-                <% if @project.new_record? %>
-                  <%= link_to t("words.skip"), skip_user_project_project_step_path(skip_project: @project), class: "btn-group__item btn btn--xs-full btn--secondary", method: :put %>
-                <% end %>
+
+    <div class="mb-4"><!-- start field -->
+      <div>
+          <label for="specify-your-needs." class="form-label">Select services (optional)</label>
+      </div>
+      
+      <% @category.sub_categories.visible.each do |sub_category| %>
+        <ul class="three-column-checkbox-list js-select-services <%="u-hide" unless @project.sub_categories.include?(sub_category) %>" data-sub-cat="<%= sub_category.id %>">
+          <% sub_category.services.visible.each_with_index do |sub_category_service, index| %>
+            <li>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox<%= index+1 %>" value="<%= sub_category_service.id %>" name="project[service_ids][]">
+                <label class="form-check-label" for="inlineCheckbox<%= index+1 %>"><%= sub_category_service.name %></label>
               </div>
-            </div>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div><!-- End field -->
+
+    <div class="mb-4">
+      <label for="request-title" class="form-label">Title of your request</label>
+      <%= f.input :title, wrapper: :text_field, input_html: { style: "height:calc(1.5em + .75rem + 2px);" }, placeholder: "I need:",label: false, required: true %>
+    </div>
+
+    <div class="mb-4">
+      <label for="describe-your-request" class="form-label">Describe your request to  help us understand what you want</label>
+      <%= f.input :description, as: :text, wrapper: :text_area, placeholder: t("post_project.fields.description.placeholder"), input_html: { class: "form-control", id:"describe-your-request" }, label:false, required: true %>
+    </div>
+
+    <div class="mb-4"><!-- start field -->
+      <div>
+        <label for="Requirements" class="form-label">Requirements</label>
+      </div>
+      <ul class="two-column-checkbox-list">
+      <% @project_types.each_with_index do |project_type, index|%>
+        <li>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox<%= index + 1 %>" value="<%= project_type.id %>" name="project[project_type_ids][]">
+            <label class="form-check-label" for="inlineCheckbox<%= index + 1 %>"><%= project_type.name %></label>
+          </div>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+
+    <!-- Project Location field start -->
+    <div class="mb-4"><!-- start field -->
+      <label for="Location" class="form-label">Location</label>
+      <%= f.simple_fields_for :location do |l| %>
+        <div class="input-group">
+          <div class="col-md-5">
+            <% if l.object.new_record? %>
+              <%= l.input :country_for_select, collection: @countries, input_html: { class: " rails-country-for-select form-control mb-3", id: "country", style: " width:100%; height:calc(1.5em + .75rem + 2px);"}, required: true,  placeholder: "Country"  %>
+            <% else %>
+              <%= l.input :country_for_select, collection: @countries, placeholder: "Country",  input_html: { class: "rails-country-for-select form-control mb-3", id: "country", style: "width:100%; height:calc(1.5em + .75rem + 2px);"}, required: true, selected: l.object.city.country.id, placeholder: "Country"  %>
+            <% end %> 
+          </div>
+
+          <div class="col-md-1"></div>
+
+          <div class="col-md-6">                  
+            <%= l.input :city_id, collection: @cities, placeholder: "City", input_html: { class: " js-city rails-display-cities form-control mb-3", id:"city", style: "width:100%; height:calc(1.5em + .75rem + 2px);" }, required: true, placeholder: "City" %>
           </div>
         </div>
-    </div>
-  </div>
 
-<% end %>
+        <%= l.input :street_address, wrapper: :text_field, input_html: { class: "js-street-address form-control", id:"street-address", style: "height:calc(1.5em + .75rem + 2px);" }, required: true, label:false, placeholder: "Street address" %>
+        <%#= render partial: "partials/location/choose_location", locals: { l: l } %>
+      <% end %>
+      <p class="text-warning">Pick location on the map instead</p>
+    </div>
+    <!-- Project Location field end -->
+
+    <div class="mb-4"><!-- start field -->
+      <div>
+        <label for="estimate-budget" class="form-label">Estimate budget</label>
+      </div>
+
+      <div class="input-group" id="estimate-budget-container">
+        <div class="col-md-1 input-group-text" >
+          <%= f.input :currency_type, collection: Project.i18n_enum_collection(:currency_types), as: :select, input_html: { class: "form-select", aria: { label: "Timeline" }, style: "height:calc(1.5em + .75rem + 2px);" }, label: false, required: true, include_blank: true %>
+        </div>
+        <div class="col-md-11"> 
+          <%= f.input :project_budget, selected: @project.project_budget.present? ? @project.project_budget : '', input_html: { class: "form-select", aria: {label: "Timeline"}, style: "width:100%" }, label: false, required: true %>
+        </div>
+      </div>
+    </div><!-- end field -->
+
+    <div class="mb-4"><!-- start field -->
+      <div>
+        <label for="timeline" class="form-label">Timeline</label>
+      </div>
+
+      <div class="input-group">
+        <div class="col-md-4">
+          <%= f.input :timeline_type, collection: Project.i18n_enum_collection(:timeline_types), as: :select, input_html: { class: "form-select", aria: { label:'Timeline' }, style: "height:calc(1.5em + .75rem + 2px);" }, label: false, required: true %>
+        </div>
+        <div class="col-md-4">
+          <%= f.input :start_date, wrapper: :date_picker, as: :date_picker_future, input_html: { class: "form-select", aria: { label:'Timeline' }, autocomplete: "off",  style: "height:calc(1.5em + .75rem + 2px);" }, label:false, autocomplete:false,  required: true %>
+        </div>
+        <div class="col-md-4">
+          <%= f.input :end_date, wrapper: :date_picker, as: :date_picker_future, input_html: { class: "form-select", autocomplete: "off", aria: { label:'Timeline' }, style: "height:calc(1.5em + .75rem + 2px);" },label:false, autocomplete:false, required: true %>
+        </div>
+      </div>
+    </div><!-- end field --> 
+
+    <div class="mb-4"><!-- start field -->
+      <div>
+        <label for="attachments" class="form-label">Attachments (jpg, jpeg, png, pdf)</label>
+      </div>
+      <%= f.simple_fields_for :attachments do |attachment| %>
+        <%= render 'user/project_steps/attachment_fields', f: attachment %>
+      <% end %>
+      <div class="mt-3">
+        <%= link_to_add_association t("post_project.fields.attachments.add_attachment"), f, :attachments, partial: "user/project_steps/attachment_fields", class: "text-warning" %>
+      </div>  
+    </div><!-- end field -->
+    
+    <div class="mb-4 text-center">
+      <%= f.submit "Publish",  class: "btn btn-primary" %>
+    </div>
+
 
 <% if @project.present? %>
   <%= content_tag :span, '', class: "js-project-subs", data: { sub_cats: @project.sub_categories.map{ |sub_cat| I18n.with_locale(:en){ sub_cat.name.gsub(" ", "").downcase } } } %>
 <% end %>
 
-<%= content_for :page_scripts do %>
-  <script>
-    var selectedSubCat = '';
+<%#= content_for :page_scripts do %>
+<script>
+  var selectedSubCat = '';
 
-    $('.js-selected-services').on('change', function() {
-      if($(this).val() && $(this).val().length) {
-        $('.js-submit').prop('disabled', false)
+  $('.js-selected-services').on('change', function() {
+    if($(this).val() && $(this).val().length) {
+      $('.js-submit').prop('disabled', false)
+    }
+  });
+
+  $('.js-submit').prop('disabled', true)
+  
+  $('.js-selected-subcat').on('change', function() {
+    selectedSubCat = parseInt($(this).val());
+    $.each($('.js-select-services'), function() {
+
+      if ($(this).data('sub-cat') === selectedSubCat) {
+        $(this).removeClass('u-hide')
+      } else {
+        $(this).addClass('u-hide');
+        $(this).find('select').val('').change();
       }
-    });
-
-    $('.js-submit').prop('disabled', true)
-    
-    $('.js-selected-subcat').on('change', function() {
-      selectedSubCat = parseInt($(this).val());
-      $.each($('.js-select-services'), function() {
-        if ($(this).data('sub-cat') === selectedSubCat) {
-          $(this).removeClass('u-hide')
-        } else {
-          $(this).addClass('u-hide');
-          $(this).find('select').val('').change();
-        }
-      })
-    });
-  </script>
-<% end %>
+    })
+  });
+</script>
+<%# end %>

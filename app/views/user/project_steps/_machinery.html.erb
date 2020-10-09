@@ -5,12 +5,12 @@
     <div class="container">
       <div class="row">
         <div class="col-md-9">
-            <span class="custom-breadcrumb-title">Buy/Rent Machinery</span>
-            <%= link_to user_profile_index_path, class: "sidebar-link" do %>
-              <span class="custom-breadcrumb-title-right float-right">
-                <i class="fa fa-share" aria-hidden="true"></i>
-                back to dashboard
-              </span>
+          <span class="custom-breadcrumb-title">Buy/Rent Machinery</span>
+          <%= link_to user_profile_index_path, class: "sidebar-link" do %>
+            <span class="custom-breadcrumb-title-right float-right">
+              <i class="fa fa-share" aria-hidden="true"></i>
+              back to dashboard
+            </span>
           <% end %>
         </div>
         <div class="col-md-3">
@@ -21,6 +21,7 @@
 
   <div class="container">
     <div class="row">
+
       <div class="col-md-9">
         <div class="form-container-background py-3 px-3 mb-4 mt-4">
           <%= f.input :required_category, input_html:{ hidden:true, value:@category.id }, label:false %>
@@ -167,18 +168,15 @@
             <%= f.submit "Publish",  class: "btn btn-primary" %>
           </div>      
         </div>
-      </div> <!--End col-md-8  -->
+      </div>
+      <div class="col-md-3 mt-4">
+        <%= link_to t("main_nav.hire_professional"), new_user_project_path(project_type: "default"), class: "btn btn-outline-primary btn-block mt-3" %>
+        <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "suppliers"), class: "btn btn-outline-primary btn-block" %> 
+      </div>
 
-      <div class="col-md-3 mt-4"><!--start col-md-4  -->
-        <div class="btn btn-outline-primary btn-block">
-          Hire professional
-        </div>
-        <div class="btn btn-outline-primary btn-block mb-4">
-          Get suppliersmore
-        </div>   
-      </div><!--End col-md-4  -->
-    </div> <!-- End row -->
-  </div> <!-- End container -->
+    </div>
+  </div>
+
 </main>
 
 <%= content_tag :span, '', class: "js-project-id", data: { id: @project.id } %>

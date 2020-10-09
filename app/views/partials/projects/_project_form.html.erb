@@ -201,5 +201,109 @@
   </div>
 </div>
  -->
- 
-<%= render partial: I18n.with_locale(:en) { @category.name.downcase }, locals: { f: f } %>
+<%# byebug %>
+<% if params[:project_type] == "default" %>
+  <main class="post-a-projects">
+    <div class="mt-4"><!-- start breadcrumb Box -->
+      <div class="container">
+        <div class="row">
+          <div class="col-md-9">
+            <span class="custom-breadcrumb-title">Hire a professional</span>
+            <%= link_to user_profile_index_path, class: "sidebar-link" do %>
+              <span class="custom-breadcrumb-title-right float-right">
+                <i class="fa fa-share" aria-hidden="true"></i>
+                back to dashboard
+              </span>
+            <% end %>
+          </div>
+          <div class="col-md-3">
+          </div>
+        </div>
+      </div>
+    </div><!-- End breadcrumb Box -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="form-container-background py-3 px-3 mb-4 mt-4">
+            <div class="mb-4"><!-- start field -->
+              <div class="hire-a-professional-category-container">
+                    
+                <div class="hire-a-professional-category-box">
+                  <input type="radio" id="professional-category-consultant" name="hire-a-professional-category-selection" value="consultant" checked>
+                  <label for="professional-category-consultant">
+                    <div class="">
+                      <%= image_tag "consultant.png", class: "category-image" %>
+                    </div>
+                    <div class="">
+                      <h3>Consultant</h3>
+                    </div>
+                    <div class="">
+                      <p>Architects, Engineers, Designers</p>
+                    </div>
+                  </label>
+                </div>
+
+
+                <div class="hire-a-professional-category-box">
+                  <input type="radio" id="professional-category-Contractor" name="hire-a-professional-category-selection" value="Contractor">
+                  <label for="professional-category-Contractor">
+                    <div class="">
+                      <%= image_tag "contractor.png", class: "category-image" %>
+                    </div>  
+                    <div class="">
+                      <h3>Contractor</h3>
+                    </div>
+                    <div class="">
+                      <p>Construction, Builders, Mechanical</p>
+                    </div>
+                  </label>
+                </div>
+
+                <div class="hire-a-professional-category-box">
+                  <input type="radio" id="professional-category-Developer" name="hire-a-professional-category-selection" value="Developer">
+                  <label for="professional-category-Developer">
+                    <div class="">
+                      <%= image_tag "developer.png", class: "category-image" %>
+                    </div>
+                    <div class="">
+                      <h3>Developer</h3>
+                    </div>
+                    <div class="">
+                      <p>Lorem ipsum dolor sit amet,<br> consectetur adipiscing elit.</p>
+                    </div>
+                  </label>
+                </div>
+
+                <div class="hire-a-professional-category-box">
+                  <input type="radio" id="professional-category-Specialist" name="hire-a-professional-category-selection" value="Specialist">
+                  <label for="professional-category-Specialist">
+                    <div class="">
+                      <%= image_tag "specialist.png", class: "category-image" %>
+                    </div>
+                    <div class="">
+                      <h3>Specialist</h3>
+                    </div>
+                    <div class="">
+                      <p>Plumbers, Painters, Carpenters</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <%= render partial: I18n.with_locale(:en) { @category.name.downcase }, locals: { f: f } %>
+          </div>
+        </div>
+        <!--End col-md-9  -->
+        <div class="col-md-3 mt-4"><!--start col-md-4  -->
+          <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "suppliers"), class: "btn btn-outline-primary btn-block" %>
+          <%= link_to t("main_nav.buy_rent"), new_user_project_path(project_type: "machinery"), class: "btn btn-outline-primary btn-block" %>
+        </div>
+      </div>
+    </div>
+  </main>
+<% else %>
+  <%= render partial: I18n.with_locale(:en) { @category.name.downcase }, locals: { f: f } %>
+<% end %>
+
+

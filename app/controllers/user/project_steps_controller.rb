@@ -15,6 +15,7 @@ class User::ProjectStepsController < User::BaseController
     @edit_path = wizard_path
     @project =  Project.find(params[:project_id])
     @category = check_next_step(params[:project_type])
+
     @project_types = ProjectType.appropriate_project_types(@category)
     @services = @category ? @category.services : Service.all
     restore_on_validation_error
@@ -69,9 +70,9 @@ class User::ProjectStepsController < User::BaseController
 
   def check_next_step(type)
     #used to decide which form to push to after basic details are inputted and submitted
-    # return unless step == :additional_information
 
-    # project = Project.find(params[:project_id]i)
+    type = "consultants" if type == "default"
+
     category = Category.find_by_slug(type)
 
     @project.update(category_id: category.id)

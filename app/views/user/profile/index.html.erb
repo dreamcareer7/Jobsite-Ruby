@@ -32,7 +32,7 @@
 </div>
 <div class="col-md-3">
   <%= link_to t("main_nav.hire_professional"), new_user_project_path(project_type: "default"), class: "btn btn-outline-primary btn-block mt-3" %>
-  <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "supplier"), class: "btn btn-outline-primary btn-block" %>
+  <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "suppliers"), class: "btn btn-outline-primary btn-block" %>
   <%= link_to t("main_nav.buy_rent"), new_user_project_path(project_type: "machinery"), class: "btn btn-outline-primary btn-block" %>
   <%= link_to t("main_nav.add_business"), new_user_business_path,  class:'btn btn-outline-primary btn-block mb-3'  %> 
   <% unless current_user.pro? %>
