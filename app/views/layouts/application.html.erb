@@ -27,8 +27,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 
-    <!-- Import JS  -->
-    
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+
+
     
     <%= javascript_include_tag "//maps.google.com/maps/api/js?v=3&key=#{ ENV['G_KEY'] }" %>
     <%= javascript_include_tag 'application' %>
@@ -126,6 +128,22 @@
     <% end %>
 
     <%= yield :page_scripts %>
+
+
+    <!-- Import JS  -->
+   
+    <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('.custom_carousel').slick({
+        slidesToShow: 1,
+        dots:true,
+        centerMode: false,
+        });
+      });
+
+    </script>
 
   </body>
 </html>
