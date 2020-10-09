@@ -19,6 +19,7 @@
 <div class="product-card">
   <div class="product-card-thumbnail">
     <% div_id = "single-product-image-carousel_#{item.id}" %>
+    
     <div id="<%= div_id%>" class="single-product-image-carousel carousel carousel-dark slide" data-ride="carousel" data-interval="false">
       <div class="carousel-inner">
         <% images.each_with_index do |img, index| %>
