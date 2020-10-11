@@ -28,24 +28,12 @@
     <div class="row category-buttons">
       <!--  -->
       <div class="col-md-12 text-center">
-        <div class="btn btn-outline-primary">
-          <%= t("gallery.machinery") %>
-        </div>
-        <div class="btn btn-outline-primary">
-          <%= t("gallery.interior_design") %>
-        </div>
-        <div class="btn btn-outline-primary">
-          <%= t("gallery.projects") %>
-        </div>
-        <div class="btn btn-outline-primary">
-          <%= t("gallery.furniture") %>
-        </div>
-        <div class="btn btn-outline-primary">
-          <%= t("gallery.tool_and_hardware") %>
-        </div>
-        <div class="btn btn-outline-primary">
-          <%= t("gallery.building_materials") %>
-        </div>
+        <% gallery_categories.each do |category| %>
+          <div class="btn btn-outline-primary">
+            <%= link_to t(category[0]), gallery_index_path(category_type: category[1]),
+                class: "#{'active' if params[:category_type] == category[1]}" %>
+          </div>
+        <% end %>
       </div>
       <!--  -->
     </div>
@@ -61,26 +49,11 @@
       <div class="row">
         <div class="col-md-12 text-center pagination-load-more">
 
-          <%= link_to t('gallery.show_more'), gallery_index_path(page: @gallery_items.next_page), remote: true, data: { "disable-with": t('gallery.loading') }, class: "btn btn-primary" %>
+          <%= link_to t('gallery.show_more'), gallery_index_path(page: @gallery_items.next_page, category_type: params[:category_type]), remote: true, data: { "disable-with": t('gallery.loading') }, class: "btn btn-primary" %>
 
         </div>
       </div>
     <% end %>
   </div>
-
-
-  <div class="wrapper">
-  
-    <div class="custom_carousel">
-      <div><img src="http://lorempixel.com/200/200/nature/"></div>
-      <div><img src="http://lorempixel.com/200/200/fashion/"></div>
-      <div><img src="http://lorempixel.com/200/200/sports/"></div>
-      <div><img src="http://lorempixel.com/200/200/animal/"></div>
-      <div><img src="http://lorempixel.com/200/200/abstract/"></div>
-      <div><img src="http://lorempixel.com/200/200/people/"></div>
-    </div>
   </div>
-
-
-  
 </main>

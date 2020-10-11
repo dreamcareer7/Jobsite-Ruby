@@ -17,13 +17,10 @@
 <% end %>
 
 <div class="product-card">
-  <div class="product-card-thumbnail">
-    <% div_id = "single-product-image-carousel_#{item.id}" %>
-    
-    <div id="<%= div_id%>" class="single-product-image-carousel carousel carousel-dark slide" data-ride="carousel" data-interval="false">
-      <div class="carousel-inner">
+    <div class="wrapper">
+      <div class="custom_carousel">
         <% images.each_with_index do |img, index| %>
-          <div class="carousel-item <%= 'active' if index.zero? %>">
+          <div>
             <% img_url = video ? images[0] : img.url(:large) %>
             <% if video %>
               <%= image_tag img_url, class: "d-block w-100", data: { modal: "video-player", "video-link": item.video_link } %>
@@ -34,24 +31,7 @@
           </div>
         <% end %>
       </div>
-      
-      <% if images.size > 1 %>
-        <a class="carousel-control-prev" href="#<%= div_id%>" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <!-- <span class="visually-hidden">Previous</span> -->
-        </a>
-        <a class="carousel-control-next" href="#<%= div_id%>" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <!-- <span class="visually-hidden">Next</span> -->
-        </a>
-        <ol class="carousel-indicators">
-          <% images.each_with_index do |img, index| %>
-            <li data-target="#<%= div_id%>" data-slide-to="<%= index %>" class="<%= 'active' if index.zero? %>"></li>
-          <% end %>
-        </ol>
-      <% end %>
     </div>
-  </div>
   <div class="product-name-and-footer-container">
     <div class="product-card-name-and-by-container">
       <div class="product-card-product-name"><%= gallery_tile_title(owner) %></div>
@@ -79,7 +59,6 @@
           </div>
         </div>
       </div>
-      <div class="save-button-container"><%= t('gallery.save') %></div>
     </div>
   </div>
 </div>

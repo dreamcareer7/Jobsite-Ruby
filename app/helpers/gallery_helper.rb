@@ -58,4 +58,10 @@ module GalleryHelper
   def liked_items
     @liked_items ||= current_user.favorites
   end
+
+  def gallery_categories
+    [["gallery.machinery", "machinery"], ["gallery.interior_design", "interior_design"],
+    ["gallery.furniture", "furniture"], ["gallery.tool_and_hardware", "tools-and-hardware"],
+    ["gallery.building_materials", "building-materials"]]
+  end
 end

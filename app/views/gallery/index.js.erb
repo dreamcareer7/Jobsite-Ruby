@@ -4,3 +4,7 @@ $('.gallery-page-product-list').append("<%= j render(:partial => 'gallery/list')
 <% else %>
   $(".pagination-load-more").hide()
 <% end %>
+$('.custom_carousel').not('.slick-initialized').slick({
+  dots:true,
+  centerMode: false,
+});

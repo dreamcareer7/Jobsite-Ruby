@@ -42,7 +42,7 @@ gem 'meta_request' # Necessary for rails_panel Chrome extension
 gem 'bower-rails', "~> 0.10.0"
 gem 'cocoon'
 gem 'gmaps4rails'
-gem 'impressionist'
+gem 'impressionist', '~>1.6.1'
 gem 'browser'
 gem 'rubyzip'
 gem 'enum_help'

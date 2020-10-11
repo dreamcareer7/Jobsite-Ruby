@@ -1238,7 +1238,7 @@ GEM
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     i18n_data (0.10.0)
-    impressionist (2.0.0)
+    impressionist (1.6.1)
       nokogiri (~> 1)
     inline_svg (1.7.1)
       activesupport (>= 3.0)
@@ -1525,7 +1525,7 @@ DEPENDENCIES
   gmaps4rails
   google-api-client (~> 0.9)
   groupdate
-  impressionist
+  impressionist (~> 1.6.1)
   inline_svg
   jbuilder (~> 2.0)
   jquery-datatables-rails

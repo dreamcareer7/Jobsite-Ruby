@@ -4,6 +4,7 @@ class SelfAddedProject < ApplicationRecord
 
   belongs_to :business, counter_cache: true
 
+  has_many :services, through: :business
   has_many :favorites, as: :favoratable
   has_attached_file :image_one, :styles => { small: "200x200", medium: "300x600", large: "1600x400"} , default_url: "default_photos/:style/missing.png"
   has_attached_file :image_two, :styles => { small: "200x200", medium: "300x600", large: "1600x400"} , default_url: "default_photos/:style/missing.png"
