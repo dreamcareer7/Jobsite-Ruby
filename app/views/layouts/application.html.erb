@@ -98,8 +98,11 @@
       <%= render partial: "layouts/h5_validate" %>
     <% end %>
     <%= yield :page_scripts %>
+
+
     <!-- Import JS  -->
     <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
+    
     <script type="text/javascript">
       $(document).ready(function(){
         $('.custom_carousel').slick({
@@ -107,6 +110,18 @@
         centerMode: false,
         });
       });
+
+      $('.submenu-holder a').click(function(){
+        $('.submenu-holder').removeClass('open');
+        $(this).parent().toggleClass('open');
+        $('.open .submenu').toggleClass('display');
+
+      })
+      $('.toggle-btn').click(function(){
+        $('.toplevel').toggle();
+      })
+
+
     </script>
   </body>
 </html>
