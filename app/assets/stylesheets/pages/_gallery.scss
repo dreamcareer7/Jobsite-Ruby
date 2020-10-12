@@ -68,7 +68,7 @@
 
 
 .custom_carousel{
-  width:250px;
+  width:280px;
   margin:0px auto;
 }
 .slick-slide{
@@ -77,4 +77,39 @@
 .slick-slide img{
   width:100%;
   border: 2px solid #fff;
+}
+.gallery-category-filters {
+  display: flex;
+  justify-content: center;
+
+  li{
+    list-style-type: none;
+
+  }
+  a{
+    border: 1px solid $primary-color;
+    margin-right: 5px;
+    border-radius: 5px;
+    padding: 5px 15px;
+    line-height: 38px;
+  }
+  a:hover{
+    background: $primary-color;
+    color: white;
+  }
+  li .active {
+    background: $primary-color;
+    color: white;
+  }
+}
+.pagination-load-more{
+  margin-bottom: 15px;
+}
+
+@media only screen and (max-width: 965px)  {
+  .gallery-category-filters{
+    display: unset;
+    justify-content: unset;
+    float: left;
+  }
 }

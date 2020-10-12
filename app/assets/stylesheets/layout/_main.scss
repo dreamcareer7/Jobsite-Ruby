@@ -113,10 +113,36 @@ body{
   color: $primary-color;
   border-color: $primary-color;
 }
+
 .btn-outline-primary:hover{
   background-color: $primary-color;
   border-color: $primary-color;
 }
+
+  .product-card .wrapper{
+    width: 100%;
+    display: block;
+
+    .slick-prev:before, .slick-next:before{
+      color: #000;
+    }
+
+    .slick-next {
+      right: 20px;
+    }
+    .slick-prev {
+      left: 20px;
+      z-index: 1;
+    }
+    .slick-dotted.slick-slider {
+      margin-bottom: 10px;
+    }
+    .slick-dots li button:before{
+      font-size: 10px;
+    }
+
+  }
+
 .muqa-footer {
     padding: 2.5rem 0;
     color: $white-color;
@@ -457,10 +483,10 @@ body{
     align-items: center;
     flex-grow: 0;
     flex-shrink: 1;
-    flex-basis: calc(25% - 15px);
+    flex-basis: calc(25% - 10px);
     height: auto;
     transition: .3s;
-    margin-right: 15px;
+    margin-right: 10px;
 
 
 
@@ -562,12 +588,15 @@ body{
   padding: 15px;
 }
 .product-card-name-and-by-container {
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid rgba($border-color,0.5);
   margin-bottom: 10px;
   padding-bottom: 10px;
 }
 .product-card-product-by{
   font-size: 12px;
+  a{
+    color: rgba($border-color,0.9);
+  }
 }
 
 .favorite-share-and-add-button-container{
