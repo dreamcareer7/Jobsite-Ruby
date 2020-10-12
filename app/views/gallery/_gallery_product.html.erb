@@ -18,14 +18,15 @@
 
 <div class="product-card">
     <div class="wrapper">
-      <div class="custom_carousel">
+      <% urls = images.map {|img| img.url(:large)} unless video %>
+      <div class="custom_carousel" data-images="<%= urls.to_json unless video %>">
         <% images.each_with_index do |img, index| %>
           <div>
             <% img_url = video ? images[0] : img.url(:large) %>
             <% if video %>
               <%= image_tag img_url, class: "d-block w-100", data: { modal: "video-player", "video-link": item.video_link } %>
             <% else %>
-              <%= image_tag img_url, class: "d-block w-100 js-open-modal", data: { photolink: img_url, modal: "image-viewer" } %>
+              <%= image_tag img_url, class: "d-block w-100 js-open-modal", data: { modal: "image-viewer", index: index } %>
             <% end %>
 
           </div>

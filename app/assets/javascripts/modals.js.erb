@@ -28,7 +28,7 @@ setupModals = function() {
     if ($(this).data('modal') === 'call-now') handleDecodeNumber( $(this).attr('data-phone'), $(this) );
     if ($(this).data('modal') === 'video-player') handleVideoPlayer( $(this).attr('data-video-link'), $(this) );
     if ($(this).data('modal') === 'please-log-in')setupLoginRedirect( $(this).attr('data-modal-target'), $(this).attr('data-modal-target-business'), $(this).attr('data-modal-redirect') );
-    if ($(this).data('modal') === 'image-viewer')handleImageViewer( $(this).attr('data-photolink'), $(this) );
+    if ($(this).data('modal') === 'image-viewer')handleImageViewer($(this));
 
     $('.modal').removeClass('is-visible');
     $('.js-' + $(this).data('modal')).addClass('is-visible');
@@ -61,10 +61,27 @@ setupModals = function() {
     $('.js-video-target').prop('src', video + '?autoplay=1');
   }
 
-  function handleImageViewer(image, $this) {
-    $('.js-image-target').prop('src', image);
+  function handleImageViewer($this) {
+    var $modal_image = $("#modal_carousel")
+    if ($modal_image.hasClass("slick-initialized"))
+      $($modal_image).slick('unslick');
+    $($modal_image).html("")
+    var img_urls = JSON.parse($this.closest(".custom_carousel").attr("data-images"));
+    var html = ""
+    $.each(img_urls, function( index, value ) {
+      html = html + "<div><img src='" + value + "'/></div>"
+    });
+    $($modal_image).html(html)
+    initModalCarousel(parseInt($this.attr("data-index")))
   }
 
+  function initModalCarousel(slide_number){
+    $('#modal_carousel').slick({
+      dots: true,
+      centerMode: false,
+      initialSlide: slide_number
+    });
+  }
   //Setup redirect to appropriate form
   function setupLoginRedirect(target, targetBusiness, redirectPath) {
     document.cookie = 'loginTarget=' + target + ';path=/';
