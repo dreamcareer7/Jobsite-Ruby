@@ -41,6 +41,10 @@ module GalleryHelper
     "https://www.linkedin.com/shareArticle?url=" + business_share_url(owner)
   end
 
+  def google_share_url(owner)
+    "https://plus.google.com/share?url=" + business_share_url(owner)
+  end
+
   def like_gallery_button(item)
     if current_user && has_liked_item?(item)
       link_to content_tag(:i, "", class: "fa fa-heart", "aria-hidden": true), user_like_gallery_path(item, favoratable_id: item.id,favoratable_type: item.class.name), method: :delete, remote: true

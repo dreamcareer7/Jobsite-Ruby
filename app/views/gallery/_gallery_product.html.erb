@@ -51,12 +51,26 @@
         </div>
         <div class="product-action-button has-popover">
           <i class="fa fa-share-alt js-open-popover " aria-hidden="true"></i>
-          <div class="popover popover--right">
-            <%= link_to 'facebook', fb_share_url(owner), class: "popover__link", target: "_blank" %>
-            <%= link_to "linkedin", linkedin_share_url(owner), class: "popover__link", target: "_blank" %>
-            <%= link_to "whatsapp", whatsapp_share_url(owner), class: "popover__link", target: "_blank" %>
-            <%= link_to "twitter", twitter_share_url(owner), class: "popover__link", target: "_blank" %>
-            <%= link_to "Mail", "mailto:?subject=&body=" + business_share_url(owner), class: "popover__link", target: "_blank" %>
+          <div class="popover popover--right popover--arrow popover--arrow-ne">
+            <%= link_to fb_share_url(owner), class: "popover__link", target: "_blank" do %>
+              <%= inline_svg("icons/facebook.svg", class: "social-share__icon icon icon--small") %> Facebook
+            <% end %>
+            <%= link_to google_share_url(owner), class: "popover__link", target: "_blank", title: "Share on Google+" do %>
+              <%= inline_svg("icons/google_plus.svg", class: "social-share__icon icon icon--small") %> Google+
+            <% end %>
+            <%= link_to linkedin_share_url(owner), class: "popover__link", target: "_blank", title: "Share on LinkedIn" do %>
+              <%= inline_svg("icons/linkedin.svg", class: "social-share__icon icon icon--small") %> LinkedIn
+            <% end %>
+            <%= link_to whatsapp_share_url(owner), class: "popover__link", target: "_blank", title: "Share on Whatsapp" do %>
+              <%= inline_svg("icons/whatsapp.svg", class: "social-share__icon icon icon--small") %> WhatsApp
+            <% end %>
+            <%= link_to twitter_share_url(owner), class: "popover__link", target: "_blank", title: "Share on Twitter" do %>
+              <%= inline_svg("icons/twitter.svg", class: "social-share__icon icon icon--small icon--twitter") %>
+              <small class="social-share__label"><%= t("phrases.share_twitter") %></small>
+            <% end %>
+            <%= link_to "mailto:?subject=&body=" + business_share_url(owner), class: "popover__link", target: "_blank", title: "Share on Email" do %>
+              <%= inline_svg("icons/email.svg", class: "social-share__icon icon icon--small") %> Email
+            <% end %>
           </div>
         </div>
       </div>
