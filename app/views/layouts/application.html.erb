@@ -104,8 +104,6 @@
     <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
 
     <script type="text/javascript">
-
-
       $('.submenu-holder a').click(function(){
         $('.submenu-holder').removeClass('open');
         $(this).parent().toggleClass('open');
@@ -116,40 +114,6 @@
         $('.submenu-holder').removeClass('open');
         $('.submenu').removeClass('display');
         $('.toplevel').toggle();
-      })
-
-      
-   
-      
-      $(function() {
-        
-         
-         $("<select />").appendTo(".gallery-category-menu-and-dropdown");
-         
-         
-         $("<option />", {
-            "selected": "selected",
-            "value"   : "",
-            "text"    : "Select Category..."
-         }).appendTo(".gallery-category-menu-and-dropdown select");
-         
-         
-         $(".gallery-category-menu-and-dropdown a").each(function() {
-          var el = $(this);
-          $("<option />", {
-              "value"   : el.attr("href"),
-              "text"    : el.text()
-          }).appendTo(".gallery-category-menu-and-dropdown select");
-         });
-         
-         $(".gallery-category-menu-and-dropdown select").change(function() {
-           window.location = $(this).find("option:selected").val();
-         });
-      
-      });
-
-
-
-    </script>
+      })</script>
   </body>
 </html>

@@ -66,7 +66,7 @@ setupModals = function() {
     if ($modal_image.hasClass("slick-initialized"))
       $($modal_image).slick('unslick');
     $($modal_image).html("")
-    var img_urls = JSON.parse($this.closest(".custom_carousel").attr("data-images"));
+    var img_urls = JSON.parse($this.closest(".tile-section").attr("data-images"));
     var html = ""
     $.each(img_urls, function( index, value ) {
       html = html + "<div><img src='" + value + "'/></div>"

@@ -19,7 +19,7 @@
 <div class="product-card">
     <div class="wrapper">
       <% urls = images.map {|img| img.url(:large)} unless video %>
-      <div class="<%= 'custom_carousel' if urls.length > 1 %>" data-images="<%= urls.to_json unless video %>">
+      <div class="tile-section <%= 'custom_carousel' if urls.length > 1 %>" data-images="<%= urls.to_json unless video %>">
         <% images.each_with_index do |img, index| %>
           <div>
             <% img_url = video ? images[0] : img.url(:large) %>
