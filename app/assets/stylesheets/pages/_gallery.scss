@@ -68,15 +68,15 @@
 
 
 .custom_carousel{
-  width:280px;
+  width:290px;
   margin:0px auto;
 }
 .slick-slide{
-  margin:10px;
+  // margin:10px;
 }
 .slick-slide img{
   width:100%;
-  border: 2px solid #fff;
+  // border: 2px solid #fff;
 }
 .gallery-category-filters {
   display: flex;
@@ -124,9 +124,6 @@
       padding: 10px 20px;
       margin-bottom: 15px;
       margin-top: 15px;
-
-
-
       -webkit-appearance: none;
       -moz-appearance: none;
       background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
