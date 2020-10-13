@@ -143,6 +143,37 @@ body{
 
   }
 
+  #modal_carousel{
+
+    margin-bottom: 0px;
+
+
+    .slick-prev:before, .slick-next:before{
+      color: #000;
+    }
+
+    .slick-next {
+      right: 20px;
+    }
+    .slick-prev {
+      left: 20px;
+      z-index: 1;
+    }
+    .slick-dotted.slick-slider {
+      margin-bottom: 10px;
+    }
+    .slick-dots li button:before{
+      font-size: 10px;
+    }
+
+    .slick-dots{
+      bottom: 0px;
+    }
+
+  }
+
+
+
 .muqa-footer {
     padding: 2.5rem 0;
     color: $white-color;
@@ -487,10 +518,6 @@ body{
     height: auto;
     transition: .3s;
     margin-right: 10px;
-
-
-
-
   }
 
 }

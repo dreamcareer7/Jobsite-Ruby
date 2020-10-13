@@ -26,76 +26,10 @@
   <div class="site-wrap">
     <!-- Start Row -->
 
-
-
-    <div class="toggler">
-      <a href="#">Gallery Categories</a>
-      <span class="toggle-btn">
-        <i class="fa fa-bars"></i>
-      </span>
-    </div>
-    <ul class="toplevel">
-      <li class="submenu-holder"><a href="#" class="active">MACHINERY</a>
-          <div class="submenu">
-              <ul>
-                  <li><a href="#">Sub Menu 1</a></li>
-                  <li><a href="#">Sub Menu 1</a></li>
-                  <li><a href="#">Sub Menu 1</a></li>
-                  <li><a href="#">Sub Menu 1</a></li>
-                  <li><a href="#">Sub Menu 1</a></li>
-                  <li><a href="#">Sub Menu 1</a></li>
-                  <li><a href="#">Sub Menu 1</a></li>
-              </ul>
-
-          </div>
-      </li>
-      <li class="submenu-holder"><a href="#">INTERIOR DESIGN</a>
-          <div class="submenu">
-              <ul>
-                  <li><a href="#">Sub Menu 2</a></li>
-                  <li><a href="#">Sub Menu 2</a></li>
-                  <li><a href="#">Sub Menu 2</a></li>
-                  <li><a href="#">Sub Menu 2</a></li>
-                  <li><a href="#">Sub Menu 2</a></li>
-                  <li><a href="#">Sub Menu 2</a></li>
-                  <li><a href="#">Sub Menu 2</a></li>
-              </ul>
-              <ul>
-                  <li><a href="#">Sub Menu 2</a></li>
-                  <li><a href="#">Sub Menu 2</a></li>
-                  <li><a href="#">Sub Menu 2</a></li>
-                  <li><a href="#">Sub Menu 2</a></li>
-                  <li><a href="#">Sub Menu 2</a></li>
-                  <li><a href="#">Sub Menu 2</a></li>
-                  <li><a href="#">Sub Menu 2</a></li>
-              </ul>
-
-          </div>
-      </li>
-
-</ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <div class="row category-buttons">
       <!--  -->
-      <div class="col-md-12 text-center">
+      <div class="col-md-12">
+      <nav class="gallery-category-menu-and-dropdown"> 
         <ul class="gallery-category-filters">
         <% gallery_categories.each do |category| %>
           <li class="gallery-category-items">
@@ -106,6 +40,7 @@
           </li>
         <% end %>
         </ul>
+        </nav>
       </div>
       <!--  -->
     </div>
@@ -136,3 +71,4 @@
   </div>
   </div>
 </main>
+
