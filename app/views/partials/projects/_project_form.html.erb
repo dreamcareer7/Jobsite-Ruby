@@ -133,7 +133,7 @@
               <div class="input-group">
                 <div class="col-md-5">
                   <% if l.object.new_record? %>
-                    <%= l.input :country_for_select, collection: @countries, input_html: { class: " rails-country-for-select form-control mb-3", id: "country", style: " width:100%; height:calc(1.5em + .75rem + 2px);"}, required: true,  placeholder: "Country"  %>
+                    <%= l.input :country_for_select, collection: @countries, input_html: { class: " rails-country-for-select form-control mb-3", id: "country", style: " width:100%; height:calc(1.5em + .75rem + 2px);"}, required: true,  placeholder: "Country" , selected: current_user.present? ?  current_user.country.id : " " %>
                   <% else %>
                     <%= l.input :country_for_select, collection: @countries, placeholder: "Country",  input_html: { class: "rails-country-for-select form-control mb-3", id: "country", style: "width:100%; height:calc(1.5em + .75rem + 2px);"}, required: true, selected: l.object.city.country.id, placeholder: "Country"  %>
                   <% end %>
@@ -141,7 +141,7 @@
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-6">                  
-                  <%= l.input :city_id, collection: @cities, placeholder: "City", input_html: { class: " js-city rails-display-cities form-control mb-3", id:"city", style: "width:100%; height:calc(1.5em + .75rem + 2px);" }, required: true, placeholder: "City" %>
+                  <%= l.input :city_id, collection: @cities, placeholder: "City", input_html: { class: " js-city rails-display-cities form-control mb-3", id:"city", style: "width:100%; height:calc(1.5em + .75rem + 2px);" }, required: true, placeholder: "City", selected: current_user.present? ?  current_user.city.id : " " %>
                 </div>
               </div>
               <%= l.input :street_address, wrapper: :text_field, input_html: { class: "js-street-address form-control", id:"street-address", style: "height:calc(1.5em + .75rem + 2px);" }, required: true, label:false, placeholder: "Street address" %>
