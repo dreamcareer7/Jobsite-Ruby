@@ -104,6 +104,10 @@
             <%= f.input :title, wrapper: :text_field, input_html: { style: "height:calc(1.5em + .75rem + 2px);" }, placeholder: "I need:",label: false, required: true %>
           </div>
 
+          <div class="mb-4 professionals-form">
+            <%= render partial: I18n.with_locale(:en) { @category.name.downcase }, locals: { f: f } %>
+          </div>
+
           <div class="mb-4">
             <label for="describe-your-request" class="form-label">Describe your request in more detail</label>
             <%= f.input :description, as: :text, wrapper: :text_area, placeholder: t("post_project.fields.description.placeholder"), input_html: { class: "form-control", id:"describe-your-request" }, label:false, required: true %>
@@ -190,10 +194,6 @@
               <%= link_to_add_association t("post_project.fields.attachments.add_attachment"), f, :attachments, partial: "user/project_steps/attachment_fields", class: "text-warning" %>
             </div>
             
-          </div>
-          
-          <div class="mb-4 professionals-form">
-            <%= render partial: I18n.with_locale(:en) { @category.name.downcase }, locals: { f: f } %>
           </div>
 
           <div class="mb-4 text-center">
