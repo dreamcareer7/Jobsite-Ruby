@@ -117,6 +117,15 @@
         <% end %>
       </div>
     </div>
+    <% if @gallery_items.total_count == 0 %>
+      <div class="mb4 u-text-center section section--dark has-tint u-cover pl2 pr2" ,="" >
+        <div class="media media--middle media--inline media--tight u-text-center">
+          <div class="media__body">
+            <h2 class="u-text-contrast"> NO RESULTS | Try a different category or city </h2>
+          </div>
+        </div>
+      </div>
+    <% end %>
     <% if @gallery_items.next_page.present? %>
       <div class="row">
         <div class="col-md-12 text-center pagination-load-more">
