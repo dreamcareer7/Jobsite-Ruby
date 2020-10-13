@@ -65,7 +65,7 @@
               <%= inline_svg("icons/whatsapp.svg", class: "social-share__icon icon icon--small") %> WhatsApp
             <% end %>
             <%= link_to twitter_share_url(owner), class: "popover__link", target: "_blank", title: "Share on Twitter" do %>
-              <%= inline_svg("icons/twitter.svg", class: "social-share__icon icon icon--small icon--twitter") %>
+              <%= inline_svg("icons/twitter.svg", class: "social-share__icon icon icon--small") %>
               <small class="social-share__label"><%= t("phrases.share_twitter") %></small>
             <% end %>
             <%= link_to "mailto:?subject=&body=" + business_share_url(owner), class: "popover__link", target: "_blank", title: "Share on Email" do %>
