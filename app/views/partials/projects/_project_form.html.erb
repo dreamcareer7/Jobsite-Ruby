@@ -1,235 +1,35 @@
-<!-- <%##= content_for :section_header do %>
-  <%#= render partial: "partials/form_headers/new_project" %>
-<%# end %>
+<main class="post-a-projects">
 
-<div class="grid grid--center js-location-fields">
-  <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-<%#= action_name == 'edit' ? '12' : '8' %> ">
-    <div class="card">
-
-      <div class="card__section card__section--padded">
-        <%# unless current_admin %>
-          <div class="mb2">
-            <small><%#= t("post_project.prompt.post") %></small>
-          </div>
-        <%# end %>
-        <div class="card__header">
-          <h4 class="card__title"><%#= inline_svg("icons/briefcase.svg", class: "icon icon--dark icon--small") %><%#= t("post_project.header.general") %></h4>
-        </div>
-        <fieldset class="fieldset">
-          <div class="grid">
-            <div class="grid__col--xs-12 grid__col--md-12">
-              <div class="field">
-                <%#= f.input :title, wrapper: :text_field, placeholder: t("post_project.fields.project_name.placeholder"), label: t("post_project.fields.project_name.label"), required: true %>
-              </div>
-            </div>
-            <%# unless action_name == "edit" %>
-              <div class="grid__col--xs-12 grid__col--md-12">
-                <div class="field">
-                  <label class="field__label">* <%#= t("post_project.fields.category.label") %></label>
-                  <div class="control-group">
-                    <%# Category.order_by_type.each do |category| %>
-                      <%# if @project_type.present? %>
-                        <%# next unless @project_type.include?(category) %>
-                      <%# end %>
-                      <label class="control-group__item control">
-                        <%#= f.radio_button :required_category, category.id, class: "control__input js-required-category", checked: @project_type.present? && @project_type.length == 1 %>
-                        <span class="control__indicator control__indicator--checkbox">
-                          <%#= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
-                        </span>
-                        <span class="control__label"><%#= category.name.singularize %></span>
-                      </label>
-                    <%# end %>
-                  </div>
-                </div>
-              </div>
-            <%# end %>
-            <div class="grid__col--xs-12 grid__col--md-12">
-              <div class="field">
-                <div class="field__input-wrapper">
-                  <%#= f.input :description, as: :text, wrapper: :text_area, placeholder: t("post_project.fields.description.placeholder"), label: t("post_project.fields.description.label"), required: true %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-      </div>
-
-      <div class="card__section card__section--padded">
-        <div class="card__header">
-          <h4 class="card__title"><%#= inline_svg("icons/location.svg", class: "icon icon--dark icon--small") %><%#= t("post_project.header.location") %></h4>
-        </div>
-        <fieldset class="fieldset">
-          <div class="grid">
-            <%#= f.simple_fields_for :location do |l| %>
-              <%#= render partial: "partials/location/choose_location", locals: { l: l } %>
-            <%# end %>
-          </div>
-        </fieldset>
-      </div>
-
-      <div class="card__section card__section--padded">
-        <div class="card__header">
-          <h4 class="card__title"><%#= inline_svg("icons/pencil.svg", class: "icon icon--dark icon--small") %><%#= t("post_project.header.details") %></h4>
-        </div>
-        <fieldset class="fieldset">
-          <div class="grid">
-            <div class="grid__col--xs-12 grid__col--xlg-6">
-              <div class="field">
-                <label class="field__label">* <%#= t("post_project.fields.currency.label") %></label>
-                <div class="field__input-wrapper">
-                  <%#= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-                  <%#= f.input :currency_type, collection: Project.i18n_enum_collection(:currency_types), as: :select, input_html: { class: "field__input field__input--right-add-on" }, label: false, required: true, include_blank: true %>
-                </div>
-              </div>
-            </div>
-            <div class="grid__col--xs-12 grid__col--xlg-6">
-              <div class="field">
-                <label class="field__label">* <%#= t("post_project.fields.budget.label") %></label>
-                <div class="field__input-wrapper">
-                  <%#= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-                  <%#= f.input :project_budget, selected: @project.project_budget.present? ? @project.project_budget : '', input_html: { class: "field__input field__input--right-add-on" }, label: false, required: true, include_blank: true %>
-                </div>
-              </div>
-            </div>
-            <div class="grid__col--xs-12 grid__col--xlg-6">
-              <div class="field">
-                <label class="field__label">* <%#= t("post_project.fields.timeline.label") %></label>
-                <div class="field__input-wrapper">
-                  <%#= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-                  <%#= f.input :timeline_type, collection: Project.i18n_enum_collection(:timeline_types), as: :select, input_html: { class: "field__input field__input--right-add-on" }, label: false, required: true, include_blank: true %>
-                </div>
-              </div>
-            </div>
-            <div class="grid__col--xs-12 grid__col--xlg-6"></div>
-            <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
-              <div class="field">
-                <label class="field__label">* <%#= t("post_project.fields.start_date.label") %></label>
-                <div class="field__input-wrapper">
-                  <%#= inline_svg("icons/calendar.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
-                  <%#= f.input :start_date, wrapper: :date_picker, as: :date_picker_future, required: true %>
-                </div>
-              </div>
-            </div>
-            <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
-              <div class="field">
-                <label class="field__label">* <%#= t("post_project.fields.end_date.label") %></label>
-                <div class="field__input-wrapper">
-                  <%#= inline_svg("icons/calendar.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
-                  <%#= f.input :end_date, wrapper: :date_picker, as: :date_picker_future, required: true %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-      </div>
-
-      <div class="card__section card__section--padded">
-        <div class="card__header">
-          <h4 class="card__title"><%#= inline_svg("icons/gallery.svg", class: "icon icon--dark icon--small") %><%#= t("post_project.header.attachments") %></h4>
-        </div>
-        <fieldset class="fieldset">
-          <div class="grid">
-            <div class="grid__col--xs-12 grid__col--md-12">
-              <div class="field field--has-btn">
-                <label class="field__label"><%#= t("post_project.fields.attachments.label") %></label>
-                <%#= f.simple_fields_for :attachments do |attachment| %>
-                  <%#= render 'user/project_steps/existing_attachment_fields', f: attachment unless attachment.object.new_record? %>
-                <%# end %>
-                <%#= f.simple_fields_for :attachments do |attachment| %>
-                  <%#= render 'user/project_steps/attachment_fields', f: attachment if attachment.object.new_record? %>
-                <%# end %>
-                <div class="field">
-                  <div class="field__input-wrapper">
-                    <%#= link_to_add_association t("post_project.fields.attachments.add_attachment"), f, :attachments, partial: "user/project_steps/attachment_fields" %>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-      </div>
-
-      <div class="card__section card__section--padded card__section--border">
-        <div class="card__header">
-          <h4 class="card__title"><%#= inline_svg("icons/user.svg", class: "icon icon--dark icon--small") %><%#= t("post_project.header.project_contact") %></h4>
-        </div>
-        <fieldset class="fieldset">
-          <div class="grid">
-            <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
-              <div class="field">
-                <%#= f.input :contact_name, wrapper: :text_field, placeholder: t("post_project.fields.contact.name.placeholder"), label: t("post_project.fields.contact.name.label"), input_html: { value: current_user.present? ? current_user.name : @project.user.name }, required: true %>
-              </div>
-            </div>
-            <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
-              <div class="field">
-                <%#= f.input :prevent_autocomplete, as: :fake, input_html: { class: "u-hide", name: "project[contact_email]", type: "text" }, label: false %>
-                <%#= f.input :contact_email, wrapper: :text_field, placeholder: t("post_project.fields.contact.email.placeholder"), label: t("post_project.fields.contact.email.label"), input_html: { value: current_user.present? ? current_user.email : @project.user.email }, required: true %>
-              </div>
-            </div>
-            <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
-              <div class="field">
-                <label class="field__label">* <%#= t("post_project.fields.contact.role.label") %></label>
-                <div class="field__input-wrapper">
-                  <%#= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-                  <%#= f.input :contact_role, collection: Project.project_roles, as: :select, input_html: { class: "field__input field__input--right-add-on" }, label: false, required: true, include_blank: true %>
-                </div>
-              </div>
-            </div>
-            <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
-              <div class="field">
-                <%#= f.input :contact_number, wrapper: :text_field, placeholder: t("post_project.fields.contact.number.placeholder"), label: t("post_project.fields.contact.number.label"), input_html: { value: @project && @project.contact_number ? @project.contact_number : current_user ? current_user.mobile_number : nil, class: "js-phone" }, required: true %>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-      </div>
-
-      <div class="card__section card__section--border">
-        <fieldset class="fieldset">
-          <div class="grid">
-            <div class="grid__col--xs-12 grid__col--md-12 u-text-right">
-              <div class="field">
-                <%#= f.submit action_name == "edit" ? t("form.update") : t("post_project.submit"), class: "btn btn--xs-full btn--primary" %>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-      </div>
-
-    </div>
-  </div>
-</div>
- -->
-<%# byebug %>
-<% if params[:project_type] == "default" %>
-  <main class="post-a-projects">
-    <div class="mt-4"><!-- start breadcrumb Box -->
-      <div class="container">
-        <div class="row">
-          <div class="col-md-9">
-            <span class="custom-breadcrumb-title">Hire a professional</span>
-            <%= link_to user_profile_index_path, class: "sidebar-link" do %>
-              <span class="custom-breadcrumb-title-right float-right">
-                <i class="fa fa-share" aria-hidden="true"></i>
-                back to dashboard
-              </span>
-            <% end %>
-          </div>
-          <div class="col-md-3">
-          </div>
-        </div>
-      </div>
-    </div><!-- End breadcrumb Box -->
+  <div class="mt-4"><!-- start breadcrumb Box -->
     <div class="container">
       <div class="row">
         <div class="col-md-9">
-          <div class="form-container-background py-3 px-3 mb-4 mt-4">
-            <div class="mb-4"><!-- start field -->
+          <span class="custom-breadcrumb-title"><%= @project_type_header  %></span>
+          <%= link_to user_profile_index_path, class: "sidebar-link" do %>
+            <span class="custom-breadcrumb-title-right float-right">
+              <i class="fa fa-share" aria-hidden="true"></i>
+              back to dashboard
+            </span>
+          <% end %>
+        </div>
+        <div class="col-md-3">
+        </div>                    
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-9">
+        <div class="form-container-background py-3 px-3 mb-4 mt-4">
+          <% if params[:project_type] == "default" %>
+            <div class="mb-4">
               <div class="hire-a-professional-category-container">
                     
                 <div class="hire-a-professional-category-box">
-                  <input type="radio" id="professional-category-consultant" name="hire-a-professional-category-selection" value="consultant" checked>
+                  <!-- <input type="radio" id="professional-category-consultant" name="hire-a-professional-category-selection" value="consultant" checked> -->
+                  <%= f.radio_button :required_category, @category.id, class: "control__input js-required-category", id:"professional-category-consultant", value: "consultant",checked: @category.slug == "consultants", onclick: "setCategory('consultants')" %>
                   <label for="professional-category-consultant">
                     <div class="">
                       <%= image_tag "consultant.png", class: "category-image" %>
@@ -245,7 +45,8 @@
 
 
                 <div class="hire-a-professional-category-box">
-                  <input type="radio" id="professional-category-Contractor" name="hire-a-professional-category-selection" value="Contractor">
+                  <!-- <input type="radio" id="professional-category-Contractor" name="hire-a-professional-category-selection" value="Contractor"> -->
+                  <%= f.radio_button :required_category, @category.id, class: "control__input js-required-category", id:"professional-category-Contractor", checked: @category.slug == "contractors", onclick: "setCategory('contractors')" %>
                   <label for="professional-category-Contractor">
                     <div class="">
                       <%= image_tag "contractor.png", class: "category-image" %>
@@ -260,7 +61,8 @@
                 </div>
 
                 <div class="hire-a-professional-category-box">
-                  <input type="radio" id="professional-category-Developer" name="hire-a-professional-category-selection" value="Developer">
+                  <!-- <input type="radio" id="professional-category-Developer" name="hire-a-professional-category-selection" value="Developer"> -->
+                  <%= f.radio_button :required_category, @category.id, class: "control__input js-required-category", id:"professional-category-Developer", value: "developers",checked: @category.slug == "developers", onclick: "setCategory('developers')" %>
                   <label for="professional-category-Developer">
                     <div class="">
                       <%= image_tag "developer.png", class: "category-image" %>
@@ -275,7 +77,8 @@
                 </div>
 
                 <div class="hire-a-professional-category-box">
-                  <input type="radio" id="professional-category-Specialist" name="hire-a-professional-category-selection" value="Specialist">
+                  <!-- <input type="radio" id="professional-category-Specialist" name="hire-a-professional-category-selection" value="Specialist"> -->
+                  <%= f.radio_button :required_category, @category.id, class: "control__input js-required-category", id:"professional-category-Specialist", checked: @category.slug == "specialists", onclick: "setCategory('specialists')" %>
                   <label for="professional-category-Specialist">
                     <div class="">
                       <%= image_tag "specialist.png", class: "category-image" %>
@@ -288,22 +91,173 @@
                     </div>
                   </label>
                 </div>
+
               </div>
             </div>
+          <% else %>
+            <%= f.input :required_category, input_html:{ hidden:true, value: @category.id }, label:false %>
+          <% end %>
 
+
+          <div class="mb-4">
+            <label for="request-title" class="form-label">Title of your request</label>
+            <%= f.input :title, wrapper: :text_field, input_html: { style: "height:calc(1.5em + .75rem + 2px);" }, placeholder: "I need:",label: false, required: true %>
+          </div>
+
+          <div class="mb-4">
+            <label for="describe-your-request" class="form-label">Describe your request in more detail</label>
+            <%= f.input :description, as: :text, wrapper: :text_area, placeholder: t("post_project.fields.description.placeholder"), input_html: { class: "form-control", id:"describe-your-request" }, label:false, required: true %>
+          </div>
+
+          <div class="mb-4"><!-- start field -->
+            <div>
+              <label for="Requirements" class="form-label">Requirements</label>
+            </div>
+            <ul class="two-column-checkbox-list">
+            <% @project_types.each_with_index do |project_type, index|%>
+              <li>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox<%= index + 1 %>" value="<%= project_type.id %>" name="project[project_type_ids][]">
+                  <label class="form-check-label" for="inlineCheckbox<%= index + 1 %>"><%= project_type.name %></label>
+                </div>
+              </li>
+            <% end %>
+            </ul>
+          </div>
+          <!-- Project field end -->
+
+          <!-- Project Location field start -->
+          <div class="mb-4"><!-- start field -->
+            <label for="Location" class="form-label">Location</label>
+            <%= f.simple_fields_for :location do |l| %>
+              <div class="input-group">
+                <div class="col-md-5">
+                  <% if l.object.new_record? %>
+                    <%= l.input :country_for_select, collection: @countries, input_html: { class: " rails-country-for-select form-control mb-3", id: "country", style: " width:100%; height:calc(1.5em + .75rem + 2px);"}, required: true,  placeholder: "Country"  %>
+                  <% else %>
+                    <%= l.input :country_for_select, collection: @countries, placeholder: "Country",  input_html: { class: "rails-country-for-select form-control mb-3", id: "country", style: "width:100%; height:calc(1.5em + .75rem + 2px);"}, required: true, selected: l.object.city.country.id, placeholder: "Country"  %>
+                  <% end %>
+                  
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-6">                  
+                  <%= l.input :city_id, collection: @cities, placeholder: "City", input_html: { class: " js-city rails-display-cities form-control mb-3", id:"city", style: "width:100%; height:calc(1.5em + .75rem + 2px);" }, required: true, placeholder: "City" %>
+                </div>
+              </div>
+              <%= l.input :street_address, wrapper: :text_field, input_html: { class: "js-street-address form-control", id:"street-address", style: "height:calc(1.5em + .75rem + 2px);" }, required: true, label:false, placeholder: "Street address" %>
+              <%#= render partial: "partials/location/choose_location", locals: { l: l } %>
+            <% end %>
+            <p class="text-warning">Pick location on the map instead</p>
+          </div>
+          <!-- Project Location field end -->
+
+          <div class="mb-4"><!-- start field -->
+            <div>
+              <label for="estimate-budget" class="form-label">Estimate budget</label>
+            </div>
+
+            <div class="input-group" id="estimate-budget-container">
+              <div class="col-md-4 input-group-text" >
+                <%= f.input :currency_type, collection: Project.i18n_enum_collection(:currency_types), as: :select, input_html: { class: "form-select", aria: { label: "Timeline" }, style: "height:calc(1.5em + .75rem + 2px); width:300px" }, label: false, required: true, include_blank: true %>
+              </div>
+              <div class="col-md-8"> 
+                <%= f.input :project_budget, selected: @project.project_budget.present? ? @project.project_budget : '', input_html: { class: "form-select", aria: {label: "Timeline"}, style: "width:100%" }, label: false, required: true %>
+              </div>
+            </div>
+          </div><!-- end field --> 
+
+
+          <div class="mb-4"><!-- start field -->
+            <div>
+              <label for="timeline" class="form-label">Timeline</label>
+            </div>
+
+            <div class="input-group">
+              <div class="col-md-4">
+                <%= f.input :timeline_type, collection: Project.i18n_enum_collection(:timeline_types), as: :select, input_html: { class: "form-select", aria: { label:'Timeline' }, style: "height:calc(1.5em + .75rem + 2px);" }, label: false, required: true %>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <div>
+              <label for="attachments" class="form-label">Attachments (jpg, jpeg, png, pdf)</label>
+            </div>
+            <%= f.simple_fields_for :attachments do |attachment| %>
+              <%= render 'user/project_steps/attachment_fields', f: attachment %>
+            <% end %>
+            <div class="mt-3">
+              <%= link_to_add_association t("post_project.fields.attachments.add_attachment"), f, :attachments, partial: "user/project_steps/attachment_fields", class: "text-warning" %>
+            </div>
+            
+          </div>
+          
+          <div class="mb-4 professionals-form">
             <%= render partial: I18n.with_locale(:en) { @category.name.downcase }, locals: { f: f } %>
           </div>
-        </div>
-        <!--End col-md-9  -->
-        <div class="col-md-3 mt-4"><!--start col-md-4  -->
-          <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "suppliers"), class: "btn btn-outline-primary btn-block" %>
-          <%= link_to t("main_nav.buy_rent"), new_user_project_path(project_type: "machinery"), class: "btn btn-outline-primary btn-block" %>
+
+          <div class="mb-4 text-center">
+            <%= f.submit "Publish",  class: "btn btn-primary" %>
+          </div>      
         </div>
       </div>
+      <div class="col-md-3 mt-4">
+        <%= link_to t("main_nav.hire_professional"), new_user_project_path(project_type: "default"), class: "btn btn-outline-primary btn-block mt-3  #{'u-hide' if @category.slug == 'consultants'} " %>
+        <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "suppliers"), class: "btn btn-outline-primary btn-block #{'u-hide' if @category.slug == 'suppliers'}" %>
+        <%= link_to t("main_nav.buy_rent"), new_user_project_path(project_type: "machinery"), class: "btn btn-outline-primary btn-block #{ 'u-hide' if @category.slug == 'machinery' } " %> 
+      </div>
+
     </div>
-  </main>
-<% else %>
-  <%= render partial: I18n.with_locale(:en) { @category.name.downcase }, locals: { f: f } %>
-<% end %>
+  </div>
 
+</main>
 
+<%= content_tag :span, '', class: "js-project-id", data: { id: @project.id } %>
+
+<script>
+  
+  $(function() {
+    toggleCitySelection();
+    return $(document).on('input', '.rails-country-for-select', function(e) {
+      var $this = $(this);
+  
+      return $.ajax({
+        url: '/filter_cities',
+        type: 'GET',
+        dataType: 'script',
+        data: {
+          country_for_select: $this.val(),
+          target_element: $this.uniqueId().attr('id')
+        }
+      });
+    });
+
+  });
+
+  function toggleCitySelection() {
+    var countrySelect = $('.rails-country-for-select');
+  
+      if($(countrySelect).val()) {
+        setTimeout(function () { $('.js-city').prop('disabled', false) }, 1000);
+      } else {
+        $('.js-city').prop('disabled', true);
+      }
+  }
+  
+  $('.rails-country-for-select').on('input', toggleCitySelection);
+
+  function setCategory(value) {
+    var projectID = $('.js-project-id').data('id');
+
+    $.ajax({
+      url: `/user/projects/${projectID}/set_category`,
+      type: 'GET',
+      dataType: 'script',
+      data: { 
+        category_slug: value,
+        form_builder: '<%= f %>' 
+      }
+    })
+  }
+
+</script>

@@ -14,7 +14,7 @@ $('.js-selected-subcat').on('change', function() {
   var selectedSubCat = $(this).val();
   targetSubCat = $(this);
 
-  $('.js-cocoon-fields').find('form')[0].reset();
+  // $('.js-cocoon-fields').find('form')[0].reset();
   $(this).val(selectedSubCat);
 
   if ($(this).val()) {

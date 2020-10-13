@@ -81,6 +81,7 @@ Rails.application.routes.draw do
 
     resources :projects do
       get "filter_services", to: "project_steps#filter_services"
+      get "set_category", to: "project_steps#set_category"
 
       resources :project_business, only: [:show]
       put "shortlist_business", to: "projects#shortlist_business"

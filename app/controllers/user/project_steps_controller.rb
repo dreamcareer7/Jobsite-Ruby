@@ -3,6 +3,7 @@ class User::ProjectStepsController < User::BaseController
   include FilterServices
   include RestoreProjectOnError
   include EmailHelper
+  include SetCategory
 
   steps :project_details
 
@@ -130,7 +131,7 @@ class User::ProjectStepsController < User::BaseController
 
     if params[:project_type] == "default"
       @project_type_header = I18n.t("main_nav.hire_professional")
-    elsif params[:project_type] == "supplier"
+    elsif params[:project_type] == "suppliers"
       @project_type_header = I18n.t("main_nav.get_supplies")
     elsif params[:project_type] == "machinery"
       @project_type_header = I18n.t("main_nav.buy_rent")

@@ -27,21 +27,21 @@
           <% end %>
         </ul>
 
-        <ul class="nav navbar-nav ml-auto mr-auto" id="global-search-section">
-          <li class="nav-item">
-            <form class="form-inline" id="global-search-form">
+        <div class="field nav__search js-search-box">
+          <div class="field__input-wrapper">
+            <form>
               <div class="input-group">
                 <div class="input-group-btn" id="global-search-input-box-search-icon-container">
                   <i class="fa fa-search" aria-hidden="true" id="global-search-input-box-search-icon"></i>
                 </div>
-                <input class="form-control search" 
-                    type="text" placeholder="Search for contractors and suppliers" 
-                    name="search"
-                    aria-label="Search" id="global-search-input-box"/>
+                <input class="form-control field__input field__input--small search field__input--right-add-on" 
+                  aria-label="Search" style="height: calc(1.5em + .75rem + 2px)" placeholder="<%= t("home_page.header.search_box_placeholder") %>"  id="global-search-input-box"/>
               </div>
             </form>
-          </li>
-        </ul>
+            <%= render partial: "partials/auto_complete/default_results" %>
+            <%= render partial: "partials/auto_complete/no_results" %>
+          </div>
+        </div>
 
         <ul class="nav navbar-nav ml-auto mr-auto">
           <li class="nav-item dropdown">
@@ -99,3 +99,11 @@
     </div>
   </nav>
 </header>
+
+<%= javascript_include_tag 'auto_complete.js' %>
+
+<% if request.fullpath.ends_with?("problem") %>
+  <script>
+    $('.js-problem').addClass('is-visible');
+  </script>
+<% end %>

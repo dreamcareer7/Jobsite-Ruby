@@ -1,19 +1,18 @@
-<div class="card__section card__section--padded js-item-field pb0 js-select-services">
+<div class="mt-4 js-item-field pb0 js-select-services">
   <div class="grid grid--tight rails-service-fields">
     <div class="grid__col--xs-12 grid__col--md-6 grid__col--xlg-6">
       <div class="field">
-        <div class="field__label"><%= t("post_project.project_services_specific") %></div>
+        <div class="form-label"><%= t("post_project.project_services_specific") %></div>
         <div class="field__input-wrapper">
-          <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-          <%= f.input :service_id, collection: @services.visible, input_html: { class: "field__input field__input-right-add-on rails-display-services js-selected-service", data: { sub_cat: f.object.sub_category.present? ? f.object.sub_category.id : nil }, include_blank: true }, label: false, required: true  %>
+          <%= f.input :service_id, collection: @services.visible, input_html: { class: "field__input field__input-right-add-on rails-display-services js-selected-service", data: { sub_cat: f.object.sub_category.present? ? f.object.sub_category.id : nil }, include_blank: true, style: "height:calc(1.5em + .75rem + 2px);" }, label: false, required: true  %>
         </div>
       </div>
     </div>
     <div class="grid__col--xs-6 grid__col--md-3 grid__col--xlg-3">
       <div class="field">
-        <div class="field__label"><%= t("post_project.machinery.fields.quantity.label") %></div>
+        <div class="form-label"><%= t("post_project.machinery.fields.quantity.label") %></div>
         <div class="field__input-wrapper">
-          <%= f.input :quantity, input_html: { class: "field__input" }, label: false %>
+          <%= f.input :quantity, input_html: { class: "field__input", style: "height:calc(1.5em + .75rem + 2px);" }, label: false %>
         </div>
       </div>
     </div>
@@ -21,30 +20,30 @@
     <% if I18n.with_locale(:en){ @category.name == "Suppliers" } %> 
       <div class="grid__col--xs-12 grid__col--sm-6 grid__col--md-3 grid__col--xlg-3">
         <div class="field">
-          <div class="field__label"><%= t("words.units") %></div>
-          <%= f.input :option, wrapper: "text_field", label: false %>
+          <div class="form-label"><%= t("words.units") %></div>
+          <%= f.input :option, wrapper: "text_field", label: false, input_html: { class: "field__input", style: "height:calc(1.5em + .75rem + 2px);" } %>
         </div>
       </div>
     <% else %>
       <div class="grid__col--xs-12 grid__col--sm-6 grid__col--md-3 grid__col--xlg-3">
         <div class="field">
-          <div class="field__label"><%= t("post_project.machinery.fields.option.label") %></div>
+          <div class="form-label"><%= t("post_project.machinery.fields.option.label") %></div>
           <div class="field__input-wrapper">
             <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-            <%= f.input :option, collection: t("post_project.machinery.fields.option.options"), input_html: { class: "field__input field__input-right-add-on" }, label: false %>
+            <%= f.input :option, collection: t("post_project.machinery.fields.option.options"), input_html: { class: "field__input field__input-right-add-on", style: "height:calc(1.5em + .75rem + 2px);" }, label: false %>
           </div>
         </div>
       </div>
     <% end %>
 
     <div class="grid__col--xs-12">
-      <div class="field">
-        <label class="field__label"><%= t("post_project.machinery.fields.details.label") %></label>
+      <div class="field mt-2">
+        <label class="form-label"><%= t("post_project.machinery.fields.details.label") %></label>
         <div class="field__input-wrapper">
-          <%= f.input :details, wrapper: :text_field, label: false %>
+          <%= f.input :details, wrapper: :text_field, label: false, input_html: { class: "field__input", style: "height:calc(1.5em + .75rem + 2px);" } %>
         </div>
       </div>
-      <%= link_to_remove_association f, { wrapper_class: "rails-service-fields", class: "js-remove-service-field field__remove" } do %><%= t("words.remove") %><% end %>
+      <%= link_to_remove_association f, { wrapper_class: "rails-service-fields", class: "js-remove-service-field field__remove", style: "height:calc(1.5em + .75rem + 2px);" } do %><%= t("words.remove") %><% end %>
     </div>
   </div>
   <hr class="divider mb0">

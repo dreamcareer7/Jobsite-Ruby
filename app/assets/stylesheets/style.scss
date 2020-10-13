@@ -69,6 +69,7 @@
 "modules/_social",
 "modules/_auto_complete",
 "modules/_brand",
+"modules/_popover",
 "modules/_tooltipster";
 
 // Vendor
@@ -728,4 +729,22 @@ a.sidebar-link {
 
 .btn-browse {
   padding: 0.750rem 1rem;
+}
+
+.btn-business:hover {
+  background-color: black;
+  border-color: black;
+}
+
+// Search
+
+.nav__search {
+  margin-left: $spacing-medium;
+  margin-right: $spacing-medium;
+  flex: 1;
+
+  @include mq(large) {
+    margin-left: $spacing-large;
+    margin-right: $spacing-large;
+  }
 }
