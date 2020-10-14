@@ -4,14 +4,14 @@
     <div class="primary-nav__left">
       <a href="/<%= @current_city.present? ? I18n.with_locale(:en){ @current_city.name } : City.first.name %>" class="u-hover-muted">
         <% if controller_name == "home" %>
-          <%= inline_svg(locale == :ar ? 
-                         "logo-ar.svg" : 
+          <%= inline_svg(locale == :ar ?
+                         "logo-ar.svg" :
                          "logo.svg", class: "nav__logo nav__logo--full-mobile") %>
         <% else %>
           <%= inline_svg("logo-mark.svg", class: "nav__logo nav__logo--mobile") %>
         <% end %>
-        <%= inline_svg(locale == :ar ? 
-                       "logo-ar.svg" : 
+        <%= inline_svg(locale == :ar ?
+                       "logo-ar.svg" :
                        "logo.svg", class: "nav__logo nav__logo--desktop") %>
       </a>
       <div class="nav__divider u-hide--large-down"></div>
@@ -60,7 +60,45 @@
 
   </div>
 </nav>
+<div class="category-mega-menu">
+  <div class="site-wrap">
+    <ul class="toplevel">
+      <li class="submenu-holder"><a href="#" class="active">SUPPLIERS</a>
+          <div class="submenu">
+              <ul>
+                  <li><a href="#">SUPPLIERS 1</a></li>
+              </ul>
 
+          </div>
+      </li>
+      <li class="submenu-holder"><a href="#">PROFESSIONALS</a>
+          <div class="submenu">
+              <ul>
+                  <li><a href="#">PROFESSIONALS 2</a></li>
+              </ul>
+          </div>
+      </li>
+      <li class="submenu-holder"><a href="#">MACHINERY</a>
+          <div class="submenu">
+              <ul>
+                  <li><a href="#">MACHINERY 2</a></li>
+              </ul>
+          </div>
+      </li>
+      <li class="submenu-holder"><%= link_to "GAllERY", gallery_index_path %>
+      </li>
+      <li class="submenu-holder"><a href="#"><i class="fa fa-lock"></i> PROJECTS</a>
+      </li>
+      <li class="submenu-holder"><a href="#">MORE</a>
+          <div class="submenu">
+              <ul>
+                  <li><a href="#">MORE 2</a></li>
+              </ul>
+          </div>
+      </li>
+    </ul>
+  </div>
+</div>
 <%= content_for :page_scripts do %>
   <%= javascript_include_tag 'auto_complete.js' %>
 
