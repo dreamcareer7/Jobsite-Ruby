@@ -10,6 +10,7 @@ class Attachment < ApplicationRecord
 
   scope :project_image, -> { where(owner_type: "Project") }
   scope :by_city, -> (city) { joins(:project).merge(Project.by_city(city)) }
+  scope :by_category, ->(category_id) { where(owner_type: "Project").where("projects.category_id = ?", category_id) }
   
   # Apply styling appropriate for this file
   has_attached_file :attachment, styles: lambda { |a| a.instance.check_file_type}, :default_url => "no_image.png"

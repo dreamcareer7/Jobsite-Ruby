@@ -26,7 +26,7 @@ class GalleryController < ApplicationController
 
   def user_project_photos
     if category_filter_present?
-      Attachment.by_city(@current_city).project_images
+      Attachment.by_city(@current_city).by_category(category.id)
     else
       Attachment.by_city(@current_city).project_images
     end
@@ -50,10 +50,20 @@ class GalleryController < ApplicationController
 
   def category_ids
     @category_ids ||= if %w(machinery interior_design).include?(params[:category_type])
-                        category_slug  = params[:category_type] == "interior_design" ? "consultants" : "machinery"
-                        Category.find_by(slug: category_slug).sub_categories.pluck(:id)
+                        category.sub_categories.pluck(:id)
                       else
-                        Category.find_by(slug: "suppliers").sub_categories.where(slug: params[:category_type]).pluck(:id)
+                        category.sub_categories.where(slug: params[:category_type]).pluck(:id)
                       end
+  end
+
+  def category
+    return @category if @category.present?
+
+    if %w(machinery interior_design).include?(params[:category_type])
+      category_slug  = params[:category_type] == "interior_design" ? "consultants" : "machinery"
+      @category = Category.find_by(slug: category_slug)
+    else
+      @category = Category.find_by(slug: "suppliers")
+    end
   end
 end
