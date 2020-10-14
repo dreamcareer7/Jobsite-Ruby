@@ -14,7 +14,7 @@
             <div class="field">
               <div class="field__input-wrapper">
                 <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-                <%= f.input :project_sub_category, collection: @project.category.sub_categories.visible, selected: @project.sub_categories.present? ? @project.sub_categories.first.id : '', input_html: { class: "field__input field__input--right-add-on js-selected-subcat", style: "height:calc(1.5em + .75rem + 2px);" }, label: false, required: true, include_blank: true %>
+                <%= f.input :project_sub_category, collection: @project.category.sub_categories.visible, selected: @project.sub_categories.present? ? @project.sub_categories.first.id : '', input_html: { class: "field__input field__input--right-add-on js-selected-subcat input-line-height", style: "height:calc(1.5em + .75rem + 2px);" }, label: false, required: true, include_blank: true %>
               </div>
             </div>
           </div>
