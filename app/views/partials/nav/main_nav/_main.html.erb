@@ -60,12 +60,28 @@
 
   </div>
 </nav>
+
+
+
 <div class="category-mega-menu">
   <div class="site-wrap">
+
+    <div class="toggler">
+        <a href="#">Select Category</a>
+        <span class="toggle-btn">
+          <i class="fa fa-bars"></i>
+        </span>
+    </div>          
+
     <ul class="toplevel">
       <li class="submenu-holder"><a href="#" class="active">SUPPLIERS</a>
           <div class="submenu">
-              <ul>
+              <ul class="submenu-unorder-list">
+                  <li><a href="#">SUPPLIERS 1</a></li>
+                  <li><a href="#">SUPPLIERS 1</a></li>
+                  <li><a href="#">SUPPLIERS 1</a></li>
+                  <li><a href="#">SUPPLIERS 1</a></li>
+                  <li><a href="#">SUPPLIERS 1</a></li>
                   <li><a href="#">SUPPLIERS 1</a></li>
               </ul>
 
@@ -73,14 +89,18 @@
       </li>
       <li class="submenu-holder"><a href="#">PROFESSIONALS</a>
           <div class="submenu">
-              <ul>
+              <ul class="submenu-unorder-list">
+                  <li><a href="#">PROFESSIONALS 2</a></li>
+                  <li><a href="#">PROFESSIONALS 2</a></li>
                   <li><a href="#">PROFESSIONALS 2</a></li>
               </ul>
           </div>
       </li>
       <li class="submenu-holder"><a href="#">MACHINERY</a>
           <div class="submenu">
-              <ul>
+              <ul class="submenu-unorder-list">
+                  <li><a href="#">MACHINERY 2</a></li>
+                  <li><a href="#">MACHINERY 2</a></li>
                   <li><a href="#">MACHINERY 2</a></li>
               </ul>
           </div>
@@ -91,14 +111,28 @@
       </li>
       <li class="submenu-holder"><a href="#">MORE</a>
           <div class="submenu">
-              <ul>
+              <ul class="submenu-unorder-list">
                   <li><a href="#">MORE 2</a></li>
+                  <li><a href="#">MORE 2</a></li>
+                  <li><a href="#">MORE 2</a></li>
+
               </ul>
           </div>
       </li>
     </ul>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
 <%= content_for :page_scripts do %>
   <%= javascript_include_tag 'auto_complete.js' %>
 

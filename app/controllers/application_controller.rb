@@ -107,7 +107,8 @@ class ApplicationController < ActionController::Base
 
   def nav_modifier
     return unless controller_path == "home" || controller_path.split("/").shift == "business"
-    controller_path == "home" ? 'primary-nav--transparent' : 'primary-nav--dashboard'
+    controller_path == "home" ? '' : 'primary-nav--dashboard'
+    # controller_path == "home" ? 'primary-nav--transparent' : 'primary-nav--dashboard'
   end
 
   def limit_business_page_views

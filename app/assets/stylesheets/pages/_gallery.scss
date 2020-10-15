@@ -71,12 +71,9 @@
   width:290px;
   margin:0px auto;
 }
-.slick-slide{
-  // margin:10px;
-}
+
 .slick-slide img{
   width:100%;
-  // border: 2px solid #fff;
 }
 .gallery-category-filters {
   display: flex;
@@ -115,8 +112,6 @@
   }
 }
 
-
-
 .gallery-category-menu-and-dropdown {
     select {
       display: none;
@@ -134,10 +129,6 @@
       border-radius: 2px;
       margin-right: 2rem;
       padding-right: 2rem;
-
-
-
-
     }
 
     
@@ -154,92 +145,136 @@
 
 
 
+
+
 // Mega Menu Start
 .category-mega-menu{
-
-  background:#000;
-
-      .toplevel{
-        padding: 0px;
-        list-style: none;
-        display: flex;
-        position: relative;
-        justify-content: center;
-        margin-top: 0px;
-        margin-bottom: 0px;
-        padding-top:10px;
-        padding-bottom: 10px;
-        flex-wrap: wrap;
-      }
-      .toplevel li{
-        
-        list-style-type: none;
-
-        .submenu{
-            ul{
-              li{
-                a{
-                  color: #000;
-                }
-              }
-            }
-        }
-
-
-      }
-      .toplevel li a{
-        display: block;
-        padding: 5px 15px;
-        // border: 1px solid $primary-color;
-        border-radius: 5px;
-        margin-right: 5px;
-        z-index: 999;
-        color: white;
-      }
-      .toplevel li a:active{
-        // background: $primary-color;
-        // border: 1px solid $primary-color;
-        color: white;
-      }
-      .toplevel li a:hover{
-        // background: $primary-color;
-        // border: 1px solid $primary-color;
-        color: white;
-      }
-      .submenu{
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        display: flex;
-        visibility: hidden;
-        background: #fff;
-        z-index: 2;
-      }
-      .submenu li a{
-        // border: 1px solid transparent;
-      }
-      
-      .toplevel li:hover .submenu{
-        visibility: visible;
-      }
-      .submenu ul{
-        width: 100%;
-        padding: 0px;
-        list-style: none;
-      }
-      .submenu ul li{
-        text-align: left;
-      }
-      .toggler{
-        display: none;
-      }
-
-
-
+  background: #000;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 
+.toplevel{
+  padding: 0px;
+  list-style: none;
+  display: flex;
+  position: relative;
+  justify-content: center;
 
+}
+.toplevel li{
+  list-style-type: none;
+}
+.toplevel li a{
+  display: block;
+  padding: 5px 15px;
+  margin-right: 5px;
+  z-index: 999;
+  color: #fff;
+}
+.toplevel li a:active{
+  background: $primary-color;
+  color: white;
+}
+.toplevel li a:hover{
+  background: $primary-color;
+  color: white;
+}
+.submenu{
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  display: flex;
+  visibility: hidden;
+  background: #f0f0f0;
+  z-index: 4;
+  border: 1px solid #dcdcdc;
+  transform: translateY(-5px);
+  border-bottom: 2px solid $primary-color;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, transform 0.2s ease-in-out;
+  margin-top: 20px;
+
+
+}
+.submenu-unorder-list{
+  column-count: 3;
+  -webkit-column-count: 3; 
+  -moz-column-count: 3; 
+}
+
+.submenu li a{
+  // border: 1px solid transparent;
+  color: #000;
+  padding: 10px;
+}
+
+.toplevel li:hover .submenu{
+  visibility: visible;
+}
+.submenu ul{
+  width: 100%;
+  padding: 0px;
+  list-style: none;
+  // display: flex;
+  // flex-wrap: wrap;
+  // flex-direction: column;
+  padding: 20px;
+
+}
+.submenu ul li{
+  text-align: left;
+  // display: flex;
+}
+.toggler{
+  display: none;
+}
+@media (max-width: 767px)
+{
+  .toplevel{
+      display: none;
+      width: 100%;
+  }
+  .toplevel li{
+      text-align: left;
+  }
+  .submenu{
+      position: relative;
+      top: 0;
+      visibility: visible;
+      display: none;
+  }
+  .submenu-unorder-list{
+    column-count: 1;
+    -webkit-column-count: 1; 
+    -moz-column-count: 1; 
+  }
+  .open .display{
+      display: block;
+  }
+  .toggler{
+      display: flex;
+      justify-content: space-between;
+
+  }
+  .toggler a{
+    font-size: 24px;
+    color: #fff;
+    text-decoration: none;
+    align-self: center;
+  }
+  .toggle-btn{
+    font-size: 24px;
+    padding: 5px 10px;
+    border: 1px solid $primary-color;
+    border-radius: 0px;
+    background: $primary-color;
+    color: white;
+    cursor: pointer;
+
+  }
+
+}
 
 // Mega Menu End
