@@ -1,13 +1,9 @@
 <span class="js-cocoon-fields">
   <%= simple_form_for @project, url: @edit_path do |f| %>
     <div class="">
-      <div class="">
-        <div class="">
-          <label for="looking-for" class="form-label">
-            <%= t("post_project.project_services_needed", category: @category.name.capitalize.singularize) %>
-          </label>
-        </div>
-      </div>
+      <label for="looking-for" class="form-label">
+        <%= t("post_project.project_services_needed", category: @category.name.capitalize.singularize) %>
+      </label>
       <fieldset class="fieldset">
         <div class="grid">
           <div class="grid__col--xs-12 grid__col--md-12">

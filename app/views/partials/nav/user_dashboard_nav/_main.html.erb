@@ -86,8 +86,16 @@
                 <%= current_user.name.split.first %>
               </a>
               <div class="dropdown-menu" aria-labelledby="profile-setting-logout-dropdown">
+                <%= link_to user_profile_index_path, class: "dropdown-item" do %>
+                  <i class="fa fa-globe" aria-hidden="true"></i>
+                  <%= t("profile_nav.dashboard") %>
+                <% end %>
                 <%= link_to edit_user_path(current_user), class: "dropdown-item" do %>
                   <i class="fa fa-user" aria-hidden="true"></i> Profile
+                <% end %>
+                <%= link_to "/pages/contact", class: "dropdown-item" do %>
+                  <i class="fa fa-level-up" aria-hidden="true"></i>
+                  <%= t("main_nav.upgrade") %>
                 <% end %>
                 <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do  %><i class="fa fa-sign-out" aria-hidden="true"></i>
                   <%= t("main_nav.log_out") %>

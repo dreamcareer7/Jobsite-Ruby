@@ -1,6 +1,6 @@
 <main class="post-a-projects">
 
-  <div class="mt-4"><!-- start breadcrumb Box -->
+  <div class="mt-4">
     <div class="container">
       <div class="row">
         <div class="col-md-9">
@@ -13,7 +13,7 @@
           <% end %>
         </div>
         <div class="col-md-3">
-        </div>                    
+        </div>
       </div>
     </div>
   </div>
@@ -26,11 +26,9 @@
           <% if params[:project_type] == "default" %>
             <div class="mb-4">
               <div class="hire-a-professional-category-container">
-                    
                 <div class="hire-a-professional-category-box">
-                  <!-- <input type="radio" id="professional-category-consultant" name="hire-a-professional-category-selection" value="consultant" checked> -->
-                  <%= f.radio_button :required_category, @category.id, class: "control__input js-required-category", id:"professional-category-consultant", value: "consultant",checked: @category.slug == "consultants", onclick: "setCategory('consultants')" %>
-                  <label for="professional-category-consultant">
+                  <input type="radio" id="professional-category-consultants" name="hire-a-professional-category-selection" value="consultant" onclick= "setCategory('consultants')">
+                  <label for="professional-category-consultants">
                     <div class="">
                       <%= image_tag "consultant.png", class: "category-image" %>
                     </div>
@@ -45,9 +43,8 @@
 
 
                 <div class="hire-a-professional-category-box">
-                  <!-- <input type="radio" id="professional-category-Contractor" name="hire-a-professional-category-selection" value="Contractor"> -->
-                  <%= f.radio_button :required_category, @category.id, class: "control__input js-required-category", id:"professional-category-Contractor", checked: @category.slug == "contractors", onclick: "setCategory('contractors')" %>
-                  <label for="professional-category-Contractor">
+                  <input type="radio" id="professional-category-contractors" name="hire-a-professional-category-selection" onclick= "setCategory('contractors')">
+                  <label for="professional-category-contractors">
                     <div class="">
                       <%= image_tag "contractor.png", class: "category-image" %>
                     </div>  
@@ -61,9 +58,8 @@
                 </div>
 
                 <div class="hire-a-professional-category-box">
-                  <!-- <input type="radio" id="professional-category-Developer" name="hire-a-professional-category-selection" value="Developer"> -->
-                  <%= f.radio_button :required_category, @category.id, class: "control__input js-required-category", id:"professional-category-Developer", value: "developers",checked: @category.slug == "developers", onclick: "setCategory('developers')" %>
-                  <label for="professional-category-Developer">
+                  <input type="radio" id="professional-category-developers" name="hire-a-professional-category-selection" value="Developer" onclick="setCategory('developers')">
+                  <label for="professional-category-developers">
                     <div class="">
                       <%= image_tag "developer.png", class: "category-image" %>
                     </div>
@@ -77,9 +73,8 @@
                 </div>
 
                 <div class="hire-a-professional-category-box">
-                  <!-- <input type="radio" id="professional-category-Specialist" name="hire-a-professional-category-selection" value="Specialist"> -->
-                  <%= f.radio_button :required_category, @category.id, class: "control__input js-required-category", id:"professional-category-Specialist", checked: @category.slug == "specialists", onclick: "setCategory('specialists')" %>
-                  <label for="professional-category-Specialist">
+                  <input type="radio" id="professional-category-specialists" name="hire-a-professional-category-selection" value="Specialist" onclick= "setCategory('specialists')">
+                  <label for="professional-category-specialists">
                     <div class="">
                       <%= image_tag "specialist.png", class: "category-image" %>
                     </div>
@@ -94,9 +89,13 @@
 
               </div>
             </div>
-          <% else %>
-            <%= f.input :required_category, input_html:{ hidden:true, value: @category.id }, label:false %>
+
+            <div class="mb-4 professionals-form">
+              <%= render partial: I18n.with_locale(:en) { @category.name.downcase }, locals: { f: f } %>
+            </div>
           <% end %>
+
+          <%= f.input :required_category, input_html:{ hidden:true, value: @category.id, id: "required_category"}, label:false %>
 
 
           <div class="mb-4">
@@ -104,16 +103,18 @@
             <%= f.input :title, wrapper: :text_field, input_html: { style: "height:calc(1.5em + .75rem + 2px);" }, placeholder: "I need:",label: false, required: true %>
           </div>
 
-          <div class="mb-4 professionals-form">
-            <%= render partial: I18n.with_locale(:en) { @category.name.downcase }, locals: { f: f } %>
-          </div>
+          <% unless params[:project_type] == "default" %>
+            <div class="mb-4 professionals-form">
+              <%= render partial: I18n.with_locale(:en) { @category.name.downcase }, locals: { f: f } %>
+            </div>
+          <% end %>
 
           <div class="mb-4">
             <label for="describe-your-request" class="form-label">Describe your request in more detail</label>
             <%= f.input :description, as: :text, wrapper: :text_area, placeholder: t("post_project.fields.description.placeholder"), input_html: { class: "form-control", id:"describe-your-request" }, label:false, required: true %>
           </div>
 
-          <div class="mb-4"><!-- start field -->
+          <div class="mb-4">
             <div>
               <label for="Requirements" class="form-label">Requirements</label>
             </div>
@@ -128,10 +129,8 @@
             <% end %>
             </ul>
           </div>
-          <!-- Project field end -->
 
-          <!-- Project Location field start -->
-          <div class="mb-4"><!-- start field -->
+          <div class="mb-4">
             <label for="Location" class="form-label">Location</label>
             <%= f.simple_fields_for :location do |l| %>
               <div class="input-group">
@@ -141,21 +140,21 @@
                   <% else %>
                     <%= l.input :country_for_select, collection: @countries, placeholder: "Country",  input_html: { class: "rails-country-for-select form-control mb-3", id: "country", style: "width:100%; height:calc(1.5em + .75rem + 2px);"}, required: true, selected: l.object.city.country.id, placeholder: "Country"  %>
                   <% end %>
-                  
                 </div>
+
                 <div class="col-md-1"></div>
+
                 <div class="col-md-6">                  
                   <%= l.input :city_id, collection: @cities, placeholder: "City", input_html: { class: " js-city rails-display-cities form-control mb-3", id:"city", style: "width:100%; height:calc(1.5em + .75rem + 2px);" }, required: true, placeholder: "City", selected: current_user.present? ?  current_user.city.id : " " %>
                 </div>
               </div>
+
               <%= l.input :street_address, wrapper: :text_field, input_html: { class: "js-street-address form-control", id:"street-address", style: "height:calc(1.5em + .75rem + 2px);" }, required: true, label:false, placeholder: "Street address" %>
-              <%#= render partial: "partials/location/choose_location", locals: { l: l } %>
             <% end %>
             <p class="text-warning">Pick location on the map instead</p>
           </div>
-          <!-- Project Location field end -->
 
-          <div class="mb-4"><!-- start field -->
+          <div class="mb-4">
             <div>
               <label for="estimate-budget" class="form-label">Estimate budget</label>
             </div>
@@ -168,10 +167,9 @@
                 <%= f.input :project_budget, selected: @project.project_budget.present? ? @project.project_budget : '', input_html: { class: "form-select", aria: {label: "Timeline"}, style: "width:100%" }, label: false, required: true %>
               </div>
             </div>
-          </div><!-- end field --> 
+          </div>
 
-
-          <div class="mb-4"><!-- start field -->
+          <div class="mb-4">
             <div>
               <label for="timeline" class="form-label">Timeline</label>
             </div>
@@ -215,12 +213,17 @@
 <%= content_tag :span, '', class: "js-project-id", data: { id: @project.id } %>
 
 <script>
-  
+
   $(function() {
+    var category = "<%= @project.category.slug %>";
+    if (document.getElementById(`professional-category-${category}`)) {
+      document.getElementById(`professional-category-${category}`).checked = true;
+    }
+
     toggleCitySelection();
     return $(document).on('input', '.rails-country-for-select', function(e) {
       var $this = $(this);
-  
+
       return $.ajax({
         url: '/filter_cities',
         type: 'GET',
@@ -243,7 +246,7 @@
         $('.js-city').prop('disabled', true);
       }
   }
-  
+
   $('.rails-country-for-select').on('input', toggleCitySelection);
 
   function setCategory(value) {
@@ -254,8 +257,7 @@
       type: 'GET',
       dataType: 'script',
       data: { 
-        category_slug: value,
-        form_builder: '<%= f %>' 
+        category_slug: value
       }
     })
   }

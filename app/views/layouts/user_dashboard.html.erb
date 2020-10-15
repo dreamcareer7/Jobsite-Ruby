@@ -61,5 +61,8 @@
       </div>
       <%= render partial: "partials/nav/user_dashboard_nav/footer" %>
     </div>
+    <% if ["businesses", "user/businesses", "user/projects", "user/project_steps", "business/businesses"].include? controller_path %>
+      <%= render partial: "modals/map/choose_location" %>
+    <% end %>
   </body>
 </html>

@@ -1,21 +1,17 @@
 <!-- New -->
-<%= simple_form_for @project, url: @edit_path do |f| %>
+<%= simple_fields_for @project do |f| %>
 
   <div class="">
-    <div class="">
-      <div class="">
-        <label for="looking-for" class="form-label">
-          <%= t("post_project.project_services_needed", category: @category.name.capitalize.singularize) %>
-        </label>
-      </div>
-    </div>
+    <label for="looking-for" class="form-label">
+      <%= t("post_project.project_services_needed", category: @category.name.capitalize.singularize) %>
+    </label>
     <fieldset class="fieldset">
       <div class="grid">
         <div class="grid__col--xs-12 grid__col--md-12">
           <div class="field">
-            <div class="field__input-wrapper">
+            <div class="field__input-wrapper" id="form-change1">
               <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-              <%= f.input :project_services, collection: @project.category.sub_categories.visible, selected: @project.sub_categories.present? ? @project.sub_categories.first.id : '', input_html: { class: "field__input field__input--right-add-on js-selected-subcat", style: "height:calc(1.5em + .75rem + 2px);"  }, label: false, required: true, include_blank: true %>
+              <%= f.input :project_services, collection: @project.category.sub_categories.visible, selected: @project.sub_categories.present? ? @project.sub_categories.first.id : '', input_html: { class: "field__input field__input--right-add-on js-selected-subcat input-line-height", style: "height:calc(1.5em + .75rem + 2px);"  }, label: false, required: true, include_blank: true %>
             </div>
           </div>
         </div>
@@ -24,23 +20,20 @@
   </div>
 
   <% @category.sub_categories.visible.each do |sub_category| %>
-    <div class="js-select-services <%= 'u-hide' unless @project.sub_categories.include?(sub_category) %>" data-sub-cat="<%= sub_category.id %>">
-      <div class="">
-        <div class="">
-          <label for="looking-for" class="form-label mt-3">
-            <%= sub_category.name.singularize %> <%= t("words.services") %>
-          </label>
-        </div>
-      </div>
+    <div class="js-select-services <%= 'u-hide' unless @project.sub_categories.include?(sub_category) %>" data-sub-cat="<%= sub_category.id %>" id="form-change2">
+      <label for="looking-for" class="form-label mt-3">
+        <%= sub_category.name.singularize %> <%= t("words.services") %>
+      </label>
       <fieldset class="fieldset">
         <div class="grid">
           <div class="grid__col--xs-12 grid__col--md-12">
             <div class="field">
               <label class="field__label">* <%= t("post_project.project_services") %></label>
-              <%= f.association :services, collection: sub_category.services.visible, selected: @project.services.pluck(:id), input_html: { multiple: true, style: "width:100%", class: "js-selected-services" }, wrapper: :select2, label: false %>
+              <%= f.association :services, collection: sub_category.services.visible, selected: @project.services.pluck(:id), input_html: { multiple: true, style: "width:100%", class: "js-selected-services input-line-height" }, wrapper: :select2, label: false %>
             </div>
           </div>
         </div>
+      </fieldset>
     </div>
   <% end %>
 <% end %>
