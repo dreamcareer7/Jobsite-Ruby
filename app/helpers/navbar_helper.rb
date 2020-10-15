@@ -8,4 +8,3 @@ module NavbarHelper
     [[t('nav.consultants'), 'consultants'], [t('nav.contractors'), 'contractors'], [t('nav.specialists'), 'specialists'], [t('nav.developers'), 'municipal']]
   end
 end
-  

@@ -71,18 +71,15 @@
         <span class="toggle-btn">
           <i class="fa fa-bars"></i>
         </span>
-    </div>          
+    </div>
 
     <ul class="toplevel">
       <li class="submenu-holder"><a href="#" class="active">SUPPLIERS</a>
           <div class="submenu">
               <ul class="submenu-unorder-list">
-                  <li><a href="#">SUPPLIERS 1</a></li>
-                  <li><a href="#">SUPPLIERS 1</a></li>
-                  <li><a href="#">SUPPLIERS 1</a></li>
-                  <li><a href="#">SUPPLIERS 1</a></li>
-                  <li><a href="#">SUPPLIERS 1</a></li>
-                  <li><a href="#">SUPPLIERS 1</a></li>
+                <% supplier_sub_caegory('suppliers').each do |sub_category| %>
+                  <li><%= link_to sub_category.name, sub_category_path(id: sub_category) %></li>
+                <% end %>
               </ul>
 
           </div>
@@ -93,15 +90,16 @@
                   <li><a href="#">PROFESSIONALS 2</a></li>
                   <li><a href="#">PROFESSIONALS 2</a></li>
                   <li><a href="#">PROFESSIONALS 2</a></li>
+                  <li><a href="#">PROFESSIONALS 2</a></li>
               </ul>
           </div>
       </li>
       <li class="submenu-holder"><a href="#">MACHINERY</a>
           <div class="submenu">
               <ul class="submenu-unorder-list">
-                  <li><a href="#">MACHINERY 2</a></li>
-                  <li><a href="#">MACHINERY 2</a></li>
-                  <li><a href="#">MACHINERY 2</a></li>
+                  <% supplier_sub_caegory('machinery').each do |sub_category| %>
+                    <li><%= link_to sub_category.name, sub_category_path(id: sub_category) %></li>
+                  <% end %>
               </ul>
           </div>
       </li>
