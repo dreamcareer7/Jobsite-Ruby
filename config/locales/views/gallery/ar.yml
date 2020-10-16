@@ -15,3 +15,13 @@ ar:
     save: حفظ
     no_result: لا نتيجة | جرب فئة أو مدينة مختلفة
     all: الكل
+  nav:
+    view_all: مشاهدة الكل
+    suppliers: الموردين
+    professionls: المهنيين
+    gallery: صالة عرض
+    more: أكثر
+    consultants: استشاريون
+    contractors: المقاولون
+    specialists: المتخصصين
+    developers: المطورين

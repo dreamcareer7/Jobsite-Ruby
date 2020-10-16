@@ -15,3 +15,13 @@ en:
     save: Save
     no_result: NO RESULTS | Try a different category or city
     all: ALL
+  nav:
+    view_all: view all
+    suppliers: SUPPLIERS
+    professionls: PROFESSIONALS
+    gallery: GALLERY
+    more: MORE
+    consultants: Consultants
+    contractors: Contractors
+    specialists: Specialists
+    developers: Developers

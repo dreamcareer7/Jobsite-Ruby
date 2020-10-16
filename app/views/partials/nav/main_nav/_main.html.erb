@@ -36,20 +36,19 @@
         </div>
       </li>
 
-       <!-- unless controller_name == "home" %> -->
-        <div class="field nav__search js-search-box">
-          <div class="field__input-wrapper">
-            <%= inline_svg("icons/search.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
-            <form>
-              <input type="text" class="field__input field__input--small search field__input--right-add-on" placeholder="<%= t("home_page.header.search_box_placeholder") %>">
-            </form>
-            <%= render partial: "partials/auto_complete/default_results" %>
-            <%= render partial: "partials/auto_complete/no_results" %>
-          </div>
+      <!-- unless controller_name == "home" %> -->
+      <div class="field nav__search js-search-box">
+        <div class="field__input-wrapper">
+          <%= inline_svg("icons/search.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
+          <form>
+            <input type="text" class="field__input field__input--small search field__input--right-add-on" placeholder="<%= t("home_page.header.search_box_placeholder") %>">
+          </form>
+          <%= render partial: "partials/auto_complete/default_results" %>
+          <%= render partial: "partials/auto_complete/no_results" %>
         </div>
+      </div>
        <!-- end %> -->
     </div>
-
     <div class="primary-nav__right">
       <% if current_user %>
         <%= render partial: "partials/nav/main_nav/user" %>
@@ -57,124 +56,76 @@
         <%= render partial: "partials/nav/main_nav/guest" %>
       <% end %>
     </div>
-
   </div>
 </nav>
-
-
-
 <div class="category-mega-menu">
   <div class="site-wrap">
-
     <div class="toggler">
-        <a href="#">Select Category</a>
-        <span class="toggle-btn">
-          <i class="fa fa-bars"></i>
-        </span>
+      <a href="#">Select Category</a>
+      <span class="toggle-btn">
+        <i class="fa fa-bars"></i>
+      </span>
     </div>
-
     <ul class="toplevel">
-      <li class="submenu-holder"><a href="#" class="active"><i class="fa fa-users" aria-hidden="true"></i> SUPPLIERS</a>
-          <div class="submenu">
-              <div class="list-and-see-all-container">
-                <ul class="submenu-unorder-list">
-                  <% supplier_sub_caegory('suppliers').each do |sub_category| %>
-                    <li><%= link_to sub_category.name, sub_category_path(id: sub_category) %></li>
-                  <% end %>
-                </ul>
-                <div class="see-all-links">
-                    <a href="">See All</a>
-                </div>
-              </div>      
-          </div>
-      </li>
-      <li class="submenu-holder"><a href="#"><i class="fa fa-user" aria-hidden="true"></i> PROFESSIONALS</a>
-          <div class="submenu">
-              <ul class="professionals-submenu-unorder-list">
-                  <h3 class="submenu-category-title">Category Title</h3>     
-                  <li><a href="#">Professionals 2</a></li>
-                  <li><a href="#">Professionals 2</a></li>
-                  <li><a href="#">Professionals 2</a></li>
-                  <li><a href="#">Professionals 2</a></li>
-                  <h5 class="see-all-links"><a href="#">See All</a></h5>
-              </ul>
-              <ul class="professionals-submenu-unorder-list">
-                  <h3 class="submenu-category-title">Category Title</h3>  
-                  <li><a href="#">Professionals 2</a></li>
-                  <li><a href="#">Professionals 2</a></li>
-                  <li><a href="#">Professionals 2</a></li>
-                  <li><a href="#">Professionals 2</a></li>
-                  <h5 class="see-all-links"><a href="#">See All</a></h5>
-              </ul>
-              <ul class="professionals-submenu-unorder-list">
-                  <h3 class="submenu-category-title">Category Title</h3> 
-                  <li><a href="#">Professionals 2</a></li>
-                  <li><a href="#">Professionals 2</a></li>
-                  <li><a href="#">Professionals 2</a></li>
-                  <li><a href="#">Professionals 2</a></li>
-                  <h5 class="see-all-links"><a href="#">See All</a></h5>
-              </ul>
-              <ul class="professionals-submenu-unorder-list">
-                  <h3 class="submenu-category-title">Category Title</h3> 
-                  <li><a href="#">Professionals 2</a></li>
-                  <li><a href="#">Professionals 2</a></li>
-                  <li><a href="#">Professionals 2</a></li>
-                  <li><a href="#">Professionals 2</a></li>
-                  <h5 class="see-all-links"><a href="#">See All</a></h5>
-              </ul>                                          
-          </div>
-          
-      </li>
-      <li class="submenu-holder"><a href="#"><i class="fa fa-cogs" aria-hidden="true"></i> MACHINERY</a>
-          <div class="submenu">
-              <div class="list-and-see-all-container">
-                  <ul class="submenu-unorder-list">
-                      <% supplier_sub_caegory('machinery').each do |sub_category| %>
-                        <li><%= link_to sub_category.name, sub_category_path(id: sub_category) %></li>
-                      <% end %>
-                  </ul>
-                  <div class="see-all-links">
-                    <a href="">See All</a>
-                  </div>
-              </div>    
-          </div>
-      </li>
-      <li class="submenu-holder">
-      <%= link_to ('<i class="fa fa-picture-o"></i> GAllERY').html_safe, gallery_index_path %>
-      </li>
-      <li class="submenu-holder"><a href="#"><i class="fa fa-lock"></i> PROJECTS</a>
-      </li>
-      <li class="submenu-holder"><a href="#">MORE</a>
-          <div class="submenu">
-            <div class="list-and-see-all-container">
-              <ul class="submenu-unorder-list">
-                  <li><a href="#">MORE 2</a></li>
-                  <li><a href="#">MORE 2</a></li>
-                  <li><a href="#">MORE 2</a></li>
-              </ul>
-              <div class="see-all-links">
-                <a href="">See All</a>
-              </div>
+      <li class="submenu-holder"><a href="#" class="active"><i class="fa fa-users" aria-hidden="true"></i><%= t('nav.suppliers') %></a>
+        <div class="submenu">
+          <div class="list-and-see-all-container">
+            <ul class="submenu-unorder-list">
+              <% supplier_sub_caegory('suppliers').each do |sub_category| %>
+                <li><%= link_to sub_category.name, sub_category_path(id: sub_category) %></li>
+              <% end %>
+            </ul>
+            <div class="see-all-links">
+              <%= link_to t('nav.view_all'), category_path(id: 'suppliers') %>
             </div>
           </div>
+        </div>
+      </li>
+      <li class="submenu-holder"><a href="#"><i class="fa fa-user" aria-hidden="true"></i> <%= t('nav.professionls') %></a>
+        <div class="submenu">
+          <% contractor_sub_categories.each do |category_name| %>
+            <ul class="professionals-submenu-unorder-list">
+              <h3 class="submenu-category-title"><%= category_name[0] %></h3>
+              <% supplier_sub_caegory(category_name[1]).limit(6).each do |sub_category| %>
+                <li><%= link_to sub_category.name, sub_category_path(id: sub_category) %></li>
+              <% end %>
+              <h5 class="see-all-links"><%= link_to t('nav.view_all'), category_path(id: category_name[1]) %></h5>
+            </ul>
+          <% end %>
+        </div>
+      </li>
+      <li class="submenu-holder"><a href="#"><i class="fa fa-cogs" aria-hidden="true"></i><%= t('gallery.machinery') %></a>
+        <div class="submenu">
+          <div class="list-and-see-all-container">
+            <ul class="submenu-unorder-list">
+              <% supplier_sub_caegory('machinery').each do |sub_category| %>
+                <li><%= link_to sub_category.name, sub_category_path(id: sub_category) %></li>
+              <% end %>
+            </ul>
+            <div class="see-all-links">
+              <%= link_to t('nav.view_all'), category_path(id: 'machinery') %>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="submenu-holder">
+      <%= link_to gallery_index_path do %>
+        <i class="fa fa-picture-o"></i><%= t('nav.gallery') %>
+      <% end %>
+      </li>
+      <li class="submenu-holder">
+        <%= link_to gallery_index_path do %>
+          <i class="fa fa-lock"></i><%= t('gallery.projects') %>
+        <% end %>
+      </li>
+      <li class="submenu-holder">
+        <%= link_to t("nav.more"), gallery_index_path  %>
       </li>
     </ul>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
 <%= content_for :page_scripts do %>
   <%= javascript_include_tag 'auto_complete.js' %>
-
   <% if request.fullpath.ends_with?("problem") %>
     <script>
       $('.js-problem').addClass('is-visible');
