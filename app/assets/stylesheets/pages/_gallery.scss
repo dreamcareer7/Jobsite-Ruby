@@ -161,54 +161,126 @@
   display: flex;
   position: relative;
   justify-content: center;
+  
+  .submenu-holder{
+      list-style-type: none;
+    a{
+      padding: 5px 15px;
+      display: block;
+      z-index: 999;
+      color: #fff;
+    }
+    a:active{
+      background: $primary-color;
+      color: white;
+      border-radius: 2px;
 
-}
-.toplevel li{
-  list-style-type: none;
-}
-.toplevel li a{
-  display: block;
-  padding: 5px 15px;
-  margin-right: 5px;
-  z-index: 999;
-  color: #fff;
-}
-.toplevel li a:active{
-  background: $primary-color;
-  color: white;
-}
-.toplevel li a:hover{
-  background: $primary-color;
-  color: white;
-}
-.submenu{
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  display: flex;
-  visibility: hidden;
-  background: #f0f0f0;
-  z-index: 4;
-  border: 1px solid #dcdcdc;
-  transform: translateY(-5px);
-  border-bottom: 2px solid $primary-color;
-  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, transform 0.2s ease-in-out;
-  margin-top: 20px;
+    }
+    a:hover{
+      background: $primary-color;
+      color: white;
+      border-radius: 2px;
+    }
+    .submenu{
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      display: flex;
+      visibility: hidden;
+      background: #ffffff;
+      z-index: 4;
+      border: 1px solid #dcdcdc;
+      transform: translateY(-5px);
+      border-bottom: 2px solid $primary-color;
+      transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, transform 0.2s ease-in-out;
+      margin-top: 25px;
+      box-shadow: 0 1px 6px 0 rgba(32, 33, 36, .28);
+
+      .list-and-see-all-container{
+        width: 100%;
+        .see-all-links{
+          // text-align: center;
+          margin-bottom: 10px;
+          a{
+            color: $primary-color;
+            padding-left: 20px;
+          }
+          a:hover{
+            background: transparent;
+            text-decoration: underline;
+          }
+
+        }
+        
+      }
 
 
-}
-.submenu-unorder-list{
-  column-count: 4;
-  -webkit-column-count: 4;
-  -moz-column-count: 4;
+      .submenu-unorder-list{
+        column-count: 4;
+        column-gap: 20px;
+        -moz-column-count: 4;
+        -moz-column-gap: 20px;
+        -webkit-column-count: 4;
+        -webkit-column-gap: 20px;
+
+ 
+
+
+        a{
+          color: #000;
+          padding: 0px 0px;
+          font-size: 14px;
+          line-height: 30px;
+
+        }
+        a:hover{
+          text-decoration: underline;
+          background: transparent;
+        }
+
+
+      }
+    
+    }
+
+  }
 }
 
-.submenu li a{
-  // border: 1px solid transparent;
-  color: #000;
-  padding: 10px;
+
+.professionals-submenu-unorder-list{
+  .submenu-category-title{
+    padding-left: 0px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    color: $primary-color;
+    font-size: 16px;
+  }
+  a{
+      padding: 3px 0 !important;
+      color: #000 !important;
+      font-size: 14px;
+  }
+  a:hover{
+    text-decoration: underline;
+    background: transparent !important;
+  }
+  .see-all-links{
+    margin-top: 0px;
+    
+    a{
+      color: $primary-color !important;
+      padding: 0px;
+    }
+    a:hover{
+      background: transparent;
+      color: $primary-color;
+      opacity: 0.8;
+    }
+  
+  }
 }
+
 
 .toplevel li:hover .submenu{
   visibility: visible;
@@ -217,19 +289,12 @@
   width: 100%;
   padding: 0px;
   list-style: none;
-  // display: flex;
-  // flex-wrap: wrap;
-  // flex-direction: column;
   padding: 20px;
-
-}
-.submenu ul li{
-  text-align: left;
-  // display: flex;
 }
 .toggler{
   display: none;
 }
+
 @media (max-width: 767px)
 {
   .toplevel{
@@ -245,11 +310,13 @@
       visibility: visible;
       display: none;
   }
-  .submenu-unorder-list{
-    column-count: 1;
-    -webkit-column-count: 1;
-    -moz-column-count: 1;
-  }
+
+    .submenu-unorder-list{
+      column-count: 1 !important;
+      -webkit-column-count: 1 !important;
+      -moz-column-count: 1 !important;
+    }
+
   .open .display{
       display: block;
   }
@@ -274,7 +341,10 @@
     cursor: pointer;
 
   }
-
+  .submenu-holder.open .submenu.display{
+    display: block;
+  }
+  
 }
 
 // Mega Menu End

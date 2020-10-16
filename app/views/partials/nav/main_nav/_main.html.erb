@@ -74,47 +74,88 @@
     </div>
 
     <ul class="toplevel">
-      <li class="submenu-holder"><a href="#" class="active">SUPPLIERS</a>
+      <li class="submenu-holder"><a href="#" class="active"><i class="fa fa-users" aria-hidden="true"></i> SUPPLIERS</a>
           <div class="submenu">
-              <ul class="submenu-unorder-list">
-                <% supplier_sub_caegory('suppliers').each do |sub_category| %>
-                  <li><%= link_to sub_category.name, sub_category_path(id: sub_category) %></li>
-                <% end %>
-              </ul>
-
-          </div>
-      </li>
-      <li class="submenu-holder"><a href="#">PROFESSIONALS</a>
-          <div class="submenu">
-              <ul class="submenu-unorder-list">
-                  <li><a href="#">PROFESSIONALS 2</a></li>
-                  <li><a href="#">PROFESSIONALS 2</a></li>
-                  <li><a href="#">PROFESSIONALS 2</a></li>
-                  <li><a href="#">PROFESSIONALS 2</a></li>
-              </ul>
-          </div>
-      </li>
-      <li class="submenu-holder"><a href="#">MACHINERY</a>
-          <div class="submenu">
-              <ul class="submenu-unorder-list">
-                  <% supplier_sub_caegory('machinery').each do |sub_category| %>
+              <div class="list-and-see-all-container">
+                <ul class="submenu-unorder-list">
+                  <% supplier_sub_caegory('suppliers').each do |sub_category| %>
                     <li><%= link_to sub_category.name, sub_category_path(id: sub_category) %></li>
                   <% end %>
-              </ul>
+                </ul>
+                <div class="see-all-links">
+                    <a href="">See All</a>
+                </div>
+              </div>      
           </div>
       </li>
-      <li class="submenu-holder"><%= link_to "GAllERY", gallery_index_path %>
+      <li class="submenu-holder"><a href="#"><i class="fa fa-user" aria-hidden="true"></i> PROFESSIONALS</a>
+          <div class="submenu">
+              <ul class="professionals-submenu-unorder-list">
+                  <h3 class="submenu-category-title">Category Title</h3>     
+                  <li><a href="#">Professionals 2</a></li>
+                  <li><a href="#">Professionals 2</a></li>
+                  <li><a href="#">Professionals 2</a></li>
+                  <li><a href="#">Professionals 2</a></li>
+                  <h5 class="see-all-links"><a href="#">See All</a></h5>
+              </ul>
+              <ul class="professionals-submenu-unorder-list">
+                  <h3 class="submenu-category-title">Category Title</h3>  
+                  <li><a href="#">Professionals 2</a></li>
+                  <li><a href="#">Professionals 2</a></li>
+                  <li><a href="#">Professionals 2</a></li>
+                  <li><a href="#">Professionals 2</a></li>
+                  <h5 class="see-all-links"><a href="#">See All</a></h5>
+              </ul>
+              <ul class="professionals-submenu-unorder-list">
+                  <h3 class="submenu-category-title">Category Title</h3> 
+                  <li><a href="#">Professionals 2</a></li>
+                  <li><a href="#">Professionals 2</a></li>
+                  <li><a href="#">Professionals 2</a></li>
+                  <li><a href="#">Professionals 2</a></li>
+                  <h5 class="see-all-links"><a href="#">See All</a></h5>
+              </ul>
+              <ul class="professionals-submenu-unorder-list">
+                  <h3 class="submenu-category-title">Category Title</h3> 
+                  <li><a href="#">Professionals 2</a></li>
+                  <li><a href="#">Professionals 2</a></li>
+                  <li><a href="#">Professionals 2</a></li>
+                  <li><a href="#">Professionals 2</a></li>
+                  <h5 class="see-all-links"><a href="#">See All</a></h5>
+              </ul>                                          
+          </div>
+          
+      </li>
+      <li class="submenu-holder"><a href="#"><i class="fa fa-cogs" aria-hidden="true"></i> MACHINERY</a>
+          <div class="submenu">
+              <div class="list-and-see-all-container">
+                  <ul class="submenu-unorder-list">
+                      <% supplier_sub_caegory('machinery').each do |sub_category| %>
+                        <li><%= link_to sub_category.name, sub_category_path(id: sub_category) %></li>
+                      <% end %>
+                  </ul>
+                  <div class="see-all-links">
+                    <a href="">See All</a>
+                  </div>
+              </div>    
+          </div>
+      </li>
+      <li class="submenu-holder">
+      <%= link_to ('<i class="fa fa-picture-o"></i> GAllERY').html_safe, gallery_index_path %>
       </li>
       <li class="submenu-holder"><a href="#"><i class="fa fa-lock"></i> PROJECTS</a>
       </li>
       <li class="submenu-holder"><a href="#">MORE</a>
           <div class="submenu">
+            <div class="list-and-see-all-container">
               <ul class="submenu-unorder-list">
                   <li><a href="#">MORE 2</a></li>
                   <li><a href="#">MORE 2</a></li>
                   <li><a href="#">MORE 2</a></li>
-
               </ul>
+              <div class="see-all-links">
+                <a href="">See All</a>
+              </div>
+            </div>
           </div>
       </li>
     </ul>
