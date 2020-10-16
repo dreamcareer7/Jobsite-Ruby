@@ -1,3 +1,4 @@
+
 class User::ProjectsController < User::BaseController
   include SortAppliedAndShortlisted
   include SortUserProjects
@@ -46,7 +47,7 @@ class User::ProjectsController < User::BaseController
 
   def show
     authorize @project
-
+    @project_types = ProjectType.appropriate_project_types(@project.category)
     @filter_terms = ["Shortlisted (#{ @project.number_shortlisted })", "Interested (#{ @project.number_applied })"]
     @businesses = Business.where(id: @project.shortlists.pluck(:business_id))
 
@@ -62,8 +63,9 @@ class User::ProjectsController < User::BaseController
     @cities = City.all.enabled
     @countries = Country.all.enabled
     @category = @project.category
-    @services = @project.sub_categories.present? ? @project.sub_categories.first.services : @category.services
     @project_types = ProjectType.appropriate_project_types(@category)
+    @services = @project.sub_categories.present? ? @project.sub_categories.first.services : @category.services
+    project_type_header
     @edit_path = user_project_path(@project)
     authorize @project
   end
@@ -77,6 +79,7 @@ class User::ProjectsController < User::BaseController
       redirect_to user_project_path(@project)
       flash[:notice] = "Your project updates have been successful"
     else
+      @project_types = ProjectType.appropriate_project_types(@category)
       render :edit
     end
   end
@@ -88,6 +91,21 @@ class User::ProjectsController < User::BaseController
       format.html { redirect_to user_projects_path }
       format.js { render layout: false }
     end
+  end
+
+  def project_type_header
+    # @project_type_header = I18n.t("main_nav.hire_professional") unless params[:project_type].present?
+
+    
+    if @category.slug == "suppliers"
+      @project_type_header = I18n.t("main_nav.get_supplies")
+    elsif @category.slug == "machinery"
+      @project_type_header = I18n.t("main_nav.buy_rent")
+    else
+      @project_type_header = I18n.t("main_nav.hire_professional")
+    end
+
+    @project_type_header
   end
 
   private

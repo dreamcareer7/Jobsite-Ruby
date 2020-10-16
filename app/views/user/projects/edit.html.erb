@@ -1,8 +1,8 @@
 <section class="section section--alt js-project">
   <div class="site-wrap">
     <div class="grid">
-      <%= render partial: "partials/user/projects/project_edit_menu" %>
-      <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-8">
+      <%#= render partial: "partials/user/projects/project_edit_menu" %>
+      <div class="grid__col--xs-12 grid__col--md-12 grid__col--lg-12">
         <fieldset class="fieldset">
           <%= simple_form_for [:user, @project] do |f| %>
             <%= render partial: "partials/projects/project_form", locals: { f: f } %>

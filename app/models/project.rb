@@ -96,7 +96,7 @@ class Project < ApplicationRecord
   validates :historical_structure, inclusion: { in: [true, false] }, if: :active_or_project_details? && "historical_structure.present?"
 
   #validate before moving from first step of form
-  validates :title, :description, :user, :start_date, :end_date, presence: :true, if: :active_or_project_details?
+  validates :title, :description, :user, presence: :true, if: :active_or_project_details?
 
   translates :title, :description, :location_type, :project_owner_type, fallbacks_for_empty_translations: true
 
