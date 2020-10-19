@@ -66,11 +66,27 @@
   text-align: center;
 }
 
+.video-wrapper{
+    display: table;
+    width: auto;
+    position: relative;
+    width: 50%;
+  }
 
 .custom_carousel{
   width:290px;
   margin:0px auto;
 }
+
+.slick-slider .slick-list .slick-active img{
+  cursor: pointer;
+}
+.product-card .tile-section img{
+    cursor: pointer;
+ }
+ .favorite-share-and-add-button-container .fa{
+  cursor: pointer;
+ }
 
 .slick-slide img{
   width:100%;

@@ -67,7 +67,7 @@
       </span>
     </div>
     <ul class="toplevel">
-      <li class="submenu-holder"><a href="#" class="active"><i class="fa fa-users" aria-hidden="true"></i><%= t('nav.suppliers') %></a>
+      <li class="submenu-holder"><a href="#" class="active"><%= t('nav.suppliers') %></a>
         <div class="submenu">
           <div class="list-and-see-all-container">
             <ul class="submenu-unorder-list">
@@ -81,7 +81,7 @@
           </div>
         </div>
       </li>
-      <li class="submenu-holder"><a href="#"><i class="fa fa-user" aria-hidden="true"></i> <%= t('nav.professionls') %></a>
+      <li class="submenu-holder"><a href="#"><%= t('nav.professionls') %></a>
         <div class="submenu">
           <% contractor_sub_categories.each do |category_name| %>
             <ul class="professionals-submenu-unorder-list">
@@ -94,7 +94,7 @@
           <% end %>
         </div>
       </li>
-      <li class="submenu-holder"><a href="#"><i class="fa fa-cogs" aria-hidden="true"></i><%= t('gallery.machinery') %></a>
+      <li class="submenu-holder"><a href="#"><%= t('gallery.machinery') %></a>
         <div class="submenu">
           <div class="list-and-see-all-container">
             <ul class="submenu-unorder-list">
@@ -110,12 +110,12 @@
       </li>
       <li class="submenu-holder">
       <%= link_to gallery_index_path do %>
-        <i class="fa fa-picture-o"></i><%= t('nav.gallery') %>
+        <%= t('nav.gallery') %>
       <% end %>
       </li>
       <li class="submenu-holder">
         <%= link_to gallery_index_path do %>
-          <i class="fa fa-lock"></i><%= t('gallery.projects') %>
+          <i class="fa fa-lock"></i> <%= t('gallery.projects') %>
         <% end %>
       </li>
       <li class="submenu-holder">
