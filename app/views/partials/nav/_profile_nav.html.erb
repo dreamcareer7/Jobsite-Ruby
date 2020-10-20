@@ -49,7 +49,7 @@
       <% end %>
     </ul>
   </div>
-
+  
   <div class="tell-us-what-you-need-lists">
     <ul>
       <li class="active"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Tell us what you need</li>
@@ -81,3 +81,7 @@
     </ul>
   </div>
 </div>
+
+<%= content_for :page_scripts do %>
+  <%= javascript_include_tag 'sticky-nav' %>
+<% end %>
