@@ -19,27 +19,20 @@
 <div class="product-card">
     <div class="wrapper">
       <% urls = images.map {|img| img.url(:large)} unless video %>
-      <div class="tile-section <%= 'custom_carousel' if urls.length > 1 %> <%= 'video-wrapper' if video %>" data-images="<%= urls.to_json unless video %>">
+      <div class="tile-section <%= 'custom_carousel' if urls.length > 1 %>" data-images="<%= urls.to_json unless video %>">
         <% images.each_with_index do |img, index| %>
           <div>
             <% img_url = video ? images[0] : img.url(:large) %>
             <% if video %>
-            <%= image_tag img_url, class: "d-block w-100" %>
-            # <button data-modal="video-player" data-video-link="<%#= item.video_link %>" class="js-open-modal">
-            #   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" enable-background="new 0 0 24 24" class="icon icon--white icon--x-large"><path d="M12 1C5.9 1 1 5.9 1 12s4.9 11 11 11 11-4.9 11-11S18.1 1 12 1zM9.5 16.3V7.7L17 12l-7.5 4.3z"></path></svg>
-            # </button>
-            <button data-modal="video-player" data-video-link="https://www.youtube.com/embed/JSkGfNprF0Q" class="js-open-modal">
-            <% else %>
-
               <div class="video-wrapper">
-                <%= image_tag img_url, class: "d-block w-100 js-open-modal", data: { modal: "image-viewer", index: index } %>
-                <button data-modal="video-player" data-video-link="https://www.youtube.com/embed/JSkGfNprF0Q" class="js-open-modal">
+                <%= image_tag img_url, class: "d-block w-100" %>
+                <button data-modal="video-player" data-video-link="item.video_link" class="js-open-modal">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" enable-background="new 0 0 24 24" class="icon icon--white icon--x-large"><path d="M12 1C5.9 1 1 5.9 1 12s4.9 11 11 11 11-4.9 11-11S18.1 1 12 1zM9.5 16.3V7.7L17 12l-7.5 4.3z"></path></svg>
                 </button>
               </div>
 
-
-
+            <% else %>
+              <%= image_tag img_url, class: "d-block w-100 js-open-modal", data: { modal: "image-viewer", index: index } %>
             <% end %>
           </div>
         <% end %>

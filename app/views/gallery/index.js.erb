@@ -7,4 +7,5 @@ $('.gallery-page-product-list').append("<%= j render(:partial => 'gallery/list')
 $('.custom_carousel').not('.slick-initialized').slick({
   dots:true,
   centerMode: false,
+  rtl: $("html").hasClass("rtl")
 });
