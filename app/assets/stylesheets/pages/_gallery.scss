@@ -180,8 +180,8 @@
 // Mega Menu Start
 .category-mega-menu{
   background: #000;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 
@@ -191,6 +191,8 @@
   display: flex;
   position: relative;
   justify-content: center;
+  margin-top: 0px;
+  margin-bottom: 0px;
   
   .submenu-holder{
       list-style-type: none;
@@ -199,17 +201,30 @@
       display: block;
       z-index: 999;
       color: #fff;
+      border-left: 1px solid transparent;
+      border-top: 1px solid transparent;
+      border-right: 1px solid transparent;      
+      border-bottom: 1px solid transparent;      
     }
     a:active{
-      background: $primary-color;
-      color: white;
-      border-radius: 2px;
+      background: white;
+      color: $primary-color;
+      border-radius: 0px;
+      border-left: 1px solid #dcdcdc;
+      border-top: 1px solid #dcdcdc;
+      border-right: 1px solid #dcdcdc;
+      border-bottom: 1px solid transparent; 
 
     }
     a:hover{
-      background: $primary-color;
-      color: white;
-      border-radius: 2px;
+      background: white;
+      color:  $primary-color;
+      border-radius: 0px;
+      border-left: 1px solid #dcdcdc;
+      border-top: 1px solid #dcdcdc;
+      border-right: 1px solid #dcdcdc;
+      border-bottom: 1px solid transparent; 
+
     }
     .submenu{
       position: absolute;
@@ -220,12 +235,14 @@
       visibility: hidden;
       background: #ffffff;
       z-index: 4;
-      border: 1px solid #dcdcdc;
+      border-left: 1px solid #dcdcdc;
+      border-right: 1px solid #dcdcdc;
+      
       transform: translateY(-5px);
       border-bottom: 2px solid $primary-color;
       transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, transform 0.2s ease-in-out;
-      margin-top: 25px;
-      box-shadow: 0 1px 6px 0 rgba(32, 33, 36, .28);
+      margin-top: 5px;
+      // box-shadow: 0 1px 6px 0 rgba(32, 33, 36, .28);
 
       .list-and-see-all-container{
         width: 100%;
@@ -262,6 +279,9 @@
           padding: 0px 0px;
           font-size: 12px;
           line-height: 23px;
+          border-left: 0px;
+          border-top: 0px;
+          border-right: 0px;
 
         }
         a:hover{
@@ -285,11 +305,15 @@
     text-transform: uppercase;
     color: $primary-color;
     font-size: 14px;
+
   }
   a{
       padding: 3px 0 !important;
       color: #000 !important;
       font-size: 12px;
+      border-left: 0px solid #dcdcdc !important;
+      border-top: 0px solid #dcdcdc !important;
+      border-right: 0px solid #dcdcdc !important;
   }
   a:hover{
     text-decoration: underline;
