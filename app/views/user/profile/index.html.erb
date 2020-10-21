@@ -1,4 +1,4 @@
-<div class="col-md-6 mt-3">
+<div class="grid__col--md-6">
   <div class="center-container">
     <h3 class="activity-section-title">Latest Activity</h3>
     <% if @projects.present? %>
@@ -30,17 +30,17 @@
     <% end %>
   </div>
 </div>
-<div class="col-md-3">
-  <%= link_to t("main_nav.hire_professional"), new_user_project_path(project_type: "default"), class: "btn btn-outline-primary btn-block mt-3" %>
-  <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "suppliers"), class: "btn btn-outline-primary btn-block" %>
-  <%= link_to t("main_nav.buy_rent"), new_user_project_path(project_type: "machinery"), class: "btn btn-outline-primary btn-block" %>
-  <%= link_to t("main_nav.add_business"), new_user_business_path,  class: 'btn btn-outline-primary btn-block mb-3 btn-business'  %> 
+<div class="grid__col--md-3">
+  <%= link_to t("main_nav.hire_professional"), new_user_project_path(project_type: "default"), class: "btn-outline-primary btn-block btn-special mt-3" %>
+  <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "suppliers"), class: "btn-outline-primary btn-block btn-special" %>
+  <%= link_to t("main_nav.buy_rent"), new_user_project_path(project_type: "machinery"), class: "btn-outline-primary btn-block btn-special" %>
+  <%= link_to t("main_nav.add_business"), new_user_business_path,  class: 'btn-outline-primary btn-block btn-special mb-3 btn-business'  %> 
   <% unless current_user.pro? %>
     <div class="card promo-block u-cover">
       <div class="card__section promo-block__content">
         <h3 class="u-text-contrast u-text-shadow"><%= t("upgrade.header") %></h3>
         <p class="u-text-shadow u-text-contrast u-text-muted"><%= t("upgrade.blurb") %></p>
-        <span data-modal="user-upgrade-coming-soon" class="js-open-modal btn btn-outline-primary"><%= t("words.upgrade") %></span>
+        <span data-modal="user-upgrade-coming-soon" class="js-open-modal btn-special btn-outline-primary"><%= t("words.upgrade") %></span>
       </div>
     </div>
   <% end %>

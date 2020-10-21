@@ -27,11 +27,12 @@
 
     <div class="page-wrap">
       <%= render partial: "partials/nav/user_dashboard_nav/main" unless current_page?(controller: '/home') || current_page?(controller: '/cities') %>
-      <%= render partial: "partials/user/profile/profile_header" %>
+      <%#= render partial: "partials/user/profile/profile_header" %>
       <%= yield :breadcrumbs %>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
+
+      <div class="site-wrap">
+        <div class="grid">
+          <div class="grid__col--md-12">
             <% flash.each do |name, msg| %>
               <% if msg.class == Array %>
                 <% msg.each do |message| %>
@@ -53,12 +54,14 @@
             <% end %>  
           </div>
         </div>
-        <div class="row mt-2">
+
+        <div class="grid mt3">
           <%#= yield :side_bar %>
           <%= yield :sub_nav %>
           <%= yield %>
         </div>
       </div>
+
       <%= render partial: "partials/nav/user_dashboard_nav/footer" %>
     </div>
     <% if ["businesses", "user/businesses", "user/projects", "user/project_steps", "business/businesses"].include? controller_path %>

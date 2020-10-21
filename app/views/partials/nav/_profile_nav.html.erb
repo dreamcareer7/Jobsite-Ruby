@@ -1,10 +1,10 @@
-<div class="col-md-3 mt-3">
+<div class="grid__col--md-3">
   <div class="dashboard-sidebar-profile-container">
     <%= image_tag current_user.profile_image.url %>
     <p class="dashboard-sidebar-username"><%= current_user.name.split.first %></p>
   </div>
   <div class="progress mb-2">
-    <div class="progress-bar" role="progressbar" style="width: <%= current_user.profile_completion.round %>%;" aria-valuenow="<%= current_user.profile_completion.round %>" aria-valuemin="0" aria-valuemax="100"><%= current_user.profile_completion.round %>%</div>
+    <div class="progress-bar-dashboard" role="progressbar" style="width: <%= current_user.profile_completion.round %>%;" aria-valuenow="<%= current_user.profile_completion.round %>" aria-valuemin="0" aria-valuemax="100"><%= current_user.profile_completion.round %>%</div>
   </div>
   <div>
     <p>
