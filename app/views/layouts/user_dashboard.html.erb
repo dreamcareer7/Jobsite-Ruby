@@ -6,7 +6,7 @@
     <meta name="description" content= <%= yield :meta_description %> >
     <meta name="keywords" content=<%= yield :meta_keywords %> >
     <meta property="og:type" content="website">
-    <meta property="og:url" content=<%= yield :meta_url %> >
+    <meta property="og:url" content=<%= yield :meta_url %> > 
     <meta property="og:image" content=<%= yield :meta_image %> >
     <meta property="og:title" content="<%= page_title.present? ? page_title : 'Muqawiloon' %>">
     <meta property="og:description" content=<%= yield :meta_description %> >
@@ -27,35 +27,25 @@
 
     <div class="page-wrap">
       <%= render partial: "partials/nav/user_dashboard_nav/main" unless current_page?(controller: '/home') || current_page?(controller: '/cities') %>
-      <%#= render partial: "partials/user/profile/profile_header" %>
+      <%= render partial: "partials/user/profile/profile_header" %>
       <%= yield :breadcrumbs %>
+
+      <% flash.each do |name, msg| %>
+        <% if msg.class == Array %>
+          <% msg.each do |message| %>
+            <div class="banner banner--disappearing banner--<%= name == "notice" ? 'success' : 'error' %>">
+              <%= message %>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="banner banner--disappearing banner--<%= name == "notice" ? 'success' : 'error' %>">
+            <%= msg %>
+          </div>
+        <% end %>
+      <% end %>
 
       <div class="site-wrap">
         <div class="grid">
-          <div class="grid__col--md-12">
-            <% flash.each do |name, msg| %>
-              <% if msg.class == Array %>
-                <% msg.each do |message| %>
-                  <div class="alert alert-dismissible fade show mt-2 alert-<%= name == "notice" ? 'success' : 'error' %>" role="alert">
-                    <%= message %>    
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                <% end %>
-              <% else %>
-                <div class="alert alert-dismissible fade show mt-2 alert-<%= name == "notice" ? 'success' : 'error' %>" role="alert">
-                  <%= msg %>    
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-              <% end %>
-            <% end %>  
-          </div>
-        </div>
-
-        <div class="grid mt3">
           <%#= yield :side_bar %>
           <%= yield :sub_nav %>
           <%= yield %>
@@ -67,5 +57,22 @@
     <% if ["businesses", "user/businesses", "user/projects", "user/project_steps", "business/businesses"].include? controller_path %>
       <%= render partial: "modals/map/choose_location" %>
     <% end %>
-  </body>
-</html>
+    
+    <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
+    
+    <script type="text/javascript">
+      $('.submenu-holder a').click(function(){
+        $('.submenu-holder').removeClass('open');
+        $(this).parent().toggleClass('open');
+        $('.open .submenu').toggleClass('display');
+        
+      })
+      $('.toggle-btn').click(function(){
+        $('.submenu-holder').removeClass('open');
+        $('.submenu').removeClass('display');
+        $('.toplevel').toggle();
+      })
+    </script>
+    
+    </body>
+  </html>

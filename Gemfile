@@ -98,5 +98,4 @@ end
 
 gem 'mongo'
 gem 'rest-client', '~> 2.0.2'
-gem 'bootstrap', '~> 5.0.0.alpha1'
 gem "font-awesome-rails"

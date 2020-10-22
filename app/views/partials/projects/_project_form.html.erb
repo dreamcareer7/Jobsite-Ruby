@@ -1,7 +1,7 @@
 <main class="post-a-projects">
 
   <div class="mt-4">
-    <div class="site-wrap">
+    <div class="">
       <div class="grid">
         <div class="grid__col--md-9">
           <span class="custom-breadcrumb-title"><%= @project_type_header  %></span>
@@ -18,7 +18,7 @@
     </div>
   </div>
 
-  <div class="site-wrap">
+  <div class="">
     <div class="grid">
 
 
@@ -125,16 +125,22 @@
               <label for="Requirements" class="form-label">Requirements</label>
             </div>
             <ul class="two-column-checkbox-list">
-            <% @project_types.each_with_index do |project_type, index|%>
-              <li>
-                <div class="form-check form-check-inline">
-                  <%= f.check_box "project_type_ids", { class: "form-check-input", id: "inlineCheckbox#{index + 1}" , multiple: true }, project_type.id, " " %>
-                  <!-- <input class="form-check-input" type="checkbox" id="inlineCheckbox<%#= index + 1 %>" value="<%= project_type.id %>" name="project[project_type_ids][]"> -->
-                  <label class="form-check-label" for="inlineCheckbox<%= index + 1 %>"><%= project_type.name %></label>
-                </div>
-              </li>
-            <% end %>
+              <% @project_types.each_with_index do |project_type, index|%>
+                <li>
+                  <label class="control">
+                    <%= f.check_box "project_type_ids", { class: "control__input", id: "inlineCheckbox#{index + 1}" , multiple: true }, project_type.id, " " %>
+                      <span class="control__indicator control__indicator--checkbox">
+                        <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
+                      </span>
+                      <span class="control__label"><%= project_type.name %></span>
+                  </label>
+                </li>
+              <% end %>
             </ul>
+
+            
+
+
           </div>
 
           <div class="mb-4">

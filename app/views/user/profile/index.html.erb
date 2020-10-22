@@ -1,4 +1,4 @@
-<div class="grid__col--md-6">
+<div class="grid__col--md-6 mt3 change-family">
   <div class="center-container">
     <h3 class="activity-section-title">Latest Activity</h3>
     <% if @projects.present? %>
@@ -30,7 +30,7 @@
     <% end %>
   </div>
 </div>
-<div class="grid__col--md-3">
+<div class="grid__col--md-3 mt3">
   <%= link_to t("main_nav.hire_professional"), new_user_project_path(project_type: "default"), class: "btn-outline-primary btn-block btn-special mt-3" %>
   <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "suppliers"), class: "btn-outline-primary btn-block btn-special" %>
   <%= link_to t("main_nav.buy_rent"), new_user_project_path(project_type: "machinery"), class: "btn-outline-primary btn-block btn-special" %>
