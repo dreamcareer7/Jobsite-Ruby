@@ -18,8 +18,8 @@ class Business::ProfileController < Business::BaseController
     @stats = {
       profile_views: @profile_views,
       website_views: @website_visits,
-      social_media_visits: @social_media_visits,
-      phone_number_reveals: @phone_number_reveals
+      link_views: @social_media_visits,
+      phone_reveals: @phone_number_reveals
     }
 
     @dashboard_banners = Banner.relevant_banner("dashboard banner", @current_city.country)

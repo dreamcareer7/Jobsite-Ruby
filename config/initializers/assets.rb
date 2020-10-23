@@ -24,5 +24,6 @@ Rails.application.config.assets.precompile += [
   'project-services.js',
   'sticky-nav.js',
   'user_dashboard.css',
-  'user_dashboard.js'
+  'user_dashboard.js',
+  'business_dashboard.css'
 ]

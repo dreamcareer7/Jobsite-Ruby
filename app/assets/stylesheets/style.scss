@@ -732,6 +732,18 @@ a.sidebar-link {
   border-radius: .25rem;
 }
 
+.progress-business-profile {
+  margin-bottom: .5rem!important;
+  display: flex;
+  height: 0.3rem;
+  overflow: hidden;
+  font-size: .75rem;
+  background-color: #e9ecef;
+  border-radius: .25rem;
+  width:250px;
+  border: 1px solid $primary-color;
+}
+
 .progress-bar-dashboard{
   display: flex;
   flex-direction: column;
@@ -1105,3 +1117,41 @@ label {
 }
 
 // Mega Menu End  
+
+// business-dashboard
+
+.nav-link-business{
+  padding: 5px 15px;
+  color: black;
+}
+
+.tab-active {
+  color: $primary-color;
+}
+
+.btn-business-dashboard {
+  background-color: $primary-color;
+  color: $white-color;
+}
+
+.featured-lists {
+  background: $white-color;
+}
+
+.featured-lists ul{
+  margin-top:0px;
+  list-style-type: none;
+  list-style-position: inside;
+  padding-left: 0px;
+  margin-bottom: 0px;
+  padding: 0px 15px 5px 15px;
+  background: $white-color;
+}
+.featured-lists ul li{
+  border-bottom: 1px solid rgba($border-color,0.2);
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.featured-lists ul li:last-child{
+  border-bottom: 0px;
+}

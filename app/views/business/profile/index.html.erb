@@ -1,12 +1,30 @@
 <section class="section section--alt">
   <div class="site-wrap">
     <div class="grid">
-      <% unless @business.approved %>
+      <%# unless @business.approved %>
+        <!--
         <div class="grid__col--xs-12">
-          <div class="card banner banner--primary"><%= t("dashboard.awaiting") %> <%= link_to edit_business_business_path(@business), class: "u-text-contrast u-text-underline" do %><%= t("dashboard.complete") %><% end %> <%= t("dashboard.wait") %></div>
+          <div class="card banner banner--primary"><%#= t("dashboard.awaiting") %> <%#= link_to edit_business_business_path(@business), class: "u-text-contrast u-text-underline" do %><%#= t("dashboard.complete") %><%# end %> <%#= t("dashboard.wait") %></div>
+        </div> -->
+      <%# end %>
+      <div class="grid__col--xs-12 grid__col--md-3 grid__col--lg-3">
+        <div class="card">
+          <div class="card__section">
+            <div class="card__header">
+              <h4 class="card__title"><%= inline_svg("icons/graph.svg", class: "icon icon--brand icon--small") %><%= t("dashboard.stats") %></h4>
+              <%= link_to t("dashboard.view_all"), business_stats_path, class: "btn btn--link" %>
+            </div>
+            <div class="grid grid--v-padded">
+              <% @stats.map do |stat_name, stat_value| %>
+                <div class="grid__col--xs-12 grid__col--sm-6 grid__col--lg-6">
+                  <small class="u-block mb1"><%= t("dashboard.#{stat_name}") %></small>
+                  <h2 class="m0"><%= stat_value %></h2>
+                </div>
+              <% end %>
+            </div>
+            <%= link_to "promote your business", new_user_project_path(project_type: "default"), class: "btn-outline-primary btn-block btn-special mt3" %>
+          </div>
         </div>
-      <% end %>
-      <div class="grid__col--xs-12 grid__col--md-4 grid__col--lg-3">
         <% if @dashboard_banners.first %>
           <%= render partial: "partials/banners/dashboard_banner", locals: { banner: @dashboard_banners.first } %>
         <% end %>
@@ -31,23 +49,7 @@
           <%= render partial: "partials/banners/dashboard_banner", locals: { banner: @dashboard_banners.last } %>
         <% end %>
       </div>
-      <div class="grid__col--xs-12 grid__col--md-8 grid__col--lg-9">
-        <div class="card">
-          <div class="card__section">
-            <div class="card__header">
-              <h4 class="card__title"><%= inline_svg("icons/graph.svg", class: "icon icon--brand icon--small") %><%= t("dashboard.stats") %></h4>
-              <%= link_to t("dashboard.view_all"), business_stats_path, class: "btn btn--link" %>
-            </div>
-            <div class="grid grid--v-padded">
-              <% @stats.map do |stat_name, stat_value| %>
-                <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-3">
-                  <small class="u-block mb1"><%= t("dashboard.#{stat_name}") %></small>
-                  <h2 class="m0"><%= stat_value %></h2>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        </div>
+      <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-6">
         <div class="card">
           <div class="card__section">
             <div class="card__header">
@@ -137,6 +139,22 @@
               <% end %>
             </div>
           </div>
+        </div>
+      </div>
+      <div class= "grid__col--xs-12 grid__col--md-3 grid__col--lg-3">
+        <%= link_to  t("profile_nav.business.feed"), business_project_feed_index_path, class: "btn-block btn-special btn-business-dashboard mt-3" %>
+
+        <div class="featured-lists">
+
+          <h5 class="saved-lists-heading"><i class="fa fa-bookmark" aria-hidden="true"></i> Featured Project</h5>
+
+          <ul>
+            <li>Matches Your Categories</li>
+            <li>Electrical contractors</li>
+            <li>Heavy machnery</li>
+            <li>Consultant</li>
+            <li>Machinery</li>
+          </ul>
         </div>
       </div>
     </div>

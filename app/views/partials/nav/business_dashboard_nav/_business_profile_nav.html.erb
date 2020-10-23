@@ -1,0 +1,42 @@
+<nav class="nav secondary-nav secondary-nav--has-tabs js-sticky-nav">
+  <div class="">
+    <div class="tab-nav" style="padding:16px">
+      <%= link_to business_profile_index_path, class: "nav-link-business #{'tab-active' if current_page?(business_profile_index_path)}" do %>
+        <i class="fa fa-home" aria-hidden="true"></i>
+        <%= t("profile_nav.dashboard") %>
+      <% end %>
+      <%= link_to business_project_feed_index_path, class: "nav-link-business #{'tab-active' if current_page?(business_project_feed_index_path)}" do %>
+        <i class="fa fa-search" aria-hidden="true"></i>
+        <%= t("profile_nav.business.feed") %>
+      <% end %>
+      <%= link_to business_inbox_index_path, class: "nav-link-business #{'tab-active' if current_page?(business_inbox_index_path)}" do %>
+        <i class="fa fa-comments" aria-hidden="true"></i>
+        <%= t("profile_nav.inbox") %>
+      <% end %>
+      <%= link_to business_stats_path, class: "nav-link-business #{'tab-active' if current_page?(business_stats_path)}" do %>
+        <i class="fa fa-bar-chart" aria-hidden="true"></i>
+        <%= t("profile_nav.business.stats") %>
+      <% end %>
+      <%= link_to business_projects_path, class: "nav-link-business #{'tab-active' if current_page?(business_projects_path)}" do %>
+        <i class="fa fa-briefcase" aria-hidden="true"></i>
+        <%= t("profile_nav.projects") %>
+      <% end %>
+      <%= link_to edit_business_business_path(@business || @current_business), class: "nav-link-business #{'tab-active' if current_page?(edit_business_business_path(@business || @current_business))}" do %>
+        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+        <%= t("profile_nav.business.profile") %>
+      <% end %>
+      <%= link_to gallery_index_path, class: "nav-link-business #{'tab-active' if current_page?(gallery_index_path)}" do %>
+        <i class="fa fa-picture-o" aria-hidden="true"></i>
+        <%= t("gallery.header") %>
+      <% end %>
+      <%= link_to business_reviews_path, class: "nav-link-business #{'tab-active' if current_page?(business_reviews_path)}" do %>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <%= t("profile_nav.business.reviews") %>
+      <% end %>
+    </div>
+  </div>
+</nav>
+
+<%= content_for :page_scripts do %>
+  <%= javascript_include_tag 'sticky-nav' %>
+<% end %>

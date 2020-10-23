@@ -1,6 +1,6 @@
-<%= content_for :sub_nav do %>
+<%= content_for :business_sub_nav do %>
   <%= render partial: "partials/business/profile/profile_header" %>
-  <%= render partial: "partials/nav/profile_nav", locals: {
+  <%= render partial: "partials/nav/business_dashboard_nav/business_profile_nav", locals: {
     nav_links: [
       { name: t("profile_nav.dashboard"), path: business_profile_index_path },
       { name: t("profile_nav.inbox"), path: business_inbox_index_path },
@@ -14,4 +14,4 @@
   } %>
 <% end %>
 
-<%= render template: "layouts/application" %>
+<%= render template: "layouts/business_dashboard" %>
