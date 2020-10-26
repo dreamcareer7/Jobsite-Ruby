@@ -1,30 +1,22 @@
 <header>
-<div class="site-wrap">
-  <nav class="nav light-nav">
-    <div class="primary-nav__wrap">
+  <div class="site-wrap">
+    <nav class="nav light-nav">
+      <div class="primary-nav__wrap">
 
-      <div class="primary-nav__left">
-        <a href="/<%= @current_city.present? ? I18n.with_locale(:en){ @current_city.name } : City.first.name %>" class="u-hover-muted">
-        
-        <% if controller_name == "home" %>
-            <%= inline_svg(locale == :ar ? 
-                          "logo-ar.svg" : 
-                          "logo.svg", class: "nav__logo nav__logo--full-mobile") %>
-          <% else %>
-            <%= image_tag "logo.png", class: "nav__logo nav__logo--mobile" %>
-
-            <%#= inline_svg("logo.png", class: "nav__logo nav__logo--mobile") %>
+        <div class="primary-nav__left">
+          <a href="/<%= @current_city.present? ? I18n.with_locale(:en){ @current_city.name } : City.first.name %>" class="u-hover-muted">
           
+            <% if controller_name == "home" %>
+              <%= inline_svg(locale == :ar ? 
+                            "logo-ar.svg" : 
+                            "logo.svg", class: "nav__logo nav__logo--full-mobile") %>
+            <% else %>
+              <%= inline_svg("logo-mark.svg", class: "nav__logo nav__logo--mobile") %>
             <% end %>
             <%= image_tag "logo.png", class: "nav__logo nav__logo--desktop" %>
-          <%#= inline_svg(locale == :ar ? 
-                        "logo.png" : 
-                        "logo.png", class: "nav__logo nav__logo--desktop") %>
-        </a>
-        <!-- <div class="nav__divider u-hide--large-down"></div> -->
+          </a>
 
-
-        <ul class="list list--inline nav__list u-hide--medium-down mb0 new-dashboard-left-main-menu">
+          <ul class="list list--inline nav__list u-hide--medium-down mb0 new-dashboard-left-main-menu">
             <%= link_to user_profile_index_path, class: "nav-link #{'active' if current_page?(user_profile_index_path)}" do %>
               <li class="nav-item">
                 <!-- DASHBOARD -->
@@ -43,12 +35,9 @@
                 <%= t("profile_nav.projects").upcase %>
               </li>
             <% end %>
-        </ul>
+          </ul>
 
-
-
-
-        <!-- unless controller_name == "home" %> -->
+          <!-- unless controller_name == "home" %> -->
           <div class="field nav__search js-search-box">
             <div class="field__input-wrapper">
               <%= inline_svg("icons/search.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
@@ -62,70 +51,52 @@
 
           <li class="list__item has-popover u-hide--large-down header-select-location-dropdown">
             <button class="js-open-popover list__link nav__link" href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> <%= @current_city.present? ? @current_city.name : t("main_nav.choose_city") %> ▾</button>
-          <div class="popover popover--wide popover--arrow">
+            <div class="popover popover--wide popover--arrow">
+              <% if @current_city %>
+                <% @current_city.country_cities.order(:name).each do |city| %>
+                  <% next if city == @current_city %>
+                  <%= link_to city.name, city_choose_city_path(city), method: :put, class: "popover__link" %>
+                <% end %>
 
-            <% if @current_city %>
-              <% @current_city.country_cities.order(:name).each do |city| %>
-                <% next if city == @current_city %>
-                <%= link_to city.name, city_choose_city_path(city), method: :put, class: "popover__link" %>
+                <a href="/countries" class="popover__link">
+                  <span class="u-flex u-flex-middle">
+                    <span class="u-text-dark u-flex-grow"><%= t("footer.countries") %></span>
+                    <%= inline_svg("icons/external.svg", class: "icon icon--small icon--dark") %>
+                  </span>
+                </a>
               <% end %>
-
-              <a href="/countries" class="popover__link">
-                <span class="u-flex u-flex-middle">
-                  <span class="u-text-dark u-flex-grow"><%= t("footer.countries") %></span>
-                  <%= inline_svg("icons/external.svg", class: "icon icon--small icon--dark") %>
-                </span>
-              </a>
-            <% end %>
-          </div>
-        </li>
-        <li class="list__item has-popover">
-
-        <button class="js-open-popover list__link nav__link" href="#">
-          <span class="mr1"><%= current_user.name.split.first %></span>
-            <%= image_tag current_user.profile_image.url, class: "profile-avatar u-box-shadow avatar avatar--small mr1" %>▾</button>
-        <div class="popover popover--right popover--arrow popover--arrow-ne">
-          <%= link_to user_profile_index_path, class: "popover__link" do %>
-            <%= t("main_nav.dashboard") %>
-            <% if current_user.unread_notifications.count > 0 %>
-              <span class="badge badge--primary btn__add-on"><%= current_user.unread_notifications.count %></span>
-            <% end %>
-          <% end %>
-    
-          <%= link_to t("main_nav.my_profile"), edit_user_path(current_user), class: "popover__link" %>
-          <% if current_user.businesses.present? %>
-            <%= link_to business_profile_index_path, class: "popover__link" do %>
-              <span><%= t("main_nav.switch_to_business") %></span>
-              <% if current_user.unread_business_notifications.present? %>
-                <span class="badge badge--small badge--primary btn__add-on"><%= current_user.unread_business_notifications %></span>
+            </div>
+          </li>
+          <li class="list__item has-popover">
+            <button class="js-open-popover list__link nav__link" href="#">
+              <span class="mr1"><%= current_user.name.split.first %></span>
+                <%= image_tag current_user.profile_image.url, class: "profile-avatar u-box-shadow avatar avatar--small mr1" %>▾</button>
+            <div class="popover popover--right popover--arrow popover--arrow-ne">
+              <%= link_to user_profile_index_path, class: "popover__link" do %>
+                <%= t("main_nav.dashboard") %>
+                <% if current_user.unread_notifications.count > 0 %>
+                  <span class="badge badge--primary btn__add-on"><%= current_user.unread_notifications.count %></span>
+                <% end %>
               <% end %>
-            <% end %>
-          <% end %>
-          <%= link_to t("main_nav.upgrade"), "/pages/contact", class: "popover__link" if current_user.free? %>
-          <%= link_to t("main_nav.log_out"), destroy_user_session_path, method: :delete, class: "popover__link" %>
+        
+              <%= link_to t("main_nav.my_profile"), edit_user_path(current_user), class: "popover__link" %>
+              <% if current_user.businesses.present? %>
+                <%= link_to business_profile_index_path, class: "popover__link" do %>
+                  <span><%= t("main_nav.switch_to_business") %></span>
+                  <% if current_user.unread_business_notifications.present? %>
+                    <span class="badge badge--small badge--primary btn__add-on"><%= current_user.unread_business_notifications %></span>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <%= link_to t("main_nav.upgrade"), "/pages/contact", class: "popover__link" if current_user.free? %>
+              <%= link_to t("main_nav.log_out"), destroy_user_session_path, method: :delete, class: "popover__link" %>
+            </div>
+          </li>
+
         </div>
-      </li>
-
-
-        <!-- end %> -->
       </div>
-
-      <!-- <div class="primary-nav__right">
-        <%# if current_user %>
-          <%#= render partial: "partials/nav/main_nav/user" %>
-        <%# else %>
-          <%#= render partial: "partials/nav/main_nav/guest" %>
-        <%# end %>
-      </div> -->
-
-    </div>
-  </nav>
-</div>
-
-
-
-
-
+    </nav>
+  </div>
 </header>
 
 <%= javascript_include_tag 'auto_complete.js' %>

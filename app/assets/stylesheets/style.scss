@@ -880,8 +880,9 @@ label {
   }
 }
 
-.section-dashboard{
+.section-dashboard {
   padding:0px 12px 0px 20px;
+  width:100%;
 }
 
 
@@ -1061,7 +1062,15 @@ label {
 }
 
 @media (max-width: 767px)
+
 {
+
+  .two-column-checkbox-list{
+    padding-left: 0;
+    column-count: 1;
+    column-gap: 2rem;
+  }
+
   .custom_carousel{
     width:164px;
   }

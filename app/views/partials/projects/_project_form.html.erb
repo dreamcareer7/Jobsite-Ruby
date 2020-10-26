@@ -1,31 +1,24 @@
 <main class="post-a-projects">
 
-  <div class="mt-4">
-    <div class="">
-      <div class="grid">
-        <div class="grid__col--md-9">
-          <span class="custom-breadcrumb-title"><%= @project_type_header  %></span>
-          <%= link_to user_profile_index_path, class: "sidebar-link" do %>
-            <span class="custom-breadcrumb-title-right float-right">
-              <i class="fa fa-share" aria-hidden="true"></i>
-              back to dashboard
-            </span>
-          <% end %>
-        </div>
-        <div class="col-md-3">
-        </div>
+  <div class="mt-4">  
+    <div class="grid">
+      <div class="grid__col--md-9 grid__col--xs-12">
+        <span class="custom-breadcrumb-title"><%= @project_type_header  %></span>
+        <%= link_to user_profile_index_path, class: "sidebar-link" do %>
+          <span class="custom-breadcrumb-title-right float-right">
+            <i class="fa fa-share" aria-hidden="true"></i>
+            back to dashboard
+          </span>
+        <% end %>
+      </div>
+      <div class="col-md-3">
       </div>
     </div>
-  </div>
 
-  <div class="">
     <div class="grid">
-
-
-      <div class="grid__col--md-9">
+      <div class="grid__col--md-9 grid__col--xs-12">
         <div class="form-container-background py-3 px-3 mb-4 mt-4">
           <% if @category.slug == "suppliers" || @category.slug == "machinery" %>
-
             <div class="mb-4">
               <label for="request-title" class="form-label">Title of your request</label>
               <%= f.input :title, wrapper: :text_field, input_html: { style: 'height:calc(1.5em + .75rem + 2px);'}, placeholder: "I need:",label: false, required: true %>
@@ -34,7 +27,6 @@
             <div class="mb-4 professionals-form">
               <%= render partial: I18n.with_locale(:en) { @category.name.downcase }, locals: { f: f } %>
             </div>
-
           <% else %>
             <div class="mb-4">
               <div class="hire-a-professional-category-container">
@@ -52,8 +44,6 @@
                     </div>
                   </label>
                 </div>
-
-
                 <div class="hire-a-professional-category-box">
                   <input type="radio" id="professional-category-contractors" name="hire-a-professional-category-selection" onclick= "setCategory('contractors')">
                   <label for="professional-category-contractors">
@@ -98,7 +88,6 @@
                     </div>
                   </label>
                 </div>
-
               </div>
             </div>
 
@@ -137,10 +126,6 @@
                 </li>
               <% end %>
             </ul>
-
-            
-
-
           </div>
 
           <div class="mb-4">
@@ -148,7 +133,7 @@
             <%= f.simple_fields_for :location do |l| %>
               <%#= render partial: "partials/location/choose_location", locals: { l: l } %>
               <div class="input-group">
-                <div class="grid__col--md-5 unset-grid mb2">
+                <div class="grid__col--md-5 grid__col--xs-12 unset-grid mb2">
                   <% if l.object.new_record? %>
                     <%= l.input :country_for_select, collection: @countries, input_html: { class: " rails-country-for-select form-control mb-3", id: "country", style: " width:100%; height:calc(1.5em + .75rem + 2px);"}, required: true,  placeholder: "Country" , selected: current_user.present? ?  current_user.country.id : " " %>
                   <% else %>
@@ -158,7 +143,7 @@
 
                 <div class="grid__col--md-1 unset-grid mb2"></div>
 
-                <div class="grid__col--md-6 unset-grid mb2">                  
+                <div class="grid__col--md-6 grid__col--xs-12 unset-grid mb2">                  
                   <%= l.input :city_id, collection: @cities, placeholder: "City", input_html: { class: " js-city rails-display-cities form-control mb-3", id:"city", style: "width:100%; height:calc(1.5em + .75rem + 2px);" }, required: true, placeholder: "City", selected: current_user.present? ?  current_user.city.id : " " %>
                 </div>
               </div>
@@ -176,10 +161,10 @@
             </div>
 
             <div class="input-group" id="estimate-budget-container">
-              <div class="grid__col--md-4 input-group-text" >
+              <div class="grid__col--md-4 grid__col--xs-12 input-group-text" >
                 <%= f.input :currency_type, collection: Project.i18n_enum_collection(:currency_types), as: :select, input_html: { class: "form-select", aria: { label: "Timeline" }, style: "height:calc(1.5em + .75rem + 2px);" }, label: false, required: true, include_blank: true %>
               </div>
-              <div class="grid__col--md-8 unset-grid"> 
+              <div class="grid__col--md-8 grid__col--xs-12 unset-grid"> 
                 <%= f.input :project_budget, selected: @project.project_budget.present? ? @project.project_budget : '', input_html: { class: "form-select", aria: {label: "Timeline"}, style: "width:100%, height:calc(1.5em + .75rem + 2px);" }, label: false, required: true %>
               </div>
             </div>
@@ -191,7 +176,7 @@
             </div>
 
             <div class="input-group">
-              <div class="grid__col--md-4 unset-grid">
+              <div class="grid__col--md-4 grid__col--xs-12 unset-grid">
                 <%= f.input :timeline_type, collection: Project.i18n_enum_collection(:timeline_types), as: :select, input_html: { class: "form-select", aria: { label:'Timeline' },  style: 'height:calc(1.5em + .75rem + 2px);'}, label: false, required: true %>
               </div>
             </div>
@@ -215,14 +200,13 @@
           </div>      
         </div>
       </div>
-      <div class="grid__col--md-3 mt-4">
+      <div class="grid__col--md-3 grid__col--xs-12 mt-4">
         <%= link_to t("main_nav.hire_professional"), new_user_project_path(project_type: "default"), class: "btn-special btn-outline-primary btn-block mt-3  #{'u-hide' if @category.slug == 'consultants'} " %>
         <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "suppliers"), class: "btn-special btn-outline-primary btn-block #{'u-hide' if @category.slug == 'suppliers'}" %>
         <%= link_to t("main_nav.buy_rent"), new_user_project_path(project_type: "machinery"), class: "btn-special btn-outline-primary btn-block #{ 'u-hide' if @category.slug == 'machinery' } " %> 
       </div>
-
     </div>
-  </div>
+  </div> 
 
 </main>
 
