@@ -13,13 +13,14 @@ class Business::ProfileController < Business::BaseController
     @profile_views = @business.impressionist_count(message: "profile_view", filter: :all)
     @website_visits = @business.impressionist_count(message: "website_view", filter: :all)
     @social_media_visits = @business.impressionist_count(message: "social_view", filter: :all)
+    @listing_views =  @business.impressionist_count(message: "listing_view", filter: :all)
     @phone_number_reveals = @business.impressionist_count(message: "number_view", filter: :all)
 
     @stats = {
+      listing_views: @listing_views,
       profile_views: @profile_views,
-      website_views: @website_visits,
-      link_views: @social_media_visits,
-      phone_reveals: @phone_number_reveals
+      phone_reveals: @phone_number_reveals,
+      website_visits: @website_visits
     }
 
     @dashboard_banners = Banner.relevant_banner("dashboard banner", @current_city.country)
