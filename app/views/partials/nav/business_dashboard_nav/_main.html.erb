@@ -1,76 +1,76 @@
-<div class="site-wrap">
-    <nav class="nav primary-nav <%= nav_modifier %>">
-        <div class="primary-nav__wrap">
+<nav class="nav primary-nav <%= nav_modifier %>">
+  <div class="site-wrap">
+    <div class="primary-nav__wrap">
 
-          <div class="primary-nav__left">
-            <a href="/<%= @current_city.present? ? I18n.with_locale(:en){ @current_city.name } : City.first.name %>" class="u-hover-muted">
-                <% if controller_name == "home" %>
-                <%= inline_svg(locale == :ar ? 
-                                "logo-ar.svg" : 
-                                "logo.svg", class: "nav__logo nav__logo--full-mobile") %>
-                <% else %>
-                <%= inline_svg("logo-mark.svg", class: "nav__logo nav__logo--mobile") %>
-                <% end %>
-                <%= inline_svg(locale == :ar ? 
+      <div class="primary-nav__left">
+        <a href="/<%= @current_city.present? ? I18n.with_locale(:en){ @current_city.name } : City.first.name %>" class="u-hover-muted">
+            <% if controller_name == "home" %>
+            <%= inline_svg(locale == :ar ? 
                             "logo-ar.svg" : 
-                            "logo.svg", class: "nav__logo nav__logo--desktop") %>
-            </a>
-          </div>
-          <!-- <div class="nav__divider u-hide--large-down"></div> -->
+                            "logo.svg", class: "nav__logo nav__logo--full-mobile") %>
+            <% else %>
+            <%= inline_svg("logo-mark.svg", class: "nav__logo nav__logo--mobile") %>
+            <% end %>
+            <%= inline_svg(locale == :ar ? 
+                        "logo-ar.svg" : 
+                        "logo.svg", class: "nav__logo nav__logo--desktop") %>
+        </a>
+      </div>
+      <!-- <div class="nav__divider u-hide--large-down"></div> -->
 
-          <div class="primary-nav__right" style:"float:right;">
-            <ul class="list list--inline nav__list u-hide--medium-down mb0">
-              <li class="list__item has-popover mr3">
+      <div class="primary-nav__right" style:"float:right;">
+        <ul class="list list--inline nav__list u-hide--medium-down mb0">
+          <li class="list__item has-popover mr3">
 
-                <button class="js-open-popover list__link nav__link" href="#">
-                  <span class="mr1"><%= current_user.name.split.first %></span>
+            <button class="js-open-popover list__link nav__link" href="#">
+              <span class="mr1"><%= current_user.name.split.first %></span>
 
-                  <%= image_tag current_user.profile_image.url, class: "profile-avatar u-box-shadow avatar avatar--small mr1" %>
+              <%= image_tag current_user.profile_image.url, class: "profile-avatar u-box-shadow avatar avatar--small mr1" %>
 
-                  ▾
-                </button>
-                <div class="popover popover--right popover--arrow popover--arrow-ne">
-                  <%= link_to user_profile_index_path, class: "popover__link" do %>
-                    <%= t("main_nav.dashboard") %>
-                    <% if current_user.unread_notifications.count > 0 %>
-                      <span class="badge badge--primary btn__add-on"><%= current_user.unread_notifications.count %></span>
-                    <% end %>
-                  <% end %>
-
-                  <%= link_to t("main_nav.my_profile"), edit_user_path(current_user), class: "popover__link" %>
-                  <% if current_user.businesses.present? %>
-                    <%= link_to business_profile_index_path, class: "popover__link" do %>
-                      <span><%= t("main_nav.switch_to_business") %></span>
-                      <% if current_user.unread_business_notifications.present? %>
-                        <span class="badge badge--small badge--primary btn__add-on"><%= current_user.unread_business_notifications %></span>
-                      <% end %>
-                    <% end %>
-                  <% end %>
-                  <%= link_to t("main_nav.upgrade"), "/pages/contact", class: "popover__link" if current_user.free? %>
-                  <%= link_to t("main_nav.log_out"), destroy_user_session_path, method: :delete, class: "popover__link" %>
-                </div>
-              </li>
-
-              <% if locale == :en %>
-                <li class="list__item">
-                    <h3 class="pb1"><%= link_to "ع", set_language_path(language: :ar), method: :put, class: "u-text-contrast" %></h3>
-                </li>
-              <% else %>
-                <li class="list__item">
-                <%= link_to "EN", set_language_path(language: :en), method: :put, class: "u-text-contrast" %>
-                </li>
+              ▾
+            </button>
+            <div class="popover popover--right popover--arrow popover--arrow-ne">
+              <%= link_to user_profile_index_path, class: "popover__link" do %>
+                <%= t("main_nav.dashboard") %>
+                <% if current_user.unread_notifications.count > 0 %>
+                  <span class="badge badge--primary btn__add-on"><%= current_user.unread_notifications.count %></span>
+                <% end %>
               <% end %>
-            </ul>
-            <%# if current_user %>
-                <%#= render partial: "partials/nav/main_nav/user" %>
-            <%# else %>
-                <%#= render partial: "partials/nav/main_nav/guest" %>
-            <%# end %>
-          </div>
 
-        </div>
-    </nav>
-</div>
+              <%= link_to t("main_nav.my_profile"), edit_user_path(current_user), class: "popover__link" %>
+              <% if current_user.businesses.present? %>
+                <%= link_to business_profile_index_path, class: "popover__link" do %>
+                  <span><%= t("main_nav.switch_to_business") %></span>
+                  <% if current_user.unread_business_notifications.present? %>
+                    <span class="badge badge--small badge--primary btn__add-on"><%= current_user.unread_business_notifications %></span>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <%= link_to t("main_nav.upgrade"), "/pages/contact", class: "popover__link" if current_user.free? %>
+              <%= link_to t("main_nav.log_out"), destroy_user_session_path, method: :delete, class: "popover__link" %>
+            </div>
+          </li>
+
+          <% if locale == :en %>
+            <li class="list__item">
+                <h3 class="pb1"><%= link_to "ع", set_language_path(language: :ar), method: :put, class: "u-text-contrast" %></h3>
+            </li>
+          <% else %>
+            <li class="list__item">
+            <%= link_to "EN", set_language_path(language: :en), method: :put, class: "u-text-contrast" %>
+            </li>
+          <% end %>
+        </ul>
+        <%# if current_user %>
+            <%#= render partial: "partials/nav/main_nav/user" %>
+        <%# else %>
+            <%#= render partial: "partials/nav/main_nav/guest" %>
+        <%# end %>
+      </div>
+
+    </div>
+  </div>
+</nav>
 
 <%= content_for :page_scripts do %>
   <%= javascript_include_tag 'auto_complete.js' %>

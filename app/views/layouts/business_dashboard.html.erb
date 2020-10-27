@@ -50,26 +50,24 @@
       <%= render partial: "partials/nav/business_dashboard_nav/main" unless current_page?(controller: '/home') || current_page?(controller: '/cities') %>
       <%#= render partial: "partials/user/profile/profile_header" %>
       <%= yield :breadcrumbs %>
-      <div class="site-wrap">
-        <% flash.each do |name, msg| %>
-          <% if msg.class == Array %>
-            <% msg.each do |message| %>
-              <div class="banner banner--disappearing banner--<%= name == "notice" ? 'success' : 'error' %>">
-                <%= message %>
-              </div>
-            <% end %>
-          <% else %>
+      <% flash.each do |name, msg| %>
+        <% if msg.class == Array %>
+          <% msg.each do |message| %>
             <div class="banner banner--disappearing banner--<%= name == "notice" ? 'success' : 'error' %>">
-              <%= msg %>
+              <%= message %>
             </div>
           <% end %>
+        <% else %>
+          <div class="banner banner--disappearing banner--<%#= name == "notice" ? 'success' : 'error' %>">
+            <%= msg %>
+          </div>
         <% end %>
-      </div>
+      <% end %>
             
-      <div class="site-wrap">
-        <div class="">
-          <%#= yield :side_bar %>
-          <%= yield :business_sub_nav %>
+      <div class="">
+      <%#= yield :side_bar %>
+      <%= yield :business_sub_nav %>
+        <div class="site-wrap">
           <%= yield %>
         </div>
       </div>

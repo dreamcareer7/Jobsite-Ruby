@@ -54,7 +54,7 @@ module HandleLoginRedirect
   def default_profile(user)
 
     if user.required_fields_present?
-      flash[:notice] = t("devise.sessions.signed_in")
+      #<flash[:notice] = t("devise.sessions.signed_in")
       return user_profile_index_path unless user.default_profile != user.id
     else
       return edit_user_path(user)

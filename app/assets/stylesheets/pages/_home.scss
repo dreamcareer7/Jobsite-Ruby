@@ -91,3 +91,10 @@
   right: 24px;
   @include z-index(home-city__tooltip);
 }
+
+.home-city__tooltip-business-dashboard {
+  position: relative;
+  bottom: 24px;
+  right: 24px;
+  float: right;
+}

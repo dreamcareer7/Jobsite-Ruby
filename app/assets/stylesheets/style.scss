@@ -733,9 +733,8 @@ a.sidebar-link {
 }
 
 .progress-business-profile {
-  margin-bottom: .5rem!important;
   display: flex;
-  height: 0.3rem;
+  height: 0.5rem;
   overflow: hidden;
   font-size: .75rem;
   background-color: #e9ecef;
@@ -1163,4 +1162,73 @@ label {
 }
 .featured-lists ul li:last-child{
   border-bottom: 0px;
+}
+
+.progress-bar-with-percentage {
+  display:flex;
+  align-items: center;
+}
+
+.profile-percentage {
+  margin-left: 5px;
+}
+
+.business-dashboard-profile-container {
+  display: flex;
+  align-items: center;
+}
+
+
+.card__invitation{
+    .card__section{
+      padding: 10px 15px;
+    }
+    .text-and-button-container{
+      display: flex;
+      flex:1 1;
+      justify-content: space-between;
+
+      .left-content{
+        flex: 1;
+      }
+    }
+
+    .card__header{
+      margin-bottom: 0px;
+
+      .invitation-type-title{
+        color: $primary-color;
+        font-size: 12px;
+        
+      }
+      .hide-button{
+        color: $primary-color;
+        font-size: 12px;
+      }
+
+
+    }
+    .card__invitation__body{
+        .heading-container{
+          margin-right: 0px;
+        }
+        .heading{
+          font-size: 16px;
+        }
+        .sub-heading{
+          font-size: 13px;
+        }
+        
+    }
+    .card__title__hide_button{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      width: 100%;
+
+      p{
+        margin-bottom: 5px;
+      }
+    }
+
 }
