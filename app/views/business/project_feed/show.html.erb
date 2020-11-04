@@ -1,10 +1,10 @@
-<section class="section section--alt">
+<!-- <section class="section section--alt">
   <div class="site-wrap">
     <div class="grid grid--middle">
       <div class="grid__col--xs-12">
         <div class="breadcrumbs mb3">
-          <%= link_to t("breadcrumb_nav.feed"), business_project_feed_index_path, class: "breadcrumbs__item" %>
-          <span class="breadcrumbs__item breadcrumbs__item--current"><span class="u-text-dark"><%= @project.title %></span></span>
+          <%#= link_to t("breadcrumb_nav.feed"), business_project_feed_index_path, class: "breadcrumbs__item" %>
+          <span class="breadcrumbs__item breadcrumbs__item--current"><span class="u-text-dark"><%#= @project.title %></span></span>
         </div>
       </div>
     </div>
@@ -12,84 +12,305 @@
       <div class="card__section card__section--border">
         <div class="grid mb3">
           <div class="grid__col--xs-12 grid__col--md-8">
-            <h2><%= @project.title %></h2>
+            <h2><%#= @project.title %></h2>
           </div>
-          <% if @active && !@project.hired? %>
+          <%# if @active && !@project.hired? %>
             <div class="grid__col--xs-12 grid__col--md-4 u-text-right--medium">
-              <small><%= t("feed.shortlisted") %> <%= (@project.shortlists.count > 0 ? @project.shortlists.count - 1 : 0) %> <%= t("feed.others") %></small>
+              <small><%#= t("feed.shortlisted") %> <%#= (@project.shortlists.count > 0 ? @project.shortlists.count - 1 : 0) %> <%#= t("feed.others") %></small>
             </div>
-          <% end %>
+          <%# end %>
         </div>
         <div class="grid grid--v-padded">
           <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-flex">
             <div class="media media--middle">
               <div class="media__figure">
-                <%= image_tag @project.user.profile_image.url, class: "avatar" %>
+                <%#= image_tag @project.user.profile_image.url, class: "avatar" %>
               </div>
               <div class="media__body">
-                <strong class="u-block mb0"><%= @project.user.name %></strong>
-                <p><%= @project.user.city_country %></p>
+                <strong class="u-block mb0"><%#= @project.user.name %></strong>
+                <p><%#= @project.user.city_country %></p>
               </div>
             </div>
           </div>
-          <% if @project.user.location.present? || @project.user.industry.present? %>
+          <%# if @project.user.location.present? || @project.user.industry.present? %>
             <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-flex">
-              <% if @project.user.location.present? %>
+              <%# if @project.user.location.present? %>
                 <div class="u-flex u-flex-middle">
-                  <%= inline_svg("icons/pin.svg", class: "icon icon--brand") %>&nbsp;<span class="u-text-dark"><%= @project.user.location.city_country %></span>
+                  <%#= inline_svg("icons/pin.svg", class: "icon icon--brand") %>&nbsp;<span class="u-text-dark"><%#= @project.user.location.city_country %></span>
                 </div>
-              <% end %>
-            <% end %>
-            <% if @project.user.industry.present? %>
+              <%# end %>
+            <%# end %>
+            <%# if @project.user.industry.present? %>
               <div class="u-flex u-flex-middle">
-                <%= inline_svg("icons/briefcase.svg", class: "icon icon--brand") %>&nbsp;<span class="u-text-dark"><%= @project.user.industry.gsub("_", " ").titleize %></span>
+                <%#= inline_svg("icons/briefcase.svg", class: "icon icon--brand") %>&nbsp;<span class="u-text-dark"><%#= @project.user.industry.gsub("_", " ").titleize %></span>
               </div>
             </div>
-          <% end %>
+          <%# end %>
           <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-flex">
             <div class="u-flex u-flex-middle">
-              <% if @project.user.mobile_number.present? %>
-                <% if @active %>
-                  <%= inline_svg("icons/phone.svg", class: "icon icon--brand") %>&nbsp;<a class="u-text-dark" href="tel:<%= @project.user.mobile_number %>"><%= @project.user.mobile_number %></a>
-                <% end %>
-              <% end %>
+              <%# if @project.user.mobile_number.present? %>
+                <%# if @active %>
+                  <%#= inline_svg("icons/phone.svg", class: "icon icon--brand") %>&nbsp;<a class="u-text-dark" href="tel:<%#= @project.user.mobile_number %>"><%#= @project.user.mobile_number %></a>
+                <%# end %>
+              <%# end %>
             </div>
             <div class="u-flex u-flex-middle">
-              <% if @active %>
-                <%= inline_svg("icons/email.svg", class: "icon icon--brand") %>&nbsp;<a class="u-text-dark" href="mailto:<%= @project.user.email %>"><%= @project.user.email %></a>
-              <% end %>
+              <%# if @active %>
+                <%#= inline_svg("icons/email.svg", class: "icon icon--brand") %>&nbsp;<a class="u-text-dark" href="mailto:<%#= @project.user.email %>"><%#= @project.user.email %></a>
+              <%# end %>
             </div>
           </div>
-          <% unless @project.inactive? %>
-            <%= render partial: "partials/projects/controls/business_project_controls" %>
-          <% end %>
+          <%# unless @project.inactive? %>
+            <%#= render partial: "partials/projects/controls/business_project_controls" %>
+          <%# end %>
         </div>
       </div>
     </div>
 
     <div class="grid">
-      <% if @active && !@project.inactive? %>
-        <%= render partial: "partials/projects/details/project_details_active" %>
-      <% else %>
-        <%= render partial: "partials/projects/details/project_details_inactive" %>
-      <% end %>
-      <% if @active && !@project.inactive? %>
-        <%= render partial: "partials/conversation/project_conversation", locals: { url: business_messages_path(project: @project) } %>
-      <% end %>
-      <% if @project.attachments.present? %>
+      <%# if @active && !@project.inactive? %>
+        <%#= render partial: "partials/projects/details/project_details_active" %>
+      <%# else %>
+        <%#= render partial: "partials/projects/details/project_details_inactive" %>
+      <%# end %>
+      <%# if @active && !@project.inactive? %>
+        <%#= render partial: "partials/conversation/project_conversation", locals: { url: business_messages_path(project: @project) } %>
+      <%# end %>
+      <%# if @project.attachments.present? %>
         <div class="grid__col--xs-12 grid__col--md-12">
           <div class="card">
             <div class="card__section">
               <div class="grid grid--v-padded">
-                <% @project.attachments.each do |attachment| %>
+                <%# @project.attachments.each do |attachment| %>
                   <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-3">
-                    <%= image_tag(attachment.attachment.url, class: "u-rounded-half", size: "400x300", style: "min-width:100%;height:auto;max-width:initial !important;") %>
+                    <%#= image_tag(attachment.attachment.url, class: "u-rounded-half", size: "400x300", style: "min-width:100%;height:auto;max-width:initial !important;") %>
                   </div>
-                <% end %>
+                <%# end %>
               </div>
             </div>
           </div>
         </div>
-      <% end %>
+      <%# end %>
     </div>
+</section> -->
+
+<section class="section-page section--alt">
+  <div class="grid grid--middle">
+    <div class="grid__col--xs-12 grid__col--md-12">
+      <div class="breadcrumbs mb3 ml2">
+        <%= link_to t("breadcrumb_nav.feed"), business_project_feed_index_path, class: "breadcrumbs__item" %>
+        <span class="breadcrumbs__item breadcrumbs__item--current"><span class="u-text-dark"><%= @project.title %></span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="grid__col--xs-12 grid__col--md-9">
+      <div class="card">
+        <div class="card__section card__section--border">
+          <div class="grid mb3">
+            <div class="grid__col--xs-12 grid__col--md-12">
+
+              <section class="first-section">
+                <div class="grid">
+                  <div class="grid__col--xs-12 grid__col--md-3">
+                    <strong><span style="font-size:large"><i class="fa fa-shield" aria-hidden="true"></i>  Premium Request</span></strong>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-5">
+                    <span>verified by Muqawiloon </span>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-4">
+                    <% if (!@project.project_in_process?) || (@project.project_in_process? && @project.business == @current_business)  %>
+                      <% if @project.completed? %>
+                        <span class="btn-group__item btn-group__item--full-small-down "><%= t("projects.project_complete") %></span>
+
+                      <% elsif @project.business == @current_business %>
+                        <% unless @project.pending_completion? %>
+                          <%= link_to t("projects.mark_complete"), business_project_mark_as_complete_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", id: "mark-complete", method: :put %>
+                        <% end %>
+                        <% unless @project.inactive? || @project.pending_completion? %>
+                          <%= link_to t("projects.cancel_project"), business_project_cancel_project_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--secondary", id: "cancel-project", data: { confirm: "Are you sure?" }, method: :put %>
+                        <% end %>
+                      <% elsif @current_business.shortlisted?(@project) && @current_business.quotes.where(project_id: @project.id).blank? %>
+                        <%= link_to t("projects.submit_quote"), new_business_quote_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary" %>
+
+                      <% else %>
+                        <%#= link_to t("words.apply"), business_project_apply_to_project_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", method: :put unless @current_business.applied_to_projects.where(project_id: @project.id).exists? %>
+
+                        <%= link_to business_project_apply_to_project_path(project_id: @project), method: :put do %>
+                          <span class="btn-apply btn--primary float-right"><i class="fa fa-lock"></i> <%= t("words.apply") %></span>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+                <h2><%= @project.title %></h2>
+                <div class="sub-heading mb4">
+                  <span class="activity-edit-button">Posted <%= time_ago_in_words("Mon, 26 Oct 2020 09:58:06") %> <%= t("words.ago") %></span>
+                  <span class="activity-preview-button">By: <%= @project.user.name %></span>
+                </div>
+              </section>
+
+              <hr>
+
+              <section class="second-section mb3">
+                <div style="padding:9px 0px 26px 0px">
+                  <strong><span style="font-size:large"><i class="fa fa-clone" aria-hidden="true"></i>  Services Needed</span></strong>
+                </div>
+                <% if @project.services.present? %>
+                  <div class="pill-list">
+                    <% @project.services.visible.distinct.each do |service| %>
+                      <div class="pill-list__item pill"><%= service.name.capitalize %></div>
+                    <% end %>
+                  </div>
+                <% end %>
+              </section>
+
+              <hr>
+
+              <section class="third-section mb5">
+                <div style="padding:9px 0px 26px 0px">
+                  <span style="font-size:large"> Request Details </span>
+                </div>
+                <div class="grid">
+                  <div class="grid__col--md-5 grid__col--xs-12 table-change-css">
+                    <table>
+                      <body>
+                        <tr>
+                          <td><strong>Stage: </strong></td>
+                          <td><%= @project.project_status%></td>
+                        </tr>
+                        <tr>
+                          <td><strong> Timeline: </strong></td>
+                          <td><%= @project.timeline_type %></td>
+                        </tr>
+                        <tr>
+                          <td><strong> Duration: </strong></td>
+                          <td>1-3 Months</td>
+                        </tr>
+                        <tr>
+                          <td><strong> Start Date: </strong></td>
+                          <td><%= @project.start_date.present? ? @project.start_date.strftime("%Y/%m/%d") : " " %></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Scope: </strong></td>
+                          <td>Civil Work</td>
+                        </tr>
+                      </body>
+                    </table>
+                  </div>
+
+                  <div class="grid__col-xs-12 grid__col--md-7 mt2">
+                    <span style="font-weight:bold;">Location: </span>
+                    <div class="mb3">
+                      <span><%= "#{@project.location.street_address}  #{@project.location.city_country}" %></span>
+                    </div>
+                    <div class="grid__col-xs-12 grid__col--md-12" >
+                      <div id="googleMap" style="width:100%;height:400px;"></div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <hr>
+
+              <section class="fourth-section">
+                <div style="padding:9px 0px 26px 0px">
+                  <strong><span style="font-size:large"><i class="fa fa-camera" aria-hidden="true"></i>  Photos & Attachment</span></strong>
+                </div>
+                <ul class="project-feed-photos-and-attachment">
+                  <% if @project.attachments.present? %>
+                    <% @project.attachments.each do |attachment| %>
+                      <li class="">
+                        <%= image_tag attachment.attachment.url %>
+                      </li>
+                    <% end %>
+                    <% @project.attachments.each do |attachment| %>
+                      <li class="">
+                        <%= image_tag attachment.attachment.url %>
+                      </li>
+                    <% end %> 
+                  <% else %>
+                    <div> No attachments are found </div>
+                    <li class="">
+                      <%#= image_tag "default-placeholder-image.png" %>
+                    </li>
+                    <li class="">
+                      <%#= image_tag "default-placeholder-image.png" %>
+                    </li>
+                  <% end %>
+                </ul>
+              </section>
+
+              <section class="fifth-section mb2">
+                <div class="grid">
+                  <div class="grid__col--xs-12 grid__col--md-4 mt2">
+                    <% if @previous_element.present? %>
+                      <%= link_to business_project_feed_path(id: @previous_element) do %>
+                        <span style="font-weight:bold"><i class="fa fa-angle-left"></i> <span class="ml1">Previous Project </span></span>
+                      <% end %>
+                    <% end %>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-4  u-text-center mt2">
+                    <%= link_to business_project_apply_to_project_path(project_id: @project), method: :put do %>
+                      <span class="btn--primary btn-apply" style="font-weight:bold"><i class="fa fa-lock"></i> <%= t("words.apply") %></span>
+                    <% end %>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-4 u-text-right mt2">
+                    <% if @next_element.present? %>
+                      <%= link_to business_project_feed_path(id: @next_element)  do %>
+                        <span class="" style="font-weight:bold">Next Project   <i class="fa fa-angle-right ml1"></i></span>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              </section>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid__col--xs-12 grid__col--md-3">
+      <div class="ad-box text-center" style="background-image: url(<%= asset_path 'default-placeholder-image.png' %>)" >
+        <div> Place Your ADs</div>
+        <div><a href=""> Contact us</a></div>
+      </div>
+
+      <div class="card mt3">
+        <div class="card__section">
+          <div class="mt3 text-center mb3">
+            <p style="font-weight:bold;">Lorem Ipsum</p>
+            <div>Lorem ipsum dolor sit amet,vis enim porro at</div>
+          </div>
+          <div class="text-center">
+            <span class="btn-quote" style="font-weight:bold">Get a Quote</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
+<%= content_tag :span, '', class: "js-project-latlng", data: { lat: @project.location.latitude, long: @project.location.longitude } %>
+
+<script>
+  initMap();
+  function initMap() {
+    var projectLAT = $('.js-project-latlng').data('lat');
+    var projectLONG = $('.js-project-latlng').data('long');
+
+    const myLatLng = { lat: projectLAT, lng: projectLONG };
+
+    const map = new google.maps.Map(document.getElementById("googleMap"), {
+      zoom: 18,
+      center: myLatLng,
+    });
+    new google.maps.Marker({
+      position: myLatLng,
+      map,
+      title: "Hello World!",
+    });
+  }
+</script>

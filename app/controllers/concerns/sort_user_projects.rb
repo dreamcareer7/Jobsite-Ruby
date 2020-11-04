@@ -13,6 +13,8 @@ module SortUserProjects
       @projects = projects.where(project_status: :completed)
     when "Cancelled"
       @projects = projects.where(project_status: :cancelled)
+    when "Ongoingprojects"
+      @projects = projects.where(project_status: :in_process)
     else
       @projects = projects
     end

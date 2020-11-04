@@ -50,85 +50,38 @@
         <% end %>
       </div>
 
-
-    
-
-
-
-
-      
-
-
       <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-6">
 
-
-        <div class="card card__invitation">
-          <div class="card__section">
-            <div class="card__header">
-              <div class="card__title__hide_button">
-                <p class="invitation-type-title">Invitation</p>
-                <p class="hide-button"><i class="fa fa-times"></i> hide</p>
-              </div>
-            </div>
-
-            <div class="card__invitation__body">    
-              <div class="media small">
-                <div class="media__body">
-                  <div class="heading-container">
-                    <div class="text-and-button-container">
-
-                      <div class="left-content">
-                        <h5 class="heading"><%#= project.title %> I need a professional consultants</h5>
-                        <div class="sub-heading">
-                          <%#= link_to edit_user_project_path(project),  style: "text-decoration: none;color:black" do %>
-                            <span class="activity-edit-button"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= time_ago_in_words("Mon, 26 Oct 2020 09:58:06") %> <%= t("words.ago") %></span>
-                          <%# end %>
-                          <%#= link_to user_project_path(project),  style: "text-decoration: none;color:black" do %>
-                            <span class="activity-preview-button"><i class="fa fa-external-link" aria-hidden="true"></i> Preview Project</span>
-                          <%# end %>
-                        </div>
-                      </div>
-
-                      <div class="right-content">
-                        <a class="btn-outline-primary btn-special">View project</a>
-                      </div>
-
-                    </div>
-                  </div>
+        <% @messages.each do |message| %>
+          <div class="card card__invitation">
+            <div class="card__section">
+              <div class="card__header">
+                <div class="card__title__hide_button">
+                  <p class="invitation-type-title">Message</p>
+                  <p class="hide-button"><i class="fa fa-times"></i> hide</p>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="card card__invitation">
-          <div class="card__section">
-            <div class="card__header">
-              <div class="card__title__hide_button">
-                <p class="invitation-type-title">Message</p>
-                <p class="hide-button"><i class="fa fa-times"></i> hide</p>
-              </div>
-            </div>
+              <div class="card__invitation__body">    
+                <div class="media small">
+                  <div class="media__body">
+                    <div class="heading-container">
+                      <div class="text-and-button-container">
 
-            <div class="card__invitation__body">    
-              <div class="media small">
-                <div class="media__body">
-                  <div class="heading-container">
-                    <div class="text-and-button-container">
-
-                      <div class="left-content">
-                        <div class="progress-bar-with-percentage">
-                          <h5 class="heading"><%#= project.title %>Mohammad Abdulahji</h5>
-                          <%#= link_to edit_user_project_path(project),  style: "text-decoration: none;color:black" do %>
-                            <span class="activity-edit-button ml2"><%= time_ago_in_words("Mon, 26 Oct 2020 09:58:06") %> <%= t("words.ago") %></span>
-                          <%# end %>
+                        <div class="left-content">
+                          <div class="progress-bar-with-percentage">
+                            <h5 class="heading"><%#= project.title %><%= "#{ message.sender.name }" %></h5>
+                            <%#= link_to edit_user_project_path(project),  style: "text-decoration: none;color:black" do %>
+                              <span class="activity-edit-button ml2"><%= time_ago_in_words("#{message.updated_at}") %> <%= t("words.ago") %></span>
+                            <%# end %>
+                          </div>
+                          <div class="sub-heading">
+                            <p><%= truncate(message.body, length: 70) %></p>
+                          </div>
                         </div>
-                        <div class="sub-heading">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec</p>
-                        </div>
-                      </div>
 
-                      <div class="right-content">
+                        <div class="right-content">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -136,167 +89,7 @@
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="card card__invitation">
-          <div class="card__section">
-            <div class="card__header">
-              <div class="card__title__hide_button">
-                <p class="invitation-type-title">Quote request</p>
-                <p class="hide-button"><i class="fa fa-times"></i> hide</p>
-              </div>
-            </div>
-
-            <div class="card__invitation__body">    
-              <div class="media small">
-                <div class="media__body">
-                  <div class="heading-container">
-                    <div class="text-and-button-container">
-
-                      <div class="left-content">
-                        <div class="progress-bar-with-percentage">
-                          <h5 class="heading"><%#= project.title %> I need a professional consultants</h5>
-                          <%#= link_to edit_user_project_path(project),  style: "text-decoration: none;color:black" do %>
-                            <span class="activity-edit-button ml2"><%= time_ago_in_words("Mon, 26 Oct 2020 09:58:06") %> <%= t("words.ago") %></span>
-                          <%# end %>
-                        </div>
-                        <div class="sub-heading">
-                          <%#= link_to user_project_path(project),  style: "text-decoration: none;color:black" do %>
-                            <!--<span class="activity-preview-button"><i class="fa fa-external-link" aria-hidden="true"></i> Preview Project</span>-->
-                          <%# end %>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec</p>
-                        </div>
-                      </div>
-
-                      <div class="right-content">
-                        <a class="btn-outline-primary btn-special">View project</a>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card card__invitation">
-          <div class="card__section">
-            <div class="card__header">
-              <div class="card__title__hide_button">
-                <p class="invitation-type-title">Invitation</p>
-                <p class="hide-button"><i class="fa fa-times"></i> hide</p>
-              </div>
-            </div>
-
-            <div class="card__invitation__body">    
-              <div class="media small">
-                <div class="media__body">
-                  <div class="heading-container">
-                    <div class="text-and-button-container">
-
-                      <div class="left-content">
-                        <h5 class="heading"><%#= project.title %> I need a professional consultants</h5>
-                        <div class="sub-heading">
-                          <%#= link_to edit_user_project_path(project),  style: "text-decoration: none;color:black" do %>
-                            <span class="activity-edit-button"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= time_ago_in_words("Mon, 26 Oct 2020 09:58:06") %> <%= t("words.ago") %></span>
-                          <%# end %>
-                          <%#= link_to user_project_path(project),  style: "text-decoration: none;color:black" do %>
-                            <span class="activity-preview-button"><i class="fa fa-external-link" aria-hidden="true"></i> Preview Project</span>
-                          <%# end %>
-                        </div>
-                      </div>
-
-                      <div class="right-content">
-                        <a class="btn-outline-primary btn-special">View project</a>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card card__invitation">
-          <div class="card__section">
-            <div class="card__header">
-              <div class="card__title__hide_button">
-                <p class="invitation-type-title">Message</p>
-                <p class="hide-button"><i class="fa fa-times"></i> hide</p>
-              </div>
-            </div>
-
-            <div class="card__invitation__body">    
-              <div class="media small">
-                <div class="media__body">
-                  <div class="heading-container">
-                    <div class="text-and-button-container">
-
-                      <div class="left-content">
-                        <div class="progress-bar-with-percentage">
-                          <h5 class="heading"><%#= project.title %>Mohammad Abdulahji</h5>
-                          <%#= link_to edit_user_project_path(project),  style: "text-decoration: none;color:black" do %>
-                            <span class="activity-edit-button ml2"><%= time_ago_in_words("Mon, 26 Oct 2020 09:58:06") %> <%= t("words.ago") %></span>
-                          <%# end %>
-                        </div>
-                        <div class="sub-heading">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec</p>
-                        </div>
-                      </div>
-
-                      <div class="right-content">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card card__invitation">
-          <div class="card__section">
-            <div class="card__header">
-              <div class="card__title__hide_button">
-                <p class="invitation-type-title">Quote request</p>
-                <p class="hide-button"><i class="fa fa-times"></i> hide</p>
-              </div>
-            </div>
-
-            <div class="card__invitation__body">    
-              <div class="media small">
-                <div class="media__body">
-                  <div class="heading-container">
-                    <div class="text-and-button-container">
-
-                      <div class="left-content">
-                        <div class="progress-bar-with-percentage">
-                          <h5 class="heading"><%#= project.title %> I need a professional consultants</h5>
-                          <%#= link_to edit_user_project_path(project),  style: "text-decoration: none;color:black" do %>
-                            <span class="activity-edit-button ml2"><%= time_ago_in_words("Mon, 26 Oct 2020 09:58:06") %> <%= t("words.ago") %></span>
-                          <%# end %>
-                        </div>
-                        <div class="sub-heading">
-                          <%#= link_to user_project_path(project),  style: "text-decoration: none;color:black" do %>
-                            <!--<span class="activity-preview-button"><i class="fa fa-external-link" aria-hidden="true"></i> Preview Project</span>-->
-                          <%# end %>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec</p>
-                        </div>
-                      </div>
-
-                      <div class="right-content">
-                        <a class="btn-outline-primary btn-special">View project</a>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <%end%>
 
         <div class="card">
           <div class="card__section">
@@ -324,41 +117,43 @@
           </div>
         </div>
 
-        <div class="card">
+        <!--div class="card">
           <div class="card__section">
             <div class="card__header">
-              <h4 class="card__title"><%= inline_svg("icons/chat.svg", class: "icon icon--brand icon--small") %><%= t("dashboard.latest_messages") %></h4>
-              <%= link_to t("dashboard.view_more"), business_inbox_index_path, class: "btn btn--link" unless @messages.blank? %>
+              <h4 class="card__title"><%#= inline_svg("icons/chat.svg", class: "icon icon--brand icon--small") %><%#= t("dashboard.latest_messages") %></h4>
+              <%#= link_to t("dashboard.view_more"), business_inbox_index_path, class: "btn btn--link" unless @messages.blank? %>
             </div>
             <div class="grid grid--v-padded">
-              <% if @messages.present? %>
-                <% @messages.each do |message| %>
+              <%# if @messages.present? %>
+                <%# @messages.each do |message| %>
                   <div class="grid__col--xs-12">
                     <div class="media small">
                       <div class="media__figure u-hide--small-down">
-                        <%= image_tag message.sender.profile_image.url, class: "avatar" %>
+                        <%#= image_tag message.sender.profile_image.url, class: "avatar" %>
                       </div>
                       <div class="media__body">
-                        <strong class="u-block mb1"><%= "#{ message.sender.name }, #{ message.sender.is_a?(Business) ? message.sender.locations.first.city_country : message.sender.city_country }" %></strong>
-                        <small class="u-text-light mb1 u-inline-block"><%= message.created_at %></small>
-                        <p><%= truncate(message.body, length: 70) %></p>
-                        <% if message.project_id.present? %>
-                          <%= link_to t("dashboard.read_more"), business_project_feed_path(message.project_id) %>
-                        <% else %>
-                          <%= link_to t("dashboard.read_more"), business_message_path(message) %>
-                        <% end %>
+                        <strong class="u-block mb1"><%#= "#{ message.sender.name }, #{ message.sender.is_a?(Business) ? message.sender.locations.first.city_country : message.sender.city_country }" %></strong>
+                        <small class="u-text-light mb1 u-inline-block"><%#= message.created_at %></small>
+                        <p><%#= truncate(message.body, length: 70) %></p>
+                        <%# if message.project_id.present? %>
+                          <%#= link_to t("dashboard.read_more"), business_project_feed_path(message.project_id) %>
+                        <%# else %>
+                          <%#= link_to t("dashboard.read_more"), business_message_path(message) %>
+                        <%# end %>
                       </div>
                     </div>
                   </div>
-                <% end %>
-              <% else %>
+                <%# end %>
+              <%# else %>
                 <div class="grid__col--xs-12">
-                  <p><%= t("dashboard.no_messages") %></p>
+                  <p><%#= t("dashboard.no_messages") %></p>
                 </div>
-              <% end %>
+              <%# end %>
             </div>
           </div>
-        </div>
+        </div>-->
+
+
         <div class="card">
           <div class="card__section">
             <div class="card__header">

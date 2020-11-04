@@ -1,76 +1,134 @@
 <section class="grid__col--md-9 section-page section--alt mt3 mb-4">
   <div class="site-wrap">
-    <% if current_user.projects.present? %>
-    <div class="has-popover u-hide--medium mb2">
-      <%= render partial: "partials/filter_sort/filter_sort_mobile", locals: { filter_terms: @filter_terms, default_term: "Allprojects" } %>
+    <div class="mb2">
+      <span class="custom-breadcrumb-title"><%= t("profile_nav.projects") %></span>
     </div>
-    <div class="u-hide--medium-down">
-      <div class="segmented-control mb4">
-        <%= render partial: "partials/filter_sort/filter_sort", locals: { filter_terms: @filter_terms, default_term: "Allprojects" } %>
-      </div>
-    </div>
-    <% end %>
     <div class="card">
+      <div class="card__section card__section--border pb1">
+        <% if current_user.projects.present? %>
+          <div class="has-popover u-hide--medium">
+            <%= render partial: "partials/filter_sort/filter_sort_mobile", locals: { filter_terms: @filter_terms, default_term: "Allprojects" } %>
+          </div>
+          <div class="u-hide--medium-down ">
+            <div class="segmented-control">
+              <ul class="active-project-tab">
+                <%= render partial: "partials/filter_sort/filter_sort", locals: { filter_terms: @filter_terms, default_term: "Allprojects" } %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+      </div>
       <% if @projects.present? %>
         <% @projects.each do |project| %>
-          <div class="card__section card__section--border">
-            <div class="grid mb3">
+          <div class="card__section card__section--border pb1 pt1">
+          <!-- <div class="grid mb3">
               <div class="grid__col--xs-12 grid__col--md-8">
                 <h3>
-                  <%= link_to project.title, user_project_path(project), class: 'u-text-reset' %>
-                  <%= link_to "(#{ t("words.edit") })", edit_user_project_path(project), class: "u-text-regular" unless project.inactive? %>
+                  <%#= link_to project.title, user_project_path(project), class: 'u-text-reset' %>
+                  <%#= link_to "(#{ t("words.edit") })", edit_user_project_path(project), class: "u-text-regular" unless project.inactive? %>
                 </h3>
               </div>
               <div class="grid__col--xs-12 grid__col--md-4 u-text-right--medium">
-                <span class="m0 u-hide--medium-down"><%= t("words.posted") %> <%= time_ago_in_words(project.updated_at) %> <%= t("words.ago") %> • <span class="u-text-turquoise"><%= project.status_to_s %></span></span>
-                <span class="m0 u-hide--medium"><%= t("words.posted") %> <%= time_ago_in_words(project.updated_at) %> <%= t("words.ago") %> • <span class="u-text-turquoise"><%= project.status_to_s %></span></span>
+                <span class="m0 u-hide--medium-down"><%#= t("words.posted") %> <%#= time_ago_in_words(project.updated_at) %> <%#= t("words.ago") %> • <span class="u-text-turquoise"><%#= project.status_to_s %></span></span>
+                <span class="m0 u-hide--medium"><%#= t("words.posted") %> <%#= time_ago_in_words(project.updated_at) %> <%#= t("words.ago") %> • <span class="u-text-turquoise"><%#= project.status_to_s %></span></span>
               </div>
             </div>
             <div class="grid grid--v-padded">
-              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-flex">
-                <p><small><%= t("projects.location") %></small><br><span class="u-text-dark"><%= project.city_country %></span></p>
-                <% if project.category %>
-                  <p><small><%= t("projects.category") %></small><br><span class="u-text-dark"><%= project.category.name %></span></p>
-                <% end %>
+              <div class="grid__col--https://app.moqups.com/B3fMUDoitW/edit/page/afdaa3331xs-6 grid__col--sm-4 grid__col--lg-flex">
+                <p><small><%#= t("projects.location") %></small><br><span class="u-text-dark"><%#= project.city_country %></span></p>
+                <%# if project.category %>
+                  <p><small><%#= t("projects.category") %></small><br><span class="u-text-dark"><%#= project.category.name %></span></p>
+                <%# end %>
               </div>
               <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-flex">
-                <% if project.start_date.present? %>
-                  <p><small><%= t("projects.start_date") %></small><br><span class="u-text-dark"><%= project.start_date.strftime("%B %d, %Y") %></span></p>
-                <% end %>
-                <% if project.sub_categories.present? %>
-                  <p><small><%= t("projects.sub_categories") %></small><br><span class="u-text-dark"><%= truncate(project.sub_categories.visible.distinct.first.name, length: 20) %></span></p>
-                <% end %>
+                <%# if project.start_date.present? %>
+                  <p><small><%#= t("projects.start_date") %></small><br><span class="u-text-dark"><%#= project.start_date.strftime("%B %d, %Y") %></span></p>
+                <%# end %>
+                <%# if project.sub_categories.present? %>
+                  <p><small><%#= t("projects.sub_categories") %></small><br><span class="u-text-dark"><%#= truncate(project.sub_categories.visible.distinct.first.name, length: 20) %></span></p>
+                <%# end %>
               </div>
               <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-flex">
-                <% if project.end_date.present? %>
-                  <p><small><%= t("projects.end_date") %></small><br><span class="u-text-dark"><%= project.end_date.strftime("%B %d, %Y") %></span></p>
-                <% end %>
-                <% if project.services.present? %>
-                  <p><small><%= t("projects.services") %></small><br><span class="u-text-dark"><%= truncate(project.services.visible.distinct.first.name, length: 20) %></span></p>
-                <% end %>
+                <%# if project.end_date.present? %>
+                  <p><small><%#= t("projects.end_date") %></small><br><span class="u-text-dark"><%#= project.end_date.strftime("%B %d, %Y") %></span></p>
+                <%# end %>
+                <%# if project.services.present? %>
+                  <p><small><%#= t("projects.services") %></small><br><span class="u-text-dark"><%#= truncate(project.services.visible.distinct.first.name, length: 20) %></span></p>
+                <%# end %>
               </div>
               <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-flex">
-                <p><small><%= t("projects.budget") %></small><br><span class="u-text-dark"><%= project.project_budget.present? ? project.project_budget : "" %></span></p>
-                <% if project.project_types.present? %>
-                  <p><small><%= t("projects.project_types") %></small><br><span class="u-text-dark"><%= truncate(project.project_types.distinct.first.name, length: 20) %></span></p>
-                <% end %>
+                <p><small><%#= t("projects.budget") %></small><br><span class="u-text-dark"><%#= project.project_budget.present? ? project.project_budget : "" %></span></p>
+                <%# if project.project_types.present? %>
+                  <p><small><%#= t("projects.project_types") %></small><br><span class="u-text-dark"><%#= truncate(project.project_types.distinct.first.name, length: 20) %></span></p>
+                <%# end %>
               </div>
-              <% unless project.inactive? %>
+              <%# unless project.inactive? %>
                 <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-flex">
-                  <p><small><%= t("projects.interested") %></small><br><span class="u-text-dark"><%= project.number_applied %></span></p>
+                  <p><small><%#= t("projects.interested") %></small><br><span class="u-text-dark"><%#= project.number_applied %></span></p>
                 </div>
                 <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-flex u-block">
-                  <p><small><%= t("projects.shortlisted") %></small><br><span class="u-text-dark"><%= project.number_shortlisted %></span></p>
+                  <p><small><%#= t("projects.shortlisted") %></small><br><span class="u-text-dark"><%#= project.number_shortlisted %></span></p>
                 </div>
-              <% end %>
+              <%# end %>
               <div class="grid__col--xs-12 grid__col--lg-flex u-text-right--x-large">
-                  <%= link_to t("projects.view_project"), user_project_path(project), class: "btn btn--xs-full btn--secondary u-block" %>
-                  <% unless project.project_in_process? || project.inactive? %>
-                    <%= link_to t("projects.view_applicants"), user_project_path(project, filter_by: "Interested"), class: "btn btn--xs-full btn--primary u-block" %>
-                  <% end %>
+                  <%#= link_to t("projects.view_project"), user_project_path(project), class: "btn btn--xs-full btn--secondary u-block" %>
+                  <%# unless project.project_in_process? || project.inactive? %>
+                    <%#= link_to t("projects.view_applicants"), user_project_path(project, filter_by: "Interested"), class: "btn btn--xs-full btn--primary u-block" %>
+                  <%# end %>
               </div>
             </div>
+          </div> -->
+          <div class="single-latest-activity-box">
+            <div class="heading-container">
+                <h5 class="heading"><%= project.title %></h5>
+                <% if params[:filter_by] == "Completed" || params[:filter_by] == "Ongoingprojects" %>
+                  <div class="sub-heading" style="color:black"> Contractor: <%= project.business.name %></div>
+                  <div class="sub-heading">
+                    <%#= link_to user_project_path(project),  style: "text-decoration: none;color:black" do %>
+                      <span class="activity-preview-button"><i class="fa fa-clock-o" aria-hidden="true" style="color:black"></i> <%= project.project_status %> Oct 20</span>
+                    <%# end %>
+                    <%#= link_to edit_user_project_path(project),  style: "text-decoration: none;color:black" do %>
+                      <span class="activity-edit-button"><i class="fa fa-money" aria-hidden="true" style="color:black"></i> Budget (<%= project.project_budget %>)</span>
+                    <%# end %>
+                    <%= link_to user_project_project_business_path(project_id: project.id, id: project.business_id)  do %>
+                      <span class="activity-delete-button"><i class="fa fa-edit" aria-hidden="true"></i> View Contractor</span>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <div class="sub-heading"><%= time_ago_in_words(project.updated_at) %> <%= t("words.ago") %> - 112 Views - <%= project.number_applied %> interested</div>
+                  <div class="sub-heading">
+                    <%= link_to user_project_path(project),  style: "text-decoration: none;color:black" do %>
+                      <span class="activity-preview-button"><i class="fa fa-external-link" aria-hidden="true"></i> Preview</span>
+                    <% end %>
+                    <%= link_to edit_user_project_path(project),  style: "text-decoration: none;color:black" do %>
+                      <span class="activity-edit-button"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span>
+                    <% end %>
+                    <%= link_to user_project_path(project), method: :delete, class: "delete_project", style: "text-decoration: none;color:black", data:{confirm: "Are you sure to delete?"} , remote:true  do %>
+                      <span class="activity-delete-button"><i class="fa fa-times" aria-hidden="true"></i> Delete</span>
+                    <% end %>
+                  </div>
+                <% end %>
+            </div>
+            <% if params[:filter_by] == "Completed" %>
+              <% if project.review.present? %>
+                <div class="rating">
+                  <%= render partial: "partials/stars/star_helper", locals: { full_stars: project.review.full_stars, half_star: project.review.half_star, empty_stars: project.review.empty_stars, star_modifier: "yellow" } %>
+                </div>
+              <% else %>
+                <%= link_to "Rate now", new_user_review_path(project_id: project.id), class: "activate-button-align mr2" %>
+              <% end %>
+            <% else %>
+              <div class="icon-container">
+                <div class="icon-and-value">
+                  <i class="fa fa-envelope" aria-hidden="true"></i> <span class="value"><%= project.messages.count %></span>
+                </div>
+              </div>
+            <% end %>
+            <% if  params[:filter_by] == "Cancelled" %>
+              <%= link_to "Activate again", new_user_project_path(project_type: "suppliers"), class: "btn-outline-primary btn-special activate-button-align ml2" %>
+            <% end %>
           </div>
+        </div>
         <% end %>
       <% else %>
         <div class="card__section card__section--border">

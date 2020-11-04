@@ -1,5 +1,5 @@
 <%= content_for :sub_nav do %>
-  <% if ["project_steps", "businesses"].include?(controller_name) || ["projects"].include?(controller_name) && action_name == 'edit' %>
+  <% if ["project_steps", "businesses"].include?(controller_name) || ["projects"].include?(controller_name) && action_name == 'edit' || ["users"].include?(controller_name) && action_name == 'edit' %>
     <%= yield :section_header %>
   <% else %>
     <%= render partial: "partials/nav/profile_nav" %>

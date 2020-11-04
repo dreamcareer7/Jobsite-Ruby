@@ -13,7 +13,7 @@ class User::ProjectsController < User::BaseController
 
   def index
     @projects = current_user.projects.includes(country: :translations, city: :translations, shortlists: :business)
-    @filter_terms = ["All projects", "Posted", "Active", "Completed", "Cancelled"]
+    @filter_terms = ["All projects", "Posted", "Active", "Ongoing projects", "Completed", "Cancelled"]
 
     if params[:filter_by].present?
       @projects = handle_sorting(@projects, params[:filter_by]) || [] # or empty array to handle no results

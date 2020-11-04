@@ -31,9 +31,12 @@ class Business::ProjectFeedController < Business::BaseController
   end
 
   def show
-
     begin
       @project = Project.find(params[:id])
+      projects = Project.by_city(@current_city).not_completed_or_accepted.order(created_at: :desc).group(:id).first(10).map(&:id)
+      position = projects.find_index(@project.id)
+      @next_element = position.present? ? projects[position + 1] : nil
+      @previous_element = (!position.present? || position == 0 ) ? nil  : projects[position-1] 
     rescue ActiveRecord::RecordNotFound
       redirect_back(fallback_location: business_profile_index_path)
       flash[:error] = "That project is unavailable."

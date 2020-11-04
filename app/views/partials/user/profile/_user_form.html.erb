@@ -1,122 +1,181 @@
-<div class="grid__col--md-9">
-  <section class="section section--alt">
-  <div class="site-wrap">
+<section class="section section--alt pt0">
+  <div class="">
     <%= simple_form_for current_user do |f| %>
-      <h1 class="section-heading"><%= t("user_form.header") %></h1>
+      <h1 class="section-heading"><%#= t("user_form.header") %></h1>
       <div class="grid grid--center">
         <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-8">
-          <div class="card">
+          <div class="mb2">
+            <span class="custom-breadcrumb-title"><%= "Edit User Profile"  %></span>
+            <%= link_to user_profile_index_path, class: "sidebar-link" do %>
+              <span class="custom-breadcrumb-title-right float-right">
+                <i class="fa fa-share" aria-hidden="true"></i>
+                back to dashboard
+              </span>
+            <% end %>
+          </div>
+          <div class="card unset-card-overflow ">
             <div class="card__section card__section--padded">
               <div class="card__header">
                 <h4 class="card__title"><%= inline_svg("icons/briefcase.svg", class: "icon icon--dark icon--small") %><%= t("user_form.information") %></h4>
               </div>
               <%= f.error_notification %>
-              <fieldset class="fieldset">
+              <fieldset class="fieldset mb4">
                 <div class="grid">
-                  <div class="grid__col--xs-12 grid__col--md-12">
+                  <div class="grid__col--xs-12 grid__col--md-3">
                     <div class="field">
                       <div class="media media--middle js-upload-fields u-text-pointer">
-                        <div class="media__figure" style="width:72px">
-                          <%= image_tag(current_user.profile_image, width: "72", class: "media__figure u-circle u-text-pointer js-file-upload-button js-photo-placeholder") %>
+                        <div class="media__figure">
+                          <%= image_tag(current_user.profile_image, width: "72", class: "media__figure image-profile u-text-pointer js-file-upload-button js-photo-placeholder") %>
                         </div>
-                        <div class="media__body">
+                        <!-- <div class="media__body">
                           <div class="field__input-wrapper">
-                            <span class="u-text-left u-text-dark js-file-upload-button"><%= t("business_profile.fields.additional_information.edit_photo") %></span><br>
-                            <%= f.input :profile_image, as: :file, input_html: { class: "js-file-upload", hidden: "true" }, label: false %>
+                            <span class="u-text-left u-text-dark js-file-upload-button"><%#= t("business_profile.fields.additional_information.edit_photo") %></span><br>
+                            <%#= f.input :profile_image, as: :file, input_html: { class: "js-file-upload", hidden: "true" }, label: false %>
                           </div>
-                          <small>200x200</small>
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-9">
+                    <div class="grid">
+                      <div class="grid__col--xs-12 grid__col--md-12">
+                        <%= f.input :prevent_autocomplete, as: :fake, input_html: { class: "u-hide", name: "user[name]", type: "text" }, label: false %>
+                        <%= f.input :name, wrapper: :text_field, placeholder: t("user_form.name.placeholder"), input_html: { autocomplete: "off" }, label: t("user_form.name.label"), required: true %>
+                      </div>
+
+                      <div class="grid__col--xs-12 grid__col--md-6">
+                        <div class="field">
+                          <label class="field__label"><%= t("user_form.birthday.label") %></label>
+                          <div class="field__input-wrapper">
+                            <%= inline_svg("icons/calendar.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
+                            <%= f.input :birthday, wrapper: :date_picker, as: :date_picker, required: false %>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="grid__col--xs-12 grid__col--md-6 mt5">
+                        <div class="field">
+                          <div class="control-group">
+                            <label class="control-group__item control"><%= t("user_form.gender.label") %>:</label>
+                            <label class="control-group__item control">
+                              <%= f.radio_button :gender, "Male", class: "control__input" %>
+                              <span class="control__indicator control__indicator--radio">
+                                <%= inline_svg("icons/dot.svg", class: "control__icon icon icon--small icon--white") %>
+                              </span>
+                              <span class="control__label">Male</span>
+                            </label>
+                            <label class="control-group__item control">
+                              <%= f.radio_button :gender, "Female", class: "control__input" %>
+                              <span class="control__indicator control__indicator--radio">
+                                <%= inline_svg("icons/dot.svg", class: "control__icon icon icon--small icon--white") %>
+                              </span>
+                              <span class="control__label">Female</span>
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="grid__col--xs-12 grid__col--md-6">
-                    <%= f.input :prevent_autocomplete, as: :fake, input_html: { class: "u-hide", name: "user[name]", type: "text" }, label: false %>
-                    <%= f.input :name, wrapper: :text_field, placeholder: t("user_form.name.placeholder"), input_html: { autocomplete: "off" }, label: t("user_form.name.label"), required: true %>
-                  </div>
-                  <div class="grid__col--xs-12 grid__col--md-6">
-                    <div class="field">
-                      <label class="field__label"><%= t("user_form.phone.label") %></label>
-                      <%= f.input :mobile_number, wrapper: :text_field, placeholder: t("user_form.phone.placeholder"), input_html: { class: "js-phone" }, label: false %>
-                    </div>
-                  </div>
+                  <div class="grid">
 
-                  <%= f.simple_fields_for :location do |l| %>
+                    <div class="grid__col--xs-12 grid__col--md-6">
+                      <%= f.input :prevent_autocomplete, as: :fake, input_html: { class: "u-hide", name: "user[email]", type: "text" }, label: false %>
+                      <%= f.input :email, wrapper: :text_field, placeholder: t("user_form.email.placeholder"), label: t("user_form.email.label"), required: true %>
+                    </div>
 
                     <div class="grid__col--xs-12 grid__col--md-6">
                       <div class="field">
-                        <label class="field__label"><%= t("business_profile.fields.locations.country.label") %></label>
+                        <label class="field__label"><%= t("user_form.phone.label") %></label>
+                        <%= f.input :mobile_number, wrapper: :text_field, placeholder: t("user_form.phone.placeholder"), input_html: { class: "js-phone" }, label: false %>
+                      </div>
+                    </div>
+
+                    <%= f.simple_fields_for :location do |l| %>
+
+                      <div class="grid__col--xs-12 grid__col--md-6">
+                        <div class="field">
+                          <label class="field__label"><%= t("business_profile.fields.locations.country.label") %></label>
+                          <div class="field__input-wrapper">
+                            <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                            <% if current_user.location.new_record? %>
+                              <%= l.input :country_for_select, collection: Country.all.enabled.includes(:translations), input_html: { class: "field__input field__input--right-add-on rails-country-for-select"}, required: true, label: false  %>
+                            <% else %>
+                              <%= l.input :country_for_select, collection: Country.all.enabled, input_html: { class: "field__input field__input--right-add-on rails-country-for-select"}, required: true, label: false, selected: l.object.city.country.id  %>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="grid__col--xs-12 grid__col--md-6">
+                        <div class="field">
+                          <label class="field__label"><%= t("business_profile.fields.locations.city.label") %></label>
+                          <div class="field__input-wrapper">
+                            <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                            <%= l.input :city_id, collection: City.all.enabled, input_html: { class: "field__input field__input--right-add-on js-city rails-display-cities"}, required: true, label: false %>
+                          </div>
+                        </div>
+                      </div>
+
+                    <% end %>
+
+
+                    <div class="grid__col--xs-12 grid__col--md-6">
+                      <div class="field">
+                        <label class="field__label"><%= t("user_form.nationality.label") %></label>
                         <div class="field__input-wrapper">
-                          <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-                          <% if current_user.location.new_record? %>
-                            <%= l.input :country_for_select, collection: Country.all.enabled.includes(:translations), input_html: { class: "field__input field__input--right-add-on rails-country-for-select"}, required: true, label: false  %>
-                          <% else %>
-                            <%= l.input :country_for_select, collection: Country.all.enabled, input_html: { class: "field__input field__input--right-add-on rails-country-for-select"}, required: true, label: false, selected: l.object.city.country.id  %>
-                          <% end %>
+                          <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough u-clickthrough") %>
+                          <%= f.input :nationality, as: :country, input_html: { class: "field__input field__input--right-add-on u-text-pointer" }, label: false %>
                         </div>
                       </div>
                     </div>
                     <div class="grid__col--xs-12 grid__col--md-6">
                       <div class="field">
-                        <label class="field__label"><%= t("business_profile.fields.locations.city.label") %></label>
+                        <label class="field__label"><%= t("user_form.industry.label") %></label>
                         <div class="field__input-wrapper">
-                          <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-                          <%= l.input :city_id, collection: City.all.enabled, input_html: { class: "field__input field__input--right-add-on js-city rails-display-cities"}, required: true, label: false %>
+                          <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough u-clickthrough") %>
+                          <%= f.input :industry, collection: User.i18n_enum_collection(:industries), as: :select, input_html: { class: "field__input field__input--right-add-on u-text-pointer" }, required: false, label: false %>
                         </div>
                       </div>
                     </div>
-
-                  <% end %>
-
-
-                  <div class="grid__col--xs-12 grid__col--md-6">
-                    <div class="field">
-                      <label class="field__label"><%= t("user_form.nationality.label") %></label>
-                      <div class="field__input-wrapper">
-                        <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough u-clickthrough") %>
-                        <%= f.input :nationality, as: :country, input_html: { class: "field__input field__input--right-add-on u-text-pointer" }, label: false %>
+                  </div>
+                  <div class="grid__col--xs-12 grid__col--md-12">
+                    <hr>
+                  </div>
+                  <div class="grid mt1">
+                    <div class="grid__col--xs-12 grid__col--md-12">
+                      <h4> Change Your Password</h4>
+                    </div>
+                    <div class="grid__col--xs-12 grid__col--md-12 mt1">
+                      <div class="field">
+                        <label class="field__label">Old Password</label>
+                        <%= f.input :password, wrapper: :text_field, input_html: { autocomplete: 'off' },  label: false %>
                       </div>
                     </div>
-                  </div>
-                  <div class="grid__col--xs-12 grid__col--md-6">
-                    <div class="field">
-                      <label class="field__label"><%= t("user_form.industry.label") %></label>
-                      <div class="field__input-wrapper">
-                        <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough u-clickthrough") %>
-                        <%= f.input :industry, collection: User.i18n_enum_collection(:industries), as: :select, input_html: { class: "field__input field__input--right-add-on u-text-pointer" }, required: false, label: false %>
+                    <div class="grid__col--xs-12 grid__col--md-6">
+                      <div class="field">
+                        <label class="field__label">New Password</label>
+                        <%= f.input :password, wrapper: :text_field, input_html: { autocomplete: 'off' }, label: false %>
+                        <%#= f.input :mobile_number, wrapper: :text_field, placeholder: t("user_form.phone.placeholder"), input_html: { class: "js-phone" }, label: false %>
                       </div>
                     </div>
-                  </div>
-                  <div class="grid__col--xs-12 grid__col--md-6">
-                    <div class="field">
-                      <label class="field__label"><%= t("user_form.birthday.label") %></label>
-                      <div class="field__input-wrapper">
-                        <%= inline_svg("icons/calendar.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
-                        <%= f.input :birthday, wrapper: :date_picker, as: :date_picker, required: false %>
+                    <div class="grid__col--xs-12 grid__col--md-6">
+                      <div class="field">
+                        <label class="field__label">Confirmation Password</label>
+                        <%= f.input :password, wrapper: :text_field, input_html: { autocomplete: 'off' }, label: false %>
+                        <%#= f.input :mobile_number, wrapper: :text_field, placeholder: t("user_form.phone.placeholder"), input_html: { class: "js-phone" }, label: false %>
                       </div>
                     </div>
-                  </div>
-                  <div class="grid__col--xs-12 grid__col--md-6">
-                    <div class="field">
-                      <label class="field__label"><%= t("user_form.gender.label") %></label>
-                      <div class="field__input-wrapper">
-                        <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough u-clickthrough") %>
-                        <%= f.input :gender, collection: [t("words.male"), t("words.female")], as: :select, input_html: { class: "field__input field__input--right-add-on u-text-pointer" }, required: false, label: false %>
-                      </div>
+                    <div class="grid__col--xs-12 grid__col--md-6">
+                      <%#= f.input :prevent_autocomplete, as: :fake, input_html: { class: "u-hide", name: "user[password]", type: "text" }, label: false %>
+                      <%#= f.input :password, wrapper: :text_field, placeholder: (current_user.encrypted_password.present? ? t("user_form.password.placeholder_present") : t("user_form.password.placeholder_empty")), input_html: { autocomplete: 'off' }, label: t("user_form.password.label"), required: (true unless current_user.encrypted_password.present?) %>
                     </div>
-                  </div>
-                  <div class="grid__col--xs-12 grid__col--md-6">
-                    <%= f.input :prevent_autocomplete, as: :fake, input_html: { class: "u-hide", name: "user[email]", type: "text" }, label: false %>
-                    <%= f.input :email, wrapper: :text_field, placeholder: t("user_form.email.placeholder"), label: t("user_form.email.label"), required: true %>
-                  </div>
-                  <div class="grid__col--xs-12 grid__col--md-6">
-                    <%= f.input :prevent_autocomplete, as: :fake, input_html: { class: "u-hide", name: "user[password]", type: "text" }, label: false %>
-                    <%= f.input :password, wrapper: :text_field, placeholder: (current_user.encrypted_password.present? ? t("user_form.password.placeholder_present") : t("user_form.password.placeholder_empty")), input_html: { autocomplete: 'off' }, label: t("user_form.password.label"), required: (true unless current_user.encrypted_password.present?) %>
                   </div>
                 </div>
               </fieldset>
+              <div class="text-center">
+                <%= f.submit t("user_form.submit"), class: "btn btn--primary" %>
+              </div>
             </div>
           </div>
-          <%= f.submit t("user_form.submit"), class: "btn btn--full btn--primary" %>
         </div>
       </div>
     <% end %>
@@ -154,5 +213,3 @@
   
   $('.rails-country-for-select').on('input', toggleCitySelection);
 </script>
-
-</div>
