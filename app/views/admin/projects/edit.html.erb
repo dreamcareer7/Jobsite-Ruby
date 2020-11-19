@@ -10,7 +10,7 @@
 
       <div id="tabs_general">
         <%= simple_form_for [:admin, @project] do |f| %>
-          <%= render partial: "partials/projects/project_form", locals: { f: f, disabled: true } %>
+          <%= render partial: "partials/projects/admin_project_form", locals: { f: f, disabled: true } %>
         <% end %>
       </div>
 

@@ -1,34 +1,108 @@
-<section class="grid__col--md-9 section-page section--alt mt3 mb-4">
+<% if @inbox.present? %>
+  <section class="grid__col--md-12">
+    <div class="card">
+      <div class="grid unset-grid">
+        <div class="grid__col--md-3 unset-grid">
+          <div class="message-left-section">
+            <h3 class="message-contacts-heading ml3">Contacts</h3>
+
+            <ul class="message-contact-list">
+              <% @inbox.each do |entry| %>
+                <%= link_to  user_profile_index_path, remote: true  do %>
+                  <li class="message-contact-list__single_list">
+                      <div class="message-contact-list__outer-container ml2">
+                          <div class="message-contact-list_profile_image">
+                          <% if entry.sender.present? && entry.receiver.present? %>
+                            <% if entry.is_sender?(current_user, @current_business) %>
+                              <%= image_tag(entry.receiver.is_a?(Business) ? entry.receiver.logo.url(:small) : entry.receiver.profile_image.url, class: "avatar") %>
+                            <% else %>
+                              <%= image_tag(entry.sender.is_a?(Business) ? entry.sender.logo.url(:small) : entry.sender.profile_image.url, class: "avatar") %>
+                            <% end %>
+                          <% end %>
+                          </div>
+                          <div class="message-contact-list_company_name">
+                              <h5><%= entry.is_sender?(current_user, @current_business) ? entry.receiver.name : entry.sender.name if entry.sender.present? && entry.receiver.present? %></h5>
+                              <p>
+                                <%= t("words.you") if entry.is_sender?(current_user, @current_business) %>
+                                <%= truncate(entry.body, length: 50 ) %>
+                              </p>
+                          </div>
+                      </div>
+                  </li>
+                <% end %>
+              <% end %>
+              <li class="message-contact-list__single_list">
+                  <div class="message-contact-list__outer-container ml2">
+                      <div class="message-contact-list_profile_image">
+                        <%= image_tag "https://glossophs.sa.edu.au/wp-content/uploads/2018/09/placeholder-profile-sq-300x300.jpg", class: "avatar" %>
+                      </div>
+                      <div class="message-contact-list_company_name">
+                          <h5>ACD Construction LLC</h5>
+                          <p>we want to Lorem ipsum dolor</p>
+                      </div>
+                  </div>
+              </li>  
+            </ul>
+          </div>
+        </div>
+        <div class="grid__col--md-9 unset-grid">
+          <%#= render partial: "partials/inbox/conversation_messages" %>
+        </div>
+      </div>
+    </div>
+  </section>
+<% else %>
+<section class="grid__col--md-12">
+  <div class="card">
+    <div class="grid unset-grid">
+      <div class="card__section card__section--border text-center">
+        <p><%= t("dashboard.no_notifications") %></p>
+      </div>
+    </div>
+  </div>
+</section>
+<% end %>
+
+
+<!--<section class="grid__col--md-9 section-page section--alt mt3 mb-4">
   <div class="site-wrap">
     <div class="has-popover u-hide--medium mb2">
-      <%= render partial: "partials/filter_sort/filter_sort_mobile", locals: { filter_terms: @filter_terms, default_term: "Allmessages" } %>
+      <%#= render partial: "partials/filter_sort/filter_sort_mobile", locals: { filter_terms: @filter_terms, default_term: "Allmessages" } %>
     </div>
     <div class="u-hide--medium-down">
       <div class="segmented-control mb4">
-        <%= render partial: "partials/filter_sort/filter_sort", locals: { filter_terms: @filter_terms, default_term: "Allmessages" } %>
+        <%#= render partial: "partials/filter_sort/filter_sort", locals: { filter_terms: @filter_terms, default_term: "Allmessages" } %>
       </div>
     </div>
     <div class="card">
-      <% if @inbox.present? %>
-        <% @inbox.each do |entry| %>
-          <% Business.find(entry.business_id) rescue next if entry.is_a?(Notification)  %>
-          <% entry.business rescue next if entry.is_a?(Message) %>
-          <% if entry.is_a?(Notification) && entry.notification_type == "callback request" %>
-            <%= render partial: "partials/inbox/format_callback_entry", locals: { entry: entry } %>
-          <% else %>
-            <%= render partial: "partials/inbox/format_inbox_entry", locals: { entry: entry } %>
-          <% end %>
-        <% end %>
-      <% else %>
+      <%# if @inbox.present? %>
+        <%# @inbox.each do |entry| %>
+          <%# Business.find(entry.business_id) rescue next if entry.is_a?(Notification)  %>
+          <%# entry.business rescue next if entry.is_a?(Message) %>
+          <%# if entry.is_a?(Notification) && entry.notification_type == "callback request" %>
+            <%#= render partial: "partials/inbox/format_callback_entry", locals: { entry: entry } %>
+          <%# else %>
+            <%#= render partial: "  ", locals: { entry: entry } %>
+          <%# end %>
+        <%# end %>
+      <%# else %>
         <div class="card__section card__section--border">
-          <p><%= t("dashboard.no_notifications") %></p>
+          <p><%#= t("dashboard.no_notifications") %></p>
         </div>
-      <% end %>
+      <%# end %>
     </div>
-    <% if @inbox.total_pages > 1 %>
+    <%# if @inbox.total_pages > 1 %>
       <div class="mt3 pagination">
-        <%= paginate @inbox %>
+        <%#= paginate @inbox %>
       </div>
-    <% end %>
+    <%# end %>
   </div>
-</section>
+</section>-->
+
+<script>
+</script>
+
+
+
+
+

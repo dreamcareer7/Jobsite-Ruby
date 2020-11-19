@@ -1328,3 +1328,369 @@ label {
   align-self: center;
   margin-top: 2px;
 }
+
+
+// Message Seaction Start
+.message-contact-list {
+  list-style: none;
+  padding-left: 0;
+
+  .message-contact-list__single_list {
+
+    border-bottom: 1px solid rgba(25,25,25,0.16);
+    padding: 10px 5px;
+
+      .message-contact-list__outer-container {
+        display: flex;
+
+        .message-contact-list_profile_image{
+          img{
+            margin-right: 10px;
+          }
+        } 
+      .message-contact-list_company_name{
+
+          h5{
+            margin-bottom: 0px;
+          }
+
+      }  
+
+
+
+      }
+
+  }
+
+  .message-contact-list__single_list.active {
+    background: rgba(218,204,202,.26);
+  }
+}
+
+.message-files-media-links-tabs{
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  border-bottom: 1px solid rgba(25,25,25,0.16);
+  // border-top: 1px solid rgba(25,25,25,0.16);
+  margin-top: 0px;
+  margin-bottom: 0px;
+
+  .message-files-media-links-tabs__tab{
+    padding: 10px 15px;
+
+    a{
+      color: #333333;
+      font-weight: bold;
+    }
+    a.active{
+        color: $primary-color;
+    }
+  }
+}
+
+.files-attachment-list{
+  list-style: none;
+  padding-left: 15px;
+
+  .files-attachment-list__single_file{
+    a{
+      i{
+        color: #333333;
+      }
+    }
+  }
+
+}
+
+.message-center-section{
+  .header-section{
+    padding:15px ;
+    border-bottom: 1px solid rgba(25,25,25,0.16);
+    p{
+      margin-bottom: 0px;
+    }
+    h4{
+      margin-bottom: 0;
+      color: $primary-color;
+
+      span{
+        color: #333333;
+      }
+
+    }
+  }
+
+  .join-history-files-section{
+    .message-chat-box-history-section{
+      border-right: 1px solid rgba(25,25,25,0.16);
+    }
+  }
+
+}
+.join-history-files-section{
+    display: flex;
+
+
+    .message-chat-box-history-top-section{
+      .chat-thread-list{
+        list-style: none;
+        padding-left: 0px;
+      }
+    }
+
+    .message-chat-box-history-input-section{
+      border-top: 1px solid rgba(25,25,25,0.16);
+      border-bottom: 1px solid rgba(25,25,25,0.16);
+
+      input[type="text"] {
+        width: 100%;
+        padding: 10px 15px;
+      }
+    }
+}
+.message-left-section{
+    border-right: 1px solid rgba(25,25,25,0.16);
+  .message-contacts-heading{
+    margin-top: 15px;
+  }
+}
+
+.field__add-on--right-custom{
+  right: 50px;
+}
+
+// Message Seaction End
+
+
+// Project-Feed-Index page
+.filter-active{
+  background: #fff !important;
+}
+.filtersection{
+  background: #F5F5F5;
+  display: flex;
+  margin: 0 auto;
+  border: 1px solid #DEDDDD;
+}
+
+@media (min-width: 768px){
+    .container {
+        width: 750px;
+    }
+}  
+@media (min-width: 992px){
+    .container {
+        width: 970px;
+    }
+}
+@media (min-width: 1200px){
+    .container {
+        width: 1170px;      
+    }
+}
+
+.row{
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.filterbox{
+width: 25%;
+padding: 15px;
+}
+.filterbox-1{
+background: #fff;
+font-size: 14px;
+padding: 5px 15px;
+border-bottom: 1px solid #DEDDDD;
+margin-bottom: 15px;
+}
+.filterbox hr{
+border: none;
+border-bottom: 1px solid #DEDDDD;
+}
+.filterbox h4{
+margin: 0;
+padding: 5px 15px;
+text-transform: capitalize;
+}
+.filterbox ul{
+ padding-left: 0;
+}    
+.filterbox ul li{
+ list-style: none;
+ text-transform: capitalize;
+}
+.filterbox ul li>label{ 
+font-weight: 600;
+color: #000;
+}
+.filterbox ul li>ul{
+ padding-left: 20px;
+}
+.filterbox ul li>ul li{
+padding:6px 0px 0;
+}
+.filterbox ul li>ul li>label{ 
+ font-weight: normal;
+}
+.filterbox input[type="checkbox" i] {
+background-color: initial;
+cursor: default;
+appearance: checkbox;
+box-sizing: border-box;
+margin: 3px 3px 3px 4px;
+padding: initial;
+border: initial;
+}
+.filterbox input {
+-webkit-writing-mode: horizontal-tb !important;
+text-rendering: auto;
+color: -internal-light-dark(black, white);
+letter-spacing: normal;
+word-spacing: normal;
+text-transform: none;
+text-indent: 0px;
+text-shadow: none;
+display: inline-block;
+text-align: start;
+appearance: textfield;
+background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
+-webkit-rtl-ordering: logical;
+cursor: text;
+margin: 0em;
+font: 400 13.3333px Arial;
+padding: 1px 2px;
+border-width: 2px;
+border-style: inset;
+border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+border-image: initial;
+}
+.filterListBox{
+width: 75%;
+padding: 15px;
+}
+.filterBtn {
+margin:0 -4px 15px 0;
+}
+.filterBtn .btn--primary{
+background: #E6E6E6;
+height: auto;
+padding: 8px 21px;
+color: #333;
+margin-bottom: 0;
+line-height: normal;
+letter-spacing: normal;
+text-transform: capitalize;
+border: 1px solid #BDBDBD;
+width: 120px;
+}
+.filterBtn .btn--primary:active, .filterBtn .btn--primary:focus{
+background: #fff;
+}
+.filterListiconBtn{
+color: #333;
+float: right;
+margin-top: 10px;
+margin-right: 10px;
+}
+.btn-group>.btn:last-child:not(:first-child), .btn-group>.dropdown-toggle:not(:first-child) {
+border-top-left-radius: 0;
+border-bottom-left-radius: 0;    
+}
+.btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+border-top-right-radius: 0;
+border-bottom-right-radius: 0;
+border-right: 0;
+}
+.filterList{
+display: flex;
+font-size: 14px;
+background: #fff;
+padding: 10px;
+border-radius: 4px;
+border-bottom: 1px solid #DEDDDD;
+}
+.filterList img{
+width: 190px;
+object-fit: cover;
+}
+.filterList ul{
+margin-top: 5px;
+}
+.filterList ul li{
+list-style: none;
+text-transform: capitalize;
+padding-bottom: 5px;
+}
+.filterList ul li:first-child{
+padding-bottom: 0;
+}
+.filterList ul li h3{
+font-weight: 700;
+}
+.filterList ul li mark{
+background: transparent;
+color: #D32F2F;
+font-weight: 600;    
+}
+.filterList ul li i{
+color: #333;
+margin: 10px 0 0;
+font-size: 18px;
+width: 20px;    
+}
+.filterListAction{
+margin-right: 0;
+margin-left: auto;
+}
+.filterListAction i{
+font-size: 20px;
+color: #333;
+margin: 15px 10px 0;
+}
+.filterListAction .tooltip{
+position: relative;
+display: inline-block;
+}
+.filterListAction .tooltip .tooltiptext {
+visibility: hidden;
+width: 150px;
+background: #EBEBEB;
+color: #fff;
+padding: 0;
+top: 42px;
+right: 0;
+position: absolute;
+z-index: 1;
+font-size: 13px;
+}
+.filterListAction .tooltip .tooltiptext::before{
+content: "";
+display: block;
+width: 0;
+height: 0;
+border-left: 8px solid transparent;
+border-right: 8px solid transparent;
+border-bottom: 10px solid #ebebeb;
+position: absolute;
+top: -9px;
+right: 11px;
+}
+.filterListAction .tooltip .tooltiptext a{
+display: block;
+padding: 5px 10px;
+color: #333;
+border-bottom: 1px solid #BDBDBD;
+}
+.filterListAction .tooltip .tooltiptext a:last-child{
+border: none;
+}
+.filterListAction .tooltip .tooltiptext i{
+margin: 0 4px 0 0;
+font-size: 14px;
+}
+.filterListAction .tooltip:hover .tooltiptext {
+visibility: visible;
+}
+// Project-Feed-Index End

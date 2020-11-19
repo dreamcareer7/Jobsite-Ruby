@@ -67,4 +67,6 @@ Rails.application.configure do
     Bullet.rails_logger = true
     Bullet.add_footer = true
   end
+
+  Paperclip.options[:command_path] = "/usr/bin/identify"
 end

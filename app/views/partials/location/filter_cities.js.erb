@@ -2,7 +2,11 @@
 //.append("<option disabled selected value></option")
 //.append("<%= escape_javascript(render(:partial => @cities)) %>")
 
-
-$(".rails-display-cities").empty()
-.append("<option disabled selected value></option")
-.append("<%= escape_javascript(render(:partial => @cities)) %>")
+<% if params[:filter].present? %>
+  $(".city-listing").empty()
+  $(".city-listing").append("<% @cities.each_with_index do |city, index| %><li><input type='checkbox' id='<%= city.name%>-<%=index%>' name='city' value='<%= city.id %>'><label for='<%= city.name%>-<%=index%>'><%= city.name %></label><br></li><% end %>")
+<% else %>
+    $(".rails-display-cities").empty()
+    .append("<option disabled selected value></option>")
+    .append("<%= escape_javascript(render(:partial => @cities)) %>")
+<% end %>

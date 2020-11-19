@@ -31,6 +31,9 @@ class User::ReviewsController < User::BaseController
     end
   end
 
+  def update
+  end
+
   private
 
   def review_params

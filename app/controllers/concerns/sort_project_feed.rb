@@ -7,6 +7,10 @@ module SortProjectFeed
 
     when "Invitedonly"
       @projects = Project.where(id: @current_business.quote_requests.pluck(:project_id))
+    when "Dateadded"
+      @projects = projects.order(created_at: :desc)
+    when "Distance"
+      @projects = projects.includes(location: :city).order('cities.name ASC')
     else
       @projects
     end

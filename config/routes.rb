@@ -52,10 +52,10 @@ Rails.application.routes.draw do
     resources :photo_gallery
     resources :profile, only: [:index]
     resources :messages
-    resources :inbox, only: [:index]
+    resources :inbox, only: [:index, :show]
     resources :invite_and_share, only: [:index]
     resources :notifications
-    resources :reviews, only: [:new, :create, :index]
+    resources :reviews, only: [:new, :create, :index, :edit, :update]
 
     resources :quote_requests do
       member do

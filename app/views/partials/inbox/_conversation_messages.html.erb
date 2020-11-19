@@ -1,0 +1,53 @@
+<div class="message-center-section">
+  <div class="grid__col--md-12 unset-grid">
+    <div class="header-section">
+      <h4>ACD Construction LLC <span>03:00pm</span></h4>
+      <p>I need a contractor for civil work in Jeddah</p>
+    </div>
+  </div>
+  <div class="grid__col--md-12 unset-grid">
+    <div class="join-history-files-section">
+      <div class="grid__col--md-8 unset-grid">
+        <div class="message-chat-box-history-section">
+          <div class="message-chat-box-history-top-section">
+            <ul class="chat-thread-list">
+              <li class="chat-single-thread-list">
+                <%= render partial: "partials/conversation/project_conversation", locals: { url: user_messages_path(p: @project, b: @business) } %>
+              <%#= image_tag "https://glossophs.sa.edu.au/wp-content/uploads/2018/09/placeholder-profile-sq-300x300.jpg", class: "avatar" %> This is a qoute from ACD Construction LLC
+              </li>
+              <!--<li class="chat-single-thread-list">
+              <%#= image_tag "https://glossophs.sa.edu.au/wp-content/uploads/2018/09/placeholder-profile-sq-300x300.jpg", class: "avatar" %> Yes, we do offer transportaion
+              </li>-->
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="grid__col--md-4 unset-grid">
+        <div class="message-right-section">
+          <ul class="message-files-media-links-tabs">
+            <li class="message-files-media-links-tabs__tab">
+              <a href="#" class="active">Files</a>
+            </li>
+            <li class="message-files-media-links-tabs__tab">
+              <a href="#">Media</a>
+            </li>
+            <li class="message-files-media-links-tabs__tab">
+              <a href="#">Links</a>
+            </li>        
+          </ul>
+          <ul class="files-attachment-list">
+            <li class="files-attachment-list__single_file">
+              <a href="#"><i class="fa fa-file-text-o"></i> Proposal.pdf</a>
+            </li>
+            <li class="files-attachment-list__single_file">
+              <a href="#"><i class="fa fa-file-text-o"></i> Proposal.pdf</a>
+            </li>
+            <li class="files-attachment-list__single_file">
+              <a href="#"><i class="fa fa-file-text-o"></i> Proposal.pdf</a>
+            </li>        
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

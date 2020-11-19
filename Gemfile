@@ -22,6 +22,8 @@ gem 'devise_invitable', '~> 1.6'
 gem 'devise-async'
 gem 'pundit'
 gem 'paperclip', github: 'thoughtbot/paperclip'
+gem 'paperclip-ffmpeg'
+gem 'paperclip-av-transcoder'
 gem 'sidekiq', '< 5'
 gem 'sinatra', github: 'sinatra/sinatra', require: nil
 gem 'geocoder'
@@ -64,6 +66,7 @@ gem 'daemons'
 gem 'aws-sdk'
 gem 'sendgrid-ruby'
 gem 'listen', '~> 3.1'
+gem 'rails_emoji_picker'
 
 group :development, :test do
   gem 'byebug'

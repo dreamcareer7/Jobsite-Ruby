@@ -13,6 +13,7 @@ class User::ProjectBusinessController < User::BaseController
     @active = @business.shortlisted_or_accepted?(@project)
     @quote = @project.quotes.where(business_id: @business.id).first
     @conversation_messages = @project.messages_with_business(@business).order(created_at: :asc)
+    @message = Message.new
 
     mark_as_read
 

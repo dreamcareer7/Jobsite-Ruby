@@ -1,42 +1,223 @@
-<section class="grid__col--md-9 section-page section--alt mt3 mb-4">
+<!--<section class="grid__col--md-9 section-page section--alt mt3 mb-4">  
   <div class="site-wrap">
-    <% if @reviews.present? %>
+    <%# if @reviews.present? %>
       <div class="card">
-        <% @reviews.each do |review| %>
+        <%# @reviews.each do |review| %>
           <div class="card__section card__section--border">
             <div class="grid grid--v-padded">
               <div class="grid__col--xs-12">
                 <div class="media media--middle mb2">
                   <div class="media__figure u-hide--small-down">
-                    <%= image_tag review.business.logo, class: "avatar avatar--large" %>
+                    <%#= image_tag review.business.logo, class: "avatar avatar--large" %>
                   </div>
                   <div class="media__body">
-                    <h4 class="mb1"><%= review.business.name %>, <%= review.business.location_for_to_s(@current_city) %></h4>
-                    <p class="mb1"> <%= link_to review.project.title, user_project_path(review.project) %></p>
+                    <h4 class="mb1"><%#= review.business.name %>, <%#= review.business.location_for_to_s(@current_city) %></h4>
+                    <p class="mb1"> <%#= link_to review.project.title, user_project_path(review.project) %></p>
                     <div class="rating">
-                      <%= render partial: "partials/stars/star_helper", locals: { full_stars: review.full_stars, half_star: review.half_star, empty_stars: review.empty_stars, star_modifier: "yellow" } %>
+                      <%#= render partial: "partials/stars/star_helper", locals: { full_stars: review.full_stars, half_star: review.half_star, empty_stars: review.empty_stars, star_modifier: "yellow" } %>
                     </div>
                   </div>
                 </div>
-                <p class="small"><%= review.comment %></p>
+                <p class="small"><%#= review.comment %></p>
                 <p class="small">
 
-                <%= t("words.reliability") %> <strong><%= review.reliability %></strong> • 
-                <%= t("words.tidiness") %> <strong><%= review.tidiness %></strong> • 
-                <%= t("words.courtesy") %> <strong><%= review.courtesy %></strong> • 
-                <%= t("words.workmanship") %> <strong><%= review.workmanship %></strong> • 
-                <%= t("words.value") %> <strong><%= review.value_for_money %></strong>
+                <%#= t("words.reliability") %> <strong><%#= review.reliability %></strong> • 
+                <%#= t("words.tidiness") %> <strong><%#= review.tidiness %></strong> • 
+                <%#= t("words.courtesy") %> <strong><%#= review.courtesy %></strong> • 
+                <%#= t("words.workmanship") %> <strong><%#= review.workmanship %></strong> • 
+                <%#= t("words.value") %> <strong><%#= review.value_for_money %></strong>
                 </p>
-                <% if review.recommended %>
+                <%# if review.recommended %>
                   <div class="u-relative">
-                    <span class="recommended-badge badge badge--success"><%= t("words.recommended") %></span>
+                    <span class="recommended-badge badge badge--success"><%#= t("words.recommended") %></span>
                   </div>
-                <% end %>
+                <%# end %>
               </div>
             </div>
           </div>
-        <% end %>
+        <%# end %>
       </div>
+    <%# else %>
+      <div class="card">
+        <div class="card__section card__section--border">
+          <p><%#= t("dashboard_reviews.no_reviews") %>.</p>
+          <%#= link_to t("links.post_project"), new_user_project_path, class: 'btn btn--primary btn--small' %>
+        </div>
+      </div>
+    <%# end %>
+    <%# if @reviews.total_pages > 1 %>
+      <div class="mt3 pagination">
+        <%#= paginate @reviews %>
+      </div>
+    <%# end %>
+  </div>
+</section>-->
+
+
+
+<!-- New Section for Review -->
+<section class="grid__col--md-9 section-page section--alt mt3 mb-4">  
+  <div class="site-wrap">
+    <% if @reviews.present? %>
+      <% @reviews.each_with_index do |review, index| %>
+        <div class="card">
+          <div class="card__section card__section--border">
+            <div class="grid grid--v-padded">
+              <div class="grid__col--xs-12 grid__col--md-12">
+                <div class="media media--middle mb2">
+                  <div class="media__figure u-hide--small-down">
+                    <%= image_tag review.business.logo, class: "avatar avatar--large" %>
+                  </div>
+                  <div class="media__body">
+                    <h4 class="mb1"><%= review.business.name %> - <%= review.business.location_for_to_s(@current_city) %></h4>
+                    <!--<p class="mb1"> <%#= link_to review.project.title, user_project_path(review.project) %></p>
+                    <div class="rating">
+                      <%#= render partial: "partials/stars/star_helper", locals: { full_stars: review.full_stars, half_star: review.half_star, empty_stars: review.empty_stars, star_modifier: "yellow" } %>
+                    </div>-->
+                  </div>
+                  <div class="">
+                    <i class="fa fa-bookmark"></i>
+                    <i class="fa fa-navicon ml2" aria-hidden="true"></i>
+                  </div>
+                </div>
+                <div class="grid">
+                  <div class="grid__col--md-6">
+                    <table class="table-change-css">
+                      <tr>
+                        <td><%= t("words.reliability") %></td>
+                        <td><%= render partial: "partials/stars/star_helper", locals: { full_stars: review.reliability, half_star: 0, empty_stars: (5 - review.reliability), star_modifier: "yellow" } %></td>
+                      </tr>
+                      <tr>
+                        <td><%= t("words.tidiness") %></td>
+                        <td><%= render partial: "partials/stars/star_helper", locals: { full_stars: review.tidiness, half_star: 0, empty_stars: (5 - review.tidiness), star_modifier: "yellow" } %></td>
+                      </tr>
+                      <tr>
+                        <td><%#= t("words.tidiness") %>Value For Money</td>
+                        <td><%= render partial: "partials/stars/star_helper", locals: { full_stars: review.value_for_money, half_star: 0, empty_stars: (5 - review.value_for_money), star_modifier: "yellow" } %></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="grid__col--md-6">
+                    <table class="table-change-css">
+                      <tr>
+                        <td><%= t("words.courtesy") %></td>
+                        <td><%= render partial: "partials/stars/star_helper", locals: { full_stars: review.courtesy, half_star: 0, empty_stars: (5 - review.courtesy), star_modifier: "yellow" } %></td>
+                      </tr>
+                      <tr>
+                        <td><%= t("words.workmanship") %></td>
+                        <td><%= render partial: "partials/stars/star_helper", locals: { full_stars: review.workmanship, half_star: 0, empty_stars: (5 - review.workmanship), star_modifier: "yellow" } %></td>
+                      </tr>
+                      <tr>
+                        <td><%= t("words.recommended") %></td>
+                        <td><%= render partial: "partials/stars/star_helper", locals: { full_stars: review.full_stars, half_star: 0, empty_stars: (5 - review.reliability), star_modifier: "yellow" } %></td>
+                      </tr>
+                    </table>
+                    <!--<p class="small">
+                      <%#= t("words.reliability") %> <strong><%#= review.reliability %></strong> • 
+                      <%#= t("words.tidiness") %> <strong><%#= review.tidiness %></strong> • 
+                      <%#= t("words.courtesy") %> <strong><%#= review.courtesy %></strong> • 
+                      <%#= t("words.workmanship") %> <strong><%#= review.workmanship %></strong> • 
+                      <%#= t("words.value") %> <strong><%#= review.value_for_money %></strong>
+                    </p>-->
+                  </div>
+                  <div class="grid__col--md-12 mt2">
+                    <%= simple_form_for [:user, review] do |f| %>
+                      <div class="field">
+                        <%= f.input :comment, wrapper: :text_area, placeholder:"Comments", label:false %>
+                      </div>
+                      <div class="u-text-right">
+                        <div class="field">
+                          <%= f.submit "Submit", class: "btn-apply btn--xs-full btn--primary" %>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+                <%# if review.recommended %>
+                  <!--<div class="u-relative">
+                    <span class="recommended-badge badge badge--success"><%#= t("words.recommended") %></span>
+                  </div>-->
+                <%# end %>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__section--border">
+            <div class="grid grid--v-padded">
+              <div class="grid__col--xs-12 grid_col--md-12 mb0">
+                <div class="media mb2">
+                  <%= image_tag review.business.logo, class: "avatar--xl" %>
+                  <div class="mt2 ml2 mb2" style="flex:0.95">
+                    <h4 class="mb1"><%= review.business.name %> - <%= review.business.location_for_to_s(@current_city) %></h4>
+                    <!--<p class="mb1"> <%#= link_to review.project.title, user_project_path(review.project) %></p>-->
+                    <div class="rating">
+                      <%= render partial: "partials/stars/star_helper", locals: { full_stars: review.full_stars, half_star: review.half_star, empty_stars: review.empty_stars, star_modifier: "yellow" } %>
+                      <p class="ml1" style="color: #F5A623"><%= review.full_stars%>/5</p>
+                    </div>
+                  </div>
+                  <div class="mt2">
+                    <i class="fa fa-bookmark"></i>
+                    <i class="fa fa-navicon ml2" aria-hidden="true"></i>
+                  </div>
+                </div>
+                <!--<p class="small"><%#= review.comment %></p>
+                <p class="small">
+
+                <%#= t("words.reliability") %> <strong><%#= review.reliability %></strong> • 
+                <%#= t("words.tidiness") %> <strong><%#= review.tidiness %></strong> • 
+                <%#= t("words.courtesy") %> <strong><%#= review.courtesy %></strong> • 
+                <%#= t("words.workmanship") %> <strong><%#= review.workmanship %></strong> • 
+                <%#= t("words.value") %> <strong><%#= review.value_for_money %></strong>
+                </p>
+                <%# if review.recommended %>
+                  <div class="u-relative">
+                    <span class="recommended-badge badge badge--success"><%#= t("words.recommended") %></span>
+                  </div>-->
+                <%# end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__section--border">
+            <div class="grid grid--v-padded">
+              <div class="grid__col--xs-12 grid_col--md-12 mb0">
+                <div class="media mb2">
+                  <%= image_tag review.business.logo, class: "avatar--xl" %>
+                  <div class="mt2 ml2 mb2" style="flex:0.95">
+                    <h4 class="mb1"><%= review.business.name %> - <%= review.business.location_for_to_s(@current_city) %></h4>
+                    <!--<p class="mb1"> <%#= link_to review.project.title, user_project_path(review.project) %></p>-->
+                    <div class="rating">
+                      <%= render partial: "partials/stars/star_helper", locals: { full_stars: review.full_stars, half_star: review.half_star, empty_stars: review.empty_stars, star_modifier: "yellow" } %>
+                      <p class="ml1" style="color: #F5A623"><%= review.full_stars%>/5</p>
+                    </div>
+                  </div>
+                  <div class="mt2">
+                    <i class="fa fa-bookmark"></i>
+                    <i class="fa fa-navicon ml2" aria-hidden="true"></i>
+                  </div>
+                </div>
+                <!--<p class="small"><%#= review.comment %></p>
+                <p class="small">
+
+                <%#= t("words.reliability") %> <strong><%#= review.reliability %></strong> • 
+                <%#= t("words.tidiness") %> <strong><%#= review.tidiness %></strong> • 
+                <%#= t("words.courtesy") %> <strong><%#= review.courtesy %></strong> • 
+                <%#= t("words.workmanship") %> <strong><%#= review.workmanship %></strong> • 
+                <%#= t("words.value") %> <strong><%#= review.value_for_money %></strong>
+                </p>
+                <%# if review.recommended %>
+                  <div class="u-relative">
+                    <span class="recommended-badge badge badge--success"><%#= t("words.recommended") %></span>
+                  </div>-->
+                <%# end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
     <% else %>
       <div class="card">
         <div class="card__section card__section--border">
