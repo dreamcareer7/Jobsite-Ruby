@@ -16,6 +16,15 @@
                         "logo.svg", class: "nav__logo nav__logo--desktop") %>
         </a>
       </div>
+      <ul class="list list--inline nav__list ul-dashboard-align mb0">
+        <li>
+          <% if current_user.businesses.present? %>
+            <div class="">
+              <%= render partial: "partials/nav/business_drop_list", locals: { business: @current_business } %>
+            </div>
+          <% end %>
+        </li>
+      </ul>
       <!-- <div class="nav__divider u-hide--large-down"></div> -->
 
       <div class="primary-nav__right" style:"float:right;">
@@ -74,7 +83,6 @@
 
 <%= content_for :page_scripts do %>
   <%= javascript_include_tag 'auto_complete.js' %>
-
   <% if request.fullpath.ends_with?("problem") %>
     <script>
       $('.js-problem').addClass('is-visible');

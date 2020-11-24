@@ -1345,13 +1345,17 @@ label {
 
         .message-contact-list_profile_image{
           img{
-            margin-right: 10px;
+            margin-right: 0px;
           }
         } 
       .message-contact-list_company_name{
 
           h5{
             margin-bottom: 0px;
+            font-size: 14px;
+            white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
           }
 
       }  
@@ -1394,13 +1398,38 @@ label {
   padding-left: 15px;
 
   .files-attachment-list__single_file{
+    display: flex;
+    width: 90%;
+    background: #f7f7f5;
+    padding: 10px 5px;
+    border-radius: 5px;
+    margin-bottom: 10px;
     a{
       i{
         color: #333333;
       }
     }
   }
-
+}
+.files-attachment-list.media-attach{
+  .mediaListBox{
+    display: flex;
+    width: 90%;
+    background: #f7f7f5;
+    padding: 10px 5px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    svg{
+      width: 48px;
+      margin: 0 10px;
+    }
+    p{
+      margin-bottom: 0;
+      line-height: normal;
+      margin: 0;
+      word-break: break-all;
+    }
+  }
 }
 
 .message-center-section{
@@ -1458,6 +1487,72 @@ label {
 
 .field__add-on--right-custom{
   right: 50px;
+}
+.messageContactListDropdown .message-contact-list__single_list{
+  border-bottom:none;
+  padding-right: 0;
+  
+  .message-contact-list__outer-container{
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(25, 25, 25, 0.16);
+    align-items:center;
+    cursor: pointer;
+    .message-contact-list_company_name{
+      overflow: hidden;
+      padding-left: 10px;
+    }
+    &>p:last-child{
+      font-size: 14px;
+      
+    }
+    .avatar{
+      min-width: 48px;
+      margin-right: 0px;
+    }
+  }
+  &>ul{
+    padding: 0;
+    list-style: none;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    .message-contact-list__outer-container{
+      font-size: 12px;
+      align-items:center;
+      padding-left: 30px;
+      .avatar {
+        width: 36px;
+        height: 36px;
+        object-fit: contain;
+      }
+    }
+  }
+  &.active-class>ul{
+    height: auto;
+  }
+
+}
+.send-icon {
+  background: #BE3E26;
+  color: #fff;
+  padding: 10px;
+  border-radius: 0;
+  font-size: 30px;
+}
+.message-active {
+  background: rgba(25, 25, 25, 0.16)
+}
+.uploadImgBox{
+  position: relative;
+  width: 100px;
+  .btn__add-on{
+    right: 10px;
+    position: absolute;
+    top: 15px;
+    transform: translate3d(0, -50%, 0);
+    width: 20px;
+    height: 20px;
+  }
 }
 
 // Message Seaction End
@@ -1694,3 +1789,54 @@ font-size: 14px;
 visibility: visible;
 }
 // Project-Feed-Index End
+
+.new_message .field__add-on{
+  top: 27px;
+}
+.new-message-textbox-with-send-button{
+  display: flex;
+  align-items: center;
+}
+.new-message-textbox{
+  flex: 1;
+  display: flex;
+  .field__input-wrapper{
+    margin-right: -1px;
+  }
+  .emoji-picker-container{
+    width: 100%;
+  }
+  iframe{
+    *{
+      overflow: hidden;
+    }
+  }
+  .form-control{
+    line-height:1.3;
+  }
+  .form-control::-webkit-scrollbar-track
+  {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+  }
+
+  .form-control::-webkit-scrollbar
+  {
+    width: 2px;
+    background-color: #F5F5F5;
+  }
+
+  .form-control::-webkit-scrollbar-thumb
+  {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #D62929;
+  }
+  .emoji-picker-icon.parent-has-scroll{
+    right: 5px;
+  }
+  .emoji-wysiwyg-editor.parent-has-scroll{
+    padding-right: 70px !important;
+  }
+}

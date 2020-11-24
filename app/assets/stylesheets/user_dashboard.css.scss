@@ -10,11 +10,9 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
-
-*= require select2/dist/css/select2
-*= require rails_emoji_picker
+ *= require select2/dist/css/select2 
 */
-
+@import 'rails_emoji_picker';
 @import "font-awesome";
 @import "main";
 @import "style";

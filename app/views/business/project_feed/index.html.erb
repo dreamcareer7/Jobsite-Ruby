@@ -136,10 +136,10 @@
                           <span>(<%= project.project_budget %>)</span>  <mark><span><%= project.creation_status %></span></mark>
                         </li>
                         <li>
-                          <i class="fa fa-map-marker" aria-hidden="true"></i> <%= project.location.city_country %>
+                          <i class="fa fa-map-marker" aria-hidden="true"></i> <%= project.location.present? ? project.location.city_country : " " %>
                         </li>
                         <li>
-                          <i class="fa fa-tags" aria-hidden="true"></i> <%= project.category.name %>/ <%= project.sub_categories.map(&:name).join(", ")%>
+                          <i class="fa fa-tags" aria-hidden="true"></i> <%= project.category.name %>, <%= project.sub_categories.present? ? project.sub_categories.map(&:name).join(", ") : '' %>
                         </li>
                         <li>
                           <i class="fa fa-info-circle" aria-hidden="true"></i> <%= project.timeline_type %>
@@ -174,7 +174,7 @@
     </div>
   </div>
   <% if @project_feed.total_pages > 1 %>
-    <div class="mt3">
+    <div class="mt3 mb3">
       <%= paginate @project_feed %>
     </div>
   <% end %>

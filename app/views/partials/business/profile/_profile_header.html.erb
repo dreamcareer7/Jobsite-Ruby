@@ -21,7 +21,6 @@
             </div>
           </div>
 
-
           <div>
             <p>
               <%= link_to edit_business_business_path(@current_business), style:"color:white" do %>
@@ -35,14 +34,6 @@
           <span data-modal="user-upgrade-coming-soon" class="btn-special mt2 mb-4" style="width:280px"><%= t("words.upgrade") %></span>
         </div>
       </div>
-      
-      <% if current_user.businesses.present? && current_user.businesses.count > 1 %>
-        <div class="grid grid--center">
-          <div class="grid__col--xs-12 grid__col--sm-10 grid__col--md-8 grid__col--lg-6 grid__col--xlg-4">
-            <%= render partial: "partials/nav/business_drop_list", locals: { business: @current_business } %>
-          </div>
-        </div>
-      <% end %>
       <% if @current_business.disabled? %>
         <%= render partial: "partials/business/profile/disabled" %>
       <% end %>

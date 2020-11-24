@@ -11,7 +11,7 @@ class Business::InboxController < Business::BaseController
     @notifications = @current_business.incoming_notifications
     @other_notifications = @notifications.where(project_id: nil)
     @project_notifications = @notifications.order(created_at: :desc).select(&:project_id).uniq(&:project_id)
-    @projects = Project.where(id: @project_notifications.pluck(:project_id))
+    @projects = Project.where(id: @project_notifications.pluck(:project_id) + @current_business.incoming_messages.map(&:project_id).uniq )
 
     @project_messages = @projects.collect(&:messages).flatten.sort_by!(&:created_at).reverse!.select(&:project_id).uniq(&:project_id)
 
@@ -21,14 +21,40 @@ class Business::InboxController < Business::BaseController
 
     @inbox = @project_correspondence + @other_notifications + @conversations
 
-    @project_notification_types = ["shortlisted", "active", "completed", "invited", "applied"]
-    @filter_terms = ["All messages", "Project messages", "Other messages", "Callback requests"]
+    array = []
+    @projects.each do |project|
+      project_msgs = @project_messages.select{|a| a if a.project_id == project.id }
+      msg_array = [project, project_msgs]
+      array << msg_array
+    end
+
+    @project_message_array = array
+
+    if @inbox.present?
+      @active_message = @inbox.first if @inbox.present?
+      if @active_message.project.present?
+        @conversation_messages = @inbox.first.project.messages_with_business(@inbox.first.business).order(created_at: :asc)
+        @project = @inbox.first.project
+        @business = @inbox.first.business
+      else
+        @conversation = Conversation.find(@inbox.conversation_id)
+        @conversation_messages = @conversation.messages.order(created_at: :asc)
+      end
+      @file_messages = @conversation_messages.select{|a| a if a.attachment.present? && a.attachment.attachment_content_type == 'application/pdf' }
+      @media_messages = @conversation_messages.select{|a| a if a.attachment.present? && a.attachment.attachment_content_type != 'application/pdf' }
+      @link_messages = nil
+      @message = Message.new
+      @message.build_attachment
+    end
+
+    #@project_notification_types = ["shortlisted", "active", "completed", "invited", "applied"]
+    #@filter_terms = ["All messages", "Project messages", "Other messages", "Callback requests"]
 
     if params[:filter_by].present?
-      @inbox = handle_sorting(@inbox, params[:filter_by]) || [] # or empty array to handle no results
+      #@inbox = handle_sorting(@inbox, params[:filter_by]) || [] # or empty array to handle no results
       @inbox = Kaminari.paginate_array(@inbox).page(params[:page]).per(6)
     else
-      @inbox.sort_by!(&:created_at).reverse!
+      #@inbox.sort_by!(&:created_at).reverse!
       @inbox = Kaminari.paginate_array(@inbox).page(params[:page]).per(6)
     end
 

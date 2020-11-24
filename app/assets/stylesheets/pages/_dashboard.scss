@@ -11,6 +11,9 @@
 //   top: -$spacing-small;
 // }
 
+.select-business {
+  padding: 0px 220px 0px 15px;
+}
 
 // Business
 
@@ -47,4 +50,9 @@
   @include mq(medium) {
     border-right: 1px solid $border;
   }
+}
+
+// Business-Dashboard
+.ul-dashboard-align {
+padding: 0px 90px 0px 0px;
 }

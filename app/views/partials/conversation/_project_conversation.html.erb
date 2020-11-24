@@ -5,23 +5,34 @@
         <div class="media__body">
           <div class="message__bubble"><%= t("messages.no_messages") %></div>
         </div>
-      <% else %>
-        <% @conversation_messages.each_with_index do |message, index| %>
-          <%= render partial: "partials/inbox/format_conversation_body", locals: { message: message, previous_message: index == 0 ? "" : @conversation_messages[index - 1] } %>
         <% end %>
+      <% @conversation_messages.each_with_index do |message, index| %>
+        <%= render partial: "partials/inbox/format_conversation_body", locals: { message: message, previous_message: index == 0 ? "" : @conversation_messages[index - 1] } %>
       <% end %>
       <div class="card__section">
         <fieldset class="fieldset">
           <%= simple_form_for(@message, url: url, method: :post) do |f| %>
-            <div class="field__input-wrapper">
-              <%= f.input :body, wrapper: :text_area, placeholder: t("messages.placeholder"), input_html: { class: "form-control", id:"describe-your-request", rows:"2", data: { emojiable:true } }, label: false %>
-              <%= f.simple_fields_for :attachment do |ff| %>
-                <%= ff.input :attachment, as: :file, input_html: { class: "js-file-upload", hidden: true }, label: false %>
-                <span class="field__add-on field__add-on--right-custom" onclick="clickBrowseProjectPhoto($(this));"><i class="fa fa-paperclip fa-2x"></i></span>
-              <% end %>
-            </div>
-            <div class="field u-text-right">
-              <%= f.submit t("messages.submit"), class: "btn btn--primary btn--xs-full" %>
+            <div class="new-message-textbox-with-send-button">
+              <div class="field__input-wrapper new-message-textbox">
+                <div class="emoji-picker-container">
+                  <%= f.input :body, wrapper: :text_area, placeholder: t("messages.placeholder"), input_html: { class: "form-control", id:"describe-your-request", rows:"2", data: { emojiable:true } }, label: false %>
+                  <%= f.simple_fields_for :attachment do |ff| %>
+                    <%= ff.input :attachment, as: :file, input_html: { class: "js-file-upload", hidden: true }, label: false %>
+                    <span class="field__add-on field__add-on--right-custom" onclick="clickBrowseProjectPhoto($(this));"><i class="fa fa-paperclip fa-2x"></i></span>
+                    <div class="clearfix uploadImgBox">
+                      <div class="remove-blog">
+                        <iframe id="output" width="100px" height="100px" style="display:none; overflow:hidden;"></iframe>
+                        <!--<img id="output"/ width="100px" height="100px" style="display:none" />-->
+                        <span onclick= "hideBlock($(this));" class="remove-attachment-button"><%= inline_svg("icons/cancel.svg", class: "mr-3 icon icon--small btn__add-on") %></span>
+                      </div>
+                    </div>
+                  <% end %>
+              </div>
+              <div class="field u-text-right">
+                <%= button_tag type: 'submit', class: "button my-button" do %>
+                  <i class="fa fa-paper-plane send-icon" aria-hidden="true"></i>
+                <% end %>
+              </div>
             </div>
           <% end %>
         </fieldset>
@@ -31,23 +42,34 @@
 </div>
 
 <script>
-
   $(function() {
     $(".emoji-wysiwyg-editor").css({"padding": "6px", "height":"50px"});
     $('.emoji-picker-icon').addClass('fa-2x mr1 mt1');
   });
+
   function clickBrowseProjectPhoto($this) {
-    var uploadButton = $this.closest('.field__input-wrapper').find('.js-file-upload');
-    uploadButton.click();
+    var uploadButton = $this.closest('.field__input-wrapper').find('.js-file-upload');    uploadButton.click();
+
     $('input:file').change(function() {
-      setFileUploadName($this, uploadButton)
+      setFileUploadName()
     });
+  
   }
 
-  function setFileUploadName($this, uploadButton) {
-    $this.parent().find('.js-file-upload-name').text(uploadButton.val().split('\\').pop());
-    $this.parent().find('.remove-attachment-button').show();
-    $this.hide();
+  function setFileUploadName() {
+    var reader = new FileReader();
+    reader.onload = function(){
+      var output = document.getElementById('output');
+      output.src = reader.result;
+      output.style.display = "block";
+      $('.remove-attachment-button').show();
+      $('.remove-blog').show();
+    };
+    reader.readAsDataURL(event.target.files[0]);
   }
-  
+
+  function hideBlock($this) {
+    $this.parent().hide();
+    $('.js-file-upload').val('');
+  }
 </script>

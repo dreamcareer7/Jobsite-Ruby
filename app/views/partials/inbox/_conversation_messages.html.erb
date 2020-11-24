@@ -1,8 +1,8 @@
 <div class="message-center-section">
   <div class="grid__col--md-12 unset-grid">
     <div class="header-section">
-      <h4>ACD Construction LLC <span>03:00pm</span></h4>
-      <p>I need a contractor for civil work in Jeddah</p>
+      <h4><%= business.name  %> <span>03:00pm</span></h4>
+      <p><%= project.present? ? project.title : " " %></p>
     </div>
   </div>
   <div class="grid__col--md-12 unset-grid">
@@ -13,11 +13,7 @@
             <ul class="chat-thread-list">
               <li class="chat-single-thread-list">
                 <%= render partial: "partials/conversation/project_conversation", locals: { url: user_messages_path(p: @project, b: @business) } %>
-              <%#= image_tag "https://glossophs.sa.edu.au/wp-content/uploads/2018/09/placeholder-profile-sq-300x300.jpg", class: "avatar" %> This is a qoute from ACD Construction LLC
               </li>
-              <!--<li class="chat-single-thread-list">
-              <%#= image_tag "https://glossophs.sa.edu.au/wp-content/uploads/2018/09/placeholder-profile-sq-300x300.jpg", class: "avatar" %> Yes, we do offer transportaion
-              </li>-->
             </ul>
           </div>
         </div>
@@ -26,28 +22,107 @@
         <div class="message-right-section">
           <ul class="message-files-media-links-tabs">
             <li class="message-files-media-links-tabs__tab">
-              <a href="#" class="active">Files</a>
+              <a class="file active file-attach">Files</a>
             </li>
             <li class="message-files-media-links-tabs__tab">
-              <a href="#">Media</a>
+              <a class="file media" >Media</a>
             </li>
             <li class="message-files-media-links-tabs__tab">
-              <a href="#">Links</a>
+              <a class="file link" >Links</a>
             </li>        
           </ul>
-          <ul class="files-attachment-list">
-            <li class="files-attachment-list__single_file">
-              <a href="#"><i class="fa fa-file-text-o"></i> Proposal.pdf</a>
-            </li>
-            <li class="files-attachment-list__single_file">
-              <a href="#"><i class="fa fa-file-text-o"></i> Proposal.pdf</a>
-            </li>
-            <li class="files-attachment-list__single_file">
-              <a href="#"><i class="fa fa-file-text-o"></i> Proposal.pdf</a>
-            </li>        
+          <ul class="files-attachment-list file-msg">
+            <% if @file_messages.present? %>
+              <% @file_messages.each do |msg| %>
+                <li class="files-attachment-list__single_file">
+                  <a href="#"><i class="fa fa-file-text-o"></i> <%= msg.attachment.attachment_file_name %></a>
+                </li>
+              <% end %>
+            <% else %>
+              <li class="files-attachment-list__single_file">
+                <div class=" "> No Files </div>
+              </li>
+            <% end %>
+          </ul>
+          <ul class="files-attachment-list media-attach u-hide">
+            <% if @media_messages.present? %>
+              <% @media_messages.each do |msg| %>
+                <% if msg.attachment.is_image_type? %>
+                  <li>
+                    <a class="mediaListBox" href="">
+                      <%= inline_svg("image_icon.svg", class: "icon icon--medium icon--dark") %>
+                      <div>
+                        <p><%= msg.attachment.attachment_file_name %></p>
+                      </div>
+                    </a>
+                  </li>
+                <% elsif msg.attachment.is_audio_type? %>
+                  <li>
+                    <a class="mediaListBox" href="">
+                      <%= inline_svg("audio_icon.svg", class: "icon icon--medium icon--dark") %>
+                      <div>
+                        <p><%= msg.attachment.attachment_file_name %></p>
+                      </div>
+                    </a>
+                  </li>
+                <% elsif msg.attachment.is_video_type? %>
+                  <li>
+                    <a class="mediaListBox" href="">
+                      <%= inline_svg("video_icon.svg", class: "icon icon--medium icon--dark") %>
+                      <div>
+                        <p><%= msg.attachment.attachment_file_name %></p>
+                      </div>
+                    </a>
+                  </li>
+                <% end %>       
+              <% end %>
+            <% else %>
+              <li class="files-attachment-list__single_file">
+                <div class=""> No Media </div>
+              </li>
+            <% end %>
+          </ul>
+          <ul class="files-attachment-list link-attach u-hide">
+            <% if @link_messages.present? %>
+              <% @link_messages.each do |msg| %>
+                <li class="files-attachment-list__single_file">
+                  <a href="#"><i class="fa fa-file-text-o"></i><%= msg.attachment.attachment_file_name %></a>
+                </li>        
+              <% end %>
+            <% else %>
+              <li class="files-attachment-list__single_file">
+                <div class=" "> No links</div>
+              </li>
+            <% end %>      
           </ul>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  $(".media").click(function (e) {
+    $('.file').removeClass('active');
+    $(this).addClass('active');
+    $('.media-attach').removeClass('u-hide');
+    $('.link-attach').addClass('u-hide');
+    $('.file-msg').addClass('u-hide');
+  });
+
+  $(".link").click(function (e) {
+    $('.file').removeClass('active');
+    $(this).addClass('active');
+    $('.file-msg').addClass('u-hide');
+    $('.link-attach').removeClass('u-hide');
+    $('.media-attach').addClass('u-hide');
+  });
+
+  $(".file-attach").click(function (e) {
+    $('.file').removeClass('active');
+    $(this).addClass('active');
+    $('.file-msg').removeClass('u-hide');
+    $('.link-attach').addClass('u-hide');
+    $('.media-attach').addClass('u-hide');
+  });
+</script>

@@ -1,0 +1,11 @@
+$('.lichild, .limain').removeClass('message-active');
+$('.set-active-<%= @inbox.id %>').addClass('message-active');
+$('#conversation-messages').html('<%=j render partial: "partials/inbox/conversation_messages", locals: { project:@project, business: @business }  %>')
+window.emojiPicker = new EmojiPicker({
+  emojiable_selector: '[data-emojiable=true]',
+  assetsPath: 'lib/img/',
+  popupButtonClasses: 'fa fa-smile-o'
+});
+window.emojiPicker.discover();
+$(".emoji-wysiwyg-editor").css({"padding": "6px", "height":"50px"});
+$('.emoji-picker-icon').addClass('fa-2x mr1 mt1');
