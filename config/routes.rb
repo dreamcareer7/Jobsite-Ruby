@@ -112,6 +112,9 @@ Rails.application.routes.draw do
     resources :businesses, only: [:edit, :update] do
       put "switch_form_section", to: "businesses#switch_form_section"
       put "add_sub_categories", to: "businesses#add_sub_categories"
+      delete "destroy_locations", to: "businesses#destroy_locations"
+      delete "destroy_team_members", to: "businesses#destroy_team_members"
+      delete "destroy_certifications", to: "businesses#destroy_certifications"
     end
     resources :favourites, only: [:index, :show]
     resources :user_callbacks, only: [:new, :create]

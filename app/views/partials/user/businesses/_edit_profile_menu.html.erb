@@ -1,37 +1,39 @@
 <div class="grid__col--xs-12 grid__col--md-3">
-  <ul class="sidebar-menu__list list u-text-left js-business-menu">
-    <li class="sidebar-menu__item">
-      <%= link_to t("business_profile.menu.general_information"), business_business_switch_form_section_path(@business, section: "general_information"), data: { section: "general_information" }, class: "sidebar-menu__link sidebar-menu__link--regular u-text-underline", remote: true, method: :put %>
-    </li>
-    <li class="sidebar-menu__item">
-      <%= link_to t("business_profile.menu.locations"), business_business_switch_form_section_path(@business, section: "locations"), data: { section: "locations" }, class: "sidebar-menu__link sidebar-menu__link--regular u-text-underline", remote: true, method: :put %>
-    </li>
-    <li class="sidebar-menu__item">
-      <%= link_to t("business_profile.menu.services"), business_business_switch_form_section_path(@business, section: "services"), data: { section: "services" }, class: "sidebar-menu__link sidebar-menu__link--regular u-text-underline", remote: true, method: :put %>
-    </li>
-    <li class="sidebar-menu__item">
-      <%= link_to t("business_profile.menu.social"), business_business_switch_form_section_path(@business, section: "social"), data: { section: "social" }, class: "sidebar-menu__link sidebar-menu__link--regular u-text-underline", remote: true, method: :put %>
-    </li>
-    <% if @current_business.paid_user? %>
-      <li class="sidebar-menu__item">
-        <%= link_to t("business_profile.menu.team"), business_business_switch_form_section_path(@business, section: "team"), data: { section: "team" }, class: "sidebar-menu__link sidebar-menu__link--regular u-text-underline js-cocoon-partial", remote: true, method: :put %>
+  <div class="dashboard-sidebar-lists">
+    <ul class="sidebar-menu__list list u-text-left js-business-menu">
+      <li class="sidebar-menu__item active">
+        <%= link_to t("business_profile.menu.general_information"), business_business_switch_form_section_path(@business, section: "general_information"), data: { section: "general_information" }, class: "sidebar-menu__link sidebar-menu__link--regular", remote: true, method: :put %>
       </li>
       <li class="sidebar-menu__item">
-        <%= link_to t("business_profile.menu.featured_projects"), business_business_switch_form_section_path(@business, section: "featured_projects"), data: { section: "featured_projects" }, class: "sidebar-menu__link sidebar-menu__link--regular u-text-underline", remote: true, method: :put %>
+        <%= link_to t("business_profile.menu.locations"), business_business_switch_form_section_path(@business, section: "locations"), data: { section: "locations" }, class: "sidebar-menu__link sidebar-menu__link--regular business-locations", remote: true, method: :put %>
       </li>
       <li class="sidebar-menu__item">
-        <%= link_to t("business_profile.menu.certifications"), business_business_switch_form_section_path(@business, section: "certifications"), data: { section: "certifications" }, class: "sidebar-menu__link sidebar-menu__link--regular u-text-underline", remote: true, method: :put %>
-      </li>
-    <% else %>
-      <li class="sidebar-menu__item">
-        <span data-modal="please-upgrade" class="js-open-modal sidebar-menu__link  sidebar-menu__link--regular u-text-pointer"><%= t("business_profile.menu.team") %> - <small class="u-text-accent"><%= t("phrases.premium_only") %></small></span>
+        <%= link_to t("business_profile.menu.services"), business_business_switch_form_section_path(@business, section: "services"), data: { section: "services" }, class: "sidebar-menu__link sidebar-menu__link--regular", remote: true, method: :put %>
       </li>
       <li class="sidebar-menu__item">
-        <span data-modal="please-upgrade" class="js-open-modal sidebar-menu__link sidebar-menu__link--regular u-text-pointer"><%= t("business_profile.menu.featured_projects") %> - <small class="u-text-accent"><%= t("phrases.premium_only") %></small></span>
+        <%= link_to t("business_profile.menu.social"), business_business_switch_form_section_path(@business, section: "social"), data: { section: "social" }, class: "sidebar-menu__link sidebar-menu__link--regular", remote: true, method: :put %>
       </li>
-      <li class="sidebar-menu__item">
-        <span data-modal="please-upgrade" class="js-open-modal sidebar-menu__link sidebar-menu__link--regular u-text-pointer"><%= t("business_profile.menu.certifications") %> - <small class="u-text-accent"><%= t("phrases.premium_only") %></small></span>
-      </li>
-    <% end %>
-  </ul>
+      <% if @current_business.paid_user? %>
+        <li class="sidebar-menu__item">
+          <%= link_to t("business_profile.menu.team"), business_business_switch_form_section_path(@business, section: "team"), data: { section: "team" }, class: "sidebar-menu__link sidebar-menu__link--regular js-cocoon-partial business-teams", remote: true, method: :put %>
+        </li>
+        <li class="sidebar-menu__item">
+          <%= link_to t("business_profile.menu.featured_projects"), business_business_switch_form_section_path(@business, section: "featured_projects"), data: { section: "featured_projects" }, class: "sidebar-menu__link sidebar-menu__link--regular", remote: true, method: :put %>
+        </li>
+        <li class="sidebar-menu__item">
+          <%= link_to t("business_profile.menu.certifications"), business_business_switch_form_section_path(@business, section: "certifications"), data: { section: "certifications" }, class: "sidebar-menu__link sidebar-menu__link--regular business-certifications", remote: true, method: :put %>
+        </li>
+      <% else %>
+        <li class="sidebar-menu__item">
+          <span data-modal="please-upgrade" class="js-open-modal sidebar-menu__link  sidebar-menu__link--regular u-text-pointer"><%#= t("business_profile.menu.team") %> - <small class="u-text-accent"><%#= t("phrases.premium_only") %></small></span>
+        </li>
+        <li class="sidebar-menu__item">
+          <span data-modal="please-upgrade" class="js-open-modal sidebar-menu__link sidebar-menu__link--regular u-text-pointer"><%#= t("business_profile.menu.featured_projects") %> - <small class="u-text-accent"><%#= t("phrases.premium_only") %></small></span>
+        </li>
+        <li class="sidebar-menu__item">
+          <span data-modal="please-upgrade" class="js-open-modal sidebar-menu__link sidebar-menu__link--regular u-text-pointer"><%#= t("business_profile.menu.certifications") %> - <small class="u-text-accent"><%#= t("phrases.premium_only") %></small></span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>

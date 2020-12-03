@@ -1,19 +1,46 @@
-<div class="card">
-  <div class="card__section">
-    <div class="card__header">
-      <h4 class="card__title"><%= inline_svg("icons/reward.svg", class: "icon icon--brand icon--small") %><%= t("business_profile.fields.header.certifications") %></h4>
-    </div>
-    <fieldset class="fieldset">
-      <div class="grid">
-        <div class="grid__col--xs-12 grid__col--md-12">
-          <%= f.association :certifications, collection: Certification.includes(:translations).order(name: :asc), wrapper: :select2, input_html: { style: "width:100%" }, label: t("business_profile.header.certifications") %>
-        </div>
-        <div class="field">
-          <div class="grid__col--xs-12 grid__col--md-12">
-            <%= f.submit t("form.update"), class: "mt1 btn btn--primary" %>
-          </div>
+<div class="grid certification-page mb-4">
+  <% @business.certifications.each do |certification| %>
+    <div class="grid__col--md-6 grid__col--xs-12 certificationDetailBox certification-detail-<%= certification.id %>">
+      <div class="card">
+        <%= image_tag certification.logo.url %>
+        <div class="certificationDetailSection">
+          <h4><%= certification.name_en %></h4>
+          <p><%= certification.name_ar %></p>
+        </div>        
+        <div class="table-content-pad mb-0 w-100"> 
+          <% if @business.certifications.length != 1 %>
+            <%= link_to business_business_destroy_certifications_path(certification_id: certification.id), class: "", method: :delete, remote: true  do %>
+              <span class="">remove</span>
+            <% end %>
+          <% end %>
+          <span class="btn--edit btn--primary float-right location-field" onclick="set_certifications(<%= certification.id %>)", id="<%= certification.id %>"> Edit</span>
         </div>
       </div>
-    </fieldset>
+    </div>
+  <% end %>
+
+  <div class="grid__col--md-6 grid__col--xs-12 certificationDetailAdd">
+    <div class="card card--team-size-color">
+      <%= link_to_add_association f, :certifications, partial: "partials/user/businesses/business_form_sections/field_partials/certification_fields", onclick:"setNewCertification();" do %>
+        <i class="fa fa-plus-circle icon--team-size-color" aria-hidden="true"></i>
+        <div class="text-center">
+          <p>Add Certificate</p>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
+
+<script>
+
+  function set_certifications(certification_id){
+    $('.certification-page').html("<%=j render partial: "partials/user/businesses/business_form_sections/field_partials/edit_certifications", locals: {f: f} %>")
+    $('.certification_form').addClass('u-hide');
+    $('.certification-' +certification_id).removeClass('u-hide');
+  }
+
+  function setNewCertification(){
+    $('.certification-page').html($('#certification-fields-').html()); 
+  }
+
+</script>

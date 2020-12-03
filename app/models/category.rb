@@ -60,6 +60,22 @@ class Category < ApplicationRecord
 
   end
 
+  def category_head_description
+    if self.name == "Consultants"
+      return ["Architects", "Engineer", "Designers"]
+    elsif self.name == "Contractors"
+      return ["Construction", "Builders", "Mechanicals"]
+    elsif self.name == "Municipal"
+      return []
+    elsif self.name == "Specialists"
+      return ["Plumber", "Painters", "Carpenters"]
+    elsif self.name == "Machinery"
+      return ["Heavy Machinery", "Trucks", "Road"]
+    elsif self.name == "Suppliers"
+      return ["Tools & Hardware", "Building Mateirals"]
+    end
+  end
+
   private
 
   def self.description(city)

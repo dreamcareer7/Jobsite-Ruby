@@ -1,37 +1,33 @@
-<div class="card">
-  <div class="card__section">
-    <div class="card__header">
-      <h4 class="card__title"><%= inline_svg("icons/social.svg", class: "icon icon--brand icon--small") %><%= t("business_profile.fields.header.social") %></h4>
-    </div>
-    <fieldset class="fieldset">
-      <%= f.simple_fields_for :social_links do |sl| %>
-        <div class="grid">
-          <div class="grid__col--xs-12 grid__col--md-6">
-            <%= sl.input :facebook, wrapper: :text_field, label: t("business_profile.fields.social.facebook.label"), placeholder: "https://www.facebook.com/muqawiloon", required: false %>
-          </div>
-          <div class="grid__col--xs-12 grid__col--md-6">
-            <%= sl.input :twitter, wrapper: :text_field, label: t("business_profile.fields.social.twitter.label"), placeholder: "https://twitter.com/muqawiloon", required: false %>
-          </div>
-          <div class="grid__col--xs-12 grid__col--md-6">
-            <%= sl.input :linkedin, wrapper: :text_field, label: t("business_profile.fields.social.linkedin.label"), placeholder: "https://www.linkedin.com/company/muqawiloon", required: false %>
-          </div>
-          <div class="grid__col--xs-12 grid__col--md-6">
-            <%= sl.input :youtube, wrapper: :text_field, label: t("business_profile.fields.social.youtube.label"), placeholder: "https://www.youtube.com/channel/UCWI_N4ez6Og9JpXZzjEaeIw", required: false %>
-          </div>
-          <div class="grid__col--xs-12 grid__col--md-6">
-            <%= sl.input :instagram, wrapper: :text_field, label: t("business_profile.fields.social.instagram.label"), placeholder: "https://www.instagram.com/muqawiloon", required: false %>
-          </div>
-          <div class="grid__col--xs-12 grid__col--md-6">
-            <%= sl.input :google_plus, wrapper: :text_field, label: t("business_profile.fields.social.google_plus.label"), placeholder: "https://plus.google.com/+googleplus/posts", required: false %>
-          </div>
-          <div class="grid__col--xs-12 grid__col--md-6">
-            <%= sl.input :prequalification, wrapper: :text_field, label: t("business_profile.fields.social.prequalification.label"), placeholder: "https://www.example.com", required: false %>
-          </div>
-        </div>
-      <% end %>
-      <div class="field">
-        <%= f.submit t("form.update"), class: "mt1 btn btn--primary" %>
-      </div>
-    </fieldset>
-  </div>
+<div class="">
+  <h4 class=""><%= inline_svg("icons/social.svg", class: "icon icon--brand icon--small") %><%= t("business_profile.fields.header.social") %></h4>
 </div>
+<fieldset class="fieldset mb-4">
+  <%= f.simple_fields_for :social_links do |sl| %>
+    <div class="grid mt2">
+      <div class="grid__col--xs-12 grid__col--md-6">
+        <%= sl.input :facebook, wrapper: :text_field, label: t("business_profile.fields.social.facebook.label"), placeholder: "https://www.facebook.com/muqawiloon", required: false %>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-6">
+        <%= sl.input :twitter, wrapper: :text_field, label: t("business_profile.fields.social.twitter.label"), placeholder: "https://twitter.com/muqawiloon", required: false %>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-6">
+        <%= sl.input :linkedin, wrapper: :text_field, label: t("business_profile.fields.social.linkedin.label"), placeholder: "https://www.linkedin.com/company/muqawiloon", required: false %>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-6">
+        <%= sl.input :youtube, wrapper: :text_field, label: t("business_profile.fields.social.youtube.label"), placeholder: "https://www.youtube.com/channel/UCWI_N4ez6Og9JpXZzjEaeIw", required: false %>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-6">
+        <%= sl.input :instagram, wrapper: :text_field, label: t("business_profile.fields.social.instagram.label"), placeholder: "https://www.instagram.com/muqawiloon", required: false %>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-6">
+        <%= sl.input :google_plus, wrapper: :text_field, label: t("business_profile.fields.social.google_plus.label"), placeholder: "https://plus.google.com/+googleplus/posts", required: false %>
+      </div>
+      <div class="grid__col--xs-12 grid__col--md-6">
+        <%= sl.input :prequalification, wrapper: :text_field, label: t("business_profile.fields.social.prequalification.label"), placeholder: "https://www.example.com", required: false %>
+      </div>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.submit "update", class: "mt1 btn btn--primary btn--update float-right" %>
+  </div>
+</fieldset>

@@ -17,7 +17,7 @@
         <i class="fa fa-bar-chart" aria-hidden="true"></i>
         <%= t("profile_nav.business.stats") %>
       <% end %>
-      <%= link_to business_projects_path, class: "nav-link-business #{'tab-active' if current_page?(business_projects_path)}" do %>
+      <%= link_to business_projects_path(filter_by: 'invited'), class: "nav-link-business #{'tab-active' if current_page?(business_projects_path)}" do %>
         <i class="fa fa-briefcase" aria-hidden="true"></i>
         <%= t("profile_nav.projects") %>
       <% end %>

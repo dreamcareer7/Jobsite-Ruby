@@ -143,6 +143,7 @@ class Business < ApplicationRecord
   accepts_nested_attributes_for :self_added_projects, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :locations, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :team_members, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :certifications, reject_if: :all_blank, allow_destroy: true
 
   has_attached_file :profile_image, styles: { small: "64x64", medium: "100x100", large: "200x200" }, default_url: "default_photos/:style/missing.png"
   validates_attachment_content_type :profile_image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]

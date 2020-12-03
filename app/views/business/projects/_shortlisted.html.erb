@@ -1,0 +1,70 @@
+<% if @projects.present? %>
+  <% @projects.each do |project| %>
+    <div class="card">
+      <div class="filterListBoxBody filterList-bg">
+        <div class="filterList filterList-bg">
+          <div class="filterListContent">
+            <ul class="pl2">
+              <%= link_to business_project_feed_path(project), class: "u-text-inherit" do %>
+                <li>
+                  <h3 style="color:#d14a3e;"><%= project.title %></h3>
+                </li>
+              <% end %>
+              <li>
+                <span>(<%= project.project_budget %>)</span>
+              </li>
+            </ul>
+            <ul class="invited pl2">
+              <li>
+                <i class="fa fa-map-marker" aria-hidden="true"></i> <%= project.location.present? ? project.location.city_country : " " %>
+              </li>
+              <li>
+                <i class="fa fa-tags" aria-hidden="true"></i> <%= project.category.name %>, <%= project.sub_categories.present? ? project.sub_categories.map(&:name).join(", ") : '' %>
+              </li>
+              <li>
+                <i class="fa fa-info-circle" aria-hidden="true"></i> <%= project.timeline_type %>
+              </li>
+              <li>
+                <i class="fa fa-clock-o" aria-hidden="true"></i><%= project.created_at.strftime("%d/%m/%Y")%>
+              </li>
+            </ul>
+            <ul class="invitedGalleryIteam">
+              <li> <i class="fa fa-picture-o" aria-hidden="true"></i> Attachments</li>
+              <li class="galleryIteamImg"> 
+                <img src="https://static.toiimg.com/photo/72975551.cms"/>
+                <img src="https://static.toiimg.com/photo/72975551.cms"/>
+                <img src="https://static.toiimg.com/photo/72975551.cms"/>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="filterListBoxBody bottom">
+        <div class="filterList">
+          <div class="filterListContent">
+            <ul class="appliedDisTxt">
+              <li>
+                <%= image_tag @current_business.logo.url(:medium), class: "avatar" %>
+                <div>
+                  <%= project.description %> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit.
+                  <div class="mt1" style="color: #d14a3e;">
+                    view submitted quote
+                    <%= link_to  "Start chat", business_project_feed_index_path, class: "btn-special btn-business-dashboard mt-3 float-right" %>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <div class="card">
+    <div class="filterListBoxBody">
+      <div class="card__section">
+        <p><%= t("feed.no_projects") %></p>
+      </div>
+    </div>
+  </div>
+<% end %>

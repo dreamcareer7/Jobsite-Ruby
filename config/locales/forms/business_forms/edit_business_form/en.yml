@@ -196,9 +196,9 @@ en:
 
     certifications:
       title:
-        label: "Title"
+        label: "Name"
         field:
-        placeholder: "Title"
+        placeholder: "Name"
       video_link:
         label: "Youtube link"
         field:

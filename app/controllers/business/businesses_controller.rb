@@ -36,6 +36,25 @@ class Business::BusinessesController < Business::BaseController
     @business.hours_of_operation.build if @business.hours_of_operation.blank?
     @business.team_members.build if @business.team_members.blank?
     @business.locations.build if @business.locations.blank?
+    @business.certifications.build if @business.certifications.blank?
+  end
+
+  def destroy_locations
+    @location = Location.find_by_id(params[:location_id])
+    @location_id = @location.id
+    @location.destroy
+  end
+
+  def destroy_team_members
+    @team_member = TeamMember.find_by_id(params[:team_member_id])
+    @team_member_id = @team_member.id
+    @team_member.destroy
+  end
+
+  def destroy_certifications
+    @certification = Certification.find_by_id(params[:certification_id])
+    @certification_id = @certification.id
+    @certification.destroy
   end
 
 end

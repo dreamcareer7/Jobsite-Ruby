@@ -1,23 +1,24 @@
-<div class="js-cocoon-fields js-location-fields js-featured-project">
-  <div class="card__section card__section--border js-toggle-featured-project">
-    <div class="u-flex">
-      <h4 class="card__title"><%= inline_svg("icons/location.svg", class: "icon icon--brand icon--small") %><%= f.object.street_address.present? ? "#{ f.object.street_address } - #{ f.object.city.name }" : t("words.location") %></h4>
-      <%= inline_svg("icons/dropdown.svg", class: "u-text-pointer icon icon--dark") %>
+<div class="js-cocoon-fields js-location-fields js-featured-project u-hide mb-4 location-<%= f.object.id %>">
+  <div id="location-fields-<%= f.object.id %>">
+    <div class="card__section card__section--border js-toggle-featured-project">
+      <div class="u-flex u-text-center ">
+        <h4 class="card__title text-center"><%= inline_svg("icons/location.svg", class: "icon icon--brand icon--small") %><%= f.object.new_record? ? "Set Locations" : "Update locations"%> - <%= f.object.street_address.present? ? "#{ f.object.street_address } - #{ f.object.city.name }" : t("words.location") %></h4>
+      </div>
     </div>
-  </div>
-  <div class="card__section card__section--border js-toggle-target u-hide">
-    <fieldset class="fieldset">
-      <div class="grid">
-        <%= render partial: "partials/location/choose_location", locals: { l: f } %>
-      </div>
-      <div class="grid">
-        <div class="grid__col--xs-12 grid__col--md-6">
-          <%= f.submit t("form.update"), class: "mt1 btn btn--primary" %>
+    <div class="card__section card__section--border js-toggle-target">
+      <fieldset class="fieldset">
+        <div class="grid">
+          <%= render partial: "partials/location/choose_location", locals: { l: f } %>
         </div>
-        <div class="grid__col--xs-12 grid__col--md-6 u-text-right">
-          <%= link_to_remove_association f, { wrapper_class: "js-cocoon-fields", class: " mt1 btn btn--secondary js-remove-field" } do %><%= t("words.remove") %><% end %>
+        <div class="grid">
+          <div class="grid__col--xs-12 grid__col--md-6">
+            <%= link_to "Cancel", business_business_switch_form_section_path(@business, section: "locations"), data: { section: "locations" }, class: "mt1 btn btn--secondary", remote: true, method: :put %>
+          </div>
+          <div class="grid__col--xs-12 grid__col--md-6 u-text-right">
+            <%= f.submit t("form.update"), class: "mt1 btn btn--primary" %>
+          </div>
         </div>
-      </div>
-    </fieldset>
+      </fieldset>
+    </div>
   </div>
 </div>

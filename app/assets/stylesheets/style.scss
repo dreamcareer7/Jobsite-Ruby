@@ -284,6 +284,7 @@ body{
   border-left: 3px solid $primary-color;
   color: $primary-color;
 }
+
 .tell-us-what-you-need-lists{
   padding: 0;
   margin-bottom: 15px; 
@@ -707,7 +708,14 @@ a.sidebar-link {
   font-size: 1rem;
   border-radius: .25rem;
   margin-bottom: 10px;
+  color:#d14a3e;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.btn-msg {
+  padding: 0px 18px !important; 
+  i {
+    color:#d14a3e !important;
+  }
 }
 
 .btn-block {
@@ -1684,10 +1692,11 @@ width: 120px;
 background: #fff;
 }
 .filterListiconBtn{
-color: #333;
-float: right;
-margin-top: 10px;
-margin-right: 10px;
+  color: #333;
+  float: none;
+  text-align: right;
+  margin-bottom: 10px;
+  margin-top: 0;
 }
 .btn-group>.btn:last-child:not(:first-child), .btn-group>.dropdown-toggle:not(:first-child) {
 border-top-left-radius: 0;
@@ -1711,12 +1720,13 @@ width: 190px;
 object-fit: cover;
 }
 .filterList ul{
-margin-top: 5px;
+  margin-top: 5px;
+  margin-bottom: 0;
 }
 .filterList ul li{
-list-style: none;
-text-transform: capitalize;
-padding-bottom: 5px;
+  list-style: none;
+  text-transform: capitalize;
+  padding-bottom: 5px;
 }
 .filterList ul li:first-child{
 padding-bottom: 0;
@@ -1736,13 +1746,15 @@ font-size: 18px;
 width: 20px;    
 }
 .filterListAction{
-margin-right: 0;
-margin-left: auto;
+  margin-right: 0;
+  margin-left: auto;
+  display: flex;
+  height: 50px;
 }
 .filterListAction i{
-font-size: 20px;
-color: #333;
-margin: 15px 10px 0;
+  font-size: 20px;
+  color: #333;
+  margin: 15px 10px 0;
 }
 .filterListAction .tooltip{
 position: relative;
@@ -1787,6 +1799,22 @@ font-size: 14px;
 }
 .filterListAction .tooltip:hover .tooltiptext {
 visibility: visible;
+}
+
+.filterList-bg {
+  background: #f6eeee !important;
+}
+.appliedDisTxt{
+  padding: 5px 15px;
+  li{
+    display: flex;
+    img{
+      object-fit: cover;
+    height: 70px;
+    width: 70px;
+    margin-right: 15px;
+    }
+  }
 }
 // Project-Feed-Index End
 
@@ -1839,4 +1867,243 @@ visibility: visible;
   .emoji-wysiwyg-editor.parent-has-scroll{
     padding-right: 70px !important;
   }
+}
+.invited{
+  display: flex;
+  flex-wrap: wrap;
+  float: left;
+  width: 75%;
+  li{
+    width: 50%;
+  }
+  .li-shift{
+    padding-left:10px;
+  }
+}
+.invitedGalleryIteam{
+  width: 25%;
+  float: right;
+  padding-left:25px;
+  .galleryIteamImg{
+    margin-top: 10px;
+    img{
+      width: 22px;
+      height: 22px;
+      object-fit: cover;
+    }
+  }
+}
+.filterListContentDate{
+  color: #d14a3e;
+  margin-left: auto;
+  margin-right: 10px;
+  padding-left: 20px;
+}
+.filterList{
+  .completed{
+    width: 100%;
+    margin-top: 0;
+    & li:nth-child(1),& li:nth-child(3){
+      width: 60%;
+    }
+    & li:nth-child(2),& li:nth-child(4){
+      width: auto;
+    }
+  }
+  .completedDate{
+    padding: 0;
+    margin-top: 3px;
+    margin-bottom: -5px;
+    span{
+      font-size: 15px;
+      color: #000;
+    }    
+  }
+  .activeBox{
+    width: 100%;
+    & li:nth-child(1),& li:nth-child(3){
+      width: 60%;
+    }
+    & li:nth-child(2),& li:nth-child(4){
+      width: auto;
+    }
+    li{
+      padding: 0;
+      .btn-msg{
+        margin-right: -25px;
+      }
+    }
+  }
+}
+
+//Business-profile-page
+.btn--update{
+  padding: 0px 70px 0px 70px;
+}
+
+.tr-change-css{
+
+  tr {
+    border-bottom: 1px solid $border !important;
+  
+    &:nth-child(even) {
+      background-color: $white !important;
+    }
+    td{
+      &:nth-child(odd) {
+        font-weight: 600 !important;
+        color: #000000;
+        white-space: nowrap;
+      }
+    }
+  }
+  
+}
+
+.table-content-pad {
+  padding: 0px 40px 0px 40px;
+}
+
+.image-size-fixed{
+  width: 450px;
+  height: 180px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.icon--size-color{
+  color: #bababa;
+  font-size: 15rem;
+  padding-top: 130px;
+}
+
+.card--size-color{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  background: #ebebeb;
+  height: 600px;
+}
+
+.icon--team-size-color{
+  color: #bababa;
+  font-size: 15rem;
+  padding-top: 50px;
+}
+
+.card--team-size-color{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  background: #ebebeb;
+  height: 393px;
+}
+
+
+.btn--edit{
+  position: relative;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  outline: 0;
+  cursor: pointer;
+  margin-bottom: 16px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  font-style: normal;
+  padding: 0px 40px 0px 40px;
+  
+}
+.team-page{ 
+  .card{
+    img{
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      margin: 20px 0 15px;
+    }
+    p{
+      margin-bottom: 4px;
+      &:nth-child(2),
+      &:nth-child(3){
+        font-weight: bold;
+      }
+    }
+  }
+}
+.certification-page{
+  .certificationDetailBox {
+    .card{
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      img{
+        margin: 0;
+        width: 120px;
+        height: 120px;
+        margin:10px 10px 0;
+      }
+      h4,p{
+        margin: 0;
+        padding-left: 15px;
+      }
+      .table-content-pad{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        // background: #ebebeb;
+        margin: 0;
+        padding: 5px 20px 0;
+      }
+    }
+  }
+  .certificationDetailAdd{
+    .card{
+      display: flex;
+      align-items: center;
+      height: 186px;
+      a{
+        display: flex;
+        align-items: center;
+      }
+      .icon--team-size-color{
+        font-size: 9rem;
+        margin: 0 25px;
+        padding: 0;
+      }
+      p{
+        color: #000;
+        font-weight: bold;
+        padding-left: 15px;
+      }
+    }
+  }
+}
+//end
+
+
+.top__banner{
+  width: 100%;
+  height: 250px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-size: cover;
+}
+.top__banner-icons{
+  position: absolute;
+  top: 1%;
+  right: 1%;
+}
+.top__banner--company-logo{
+    position: relative;
+    align-items: center;
+    text-align: center !important;
+    display: block;
 }
