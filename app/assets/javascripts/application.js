@@ -14,9 +14,9 @@
 //= require jquery-ujs
 //= require turbolinks
 //= require jquery-ui
-//= require rails_emoji_picker
 //= require cocoon
 //= require slick-carousel/slick/slick
+//= require rails_emoji_picker
 //= require fastclick
 //= require smooth-scroll/dist/smooth-scroll
 //= require select2

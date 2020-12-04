@@ -11,3 +11,20 @@
       </div>
   </div>
 </div>
+
+<div class="card">
+  <div class="gallery-page-product-list p3">
+    <% @business.self_added_projects.each do |item| %>
+      <%= render partial: "gallery/gallery_product", locals: { item: item } %>
+    <% end %>
+  </div>
+</div>
+
+<script>
+
+$('.custom_carousel').not('.slick-initialized').slick({
+  dots:true,
+  centerMode: false,
+  rtl: $("html").hasClass("rtl")
+});
+</script>

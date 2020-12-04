@@ -514,10 +514,11 @@ body{
     align-items: flex-start;
     flex-grow: 0;
     flex-shrink: 1;
-    flex-basis: calc(25% - 10px);
+    flex-basis: calc(25% - 60px);
     height: auto;
     transition: .3s;
     margin-right: 10px;
+    margin-left: 20px;
   }
 
 }
@@ -605,8 +606,6 @@ body{
   border-color:$primary-color;
   box-shadow: 0 0 0 0.2rem rgba($primary-color,.25);
 }
-
-
 
 .product-name-and-footer-container {
   display: flex;

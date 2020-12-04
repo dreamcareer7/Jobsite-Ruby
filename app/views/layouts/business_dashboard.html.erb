@@ -16,6 +16,9 @@
     <%= action_cable_meta_tag %>
     <%= favicon_link_tag "favicon.png" %>
     <%= stylesheet_link_tag "business_dashboard", media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" />
     <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Open+Sans:400,600" %>
     <%= javascript_include_tag "//maps.google.com/maps/api/js?v=3&key=#{ ENV['G_KEY'] }" %>
     <%= javascript_include_tag 'application' %>
@@ -118,9 +121,10 @@
     <% if controller_name == "project_business" %>
       <%= render partial: "modals/projects/view_quote" %>
     <% end %>
-
-    <% if controller_name == "gallery" %>
+    
+    <% if controller_name == "gallery" || controller_name == "businesses"  %>
       <%= render partial: "modals/video_player/video_player" %>
+      <%= render partial: "modals/image/show" %>
     <% end %>
 
     <% if ["businesses", "sub_categories", "services", "categories", "projects"].include? controller_name %>
@@ -142,6 +146,8 @@
     <% end %>
 
     <%= yield :page_scripts %>
+
+    <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
 
   </body>
 </html>
