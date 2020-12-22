@@ -34,13 +34,13 @@ class User::InboxController < User::BaseController
   def index
     @notifications = current_user.incoming_notifications
     #@other_notifications = @notifications.where(project_id: nil)
-    @project_notifications = @notifications.order(created_at: :desc).select(&:project_id).uniq(&:project_id)
+    #@project_notifications = @notifications.order(created_at: :desc).select(&:project_id).uniq(&:project_id)
 
     @projects = current_user.projects.select{|p| p if p.messages.present? }
 
     @project_messages = @projects.collect(&:messages).flatten.sort_by!(&:created_at).reverse!.select(&:project_id).uniq(&:business)
 
-    @project_correspondence = [ @project_messages, @project_notifications ].flatten.sort_by{ |pc| pc.created_at }.reverse!.select(&:project_id).uniq(&:business)
+    @project_correspondence = [ @project_messages ].flatten.sort_by{ |pc| pc.created_at }.reverse!.select(&:project_id).uniq(&:business)
 
     @conversations = current_user.conversations.collect(&:messages).flatten.sort_by!(&:created_at).reverse!.select(&:conversation_id).uniq(&:conversation_id)
     
@@ -61,14 +61,14 @@ class User::InboxController < User::BaseController
       if @inbox.first.project.present?
         @conversation_messages = @inbox.first.project.messages_with_business(@inbox.first.business).order(created_at: :asc)
         @project = @inbox.first.project
-        @business = @inbox.first.business
       else
-        @conversation = Conversation.find(@inbox.conversation_id)
+        @conversation = Conversation.find(@inbox.first.conversation_id)
         @conversation_messages = @conversation.messages.order(created_at: :asc)
       end
       @file_messages = @conversation_messages.select{|a| a if a.attachment.present? && a.attachment.attachment_content_type == 'application/pdf' }
       @media_messages = @conversation_messages.select{|a| a if a.attachment.present? && a.attachment.attachment_content_type != 'application/pdf' }
       @link_messages = nil
+      @business = @inbox.first.business
       @message = Message.new
       @message.build_attachment
     end

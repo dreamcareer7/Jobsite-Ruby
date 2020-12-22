@@ -6,17 +6,7 @@ class Business::ProjectFeedController < Business::BaseController
 
   def index
     authorize Project
-
-    @services = current_business.services
-    @projects = policy_scope(Project).includes(:translations)
-      .by_city(@current_business.cities)
-      .approved
-      .not_completed_or_accepted
-      .not_hidden(@current_business.hidden_resources.pluck(:project_id))
-      .not_applied(@current_business.applied_to_projects.pluck(:project_id))
-
-    @projects = @projects.by_services(@services)
-      .or(@projects.by_sub_categories_no_service(@current_business.sub_categories_where_no_service))
+    get_projects
 
     @filter_terms = ["All projects", "Invited only"]
 
@@ -43,7 +33,7 @@ class Business::ProjectFeedController < Business::BaseController
       return
     end
 
-    authorize @project
+    #authorize @project
 
     @conversation_messages = @project.messages_with_business(current_business).order(created_at: :asc)
     @active = current_business.shortlisted_or_accepted?(@project)
@@ -57,6 +47,15 @@ class Business::ProjectFeedController < Business::BaseController
 
     @conversation_messages.where(receiving_user_id: current_business.id).each{ |message| message.mark_as_read }
 
+  end
+
+  def sort_apply_filter
+    get_projects 
+    category_ids = params[:filter][:category_ids].compact.uniq.flatten
+    city_ids = params[:filter][:city_id]
+
+    @project_feed = handle_sorting_with_category_city(@projects, category_ids, city_ids)
+    #@project_feed = Kaminari.paginate_array(projects.order(updated_at: :desc)).page(params[:page]).per(6)
   end
 
   private
@@ -76,6 +75,20 @@ class Business::ProjectFeedController < Business::BaseController
     else
       flash[:error] = "Sorry, you must be a standard or premium business to view projects from the project feed."
     end
+  end
+
+  def get_projects
+    @services = current_business.services
+    @projects = policy_scope(Project).includes(:translations)
+      .by_city(@current_business.cities)
+      .approved
+      .not_completed_or_accepted
+      .not_hidden(@current_business.hidden_resources.pluck(:project_id))
+      .not_applied(@current_business.applied_to_projects.pluck(:project_id))
+
+    @projects = @projects.by_services(@services)
+      .or(@projects.by_sub_categories_no_service(@current_business.sub_categories_where_no_service))
+    
   end
 
 

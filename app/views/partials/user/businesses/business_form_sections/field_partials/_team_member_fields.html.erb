@@ -33,10 +33,10 @@
       <%= f.input :phone_number, wrapper: :text_field, label: t("business_profile.fields.general_information.phone_number.label"), input_html: { class: "js-phone" }, required: false %>
     </div>
     <div class="grid__col--xs-12 grid__col--md-6 mb-4">
-      <%= link_to "Cancel", business_business_switch_form_section_path(@business, section: "team"), data: { section: "team" }, class: "mt1 btn btn--secondary", remote: true, method: :put %>
+      <%= link_to "Cancel", business_business_switch_form_section_path(@business, section: "team"), data: { section: "team" }, class: "mt1 btn btn--secondary btn--update", remote: true, method: :put %>
     </div>
     <div class="grid__col--xs-12 grid__col--md-6 u-text-right mb-4">
-      <%= f.submit t("form.update"), class: "mt1 btn btn--primary" %>
+      <%= f.submit t("form.update"), class: "mt1 btn btn--primary btn--update" %>
     </div>
   </div>
 </div>

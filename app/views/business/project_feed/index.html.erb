@@ -69,42 +69,54 @@
 <section class="section-page section-alt">
   <div class="grid">
     <div class="grid__col--md-3 grid__col--xs-12 filterbox">
-      <div class="filterbox-1">
-        <h4>categories</h4>
-        <div class="row">
-          <hr/>
+      <%= form_for :filter, url: apply_filter_business_project_feed_index_path, remote: true do |f| %>
+        <div class="filterbox-1">
+          <h4>categories</h4>
+          <div class="row">
+            <hr/>
+          </div>
+          <ul>
+            <li>
+              <label class="control">
+                <%= f.check_box "all_category", { class: "control__input"}, true , " " %>
+                  <span class="control__indicator control__indicator--checkbox">
+                    <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
+                  </span>
+                  <span class="control__label">All Category</span>
+              </label>
+              <ul>
+                <% Category.all.each_with_index do  |category, index| %>
+                  <li>
+                    <label class="control">
+                      <%= f.check_box "category_ids", { class: "control__input", id: "inlineCheckbox#{index + 1}" , multiple: true }, category.id, " " %>
+                        <span class="control__indicator control__indicator--checkbox">
+                          <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
+                        </span>
+                        <span class="control__label"><%= category.name %></span>
+                    </label>
+                  </li>
+                <% end %>
+              </ul>
+            </li>
+          </ul>
         </div>
-        <ul>
-          <li>
-            <input type="checkbox" id="machinery" name="machinery" value="all">
-            <label for="machinery">All Category</label><br>              
-            <ul>
-              <% Category.all.each_with_index do  |category, index| %>
-                <li>
-                  <input type="checkbox" id="<%=category.name%>-<%=category.id %>" name="category" value="<%= category.id %>">
-                  <label for="<%=category.name%>-<%=category.id %>"><%= category.name %></label><br>              
-                </li>
-              <% end %>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div class="filterbox-1">
-        <h4>locations</h4>
-        <div class="row">
-          <hr/>
+        <div class="filterbox-1">
+          <h4>locations</h4>
+          <div class="row">
+            <hr/>
+          </div>
+          <ul>
+            <li>
+            <label for="Saudi">Country</label><br>
+              <%= select_tag(:country, options_for_select(Country.all.collect {|p| [ p.name, p.id ] }), {class: 'rails-country-for-select form-control mt2', prompt: "select country" } ) %>
+              <!--<input type="checkbox" id="Saudi" name="Saudi" value="all">-->              
+              <ul class="city-listing">
+              </ul>
+            </li>
+          </ul>
         </div>
-        <ul>
-          <li>
-          <label for="Saudi">Country</label><br>
-          <%= select_tag(:country, options_for_select(Country.all.collect {|p| [ p.name, p.id ] }), {class: 'rails-country-for-select form-control mt2', prompt: "select country" } ) %>
-            <!--<input type="checkbox" id="Saudi" name="Saudi" value="all">-->              
-            <ul class="city-listing">
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <button class="js-submit btn btn--full btn--primary">Apply Filter</button>
+        <%= f.submit "Apply Filter", class:"btn btn--full btn--primary u-text-center" %>
+      <% end %>
     </div>
     <div class="grid__col--xs-12 grid__col--md-9">
       <div class="grid">
@@ -118,66 +130,15 @@
             Map View <i class="fa fa-map" aria-hidden="true"></i>
           </div>
         </div>
-        <div class="grid__col--md-12">
-          <div class="filterListBoxBody">
-            <% if @project_feed.present? %>
-              <% @project_feed.each do |project| %>
-                <div class="card">
-                  <div class="filterList">
-                    <%= image_tag "bg-interview.png" %>
-                    <div class="filterListContent">
-                      <ul>
-                        <%= link_to business_project_feed_path(project), class: "u-text-inherit" do %>
-                          <li>
-                            <h3><%= project.title %></h3>
-                          </li>
-                        <% end %>
-                        <li>
-                          <span>(<%= project.project_budget %>)</span>  <mark><span><%= project.creation_status %></span></mark>
-                        </li>
-                        <li>
-                          <i class="fa fa-map-marker" aria-hidden="true"></i> <%= project.location.present? ? project.location.city_country : " " %>
-                        </li>
-                        <li>
-                          <i class="fa fa-tags" aria-hidden="true"></i> <%= project.category.name %>, <%= project.sub_categories.present? ? project.sub_categories.map(&:name).join(", ") : '' %>
-                        </li>
-                        <li>
-                          <i class="fa fa-info-circle" aria-hidden="true"></i> <%= project.timeline_type %>
-                        </li>
-                        <li>
-                          <i class="fa fa-clock-o" aria-hidden="true"></i><%= project.created_at.strftime("%d/%m/%Y")%>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="filterListAction">
-                      <i class="fa fa-bookmark-o" aria-hidden="true"></i>
-                      <div class="tooltip"> <i class="fa fa-bars" aria-hidden="true"></i>
-                        <div class="tooltiptext">
-                          <a href=""> <i class="fa fa-eye" aria-hidden="true"></i> View Request</a>
-                          <a href=""> <i class="fa fa-file-text" aria-hidden="true"></i> Request a Quote</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              <% end %>
-            <% else %>
-              <div class="card">
-                <div class="card__section">
-                  <p><%= t("feed.no_projects") %></p>
-                </div>
-              </div>
-            <% end %>
-          </div>
+        <div class="grid__col--md-12 grid__col--xs-12 index-content">
+          <%= render partial: "partials/project_feed/index", locals: { project_feed: @project_feed } %>
         </div>
       </div>
     </div>
   </div>
-  <% if @project_feed.total_pages > 1 %>
-    <div class="mt3 mb3">
-      <%= paginate @project_feed %>
-    </div>
-  <% end %>
+  <div class="pagination-content">
+    <%= render partial: "partials/project_feed/pagination_content", locals: { project_feed: @project_feed } %>
+  </div>
 </section>
 
 <script>

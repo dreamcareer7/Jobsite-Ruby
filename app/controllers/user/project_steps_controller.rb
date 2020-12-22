@@ -97,6 +97,7 @@ class User::ProjectStepsController < User::BaseController
 
       send_project_posted_email(@project)
       send_notify_admin_project_new_project(@project)
+      #send_notify_msg_to_business_vendor(@project)
       AdminNotification.new_project_notification(@project)
 
       return

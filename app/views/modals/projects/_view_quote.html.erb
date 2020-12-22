@@ -1,30 +1,30 @@
 <div class="modal js-view-quote">
-  <% if @project && @quote && @business %>
+  <% if project && quote && business %>
     <div class="modal__table">
       <div class="modal__cell">
         <div class="modal__container">
           <button class="js-close-modal modal__close">
             <%= inline_svg("icons/close.svg", class: "icon") %>
           </button>
-          <h2 class="modal__title"><%= @business.name %></h2>
+          <h2 class="modal__title"><%= business.name %></h2>
           <div class="grid">
             <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-12 grid__col--lg-6">
-              <p><small>Approximate budget</small><br><span class="u-text-dark"><%= @quote.approximate_budget %></span></p>
+              <p><small>Approximate budget</small><br><span class="u-text-dark"><%= quote.approximate_budget %></span></p>
             </div>
             <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-12 grid__col--lg-6">
-              <small>Approximate timeline</small><br><span class="u-text-dark"><%= @quote.approximate_duration %></span>
+              <small>Approximate timeline</small><br><span class="u-text-dark"><%= quote.approximate_duration %></span>
             </div>
             <hr class="divider mt1">
             <div class="grid__col--xs-6 grid__col--sm-4 grid__col--md-12 grid__col--lg-12">
-              <p class="js-truncate-text u-text-paragraph u-text-left"><%= @quote.proposal %></p>
+              <p class="js-truncate-text u-text-paragraph u-text-left"><%= quote.proposal %></p>
             </div>
-            <% if @quote.attachments.present? %>
+            <% if quote.attachments.present? %>
               <br>
-              <%= link_to "Download attachments", business_quote_download_as_zip_path(@quote), method: :put %>
+              <%= link_to "Download attachments", business_quote_download_as_zip_path(quote), method: :put %>
             <% end %>
           </div>
           <br>
-          <%= link_to t("project.hire_now"), user_project_accept_quote_path(quote_id: @quote.id, project_id: @project), class: "btn btn--primary btn--full", method: :put unless @project.business_id.present? %>
+          <%= link_to t("project.hire_now"), user_project_accept_quote_path(quote_id: quote.id, project_id: project), class: "btn btn--primary btn--full", method: :put unless project.business_id.present? %>
           <a class="js-close-modal btn btn--secondary btn--full"><%= t("suggest_businesses.return") %></a>
         </div>
       </div>

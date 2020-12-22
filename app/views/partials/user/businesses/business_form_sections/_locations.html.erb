@@ -37,7 +37,7 @@
         </div>
         <div class="table-content-pad mt2 mb-4"> 
           <% if @business.locations.length != 1 %>
-            <%= link_to business_business_destroy_locations_path(location_id: location.id), class: "", method: :delete, remote: true  do %>
+            <%= link_to business_business_destroy_locations_path(business_id: @business.id, location_id: location.id), class: "", method: :delete, remote: true  do %>
               <span class="">remove</span>
             <% end %>
           <% end %>

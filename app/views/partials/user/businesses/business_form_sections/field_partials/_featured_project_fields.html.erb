@@ -1,65 +1,80 @@
-<div class="js-featured-project js-cocoon-fields">
-  <div class="card__section card__section--border js-toggle-featured-project">
-    <div class="u-flex">
-      <h4 class="card__title"><%= inline_svg("icons/gallery.svg", class: "icon icon--brand icon--small") %><%= f.object.title.present? ? f.object.title : t("words.project") %></h4>
-      <%= inline_svg("icons/dropdown.svg", class: "u-text-pointer icon icon--dark") %>
-    </div>
-  </div>
-  <div class="card__section card__section--border js-toggle-target u-hide">
-    <fieldset class="fieldset">
-      <div class="grid">
-        <% I18n.available_locales.each do |locale| %>
-          <div class="grid__col--xs-12 grid__col--md-6">
-            <%= f.input "title_#{ locale }", wrapper: :text_field, label: " #{ t("business_profile.fields.featured_projects.title.label", locale: locale) } (#{ locale })", input_html: { class: input_text_direction(locale) }, required: true %>
-          </div>
-        <% end %>
-        <% I18n.available_locales.each do |locale| %>
-          <div class="grid__col--xs-12 grid__col--md-12">
-            <%= f.input "description_#{ locale }", as: :text, wrapper: :text_area, label: " #{ t("business_profile.fields.featured_projects.description.label", locale: locale) } (#{ locale })", input_html: { class: input_text_direction(locale) }, required: true %>
-          </div>
-        <% end %>
-        <div class="grid__col--xs-12 grid__col--md-6">
-          <%= f.input :video_link, wrapper: :text_field, label: t("business_profile.fields.featured_projects.video_link.label"), required: false %>
-        </div>
-      </div>
-      <div class="field js-upload-fields">
-        <div class="field field--has-btn">
-          <div class="field__input-wrapper">
-            <%= f.input :image_one, as: :file, input_html: { class: "js-file-upload", hidden: true }, label: false %>
-            <div type="text" class="field__input js-file-upload-name">
-              <span class="u-text-light js-file-upload-name"><%= f.object.image_one.present? ? f.object.image_one_file_name : t("business_profile.fields.featured_projects.photo.no_file") %></span>
+<div class="js-featured-project js-cocoon-fields u-hide featured_project_field featured_project-<%= f.object.id %>">
+  <div id="featured_project-fields-<%= f.object.id %>">
+    <div class="card__section card__section--border js-toggle-target">
+      <fieldset class="fieldset">
+        <div class="grid">
+          <div class="grid__col--xs-12 grid__col--md-12 mb4">
+            <div>
+              Add Media Files(upto 5)
             </div>
-            <a class="field__btn btn btn--secondary js-file-upload-button"><%= t("business_profile.fields.featured_projects.photo.browse") %></a>
           </div>
-        </div>
-      </div>
-      <div class="field js-upload-fields">
-        <div class="field field--has-btn">
-          <div class="field__input-wrapper">
-            <%= f.input :image_two, as: :file, input_html: { class: "js-file-upload", hidden: true }, label: false %>
-            <div type="text" class="field__input js-file-upload-name">
-              <span class="u-text-light js-file-upload-name"><%= f.object.image_two.present? ? f.object.image_two_file_name : t("business_profile.fields.featured_projects.photo.no_file") %></span>
+          <div class="grid__col--xs-12 grid__col--md-12 mb4">
+            <div class="grid">
+              <div class="grid__col--xs-4 grid__col--md-3 card field js-upload-fields u-text-center ml2">
+                <div class="">
+                  <div class="field__input-wrapper p3">
+                    <%= f.input :image_one, as: :file, input_html: { class: "js-file-upload", hidden: true }, label: false %>
+                    <a class="js-file-upload-button "><i class="fa fa-plus-circle gallery-icon--size-color" aria-hidden="true"></i>
+                      <div type="text" class="js-file-upload-name">
+                        <span class="u-text-light js-file-upload-name"><%= f.object.image_one.present? ? f.object.image_one_file_name : 'upload photo' %></span>
+                      </div>
+                    <!--<div type="text" class="field__input js-file-upload-name">
+                      <span class="js-file-upload-name"></span>
+                    </div>-->
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="grid__col--xs-4 grid__col--md-3 card field js-upload-fields u-text-center ml2">
+                <div class="">
+                  <div class="field__input-wrapper p3">
+                    <%= f.input :image_two, as: :file, input_html: { class: "js-file-upload", hidden: true }, label: false %>
+                    <a class="js-file-upload-button"><i class="fa fa-plus-circle gallery-icon--size-color" aria-hidden="true"></i>
+                      <div type="text" class="js-file-upload-name">
+                        <span class="u-text-light js-file-upload-name"><%= f.object.image_two.present? ? f.object.image_two_file_name : 'upload photo '%></span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-3 card field js-upload-fields u-text-center ml2 ">
+                <div class="">
+                  <div class="field__input-wrapper p3">
+                    <%= f.input :image_three, as: :file, input_html: { class: "js-file-upload", hidden: true }, label: false %>
+                    <a class="js-file-upload-button"><i class="fa fa-plus-circle gallery-icon--size-color" aria-hidden="true"></i>
+                      <div type="text" class="js-file-upload-name">
+                        <span class="u-text-light js-file-upload-name"><%= f.object.image_three.present? ? f.object.image_three_file_name : 'upload photo' %></span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
-            <a class="field__btn btn btn--secondary js-file-upload-button"><%= t("business_profile.fields.featured_projects.photo.browse") %></a>
           </div>
-        </div>
-      </div>
-      <div class="field js-upload-fields">
-        <div class="field field--has-btn">
-          <div class="field__input-wrapper">
-            <%= f.input :image_three, as: :file, input_html: { class: "js-file-upload", hidden: true }, label: false %>
-            <div type="text" class="field__input js-file-upload-name">
-              <span class="u-text-light js-file-upload-name"><%= f.object.image_three.present? ? f.object.image_three_file_name : t("business_profile.fields.featured_projects.photo.no_file") %></span>
+
+          <% I18n.available_locales.each do |locale| %>
+            <div class="grid__col--xs-12 grid__col--md-6 mb4">
+              <%= f.input "title_#{ locale }", wrapper: :text_field, label: " #{ t("business_profile.fields.featured_projects.title.label", locale: locale) } (#{ locale })", input_html: { class: input_text_direction(locale) }, required: true %>
             </div>
-            <a class="field__btn btn btn--secondary js-file-upload-button"><%= t("business_profile.fields.featured_projects.photo.browse") %></a>
+          <% end %>
+          <% I18n.available_locales.each do |locale| %>
+            <div class="grid__col--xs-12 grid__col--md-12 mb4">
+              <%= f.input "description_#{ locale }", as: :text, wrapper: :text_area, label: " #{ t("business_profile.fields.featured_projects.description.label", locale: locale) } (#{ locale })", input_html: { class: input_text_direction(locale) }, required: true %>
+            </div>
+          <% end %>
+          <div class="grid__col--xs-12 grid__col--md-6 mb4">
+            <%= f.input :video_link, wrapper: :text_field, label: t("business_profile.fields.featured_projects.video_link.label"), required: false %>
           </div>
         </div>
         <div class="grid">
           <div class="grid__col--xs-12 grid__col--md-6">
-            <%= link_to_remove_association f, { wrapper_class: "js-cocoon-fields", class: "mt1 btn btn--secondary js-remove-field", data: { confirm: 'Are you sure you want to remove this gallery?'} } do %><%= t("words.remove") %><% end %>
+            <%= link_to "Cancel", business_business_switch_form_section_path(@business, section: "featured_projects"), data: { section: "featured_projects" }, class: "mt1 btn btn--secondary btn--update", remote: true, method: :put %>
+          </div>
+          <div class="grid__col--xs-12 grid__col--md-6 u-text-right">
+            <%= f.submit 'Publish', class: "mt1 btn btn--primary btn--update" %>
           </div>
         </div>
-      </div>
-    </fieldset>
+      </fieldset>
+    </div>
   </div>
 </div>

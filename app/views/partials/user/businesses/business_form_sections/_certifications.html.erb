@@ -9,7 +9,7 @@
         </div>        
         <div class="table-content-pad mb-0 w-100"> 
           <% if @business.certifications.length != 1 %>
-            <%= link_to business_business_destroy_certifications_path(certification_id: certification.id), class: "", method: :delete, remote: true  do %>
+            <%= link_to business_business_destroy_certifications_path(business_id: @business.id, certification_id: certification.id), class: "", method: :delete, remote: true  do %>
               <span class="">remove</span>
             <% end %>
           <% end %>

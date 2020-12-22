@@ -25,6 +25,7 @@
               <div class="grid__col--xs-12 grid__col--md-8">
                 <h3>
                   <%#= link_to project.title, user_project_path(project), class: 'u-text-reset' %>
+
                   <%#= link_to "(#{ t("words.edit") })", edit_user_project_path(project), class: "u-text-regular" unless project.inactive? %>
                 </h3>
               </div>
@@ -80,7 +81,14 @@
           </div> -->
           <div class="single-latest-activity-box">
             <div class="heading-container">
-                <h5 class="heading"><%= project.title %></h5>
+                <div class="card__invitation">
+                  <div class="card__title__hide_button">
+                    <h5 class="heading"><%= project.title %></h5>
+                    <% if request.original_url.include?("Allprojects") %>
+                    <span><%= project.creation_status %></span>
+                    <% end %>
+                  </div>
+                </div>
                 <% if params[:filter_by] == "Completed" || params[:filter_by] == "Ongoingprojects" %>
                   <div class="sub-heading" style="color:black"> Contractor: <%= project.business.name %></div>
                   <div class="sub-heading">
@@ -133,7 +141,18 @@
       <% else %>
         <div class="card__section card__section--border">
           <p><%= t("dashboard_projects.no_projects") %>.</p>
-          <%= link_to t("links.post_project"), new_user_project_path, class: 'btn btn--primary btn--small' %>
+          <div class="grid__col--md-4 grid__col--xs-12">
+            <% if !current_user.projects.present? %>
+              <%= link_to t("main_nav.hire_professional"), new_user_project_path(project_type: "default"), class: "btn-outline-primary btn-block btn-special mt-3" %>
+              <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "suppliers"), class: "btn-outline-primary btn-block btn-special" %>
+              <%= link_to t("main_nav.buy_rent"), new_user_project_path(project_type: "machinery"), class: "btn-outline-primary btn-block btn-special" %>
+            <% else %>
+              <div class="btn-group">
+                <button class="btn btn--primary btn--small u-text-right btn-fixed--medium btn-group__item js-open-modal" data-modal="tell_use_your_needs">Tell us what you need<%#= t("links.post_project") %></button>
+              </div>
+              <%#= link_to t("links.post_project"), new_user_project_path, class: 'btn btn--primary btn--small' %>
+            <% end %>
+          </div>
         </div>
       <% end %>
     </div>

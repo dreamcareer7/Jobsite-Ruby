@@ -32,6 +32,15 @@ class User::ReviewsController < User::BaseController
   end
 
   def update
+    @review = Review.find_by_id(params[:id])
+    @review_id = @review.id
+    if @review.update!(review_params)
+      redirect_back(fallback_location:  user_reviews_path)
+      flash[:notice] = "your review has been updated."
+    else
+      redirect_back(fallback_location:  user_reviews_path)
+      flash[:error] = "review has problem to update"
+    end
   end
 
   private

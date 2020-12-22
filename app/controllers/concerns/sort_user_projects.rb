@@ -15,6 +15,8 @@ module SortUserProjects
       @projects = projects.where(project_status: :cancelled)
     when "Ongoingprojects"
       @projects = projects.where(project_status: :in_process)
+    when "Unverified"
+      @projects = projects.where(approved: 'false')
     else
       @projects = projects
     end

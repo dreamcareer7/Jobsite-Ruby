@@ -84,6 +84,10 @@ Rails.application.routes.draw do
       get "filter_services", to: "project_steps#filter_services"
       get "set_category", to: "project_steps#set_category"
 
+      member do 
+        get 'project_details', to: "projects#project_details"
+      end
+
       resources :project_business, only: [:show]
       put "shortlist_business", to: "projects#shortlist_business"
       put "accept_quote", to: "projects#accept_quote"
@@ -106,7 +110,11 @@ Rails.application.routes.draw do
     put :switch_business, to: "switch_business#switch_business"
 
     resources :stats, only: [:index]
-    resources :project_feed, only: [:index, :show]
+    resources :project_feed, only: [:index, :show] do
+      collection do
+        post 'apply_filter', to: "project_feed#sort_apply_filter"
+      end
+    end
     resources :inbox, only: [:index]
     resources :profile, only: [:index]
     resources :self_added_projects, only: [:edit, :update]
@@ -116,6 +124,7 @@ Rails.application.routes.draw do
       delete "destroy_locations", to: "businesses#destroy_locations"
       delete "destroy_team_members", to: "businesses#destroy_team_members"
       delete "destroy_certifications", to: "businesses#destroy_certifications"
+      delete "destroy_self_added_projects", to: "businesses#destroy_gallery_item"
     end
     resources :favourites, only: [:index, :show]
     resources :user_callbacks, only: [:new, :create]

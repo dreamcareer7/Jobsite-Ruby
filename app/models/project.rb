@@ -232,6 +232,15 @@ class Project < ApplicationRecord
   def generate_reference_number
     self.update_attributes(reference_number: "#{ [*'A'..'Z'].sample }#{ Date.today.strftime('%m') }#{ self.id }")
   end
+ 
+  def send_msg_to_matched_business_vendor
+    target_businesses = Business.includes(:cities, :services)
+      .by_city(self.city)
+      .by_service(self.services.uniq.flatten).distinct
+    
+    target_businesses.each do |business|
+    end
+  end
 
   class << self
 

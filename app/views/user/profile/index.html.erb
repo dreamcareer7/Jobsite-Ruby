@@ -1,6 +1,12 @@
-<div class="grid__col--md-6 mt3 change-family">
+<div class="grid__col--md-9 mt3 change-family">
   <div class="center-container">
-    <h3 class="activity-section-title">Latest Activity</h3>
+    <div class="activity__title__hide_button">
+      <h3 class="activity-section-title">Activity</h3>
+      <div class="btn-group">
+        <button class="btn btn--primary btn--small u-text-right btn-fixed--medium btn-group__item js-open-modal" data-modal="tell_use_your_needs"><%= "Tell us what you need" %></button>
+      </div>
+      <%#= link_to t("links.post_project"), new_user_project_path, class: '' %>
+    </div>
     <% if @projects.present? %>
       <!-- start Single Service list -->
       <% @projects.each do |project| %>
@@ -27,21 +33,32 @@
           </div>
         </div>
       <% end %>
+    <% else %>
+      <div class="mt1">
+        <p> No Activity </p>
+        <p><%= t("dashboard_projects.no_projects") %>.</p>
+        <div class="grid__col--md-4 grid__col--xs-12">
+          <%= link_to t("main_nav.hire_professional"), new_user_project_path(project_type: "default"), class: "btn-outline-primary btn-block btn-special mt-3" %>
+          <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "suppliers"), class: "btn-outline-primary btn-block btn-special" %>
+          <%= link_to t("main_nav.buy_rent"), new_user_project_path(project_type: "machinery"), class: "btn-outline-primary btn-block btn-special" %>
+          <%= link_to t("main_nav.add_business"), new_user_business_path,  class: 'btn-outline-primary btn-block btn-special mb-3 btn-business'  %>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>
-<div class="grid__col--md-3 mt3">
-  <%= link_to t("main_nav.hire_professional"), new_user_project_path(project_type: "default"), class: "btn-outline-primary btn-block btn-special mt-3" %>
-  <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "suppliers"), class: "btn-outline-primary btn-block btn-special" %>
-  <%= link_to t("main_nav.buy_rent"), new_user_project_path(project_type: "machinery"), class: "btn-outline-primary btn-block btn-special" %>
-  <%= link_to t("main_nav.add_business"), new_user_business_path,  class: 'btn-outline-primary btn-block btn-special mb-3 btn-business'  %> 
-  <% unless current_user.pro? %>
+<!--<div class="grid__col--md-3 mt3">
+  <%#= link_to t("main_nav.hire_professional"), new_user_project_path(project_type: "default"), class: "btn-outline-primary btn-block btn-special mt-3" %>
+  <%#= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "suppliers"), class: "btn-outline-primary btn-block btn-special" %>
+  <%#= link_to t("main_nav.buy_rent"), new_user_project_path(project_type: "machinery"), class: "btn-outline-primary btn-block btn-special" %>
+  <%#= link_to t("main_nav.add_business"), new_user_business_path,  class: 'btn-outline-primary btn-block btn-special mb-3 btn-business'  %> 
+  <%# unless current_user.pro? %>
     <div class="card promo-block u-cover">
       <div class="card__section promo-block__content">
-        <h3 class="u-text-contrast u-text-shadow"><%= t("upgrade.header") %></h3>
-        <p class="u-text-shadow u-text-contrast u-text-muted"><%= t("upgrade.blurb") %></p>
-        <span data-modal="user-upgrade-coming-soon" class="js-open-modal btn-special btn-outline-primary"><%= t("words.upgrade") %></span>
+        <h3 class="u-text-contrast u-text-shadow"><%#= t("upgrade.header") %></h3>
+        <p class="u-text-shadow u-text-contrast u-text-muted"><%#= t("upgrade.blurb") %></p>
+        <span data-modal="user-upgrade-coming-soon" class="js-open-modal btn-special btn-outline-primary"><%#= t("words.upgrade") %></span>
       </div>
     </div>
-  <% end %>
-</div>
+  <%# end %>
+</div>-->

@@ -2,16 +2,17 @@
   <div class="modal__table">
     <div class="modal__cell">
       <div class="modal__container">
-        <% if current_user %>
+        <% if current_user %> 
           <%= link_to t("main_nav.hire_professional"), new_user_project_path(project_type: "default"), class: "btn btn--primary btn-fixed--small btn-group__item" %>
-          <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "supplier"), class: "btn btn--turquoise btn-fixed--small btn-group__item" %>
+          <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "suppliers"), class: "btn btn--turquoise btn-fixed--small btn-group__item" %>
           <%= link_to t("main_nav.buy_rent"), new_user_project_path(project_type: "machinery"), class: "btn btn--yellow btn-fixed--small btn-group__item" %>
-          <%= link_to t("main_nav.post_a_project"), new_user_project_path, class: "btn btn--grey btn-fixed--small btn-group__item" %>
+          <%= link_to t("main_nav.add_business"), new_user_business_path,  class: 'btn btn--grey btn-fixed--small btn-group__item' %>
+          <%#= link_to t("main_nav.post_a_project"), new_user_project_path, class: " btn btn--grey btn-fixed--small btn-group__item" %>
         <% else %>
           <button data-modal="please-log-in" data-modal-target="project" class="js-open-modal btn btn--primary btn-fixed--small btn-group__item"><%= t("main_nav.hire_professional") %></button>
           <button data-modal="please-log-in" data-modal-target="project" class="js-open-modal btn btn--turquoise btn-fixed--small btn-group__item"><%= t("main_nav.get_supplies") %></button>
           <button data-modal="please-log-in" data-modal-target="project" class="js-open-modal btn btn--yellow btn-fixed--small btn-group__item"><%= t("main_nav.buy_rent") %></button>
-          <button data-modal="please-log-in" data-modal-target="project" class="js-open-modal btn btn--grey btn-fixed--small btn-group__item"><%= t("main_nav.post_a_project") %></button>
+          <!-- <button data-modal="please-log-in" data-modal-target="project" class="js-open-modal btn btn--grey btn-fixed--small btn-group__item"><%#= t("main_nav.post_a_project") %></button>-->
         <% end %>
       </div>
     </div>

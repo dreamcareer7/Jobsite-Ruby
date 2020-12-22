@@ -6,13 +6,13 @@
           <%= image_tag(team_member.profile_image, class: "u-circle u-border js-file-upload-button js-photo-placeholder") %>
           <p><%= team_member.name_en %></p>
           <p><%= team_member.name_ar %></p>
-          <p><%= team_member.role.capitalize %></p>
+          <p><%= team_member.role %></p>
           <p><%= team_member.phone_number %></p>
           <p><%= team_member.email %></p>
         </div>
         <div class="table-content-pad mt2 mb-4"> 
           <% if @business.team_members.length != 1 %>
-            <%= link_to business_business_destroy_team_members_path(team_member_id: team_member.id), class: "", method: :delete, remote: true  do %>
+            <%= link_to business_business_destroy_team_members_path(business_id: @business.id, team_member_id: team_member.id), class: "", method: :delete, remote: true  do %>
               <span class="">remove</span>
             <% end %>
           <% end %>
@@ -35,7 +35,6 @@
 </div>
 
 <script>
-
   function setteam_members(team_member_id){
     $('.team-page').html("<%=j render partial: "partials/user/businesses/business_form_sections/field_partials/edit_teams", locals: {f:f}%>")
     $('.team_member_form').addClass('u-hide');

@@ -15,11 +15,11 @@ class Business::InboxController < Business::BaseController
 
     @project_messages = @projects.collect(&:messages).flatten.sort_by!(&:created_at).reverse!.select(&:project_id).uniq(&:project_id)
 
-    @project_correspondence = [ @project_messages, @project_notifications ].flatten.sort_by{ |pc| pc.created_at }.reverse!.select(&:project_id).uniq(&:project_id)
+    @project_correspondence = [ @project_messages ].flatten.sort_by{ |pc| pc.created_at }.reverse!.select(&:project_id).uniq(&:project_id)
 
     @conversations = @current_business.conversations.collect(&:messages).flatten.sort_by!(&:created_at).reverse!.select(&:conversation_id).uniq(&:conversation_id)
 
-    @inbox = @project_correspondence + @other_notifications + @conversations
+    @inbox = @project_correspondence  + @conversations #+ @other_notifications
 
     array = []
     @projects.each do |project|
@@ -31,15 +31,15 @@ class Business::InboxController < Business::BaseController
     @project_message_array = array
 
     if @inbox.present?
-      @active_message = @inbox.first if @inbox.present?
+      @active_message = @inbox.first
       if @active_message.project.present?
         @conversation_messages = @inbox.first.project.messages_with_business(@inbox.first.business).order(created_at: :asc)
         @project = @inbox.first.project
-        @business = @inbox.first.business
       else
-        @conversation = Conversation.find(@inbox.conversation_id)
+        @conversation = Conversation.find(@active_message.conversation_id)
         @conversation_messages = @conversation.messages.order(created_at: :asc)
       end
+      @business = @inbox.first.business
       @file_messages = @conversation_messages.select{|a| a if a.attachment.present? && a.attachment.attachment_content_type == 'application/pdf' }
       @media_messages = @conversation_messages.select{|a| a if a.attachment.present? && a.attachment.attachment_content_type != 'application/pdf' }
       @link_messages = nil

@@ -59,7 +59,7 @@
                   </table>
                 </div>
                 <div class="grid__col--md-12 mt2">
-                  <%= simple_form_for [:user, review] do |f| %>
+                  <%= simple_form_for [:user, review], remote: true do |f| %>
                     <div class="field">
                       <%= f.input :comment, wrapper: :text_area, placeholder:"Comments", label:false %>
                     </div>

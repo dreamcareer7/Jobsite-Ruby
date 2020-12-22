@@ -17,5 +17,9 @@ module SortProjectFeed
 
   end
 
+  def handle_sorting_with_category_city(projects, category_ids, city_ids)
+    @projects = projects.where( category_id: category_ids).by_city(city_ids)
+  end
+
 end
 

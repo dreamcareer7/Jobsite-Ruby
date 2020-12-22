@@ -313,7 +313,6 @@ body{
 }
 .activity-section-title{
   padding: 15px 15px 15px 15px;
-  border-bottom: 0.5px solid rgba($border-color,0.1);
   font-size: 1.75rem;
 }
 .dashboard-sidebar-profile-container{
@@ -712,7 +711,7 @@ a.sidebar-link {
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 .btn-msg {
-  padding: 0px 18px !important; 
+  padding: 0px 18px !important;
   i {
     color:#d14a3e !important;
   }
@@ -1563,6 +1562,10 @@ label {
   }
 }
 
+.emoji-picker-container {
+  min-width: 270px !important;
+}
+
 // Message Seaction End
 
 
@@ -2083,6 +2086,20 @@ visibility: visible;
     }
   }
 }
+
+.icon--image{
+  background: #fff;
+  padding: 10px;
+  border-radius: 100%;
+  color: #000;
+  font-weight: bold;
+}
+
+.icon--position {
+  position: absolute;
+  right: 14%;
+  top: 24%;
+}
 //end
 
 
@@ -2106,4 +2123,22 @@ visibility: visible;
     align-items: center;
     text-align: center !important;
     display: block;
+}
+
+// gallery-page
+.gallery-icon--size-color {
+  color: #bababa;
+  font-size: 6rem
+}
+// gallery-page end
+
+.activity__title__hide_button{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 1px solid rgba($border-color,0.1);
+  p{
+    margin-bottom: 5px;
+  }
 }

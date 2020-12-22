@@ -82,7 +82,7 @@ class Business < ApplicationRecord
 
   validates :name, presence: true, on: :create
 
-  attr_accessor :sub_categories_chosen, :business_days_start, :business_days_end, :business_time
+  attr_accessor :sub_categories_chosen, :business_days_start, :business_days_end, :business_time, :license_expiration_date
 
   belongs_to :user
 

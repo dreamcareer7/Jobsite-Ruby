@@ -1,6 +1,7 @@
 en:
 
   gallery:
+    name: "Gallery"
     header: "Get Inspired"
     blurb: "Scroll through the gallery and explore all your project needs with your own eyes"
     uploaded: "Uploaded by"

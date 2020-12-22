@@ -1,12 +1,11 @@
 <section class="section-page section--alt">
   <div class="">
     <div class="grid">
-      <%# unless @business.approved %>
-        <!--
+      <% unless @business.approved %>
         <div class="grid__col--xs-12">
-          <div class="card banner banner--primary"><%#= t("dashboard.awaiting") %> <%#= link_to edit_business_business_path(@business), class: "u-text-contrast u-text-underline" do %><%#= t("dashboard.complete") %><%# end %> <%#= t("dashboard.wait") %></div>
-        </div> -->
-      <%# end %>
+          <div class="card banner banner--primary"><%= t("dashboard.awaiting") %> <%= link_to edit_business_business_path(@business), class: "u-text-contrast u-text-underline" do %><%= t("dashboard.complete") %><% end %> <%= t("dashboard.wait") %></div>
+        </div>
+      <% end %>
       <div class="grid__col--xs-12 grid__col--md-3 grid__col--lg-3">
         <div class="card">
           <div class="card__section">
@@ -51,14 +50,13 @@
       </div>
 
       <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-6">
-
         <% @messages.each do |message| %>
-          <div class="card card__invitation">
+          <div class="card card__invitation iosdop">
             <div class="card__section">
               <div class="card__header">
                 <div class="card__title__hide_button">
                   <p class="invitation-type-title">Message</p>
-                  <p class="hide-button"><i class="fa fa-times"></i> hide</p>
+                  <span onclick='hideElement(this)'><p class="hide-button"><i class="fa fa-times"></i> hide</p></span>
                 </div>
               </div>
 
@@ -89,7 +87,7 @@
               </div>
             </div>
           </div>
-        <%end%>
+        <% end %>
 
         <div class="card">
           <div class="card__section">
@@ -116,43 +114,6 @@
             </div>
           </div>
         </div>
-
-        <!--div class="card">
-          <div class="card__section">
-            <div class="card__header">
-              <h4 class="card__title"><%#= inline_svg("icons/chat.svg", class: "icon icon--brand icon--small") %><%#= t("dashboard.latest_messages") %></h4>
-              <%#= link_to t("dashboard.view_more"), business_inbox_index_path, class: "btn btn--link" unless @messages.blank? %>
-            </div>
-            <div class="grid grid--v-padded">
-              <%# if @messages.present? %>
-                <%# @messages.each do |message| %>
-                  <div class="grid__col--xs-12">
-                    <div class="media small">
-                      <div class="media__figure u-hide--small-down">
-                        <%#= image_tag message.sender.profile_image.url, class: "avatar" %>
-                      </div>
-                      <div class="media__body">
-                        <strong class="u-block mb1"><%#= "#{ message.sender.name }, #{ message.sender.is_a?(Business) ? message.sender.locations.first.city_country : message.sender.city_country }" %></strong>
-                        <small class="u-text-light mb1 u-inline-block"><%#= message.created_at %></small>
-                        <p><%#= truncate(message.body, length: 70) %></p>
-                        <%# if message.project_id.present? %>
-                          <%#= link_to t("dashboard.read_more"), business_project_feed_path(message.project_id) %>
-                        <%# else %>
-                          <%#= link_to t("dashboard.read_more"), business_message_path(message) %>
-                        <%# end %>
-                      </div>
-                    </div>
-                  </div>
-                <%# end %>
-              <%# else %>
-                <div class="grid__col--xs-12">
-                  <p><%#= t("dashboard.no_messages") %></p>
-                </div>
-              <%# end %>
-            </div>
-          </div>
-        </div>-->
-
 
         <div class="card">
           <div class="card__section">
@@ -184,14 +145,92 @@
             </div>
           </div>
         </div>
+
+        <!--- New Invitations & Quotes Requests -->
+        <% @invitation_quotes.each do |invitation| %>
+          <div class="card card__invitation iosdop">
+            <div class="card__section">
+              <div class="card__header">
+                <div class="card__title__hide_button">
+                  <p class="invitation-type-title">Invitations</p>
+                  <span onclick="hideElement(this);"><p class="hide-button"><i class="fa fa-times"></i> hide</p></span>
+                </div>
+              </div>
+
+              <div class="card__invitation__body">    
+                <div class="media small">
+                  <div class="media__body">
+                    <div class="heading-container">
+                      <div class="text-and-button-container">
+                        <div class="left-content">
+                          <div class="heading-container">
+                            <h5 class="heading"><%= invitation.project.title %></h5>
+                            <div class="sub-heading">
+                              <span class="activity-preview-button"><i class="fa fa-clock-o" aria-hidden="true"></i>  <%= time_ago_in_words(invitation.updated_at) %> <%= t("words.ago") %> </span>
+                              <%= link_to user_project_path(invitation.project),  style: "text-decoration: none;color:black" do %>
+                                <span class="activity-preview-button"><i class="fa fa-external-link" aria-hidden="true"></i> Preview</span>
+                              <% end %>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="right-content">
+                          <%= link_to t("projects.view_project"), user_project_path(invitation.project), class: "btn-outline-primary btn-block btn-special mt-3" %>      
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <% @quote_requests.each do |quote| %>
+          <div class="card card__invitation">
+            <div class="card__section">
+              <div class="card__header">
+                <div class="card__title__hide_button">
+                  <p class="invitation-type-title">Quote Requests</p>
+                  <span onclick='hideElement(this)'><p class="hide-button"><i class="fa fa-times"></i> hide</p></span>
+                </div>
+              </div>
+
+              <div class="card__invitation__body">    
+                <div class="media small">
+                  <div class="media__body">
+                    <div class="heading-container">
+                      <div class="text-and-button-container">
+
+                        <div class="left-content">
+                          <div class="progress-bar-with-percentage">
+                            <h5 class="heading"><%= quote.project.user.name %></h5>
+                            <span class="activity-edit-button ml2"><%= time_ago_in_words("#{quote.updated_at}") %> <%= t("words.ago") %></span>
+                          </div>
+                          <div class="sub-heading">
+                            <p><%= truncate(quote.proposal, length: 70) %></p>
+                          </div>
+                        </div>
+
+                        <div class="right-content">
+                          <span data-modal="view-quote" class="js-open-modal btn-outline-primary btn-block btn-special mt-3"><%= t("project.view_quote") %></span>
+                          <%#= link_to "view requests", user_project_path(invitation.project), class: "btn-outline-primary btn-block btn-special mt-3" %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%= render partial: "modals/projects/view_quote", locals: { project: quote.project, business: quote.business, quote: quote } %>
+        <% end %>
       </div>
       <div class= "grid__col--xs-12 grid__col--md-3 grid__col--lg-3">
         <%= link_to  t("profile_nav.business.feed"), business_project_feed_index_path, class: "btn-block btn-special btn-business-dashboard mt-3" %>
 
         <div class="featured-lists mb-4">
-
           <h5 class="saved-lists-heading"><i class="fa fa-bookmark" aria-hidden="true"></i> Featured Project</h5>
-
           <ul>
             <li>I need a professional contractors</li>
             <li>I need a professional consultants</li>
@@ -204,3 +243,10 @@
     </div>
   </div>
 </section>
+
+<script>
+  function hideElement($this){
+    var element = $this.closest('.card');
+    element.hidden = true
+  }
+</script>

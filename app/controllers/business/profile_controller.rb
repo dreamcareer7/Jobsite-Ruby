@@ -10,6 +10,9 @@ class Business::ProfileController < Business::BaseController
     @messages = @business.incoming_messages.order(updated_at: :desc).first(2)
     @notifications = @business.incoming_notifications.order(updated_at: :desc).first(3)
 
+    @invitation_quotes = @current_business.quote_requests.last(5)
+    @quote_requests = @current_business.quotes.last(5)
+
     @profile_views = @business.impressionist_count(message: "profile_view", filter: :all)
     @website_visits = @business.impressionist_count(message: "website_view", filter: :all)
     @social_media_visits = @business.impressionist_count(message: "social_view", filter: :all)

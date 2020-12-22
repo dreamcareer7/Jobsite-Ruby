@@ -9,33 +9,36 @@
       <% @conversation_messages.each_with_index do |message, index| %>
         <%= render partial: "partials/inbox/format_conversation_body", locals: { message: message, previous_message: index == 0 ? "" : @conversation_messages[index - 1] } %>
       <% end %>
-      <div class="card__section">
-        <fieldset class="fieldset">
-          <%= simple_form_for(@message, url: url, method: :post) do |f| %>
-            <div class="new-message-textbox-with-send-button">
-              <div class="field__input-wrapper new-message-textbox">
-                <div class="emoji-picker-container">
-                  <%= f.input :body, wrapper: :text_area, placeholder: t("messages.placeholder"), input_html: { class: "form-control", id:"describe-your-request", rows:"2", data: { emojiable:true } }, label: false %>
-                  <%= f.simple_fields_for :attachment do |ff| %>
-                    <%= ff.input :attachment, as: :file, input_html: { class: "js-file-upload", hidden: true }, label: false %>
-                    <span class="field__add-on field__add-on--right-custom" onclick="clickBrowseProjectPhoto($(this));"><i class="fa fa-paperclip fa-2x"></i></span>
-                    <div class="clearfix uploadImgBox">
-                      <div class="remove-blog">
-                        <iframe id="output" width="100px" height="100px" style="display:none; overflow:hidden;"></iframe>
-                        <!--<img id="output"/ width="100px" height="100px" style="display:none" />-->
-                        <span onclick= "hideBlock($(this));" class="remove-attachment-button"><%= inline_svg("icons/cancel.svg", class: "mr-3 icon icon--small btn__add-on") %></span>
+      <div class="grid">
+        <div class="grid__col--xs-12 grid__col--md-12">
+          <fieldset class="fieldset">
+            <%= simple_form_for(@message, url: url, method: :post) do |f| %>
+              <div class="new-message-textbox-with-send-button">
+                <div class="field__input-wrapper new-message-textbox">
+                  <div class="emoji-picker-container">
+                    <%= f.input :body, wrapper: :text_area, placeholder: t("messages.placeholder"), input_html: { class: "form-control", id:"describe-your-request", rows:"2", data: { emojiable:true } }, label: false %>
+                    <%= f.simple_fields_for :attachment do |ff| %>
+                      <%= ff.input :attachment, as: :file, input_html: { class: "js-file-upload", hidden: true }, label: false %>
+                      <span class="field__add-on field__add-on--right-custom" onclick="clickBrowseProjectPhoto($(this));"><i class="fa fa-paperclip fa-2x"></i></span>
+                      <div class="clearfix uploadImgBox">
+                        <div class="remove-blog">
+                          <iframe id="output" width="100px" height="100px" style="display:none; overflow:hidden;"></iframe>
+                          <!--<img id="output"/ width="100px" height="100px" style="display:none" />-->
+                          <span onclick= "hideBlock($(this));" class="remove-attachment-button"><%= inline_svg("icons/cancel.svg", class: "mr-3 icon icon--small btn__add-on") %></span>
+                        </div>
                       </div>
-                    </div>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="field u-text-right">
+                  <%= button_tag type: 'submit', class: "button my-button" do %>
+                    <i class="fa fa-paper-plane send-icon" aria-hidden="true"></i>
                   <% end %>
+                </div>
               </div>
-              <div class="field u-text-right">
-                <%= button_tag type: 'submit', class: "button my-button" do %>
-                  <i class="fa fa-paper-plane send-icon" aria-hidden="true"></i>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
-        </fieldset>
+            <% end %>
+          </fieldset>
+        </div>
       </div>
     </div>
   </div>

@@ -57,6 +57,8 @@
     <% if ["businesses", "user/businesses", "user/projects", "user/project_steps", "business/businesses"].include? controller_path %>
       <%= render partial: "modals/map/choose_location" %>
     <% end %>
+
+    <%= render partial: "modals/home/tell_use_your_needs" %>
     
     <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
     

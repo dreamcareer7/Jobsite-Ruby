@@ -15,11 +15,10 @@
       <% images = [get_thumbnail(item.video_link)] %>
     <% end %>
 <% end %>
-
 <div class="product-card">
     <div class="wrapper">
       <% urls = images.map {|img| img.url(:large)} unless video %>
-      <div class="tile-section <%= 'custom_carousel' if urls.length > 1 %>" data-images="<%= urls.to_json unless video %>">
+      <div class="tile-section <%= 'custom_carousel' if (urls.present? && urls.length > 1) %>" data-images="<%= urls.to_json unless video %>">
         <% images.each_with_index do |img, index| %>
           <div>
             <% img_url = video ? images[0] : img.url(:large) %>
@@ -35,7 +34,7 @@
               <%= image_tag img_url, class: "d-block w-100 js-open-modal", data: { modal: "image-viewer", index: index } %>
             <% end %>
           </div>
-        <% end %>
+        <% end if images.present? %>
       </div>
     </div>
   <div class="product-name-and-footer-container">
@@ -79,6 +78,14 @@
           </div>
         </div>
       </div>
+      <% if  ["businesses"].include?(controller_name) && action_name == 'switch_form_section' %>
+        <div class="float-right">
+          <span class="location-field" onclick=" setgallery(<%= item.id %>)", id="<%= item.id %>"><i class="fa fa-pencil"></i></span>
+          <%= link_to business_business_destroy_self_added_projects_path(item_id: item.id), class: "", method: :delete, remote: true  do %>
+            <i class="fa fa-trash"></i>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
