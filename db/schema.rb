@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170309201256) do
+ActiveRecord::Schema.define(version: 20201008142852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,8 +94,9 @@ ActiveRecord::Schema.define(version: 20170309201256) do
     t.datetime "attachment_updated_at"
     t.string   "owner_type"
     t.integer  "owner_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "favoratable_count",       default: 0
     t.index ["owner_type", "owner_id"], name: "index_attachments_on_owner_type_and_owner_id", using: :btree
   end
 
@@ -261,6 +262,7 @@ ActiveRecord::Schema.define(version: 20170309201256) do
     t.integer  "admin_editor"
     t.datetime "admin_edit_date"
     t.float    "profile_completion",         default: 0.0
+    t.integer  "favoratable_count",          default: 0
   end
 
   create_table "categories", force: :cascade do |t|
@@ -396,6 +398,15 @@ ActiveRecord::Schema.define(version: 20170309201256) do
     t.string   "continent"
     t.index ["country_id"], name: "index_country_translations_on_country_id", using: :btree
     t.index ["locale"], name: "index_country_translations_on_locale", using: :btree
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "favoratable_type"
+    t.integer  "favoratable_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["user_id"], name: "index_favorites_on_user_id", using: :btree
   end
 
   create_table "favourites", force: :cascade do |t|
@@ -720,6 +731,7 @@ ActiveRecord::Schema.define(version: 20170309201256) do
     t.integer  "business_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "favoratable_count",        default: 0
   end
 
   create_table "service_translations", force: :cascade do |t|

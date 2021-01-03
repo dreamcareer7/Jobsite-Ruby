@@ -19,7 +19,8 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
+  #config.assets.js_compressor = :uglifier
+  config.assets.js_compressor = Uglifier.new(harmony: true)
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
@@ -95,7 +96,7 @@ Rails.application.configure do
     storage: :s3,
     s3_protocol: :https,
     s3_credentials: {
-      s3_host_name: ENV.fetch('S3_HOST_NAME'),
+#      s3_host_name: ENV.fetch('S3_HOST_NAME'),
       s3_region: ENV.fetch('AWS_REGION'),
       bucket: ENV.fetch('S3_BUCKET_NAME'),
       access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),

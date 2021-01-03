@@ -4,20 +4,32 @@ default: &default
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
-  host: localhost
-  username: postgres
-  password: postgres
-
 
 development:
   <<: *default
+  #host: localhost
+  #username: postgres
+  #password: postgres
   database: muqawiloon_development
 
+staging:
+  <<: *default
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['RDS_PORT'] %>
 test:
   <<: *default
+  host: localhost
+  username: postgres
+  password: postgres
   database: muqawiloon_test
 
 production:
   <<: *default
-  url: <%= ENV["DATABASE_URL"] %>
-
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['RDS_PORT'] %>
