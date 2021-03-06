@@ -15,7 +15,6 @@ gem 'turbolinks', '~> 5.x'
 gem 'jbuilder', '~> 2.0'
 gem 'oj'
 gem 'figaro'
-
 gem 'simple_form'
 gem 'country_select'
 gem 'devise', '4.0.0.rc1'
