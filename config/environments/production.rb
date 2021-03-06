@@ -11,7 +11,7 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local       = true
   config.action_controller.perform_caching = true
 
   # Disable serving static files from the `/public` folder by default since
@@ -48,7 +48,7 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :info
+  config.log_level = :debug
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
@@ -60,9 +60,14 @@ Rails.application.configure do
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
   end
+  
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
+  endpoint    = "prod-march-2021.6taks2.0001.apse1.cache.amazonaws.com:11211"
+  elasticache = Dalli::ElastiCache.new(endpoint)
+  
+  config.cache_store = :dalli_store, elasticache.servers, {:expires_in => 1.day, :compress => true}
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque

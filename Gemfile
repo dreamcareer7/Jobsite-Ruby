@@ -29,6 +29,8 @@ gem 'sinatra', github: 'sinatra/sinatra', require: nil
 gem 'geocoder'
 gem 'kaminari',   github: 'amatsuda/kaminari', branch: '0-17-stable'
 gem 'faker'
+gem 'dalli'
+gem 'dalli-elasticache'
 gem 'redis'
 gem 'globalize-accessors'
 #gem 'globalize', github: 'globalize/globalize'
