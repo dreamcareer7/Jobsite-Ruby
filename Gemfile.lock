@@ -1407,7 +1407,6 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    select2-rails (4.0.13)
     sendgrid-ruby (6.3.4)
       ruby_http_client (~> 3.4)
     sidekiq (4.2.10)
@@ -1561,7 +1560,6 @@ DEPENDENCIES
   rspec-support!
   rubyzip
   sass-rails (~> 5.0)
-  select2-rails
   sendgrid-ruby
   sidekiq (< 5)
   simple_form

@@ -20,7 +20,6 @@ gem 'simple_form'
 gem 'country_select'
 gem 'devise', '4.0.0.rc1'
 gem 'devise_invitable', '~> 1.6'
-gem "select2-rails"
 gem 'devise-async'
 gem 'pundit'
 gem 'paperclip', github: 'thoughtbot/paperclip'
