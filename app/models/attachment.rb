@@ -69,7 +69,7 @@ class Attachment < ApplicationRecord
 
   class << self
     def project_images
-      Attachment.where(owner_type: "Project").select{ |attachment| attachment.is_image? }
+      Attachment.where(owner_type: "Project").select{ |attachment| attachment.is_image_type? }
     end
   end
 
