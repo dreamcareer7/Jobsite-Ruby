@@ -45,11 +45,13 @@ class SubCategory < ApplicationRecord
   end
 
   def self.popular_by_listing_count(city)
+    Rails.cache.fetch("#{Rails.env}_popular_by_listing_#{city.id}"){
     by_listing_count = SubCategory.includes(:businesses).to_a.sort_by do |sub_category| 
       sub_category.active_businesses_in_city(city)
     end
 
     by_listing_count.reverse!
+  }
   end
 
   def description(city)

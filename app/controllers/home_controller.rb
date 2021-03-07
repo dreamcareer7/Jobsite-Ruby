@@ -5,9 +5,9 @@ class HomeController < ApplicationController
 
   def index
     @current_city= City.first
-    @categories = Category.order(created_at: :asc)
-    @popular_sub_categories = SubCategory.visible.includes(:category_metadata).popular_by_listing_count(@current_city).first(4)
-    @specialist = Category.where(name: "Specialists").first
+    @categories = CachedItems.all_categories
+    @popular_sub_categories = CachedItems.popular_items(@current_city)
+    @specialist = CachedItems.spec_cat
     @city_image = @current_city.city_image ? @current_city.city_image : ''
 
     setup_trending_section
