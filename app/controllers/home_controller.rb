@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   before_action :check_path_contains_city
 
   def index
-    @current_city= City.first
+    #@current_city= City.first
     @categories = CachedItems.all_categories
     @popular_sub_categories = CachedItems.popular_items(@current_city)
     @specialist = CachedItems.spec_cat
