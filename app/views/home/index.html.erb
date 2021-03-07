@@ -75,7 +75,7 @@
           </div>
         </div>
         <div class="grid">
-          <% @specialist.services.visible.shuffle.first(16).in_groups_of(4) do |service_group| %>
+          <% @specialist_cached_services.each do |service_group| %>
             <div class="grid__col--xs-12 grid__col--sm-6 grid__col--lg-3">
               <% service_group.each do |service| %>
                 <% next if service == nil %>

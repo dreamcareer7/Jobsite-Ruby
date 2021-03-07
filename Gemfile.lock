@@ -1346,6 +1346,8 @@ GEM
     rack (2.2.3)
     rack-contrib (2.2.0)
       rack (~> 2.0)
+    rack-mini-profiler (2.3.1)
+      rack (>= 1.2.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.7.2)
@@ -1552,6 +1554,7 @@ DEPENDENCIES
   pry-theme
   puma
   pundit
+  rack-mini-profiler
   rack-protection
   rails (~> 5)
   rails-i18n

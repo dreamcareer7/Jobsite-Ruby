@@ -34,7 +34,9 @@ class SubCategory < ApplicationRecord
   scope :enabled, -> { where(disabled: false) }
 
   def active_businesses_in_city(city)
+    Rails.cache.fetch("#{Rails.env}_active_businesses_in_city_#{city.id}"){
     self.businesses.active.by_city(city).count
+    }
   end
 
   def slug_candidates

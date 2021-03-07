@@ -8,6 +8,7 @@ class HomeController < ApplicationController
     @categories = CachedItems.all_categories
     @popular_sub_categories = CachedItems.popular_items(@current_city)
     @specialist = CachedItems.spec_cat
+    @specialist_cached_services =CachedItems.cached_sp_services(@specialist)
     @city_image = @current_city.city_image ? @current_city.city_image : ''
 
     setup_trending_section

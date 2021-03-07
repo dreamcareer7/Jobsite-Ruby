@@ -15,6 +15,25 @@ class CachedItems
       end
 
 
+
+
+      def self.get_cached_city(city)
+        Rails.cache.fetch("#{Rails.env}_get_cached_city_#{city}"){
+        City.unscoped.friendly.find(city.downcase)
+        }
+      end 
+      def self.all_country_cities(city)
+
+
+      end
+
+      def self.cached_sp_services(specialist)
+        Rails.cache.fetch("#{Rails.env}_cached_sp_services_new_#{specialist.id}"){
+            
+        specialist.services.visible.shuffle.first(16).in_groups_of(4).to_a
+
+        }
+      end
       def self.popular_items(city)
         Rails.cache.fetch("#{Rails.env}_popular_items_new_#{city.id}"){
         SubCategory.visible.includes(:category_metadata).popular_by_listing_count(city).first(4).to_a

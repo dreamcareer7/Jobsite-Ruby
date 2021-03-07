@@ -1,10 +1,17 @@
 class ApplicationController < ActionController::Base
+
+
   protect_from_forgery with: :exception
 
   include Localise::UserCity
   include Localise::UserCoordinates
   include Localise::UserDistance
   include Localise::UserLanguage
+  before_action do
+   if ENV["ENABLE_MINI"]
+      Rack::MiniProfiler.authorize_request
+   end 
+  end
   before_action :current_language
   before_action :current_city
   before_action :current_coordinates

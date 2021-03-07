@@ -21,7 +21,7 @@
         <div class="popover popover--wide popover--arrow">
 
           <% if @current_city %>
-            <% @current_city.country_cities.order(:name).each do |city| %>
+            <% @current_city.all_country_cities.each do |city| %>
               <% next if city == @current_city %>
               <%= link_to city.name, city_choose_city_path(city), method: :put, class: "popover__link" %>
             <% end %>

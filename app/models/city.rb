@@ -24,6 +24,12 @@ class City < ApplicationRecord
   translates :name, fallbacks_for_empty_translations: true
   globalize_accessors
 
+  def all_country_cities
+    Rails.cache.fetch("#{Rails.env}_all_country_cities_ng_#{id}"){
+      country.cities.enabled.order(:name)
+      }
+    
+      end
   def city_image
     return false unless self.city_banners.present?
     self.city_banners.sample
@@ -73,8 +79,13 @@ class City < ApplicationRecord
     .sort_by{ |city| distance("#{ city.latitude }, #{ city.longitude}", "#{ self.latitude }, #{ self.longitude }") }
   end
 
+
+
+
   def country_cities
+    #Rails.cache.fetch("#{Rails.env}_country_cities_n_#{id}"){
     self.country.cities.enabled
+    #}
   end
 
 end

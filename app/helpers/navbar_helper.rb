@@ -1,7 +1,10 @@
 module NavbarHelper
   def supplier_sub_caegory(name)
+    Rails.cache.fetch("#{Rails.env}_supplier_sub_caegory_#{name}"){
     Category.find_by(slug: name).sub_categories.includes(:category_metadata)
             .visible.enabled.order(name: :asc).limit(28)
+
+    }
   end
 
   def contractor_sub_categories

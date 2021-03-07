@@ -46,9 +46,11 @@ module Localise::UserCity
   end
 
   def get_city_from_path
+
+   
     return false unless params[:city].present?
 
-    begin city = City.unscoped.friendly.find(params[:city].downcase)
+    begin city = CachedItems.get_cached_city(params[:city])
       return city if city && city.enabled?
 
     rescue ActiveRecord::RecordNotFound
