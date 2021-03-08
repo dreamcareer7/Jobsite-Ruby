@@ -59,7 +59,7 @@ gem "omniauth-google-oauth2", '>= 0.6.0'
 gem "omniauth-linkedin-oauth2", '>= 1.0.0'
 gem 'sprockets-es6'
 gem 'appsignal', group: :production
-gem 'newrelic_rpm', group: :production
+#gem 'newrelic_rpm', group: :production
 gem 'groupdate'
 gem 'sitemap_generator'
 gem 'fog-aws'
