@@ -12,8 +12,9 @@ class HomeController < ApplicationController
     #@specialist =Category.find_by_name("Specialists")
     @specialist =Category.find(9)
     puts @specialist.to_json
-    @specialist_cached_services =@specialist.services.visible.shuffle.first(16).in_groups_of(4)
-    #@specialist_cached_services =CachedItems.cached_sp_services(@specialist)
+    #@specialist_cached_services =@specialist.services.visible.shuffle.first(16).in_groups_of(4)
+    @specialist_cached_services =CachedItems.cached_sp_services(@specialist)
+    
     @city_image = @current_city.city_image ? @current_city.city_image : ''
     
     setup_trending_section

@@ -25,7 +25,7 @@ class City < ApplicationRecord
   globalize_accessors
 
   def all_country_cities
-    Rails.cache.fetch("#{Rails.env}_all_country_cities_ng_#{id}"){
+    Rails.cache.fetch("#{Rails.env}_all_country_cities_ng_#{id}_#{I18n.locale}"){
       country.cities.enabled.order(:name)
       }
     
@@ -83,9 +83,9 @@ class City < ApplicationRecord
 
 
   def country_cities
-    #Rails.cache.fetch("#{Rails.env}_country_cities_n_#{id}"){
+    Rails.cache.fetch("#{Rails.env}_country_cities_n_#{id}_#{I18n.locale}"){
     self.country.cities.enabled
-    #}
+    }
   end
 
 end

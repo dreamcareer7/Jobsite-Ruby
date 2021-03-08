@@ -41,6 +41,7 @@
     <div class="product-card-name-and-by-container">
       <div class="product-card-product-name"><%= gallery_tile_title(owner) %></div>
       <div class="product-card-product-by">
+      
         <%= link_to business_path(id: gallery_item_slug(owner), city: @current_city.slug, targetSection: 'projects-all'), class: '' do %>
         <%= gallery_tile_company(owner) %>
           <%end%>

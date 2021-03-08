@@ -34,7 +34,7 @@ class SubCategory < ApplicationRecord
   scope :enabled, -> { where(disabled: false) }
 
   def active_businesses_in_city(city)
-    Rails.cache.fetch("#{Rails.env}_active_businesses_in_city_#{city.id}"){
+    Rails.cache.fetch("#{Rails.env}_active_businesses_in_city_#{city.id}_#{I18n.locale}"){
     self.businesses.active.by_city(city).count
     }
   end
@@ -47,7 +47,7 @@ class SubCategory < ApplicationRecord
   end
 
   def self.popular_by_listing_count(city)
-    Rails.cache.fetch("#{Rails.env}_popular_by_listing_#{city.id}"){
+    Rails.cache.fetch("#{Rails.env}_popular_by_listing_#{city.id}_#{I18n.locale}"){
     by_listing_count = SubCategory.includes(:businesses).to_a.sort_by do |sub_category| 
       sub_category.active_businesses_in_city(city)
     end

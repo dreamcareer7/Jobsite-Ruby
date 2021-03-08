@@ -14,9 +14,12 @@ module GalleryHelper
   end
 
   def gallery_item_slug(owner)
+
+    Rails.logger.error(owner.id)
     if owner.is_a?(SelfAddedProject)
       owner.business.slug
     elsif owner.is_a?(Business)
+    
       owner.slug
     end
   end
