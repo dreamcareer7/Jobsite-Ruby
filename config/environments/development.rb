@@ -63,9 +63,9 @@ Rails.application.configure do
 
   # Enable Bullet to track redundant DB queries
   config.after_initialize do
-    Bullet.enable = false
-    Bullet.rails_logger = true
-    Bullet.add_footer = true
+    #Bullet.enable = false
+    #Bullet.rails_logger = true
+    #Bullet.add_footer = true
   end
 
   Paperclip.options[:command_path] = "/usr/bin/identify"
