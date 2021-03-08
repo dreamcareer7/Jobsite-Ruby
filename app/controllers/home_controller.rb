@@ -7,12 +7,12 @@ class HomeController < ApplicationController
     
     @categories = CachedItems.all_categories
     @popular_sub_categories = CachedItems.popular_items(@current_city)
-    #my_sp = Category.where(:name=> "Specialists").first
-    #@my_sp =Category.first
-    @my_sp =Category.where(:name=> "Specialists").first
-    @specialist_cached_services =@my_sp.services.visible.shuffle.first(16).in_groups_of(4)
+    
+    @specialist =Category.where(:name=> "Specialists").first
+    #@specialist_cached_services =@my_sp.services.visible.shuffle.first(16).in_groups_of(4)
+    @specialist_cached_services =CachedItems.cached_sp_services(@specialist)
     @city_image = @current_city.city_image ? @current_city.city_image : ''
-    #@specialist_cached_services =CachedItems.cached_sp_services(@specialist)
+    
     setup_trending_section
   end
 
