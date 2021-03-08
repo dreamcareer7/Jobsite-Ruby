@@ -78,7 +78,7 @@
           <% @specialist_cached_services.each do |service_group| %>
             <div class="grid__col--xs-12 grid__col--sm-6 grid__col--lg-3">
               <% service_group.each do |service| %>
-                <% next if service == nil %>
+                <% next if (service == nil or service.name.nil?) %>
                 <%= link_to service.name.capitalize, service_path(id: service, sort_by: "Recommended"), class: "mb1 u-block" %>
               <% end %>
             </div>
