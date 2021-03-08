@@ -7,7 +7,7 @@ class HomeController < ApplicationController
     #@current_city= City.first
     @categories = CachedItems.all_categories
     @popular_sub_categories = CachedItems.popular_items(@current_city)
-    @specialist = CachedItems.spec_cat
+    @specialist = Category.where(name: "Specialists").first
     @specialist_cached_services =CachedItems.cached_sp_services(@specialist)
     @city_image = @current_city.city_image ? @current_city.city_image : ''
 
