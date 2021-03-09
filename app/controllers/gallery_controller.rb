@@ -5,8 +5,8 @@ class GalleryController < ApplicationController
     @user_project_photos = user_project_photos
     @business_projects = business_projects
     @business_banners = business_banners
-    #@gallery_items = @user_project_photos + @business_projects + @business_banners
-    @gallery_items =  @business_banners 
+    @gallery_items = @user_project_photos + @business_projects + @business_banners
+    #@gallery_items =  @business_banners 
 
     @sorted_items = @gallery_items.reject{ |item| item.created_at.blank?}.sort_by do |item|
       item.created_at
