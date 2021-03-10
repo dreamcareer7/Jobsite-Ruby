@@ -16,6 +16,15 @@ GIT
       railties (>= 3.2)
 
 GIT
+  remote: https://github.com/remon/globalize
+  revision: 3fe2f93ab2d0f5d9c2b84e085f627cf469db72a1
+  specs:
+    globalize (5.2.0)
+      activemodel (>= 4.2, < 5.3)
+      activerecord (>= 4.2, < 5.3)
+      request_store (~> 1.0)
+
+GIT
   remote: https://github.com/rspec/rspec-core.git
   revision: e7c5d030966a7e8dad3e0a67c61920c4f2437c15
   branch: master
@@ -1074,8 +1083,13 @@ GEM
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
     bcrypt (3.1.15)
+    better_errors (2.9.1)
+      coderay (>= 1.0.0)
+      erubi (>= 1.0.0)
+      rack (>= 0.9.0)
     bigdecimal (2.0.0)
-    bindex (0.8.1)
+    binding_of_caller (1.0.0)
+      debug_inspector (>= 0.0.1)
     bower-rails (0.10.0)
     browser (4.2.0)
     bson (4.10.0)
@@ -1136,7 +1150,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.7)
+    concurrent-ruby (1.1.8)
     connection_pool (2.2.3)
     countries (3.0.1)
       i18n_data (~> 0.10.0)
@@ -1151,6 +1165,7 @@ GEM
     dalli-elasticache (0.2.0)
       dalli (>= 1.0.0)
     database_cleaner (1.8.5)
+    debug_inspector (1.0.0)
     declarative (0.0.20)
     declarative-option (0.1.0)
     devise (4.0.0.rc1)
@@ -1171,6 +1186,7 @@ GEM
       json
     enum_help (0.0.17)
       activesupport (>= 3.0.0)
+    erubi (1.10.0)
     erubis (2.7.0)
     excon (0.76.0)
     execjs (2.7.0)
@@ -1210,10 +1226,6 @@ GEM
     geocoder (1.6.3)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    globalize (5.1.0)
-      activemodel (>= 4.2, < 5.2)
-      activerecord (>= 4.2, < 5.2)
-      request_store (~> 1.0)
     globalize-accessors (0.2.1)
       globalize (~> 5.0, >= 5.0.0)
     gmaps4rails (2.1.2)
@@ -1238,7 +1250,7 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     httpclient (2.8.3)
-    i18n (1.8.5)
+    i18n (1.8.9)
       concurrent-ruby (~> 1.0)
     i18n_data (0.10.0)
     impressionist (1.6.1)
@@ -1280,7 +1292,7 @@ GEM
     mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.14.1)
+    minitest (5.14.4)
     mongo (2.13.0)
       bson (>= 4.8.2, < 5.0.0)
     multi_json (1.15.0)
@@ -1292,7 +1304,6 @@ GEM
       net-ssh (>= 2.6.5, < 7.0.0)
     net-ssh (6.1.0)
     netrc (0.11.0)
-    newrelic_rpm (6.12.0.367)
     nio4r (2.5.2)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
@@ -1459,7 +1470,7 @@ GEM
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
-    tzinfo (1.2.7)
+    tzinfo (1.2.9)
       thread_safe (~> 0.1)
     uber (0.1.0)
     uglifier (4.2.0)
@@ -1471,10 +1482,10 @@ GEM
     uniform_notifier (1.13.0)
     warden (1.2.8)
       rack (>= 2.0.6)
-    web-console (3.7.0)
+    web-console (3.4.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
-      bindex (>= 0.4.0)
+      debug_inspector
       railties (>= 5.0)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
@@ -1494,6 +1505,8 @@ DEPENDENCIES
   appsignal
   autoprefixer-rails
   aws-sdk
+  better_errors
+  binding_of_caller
   bower-rails (~> 0.10.0)
   browser
   bullet
@@ -1527,7 +1540,7 @@ DEPENDENCIES
   font-awesome-rails
   friendly_id (~> 5.1.0)
   geocoder
-  globalize (~> 5.1.0)
+  globalize!
   globalize-accessors
   gmaps4rails
   google-api-client (~> 0.9)
@@ -1540,7 +1553,6 @@ DEPENDENCIES
   listen (~> 3.1)
   meta_request
   mongo
-  newrelic_rpm
   oj
   omniauth-facebook
   omniauth-google-oauth2 (>= 0.6.0)
@@ -1578,8 +1590,8 @@ DEPENDENCIES
   sprockets-es6
   turbolinks (~> 5.x)
   uglifier (>= 1.3.0)
-  web-console (~> 3.0)
+  web-console (~> 3.4.0)
   wicked
 
 BUNDLED WITH
-   2.2.13
+   2.2.14

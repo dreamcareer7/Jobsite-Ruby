@@ -35,7 +35,8 @@ gem 'rack-mini-profiler'
 gem 'redis'
 gem 'globalize-accessors'
 #gem 'globalize', github: 'globalize/globalize'
-gem 'globalize', '~> 5.1.0'
+#gem 'globalize', '~> 5.3.0'
+gem "globalize" , git: "https://github.com/remon/globalize"
 #necessary for globalize rails5 support -> https://github.com/globalize/globalize#installation
 gem 'activemodel-serializers-xml'
 gem 'inline_svg'
@@ -86,7 +87,9 @@ group :development, :test do
 end
 
 group :development do
-  gem 'web-console', '~> 3.0'
+  gem 'web-console', '~> 3.4.0'
+   gem "better_errors"
+  gem "binding_of_caller"
   gem 'listen', '~> 3.1'
   gem 'spring'
   gem 'capistrano'

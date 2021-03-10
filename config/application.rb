@@ -18,7 +18,8 @@ module Muqawiloon
     config.i18n.available_locales = [:en, :ar]
     config.i18n.default_locale = :en
     #config.i18n.fallbacks = true
-    config.i18n.fallbacks = [I18n.default_locale]
+    config.i18n.fallbacks = [:en]
+    #config.i18n.fallbacks = [I18n.default_locale]
     # config.i18n.fallbacks = {
     #   ar: [:ar, :en],
     #   en: [:en, :ar],
