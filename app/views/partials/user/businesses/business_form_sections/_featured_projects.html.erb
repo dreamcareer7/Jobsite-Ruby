@@ -1,50 +1,13 @@
-<!--<div class="card">
+<div class="card">
   <div class="js-cocoon-partial">
-    <%#= f.simple_fields_for :self_added_projects do |fp| %>
-      <%#= render "partials/user/businesses/business_form_sections/field_partials/featured_project_fields", f: fp %>
-    <%# end %>
+    <%= f.simple_fields_for :self_added_projects do |fp| %>
+      <%= render "partials/user/businesses/business_form_sections/field_partials/featured_project_fields", f: fp %>
+    <% end %>
     <div class="card__section card__section--top">
-      <%#= link_to_add_association @business.self_added_projects.present? ? t("business_profile.add_another") : t("business_profile.add_project"), f, :self_added_projects, partial: "partials/user/businesses/business_form_sections/field_partials/featured_project_fields" %>
+      <%= link_to_add_association @business.self_added_projects.present? ? t("business_profile.add_another") : t("business_profile.add_project"), f, :self_added_projects, partial: "partials/user/businesses/business_form_sections/field_partials/featured_project_fields" %>
     </div>
      <div class="card__section card__section--top">
-        <%#= f.submit t("form.update"), class: "mt1 btn btn--primary" %>
+        <%= f.submit t("form.update"), class: "mt1 btn btn--primary" %>
       </div>
   </div>
-</div>-->
-<div class="gallery-page">
-  <div class="card">
-    <div class= "p2 mt1 mb3">
-      <i class="fa fa-image"></i> <span> Recent Acitvity</span>
-      <%= link_to_add_association f, :self_added_projects, partial: "partials/user/businesses/business_form_sections/field_partials/featured_project_fields", onclick:"setNewGallery();" do %>
-        <span class="btn btn--primary btn--update float-right"> + ADD NEW</span>
-      <% end %>
-    </div>
-    <div class="pl2 pr2">
-      <hr>
-    </div>
-    <div class="gallery-page-product-list p3">
-      <% @business.self_added_projects.each do |item| %>
-        <%= render partial: "gallery/gallery_product", locals: { item: item } %>
-      <% end %>
-    </div>
-  </div>
 </div>
-
-<script>
-  $('.custom_carousel').not('.slick-initialized').slick({
-    dots:true,
-    centerMode: false,
-    rtl: $("html").hasClass("rtl")
-  });
-
-  function setgallery(item_id){
-    debugger
-    $('.gallery-page').html("<%=j render partial: "partials/user/businesses/business_form_sections/field_partials/edit_gallery", locals: { project:@project, business: @business, f:f}%>")
-    $('.featured_project_field').addClass('u-hide');
-    $('.featured_project-' + item_id).removeClass('u-hide');
-  }
-
-  function setNewGallery(){
-    $('.gallery-page').html($('#featured_project-fields-').html()); 
-  }
-</script>

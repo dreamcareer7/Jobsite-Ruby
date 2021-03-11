@@ -8,37 +8,15 @@
         <div class="grid__col--xs-12 grid__col--md-12">
           <div class="field">
             <div class="control-group">
-            <div class="hire-a-professional-category-container">
               <% @categories.order_by_type.each do |category| %>
-                <div class="grid__col--md-4 grid__col--xs-12">
-                  <div class="hire-a-professional-category-box">
-                    <%= f.check_box(:category_list, { class: "control__input js-categories js-chosen-category-#{ category.name(locale: :en).downcase }", id:"professional-category-developers-#{category.id}", multiple: true, checked: @business.has_category?(category) ? true : false, disabled: (true unless current_namespace === "admin"), data: { category: category.name(locale: :en).downcase, type: category.category_type } }, "#{ category.id }", nil) %>
-                    <label for="professional-category-developers-<%= category.id %>">
-                      <div class="">
-                        <%= image_tag "developer.png", class: "category-image" %>
-                      </div>
-                      <div class="">
-                        <h3><%= category.name.singularize %></h3>
-                      </div>
-                      <div class="">
-                      <%unless category.category_head_description.nil?%>
-                        <p><%= category.category_head_description.join(", ") %></p>
-                        <%end%>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-                
-
-                <!--<label class="control-group__item control <%#= current_namespace == "admin" ? '' : 'u-clickthrough' %>">
-                  <%#= f.check_box(:category_list, { class: "control__input js-categories js-chosen-category-#{ category.name(locale: :en).downcase }", multiple: true, checked: @business.has_category?(category) ? true : false, disabled: (true unless current_namespace === "admin"), data: { category: category.name(locale: :en).downcase, type: category.category_type } }, "#{ category.id }", nil) %>
+                <label class="control-group__item control <%= current_namespace == "admin" ? '' : 'u-clickthrough' %>">
+                  <%= f.check_box(:category_list, { class: "control__input js-categories js-chosen-category-#{ category.name(locale: :en).downcase }", multiple: true, checked: @business.has_category?(category) ? true : false, disabled: (true unless current_namespace === "admin"), data: { category: category.name(locale: :en).downcase, type: category.category_type } }, "#{ category.id }", nil) %>
                   <span class="control__indicator control__indicator--checkbox">
-                    <%#= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
+                    <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
                   </span>
-                  <span class="control__label"><%#= category.name.singularize %></span>
-                </label>-->
+                  <span class="control__label"><%= category.name.singularize %></span>
+                </label>
               <% end %>
-              </div>
             </div>
           </div>
         </div>

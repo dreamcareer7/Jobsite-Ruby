@@ -1,48 +1,22 @@
-<div class="grid team-page mb-4">
-  <% @business.team_members.each do |team_member| %>
-    <div class="grid__col--md-6 grid__col--xs-12 team-member-detail-<%= team_member.id %>">
-      <div class="card">
-        <div class="card_section text-center">
-          <%= image_tag(team_member.profile_image, class: "u-circle u-border js-file-upload-button js-photo-placeholder") %>
-          <p><%= team_member.name_en %></p>
-          <p><%= team_member.name_ar %></p>
-          <p><%= team_member.role %></p>
-          <p><%= team_member.phone_number %></p>
-          <p><%= team_member.email %></p>
-        </div>
-        <div class="table-content-pad mt2 mb-4"> 
-          <% if @business.team_members.length != 1 %>
-            <%= link_to business_business_destroy_team_members_path(business_id: @business.id, team_member_id: team_member.id), class: "", method: :delete, remote: true  do %>
-              <span class="">remove</span>
-            <% end %>
-          <% end %>
-          <span class="btn--edit btn--primary float-right location-field" onclick="setteam_members(<%= team_member.id %>)", id="<%= team_member.id %>"> Edit</span>
+<div class="card">
+  <div class="card__section">
+    <div class="card__header">
+      <h4 class="card__title"><%= inline_svg("icons/user.svg", class: "icon icon--brand icon--small") %><%= t("business_profile.fields.header.team") %></h4>
+    </div>
+    <fieldset class="fieldset">
+      <div class="js-cocoon-partial">
+        <%= f.simple_fields_for :team_members do |tm| %>
+          <%= render 'partials/user/businesses/business_form_sections/field_partials/team_member_fields', f: tm %>
+        <% end %>
+        <div class="field">
+          <div class="field__input-wrapper">
+            <%= link_to_add_association t("business_profile.add_another"), f, :team_members, partial: 'partials/user/businesses/business_form_sections/field_partials/team_member_fields' %>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
-
-  <div class="grid__col--md-6 grid__col--xs-12">
-    <div class="card card--team-size-color">
-      <%= link_to_add_association f, :team_members, partial: "partials/user/businesses/business_form_sections/field_partials/team_member_fields", onclick:"setNewTeamMember();" do %>
-        <i class="fa fa-plus-circle icon--team-size-color" aria-hidden="true"></i>
-        <div class="text-center">
-          <p>Add new team member</p>
-        </div>
-      <% end %>
-    </div>
+      <div class="field">
+        <%= f.submit t("form.update"), class: "mt1 btn btn--primary" %>
+      </div>
+    </fieldset>
   </div>
 </div>
-
-<script>
-  function setteam_members(team_member_id){
-    $('.team-page').html("<%=j render partial: "partials/user/businesses/business_form_sections/field_partials/edit_teams", locals: {f:f}%>")
-    $('.team_member_form').addClass('u-hide');
-    $('.team-member-' +team_member_id).removeClass('u-hide');
-  }
-
-  function setNewTeamMember(){
-    $('.team-page').html($('#team-member-fields-').html()); 
-  }
-
-</script>

@@ -1,116 +1,13 @@
-<!-- New Business Profile -->
-
-<div class="card">
-  <div class="card__section">
-    <div class="card__header">
-      <h4 class="card__title"><%= inline_svg("icons/briefcase.svg", class: "icon icon--brand icon--small") %><%= t("business_profile.fields.header.business_image") %></h4>
-    </div>
-    <fieldset class="fieldset mb-4">
-      <div class="grid">
-        <div class="grid__col--xs-12 grid__col--md-12">
-          <div class="top__banner" style="background-image:URL('<%= @business.banner.url(:large)%>')">
-            <div class="top__banner-icons media media--middle js-upload-fields u-text-pointer">
-              <i class="fa fa-camera js-file-upload-button js-photo-placeholder icon--image"></i>
-              <div class="media__body">
-                <div class="field__input-wrapper">
-                  <%= f.input :banner, as: :file, input_html: { class: "js-file-upload", hidden: "true" }, label: false %>
-                </div>
-                <%# if @business.banner.present? %>
-                  <br>
-                  <%# if current_admin && current_namespace == "admin" %>
-                    <%#= link_to "Remove", delete_photo_admin_businesses_path(id: @business, photo_type: "banner"), class: "u-text-accent js-remove-image", remote: true, method: :put %>
-                  <%# end %>
-                <%# end %>
-              </div>
-            </div>
-
-            <div class="media media--middle js-upload-fields u-text-pointer top__banner--company-logo">
-              <div class="top__banner">
-                <div class="">
-                  <i class="fa fa-camera js-file-upload-button js-photo-placeholder icon--image icon--position"></i>
-                  <%= image_tag(@business.logo.present? ? @business.logo.url : "missing/side_banner.png", width: "150",height:"150" , class: "media__figure u-rounded u-border u-text-pointer js-file-upload-button js-photo-placeholder") %>
-                </div>
-              </div>
-              <div class="media__body">
-                <div class="field__input-wrapper">
-                  <span class="u-text-left u-text-dark js-file-upload-button"><%#= t("business_profile.fields.general_information.edit_logo") %></span><br>
-                  <%= f.input :logo, as: :file, input_html: { class: "js-file-upload", hidden: "true" }, label: false %>
-                </div>
-                <% if @business.logo.present? %>
-                  <br>
-                  <% if current_admin && current_namespace == "admin" %>
-                    <%= link_to "Remove", delete_photo_admin_businesses_path(id: @business, photo_type: 'logo'), class: "u-text-accent js-remove-image", remote: true, method: :put %>
-                  <% end %>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </fieldset>
-  </div>
-</div>
-
 <div class="card">
   <div class="card__section">
     <div class="card__header">
       <h4 class="card__title"><%= inline_svg("icons/briefcase.svg", class: "icon icon--brand icon--small") %><%= t("business_profile.fields.header.general_information") %></h4>
     </div>
-
-    <fieldset class="fieldset mb-4">
+    <fieldset class="fieldset">
       <div class="grid">
         <% I18n.available_locales.each do |locale| %>
           <div class="grid__col--xs-12 grid__col--md-6">
             <%= f.input "name_#{ locale }", wrapper: "text_field", placeholder: t("business_profile.fields.general_information.business_name.placeholder", locale: locale), label: " #{ t("business_profile.fields.general_information.business_name.label", locale: locale ) } (#{ locale })", input_html: { class: " #{ locale == :ar ? 'rtl' : 'ltr' } ", title: "Name must start with a letter", disabled: (current_namespace != "admin" || (action_name != "edit" && current_namespace != "admin")) }, required: (true if action_name == "edit" && current_namespace == "admin") %>
-          </div>
-        <% end %>
-      </div>
-    </fieldset>
-
-    <fieldset class="fieldset mb-4">
-      <div class="grid">
-        <div class="grid__col--xs-12 grid__col--md-6">
-          <%= f.input :prevent_autocomplete, as: :fake, input_html: { class: "u-hide", name: "business[email]", type: "text" }, label: false %>
-          <%= f.input :email, wrapper: "text_field", placeholder: t("business_profile.fields.general_information.email.placeholder"), label: t("business_profile.fields.general_information.email.label") %>
-        </div>
-        <div class="grid__col--xs-12 grid__col--md-6">
-          <%= f.input :telephone, wrapper: "text_field", placeholder: t("business_profile.fields.general_information.phone_number.placeholder"), required: (true if action_name == "edit" && current_namespace == "admin"), input_html: { class: "js-phone" }, label: t("business_profile.fields.general_information.phone_number.label") %>
-        </div>
-      </div>
-    </fieldset>
-
-    <fieldset class="fieldset mb-4">
-      <div class="grid">
-        <div class="grid__col--xs-12 grid__col--md-6">
-          <%= f.input :website, wrapper: "text_field", placeholder: t("business_profile.fields.general_information.website.placeholder") %>
-        </div>
-        <div class="grid__col--xs-12 grid__col--md-6">
-          <%= f.input :license_number, wrapper: :text_field, label: t("business_profile.fields.general_information.license_number.label"), placeholder: t("business_profile.fields.general_information.license_number.placeholder"), required: false %>
-        </div>
-        <div class="grid__col--xs-12 grid__col--md-6">
-          <label class="field__label"> License expiration date </label>
-          <div class="field__input-wrapper">
-            <%= inline_svg("icons/calendar.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough field__add-on--clickthrough") %>
-            <%= f.input :license_expiration_date, wrapper: :date_picker, as: :date_picker_future, required: true %>
-          </div>
-          <%#= f.input :license_expiration, wrapper: :text_field, label: t("business_profile.fields.general_information.license_number.label"), placeholder: t("business_profile.fields.general_information.license_number.placeholder"), required: false %>
-        </div>
-      </div>
-    </fieldset>
-
-  </div>
-</div>
-
-<div class="card">
-  <div class="card__section">
-    <div class="card__header">
-      <h4 class="card__title"><%= inline_svg("icons/megaphone.svg", class: "icon icon--brand icon--small") %><%= t("business_profile.fields.header.branding") %></h4>
-    </div>
-    <fieldset class="fieldset mb-4">
-      <div class="grid">
-        <% I18n.available_locales.each do |locale| %>
-          <div class="grid__col--xs-12 grid__col--md-12">
-            <%= f.input "description_#{ locale }", as: :text, wrapper: "text_area", placeholder: t("business_profile.fields.general_information.business_description.placeholder", locale: locale), label: " #{ t("business_profile.fields.general_information.business_description.label", locale: locale) } (#{ locale })", input_html: { class: " #{ locale == :ar ? 'rtl' : 'ltr' } " } %>
           </div>
         <% end %>
       </div>
@@ -123,8 +20,7 @@
     <div class="card__header">
       <h4 class="card__title"><%= inline_svg("icons/graph.svg", class: "icon icon--brand icon--small") %><%= t("business_profile.fields.header.business_data") %></h4>
     </div>
-
-    <fieldset class="mb-4">
+    <fieldset class="fieldset">
       <div class="grid">
         <% if current_namespace == "admin" %>
           <div class="grid__col--xs-12 grid__col--md-6">
@@ -164,11 +60,20 @@
             </div>
           </div>
         <% end %>
-
-        <div class="grid__col--xs-12 grid__col--md-6 mb-4">
-          <label class="field__label"><%= t("business_profile.fields.additional_information.budgets_managed.label") %></label>
-          <div class="field__input-wrapper">
-            <%= f.input :min_budget, input_html: { class: "field__input u-text-pointer" }, required: false, label: false, placeholder: 'min' %>
+        <div class="grid__col--xs-3 grid__col--md-3">
+          <div class="field">
+            <label class="field__label"><%= t("business_profile.fields.additional_information.budgets_managed.label") %></label>
+            <div class="field__input-wrapper">
+              <%= f.input :min_budget, input_html: { class: "field__input u-text-pointer" }, required: false, label: false, placeholder: 'min' %>
+            </div>
+          </div>
+        </div>
+        <div class="grid__col--xs-3 grid__col--md-3">
+          <div class="field">
+            <div class="field__input-wrapper">
+            <label class="field__label">&nbsp;</label>
+            <%= f.input :max_budget, input_html: { class: "field__input u-text-pointer" }, required: false, label: false, placeholder: 'max' %>
+            </div>
           </div>
         </div>
         <% if current_namespace == "admin" %>
@@ -182,17 +87,27 @@
             </div>
           </div>
         <% end %>
-        <div class="grid__col--xs-12 grid__col--md-6 mb-4">
-          <div class="field__input-wrapper">
-            <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough u-clickthrough") %>
-            <%= f.input :number_of_employees, input_html: { class: "field__input field__input--right-add-on u-text-pointer" }, required: false %>
+        <div class="grid__col--xs-12 grid__col--md-6">
+          <div class="field">
+            <label class="field__label"><%= t("business_profile.fields.additional_information.number_of_employees.label") %></label>
+            <div class="field__input-wrapper">
+              <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough u-clickthrough") %>
+              <%= f.input :number_of_employees, input_html: { class: "field__input field__input--right-add-on u-text-pointer" }, required: false, label: false %>
+            </div>
           </div>
         </div>
+        <% if current_namespace == "admin" %>
+          <div class="grid__col--xs-12 grid__col--md-6">
+            <%= f.input :license_number, wrapper: :text_field, label: t("business_profile.fields.general_information.license_number.label"), placeholder: t("business_profile.fields.general_information.license_number.placeholder"), required: false %>
+          </div>
+        <% end %>
         <div class="grid__col--xs-12 grid__col--md-6">
-          <label class="field__label"><%= t("business_profile.fields.additional_information.nb_projects_completed.label") %></label>
-          <div class="field__input-wrapper">
-            <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough u-clickthrough") %>
-            <%= f.input :nb_projects_completed, input_html: { class: "field__input field__input--right-add-on u-text-pointer" }, required: false, label: false, include_blank: false %>
+          <div class="field">
+            <label class="field__label"><%= t("business_profile.fields.additional_information.nb_projects_completed.label") %></label>
+            <div class="field__input-wrapper">
+              <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough u-clickthrough") %>
+              <%= f.input :nb_projects_completed, input_html: { class: "field__input field__input--right-add-on u-text-pointer" }, required: false, label: false, include_blank: false %>
+            </div>
           </div>
         </div>
       </div>
@@ -200,7 +115,26 @@
   </div>
 </div>
 
-<%# if action_name == "edit" %>
+<div class="card">
+  <div class="card__section">
+    <div class="card__header">
+      <h4 class="card__title"><%= inline_svg("icons/phone.svg", class: "icon icon--brand icon--small") %><%= t("business_profile.fields.header.main_contact_info") %></h4>
+    </div>
+    <fieldset class="fieldset">
+      <div class="grid">
+        <div class="grid__col--xs-12 grid__col--md-6">
+          <%= f.input :prevent_autocomplete, as: :fake, input_html: { class: "u-hide", name: "business[email]", type: "text" }, label: false %>
+          <%= f.input :email, wrapper: "text_field", placeholder: t("business_profile.fields.general_information.email.placeholder"), label: t("business_profile.fields.general_information.email.label") %>
+        </div>
+        <div class="grid__col--xs-12 grid__col--md-6">
+          <%= f.input :telephone, wrapper: "text_field", placeholder: t("business_profile.fields.general_information.phone_number.placeholder"), required: (true if action_name == "edit" && current_namespace == "admin"), input_html: { class: "js-phone" }, label: t("business_profile.fields.general_information.phone_number.label") %>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<% if action_name == "edit" %>
   <div class="card">
     <div class="card__section">
       <div class="card__header">
@@ -208,9 +142,9 @@
       </div>
     </div>
 
-    <%#= f.simple_fields_for :hours_of_operation do |hoo| %>
-      <%#= render partial: "partials/user/businesses/business_form_sections/field_partials/business_hours", locals: { hoo: hoo, week_period: hoo.index == 0 ? "weekday" : "weekend" } %>
-    <%# end %>
+    <%= f.simple_fields_for :hours_of_operation do |hoo| %>
+      <%= render partial: "partials/user/businesses/business_form_sections/field_partials/business_hours", locals: { hoo: hoo, week_period: hoo.index == 0 ? "weekday" : "weekend" } %>
+    <% end %>
 
     <div class="card__section <%= @business.hours_for("weekend").present? ? 'u-hide' : '' %>">
       <fieldset class="fieldset">
@@ -226,15 +160,80 @@
       </fieldset>
     </div>
   </div>
-<%# end %>
+<% end %>
+
+<div class="card">
+  <div class="card__section">
+    <div class="card__header">
+      <h4 class="card__title"><%= inline_svg("icons/megaphone.svg", class: "icon icon--brand icon--small") %><%= t("business_profile.fields.header.branding") %></h4>
+    </div>
+    <fieldset class="fieldset">
+      <div class="grid">
+        <div class="grid__col--xs-12 grid__col--md-4 u-hide--medium-down">
+          <div class="field">
+            <div class="media media--middle js-upload-fields u-text-pointer">
+              <%= image_tag(@business.logo.present? ? @business.logo.url : "missing/side_banner.png", width: "100", class: "media__figure u-rounded u-border u-text-pointer js-file-upload-button js-photo-placeholder") %>
+              <div class="media__body">
+                <div class="field__input-wrapper">
+                  <span class="u-text-left u-text-dark js-file-upload-button"><%= t("business_profile.fields.general_information.edit_logo") %></span><br>
+                  <%= f.input :logo, as: :file, input_html: { class: "js-file-upload", hidden: "true" }, label: false %>
+                </div>
+                <small>200x200</small>
+                <% if @business.logo.present? %>
+                  <br>
+                  <% if current_admin && current_namespace == "admin" %>
+                    <%= link_to "Remove", delete_photo_admin_businesses_path(id: @business, photo_type: 'logo'), class: "u-text-accent js-remove-image", remote: true, method: :put %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid__col--xs-12 grid__col--md-8 u-hide--medium-down">
+          <div class="field">
+            <div class="media media--middle js-upload-fields u-text-pointer">
+              <%= image_tag(@business.banner.url(:small), width: "200", class: "media__figure u-rounded u-border js-file-upload-button js-photo-placeholder") %>
+              <div class="media__body">
+                <div class="field__input-wrapper">
+                  <span class="u-text-left u-text-dark js-file-upload-button"><%= t("business_profile.fields.general_information.edit_banner") %></span><br>
+                  <%= f.input :banner, as: :file, input_html: { class: "js-file-upload", hidden: "true" }, label: false %>
+                </div>
+                <small>1600x1000</small>
+                <% if @business.banner.present? %>
+                  <br>
+                  <% if current_admin && current_namespace == "admin" %>
+                    <%= link_to "Remove", delete_photo_admin_businesses_path(id: @business, photo_type: "banner"), class: "u-text-accent js-remove-image", remote: true, method: :put %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% I18n.available_locales.each do |locale| %>
+          <div class="grid__col--xs-12 grid__col--md-12">
+            <%= f.input "description_#{ locale }", as: :text, wrapper: "text_area", placeholder: t("business_profile.fields.general_information.business_description.placeholder", locale: locale), label: " #{ t("business_profile.fields.general_information.business_description.label", locale: locale) } (#{ locale })", input_html: { class: " #{ locale == :ar ? 'rtl' : 'ltr' } " } %>
+          </div>
+        <% end %>
+        <div class="grid__col--xs-12 grid__col--md-6">
+          <div class="field">
+            <label class="field__label"><%= t("business_profile.fields.general_information.website.label") %></label>
+            <div class="field__input-wrapper">
+              <%= f.input :website, wrapper: "text_field", placeholder: t("business_profile.fields.general_information.website.placeholder"), label: false %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
 
 <%= f.simple_fields_for :business_contact do |bc| %>
   <div class="card">
     <div class="card__section">
       <div class="card__header">
-        <h4 class=""><%= inline_svg("icons/user.svg", class: "icon icon--brand icon--small") %><%= t("business_profile.fields.header.contact_person") %></h4>
+        <h4 class="card__title"><%= inline_svg("icons/user.svg", class: "icon icon--brand icon--small") %><%= t("business_profile.fields.header.contact_person") %></h4>
       </div>
-      <fieldset class="fieldset mb-4">
+      <fieldset class="fieldset">
         <div class="grid">
           <div class="grid__col--xs-12 grid__col--md-12">
             <div class="field">
@@ -285,229 +284,13 @@
   </div>
 <% end %>
 
-<fieldset class="mb-4">
-  <div class="grid">
-    <div class="grid__col--md-12 grid__col--xs-12">
-      <div class="field">
-        <%= f.submit "update", class: "mt1 btn btn--primary btn--update float-right" %>
-      </div>
-    </div>
-  </div>
-</fieldset>
-
-<!-- New Business Profile End -->
-
-<!--<div class="card">
-  <div class="card__section">
-    <div class="card__header">
-      <h4 class="card__title"><%#= inline_svg("icons/graph.svg", class: "icon icon--brand icon--small") %><%#= t("business_profile.fields.header.business_data") %></h4>
-    </div>
-    <fieldset class="fieldset">
-      <div class="grid">
-        <%# if current_namespace == "admin" %>
-          <div class="grid__col--xs-12 grid__col--md-6">
-            <div class="field">
-              <label class="field__label"><%#= t("business_profile.fields.data.type") %></label>
-              <div class="field__input-wrapper">
-                <%#= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough u-clickthrough") %>
-                <%#= f.input :business_type, input_html: { class: "field__input field__input--right-add-on u-text-pointer" }, required: false, label: false %>
-              </div>
-            </div>
-          </div>
-          <div class="grid__col--xs-12 grid__col--md-6">
-            <div class="field">
-              <label class="field__label"><%#= t("business_profile.fields.data.class") %></label>
-              <div class="field__input-wrapper">
-                <%#= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough u-clickthrough") %>
-                <%#= f.input :business_class, input_html: { class: "field__input field__input--right-add-on u-text-pointer" }, required: false, label: false %>
-              </div>
-            </div>
-          </div>
-          <div class="grid__col--xs-12 grid__col--md-6">
-            <div class="field">
-              <label class="field__label"><%#= t("business_profile.fields.data.service_area") %></label>
-              <div class="field__input-wrapper">
-                <%#= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough u-clickthrough") %>
-                <%#= f.input :service_area, input_html: { class: "field__input field__input--right-add-on u-text-pointer" }, required: false, label: false %>
-              </div>
-            </div>
-          </div>
-          <div class="grid__col--xs-12 grid__col--md-6">
-            <div class="field">
-              <label class="field__label"><%#= t("business_profile.fields.data.size") %></label>
-              <div class="field__input-wrapper">
-                <%#= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough u-clickthrough") %>
-                <%#= f.input :project_size, input_html: { class: "field__input field__input--right-add-on u-text-pointer" }, required: false, label: false %>
-              </div>
-            </div>
-          </div>
-        <%# end %>
-        <div class="grid__col--xs-3 grid__col--md-3">
-          <div class="field">
-            <label class="field__label"><%#= t("business_profile.fields.additional_information.budgets_managed.label") %></label>
-            <div class="field__input-wrapper">
-              <%#= f.input :min_budget, input_html: { class: "field__input u-text-pointer" }, required: false, label: false, placeholder: 'min' %>
-            </div>
-          </div>
-        </div>
-        <div class="grid__col--xs-3 grid__col--md-3">
-          <div class="field">
-            <div class="field__input-wrapper">
-            <label class="field__label">&nbsp;</label>
-            <%#= f.input :max_budget, input_html: { class: "field__input u-text-pointer" }, required: false, label: false, placeholder: 'max' %>
-            </div>
-          </div>
-        </div>
-        <%# if current_namespace == "admin" %>
-          <div class="grid__col--xs-12 grid__col--md-6">
-            <div class="field">
-              <label class="field__label"><%#= t("business_profile.fields.additional_information.years_of_establishment.label") %></label>
-              <div class="field__input-wrapper">
-                <%#= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough u-clickthrough") %>
-                <%#= f.input :years_of_establishment, collection: (1900..Date.today.year).reverse_each, input_html: { class: "field__input field__input--right-add-on u-text-pointer" }, required: false, label: false %>
-              </div>
-            </div>
-          </div>
-        <%# end %>
-        <div class="grid__col--xs-12 grid__col--md-6">
-          <div class="field">
-            <label class="field__label"><%#= t("business_profile.fields.additional_information.number_of_employees.label") %></label>
-            <div class="field__input-wrapper">
-              <%#= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough u-clickthrough") %>
-              <%#= f.input :number_of_employees, input_html: { class: "field__input field__input--right-add-on u-text-pointer" }, required: false, label: false %>
-            </div>
-          </div>
-        </div>
-        <%# if current_namespace == "admin" %>
-          <div class="grid__col--xs-12 grid__col--md-6">
-            <%#= f.input :license_number, wrapper: :text_field, label: t("business_profile.fields.general_information.license_number.label"), placeholder: t("business_profile.fields.general_information.license_number.placeholder"), required: false %>
-          </div>
-        <%# end %>
-        <div class="grid__col--xs-12 grid__col--md-6">
-          <div class="field">
-            <label class="field__label"><%#= t("business_profile.fields.additional_information.nb_projects_completed.label") %></label>
-            <div class="field__input-wrapper">
-              <%#= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough u-clickthrough") %>
-              <%#= f.input :nb_projects_completed, input_html: { class: "field__input field__input--right-add-on u-text-pointer" }, required: false, label: false, include_blank: false %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </fieldset>
-  </div>
-</div>
-
-<div class="card">
-  <div class="card__section">
-    <div class="card__header">
-      <h4 class="card__title"><%#= inline_svg("icons/phone.svg", class: "icon icon--brand icon--small") %><%#= t("business_profile.fields.header.main_contact_info") %></h4>
-    </div>
-    
-  </div>
-</div>
-
-<%# if action_name == "edit" %>
-  <div class="card">
-    <div class="card__section">
-      <div class="card__header">
-        <h4 class="card__title"><%#= inline_svg("icons/clock.svg", class: "icon icon--brand icon--small") %><%#= t("business_profile.fields.header.hours_of_operation") %></h4>
-      </div>
-    </div>
-
-    <%#= f.simple_fields_for :hours_of_operation do |hoo| %>
-      <%#= render partial: "partials/user/businesses/business_form_sections/field_partials/business_hours", locals: { hoo: hoo, week_period: hoo.index == 0 ? "weekday" : "weekend" } %>
-    <%# end %>
-
-    <div class="card__section <%#= @business.hours_for("weekend").present? ? 'u-hide' : '' %>">
-      <fieldset class="fieldset">
-        <div class="grid">
-          <div class="grid__col--xs-12 grid__col--md-12">
-            <div class="field">
-              <div class="field__input-wrapper">
-                <span class="u-text-pointer u-text-underline js-add-weekend-hours">Add weekend hours</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </fieldset>
-    </div>
-  </div>
-<%# end %>
-
-<div class="card">
-  <div class="card__section">
-    <div class="card__header">
-      <h4 class="card__title"><%#= inline_svg("icons/megaphone.svg", class: "icon icon--brand icon--small") %><%#= t("business_profile.fields.header.branding") %></h4>
-    </div>
-    <fieldset class="fieldset">
-      <div class="grid">
-        <div class="grid__col--xs-12 grid__col--md-4 u-hide--medium-down">
-          <div class="field">
-            <div class="media media--middle js-upload-fields u-text-pointer">
-              <%#= image_tag(@business.logo.present? ? @business.logo.url : "missing/side_banner.png", width: "100", class: "media__figure u-rounded u-border u-text-pointer js-file-upload-button js-photo-placeholder") %>
-              <div class="media__body">
-                <div class="field__input-wrapper">
-                  <span class="u-text-left u-text-dark js-file-upload-button"><%#= t("business_profile.fields.general_information.edit_logo") %></span><br>
-                  <%#= f.input :logo, as: :file, input_html: { class: "js-file-upload", hidden: "true" }, label: false %>
-                </div>
-                <small>200x200</small>
-                <%# if @business.logo.present? %>
-                  <br>
-                  <%# if current_admin && current_namespace == "admin" %>
-                    <%#= link_to "Remove", delete_photo_admin_businesses_path(id: @business, photo_type: 'logo'), class: "u-text-accent js-remove-image", remote: true, method: :put %>
-                  <%# end %>
-                <%# end %>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="grid__col--xs-12 grid__col--md-8 u-hide--medium-down">
-          <div class="field">
-            <div class="media media--middle js-upload-fields u-text-pointer">
-              <%#= image_tag(@business.banner.url(:small), width: "200", class: "media__figure u-rounded u-border js-file-upload-button js-photo-placeholder") %>
-              <div class="media__body">
-                <div class="field__input-wrapper">
-                  <span class="u-text-left u-text-dark js-file-upload-button"><%#= t("business_profile.fields.general_information.edit_banner") %></span><br>
-                  <%#= f.input :banner, as: :file, input_html: { class: "js-file-upload", hidden: "true" }, label: false %>
-                </div>
-                <small>1600x1000</small>
-                <%# if @business.banner.present? %>
-                  <br>
-                  <%# if current_admin && current_namespace == "admin" %>
-                    <%#= link_to "Remove", delete_photo_admin_businesses_path(id: @business, photo_type: "banner"), class: "u-text-accent js-remove-image", remote: true, method: :put %>
-                  <%# end %>
-                <%# end %>
-              </div>
-            </div>
-          </div>
-        </div>
-        <%# I18n.available_locales.each do |locale| %>
-          <div class="grid__col--xs-12 grid__col--md-12">
-            <%#= f.input "description_#{ locale }", as: :text, wrapper: "text_area", placeholder: t("business_profile.fields.general_information.business_description.placeholder", locale: locale), label: " #{ t("business_profile.fields.general_information.business_description.label", locale: locale) } (#{ locale })", input_html: { class: " #{ locale == :ar ? 'rtl' : 'ltr' } " } %>
-          </div>
-        <%# end %>
-        <div class="grid__col--xs-12 grid__col--md-6">
-          <div class="field">
-            <label class="field__label"><%#= t("business_profile.fields.general_information.website.label") %></label>
-            <div class="field__input-wrapper">
-              <%#= f.input :website, wrapper: "text_field", placeholder: t("business_profile.fields.general_information.website.placeholder"), label: false %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </fieldset>
-  </div>
-</div>
-
-
-
 <div class="card">
   <div class="card__section">
     <div class="field">
-      <%#= f.submit t("form.update"), class: "mt1 btn btn--primary" %>
+      <%= f.submit t("form.update"), class: "mt1 btn btn--primary" %>
     </div>
   </div>
-</div>-->
+</div>
 
 <% content_for :page_scripts do %>
   <script>

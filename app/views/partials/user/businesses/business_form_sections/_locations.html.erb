@@ -1,75 +1,10 @@
-<div class="grid location-page mb-4">
-  <% @business.locations.each do |location| %>
-    <div class="grid__col--md-6 grid__col--xs-12 location-detail-<%= location.id %>">
-      <div class"">
-        <%= image_tag @business.logo.url(:large), class:'image-size-fixed' %>
-      </div>
-      <div class="card">
-        <div class="table-content-pad">
-          <table class="tr-change-css">
-            <tbody>
-              <tr>
-                <td class="float-right">location type</td>
-                <td><%= location.location_type %></td>
-              </tr>
-              <tr>
-                <td class="float-right">street address (en)</td>
-                <td><%= location.street_address %></td>
-              </tr>
-              <tr>
-                <td class="float-right"><%= t('add_business.fields.street_address.label', locale: 'ar')%> (ar)</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td class="float-right">City</td>
-                <td><%= location.city.name %></td>
-              </tr>
-              <tr>
-                <td class="float-right">Phone Number</td>
-                <td><%= location.number %></td>
-              </tr>
-              <tr>
-                <td class="float-right">Country</td>
-                <td><%= location.country.name %></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="table-content-pad mt2 mb-4"> 
-          <% if @business.locations.length != 1 %>
-            <%= link_to business_business_destroy_locations_path(business_id: @business.id, location_id: location.id), class: "", method: :delete, remote: true  do %>
-              <span class="">remove</span>
-            <% end %>
-          <% end %>
-          <span class="btn--edit btn--primary float-right location-field" onclick="setlocations(<%= location.id %>)", id="<%= location.id %>"> Edit</span>
-        </div>
-      </div>
-    </div>
-  <% end if @business.locations.map(&:id) != [nil] %>
-
-  <div class="grid__col--md-6 grid__col--xs-12">
-    <div class="card card--size-color">
-      <%= link_to_add_association f, :locations, partial: "partials/user/businesses/business_form_sections/field_partials/location_fields", onclick:"setNewLocation();" do %>
-        <i class="fa fa-plus-circle icon--size-color" aria-hidden="true"></i>
-        <div class="text-center">
-          <p>Add new location </p>
-        </div>
-      <% end %>
+<div class="card">
+  <div class="js-cocoon-partial">
+    <%= f.simple_fields_for :locations  do |l| %>
+      <%= render 'partials/user/businesses/business_form_sections/field_partials/location_fields', f: l %>
+    <% end %>
+    <div class="card__section card__section--top">
+      <%= link_to_add_association t("business_profile.add_another"), f, :locations, partial: "partials/user/businesses/business_form_sections/field_partials/location_fields" %>
     </div>
   </div>
 </div>
-
-
-<script>
-
-  function setlocations(location_id){
-    $('.location-page').html("<%=j render partial: "partials/user/businesses/business_form_sections/field_partials/edit_locations", locals: { project:@project, business: @business, f:f}%>")
-    $('.js-featured-project').addClass('u-hide');
-    $('.location-' +location_id).removeClass('u-hide');
-  }
-
-  function setNewLocation(){
-    $('.location-page').html($('#location-fields-').html()); 
-  }
-
-</script>
