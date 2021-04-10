@@ -10,15 +10,15 @@
 
       <div id="tabs_general">
         <%= simple_form_for [:admin, @project] do |f| %>
-          <%= render partial: "partials/projects/project_form", locals: { f: f, disabled: true } %>
+          <%= render partial: "user/project_steps/sub_projects_forms/project_form", locals: { f: f, disabled: true  } %>
         <% end %>
       </div>
 
       <div id="tabs_services">
         <% if I18n.with_locale(:en){ @project.category.name == "Machinery" } %>
-          <%= render partial: "user/project_steps/machinery" %>
+          <%= render partial: "user/project_steps/item" %>
         <% elsif I18n.with_locale(:en){ @project.category.name == "Suppliers" } %>
-          <%= render partial: "user/project_steps/suppliers" %>
+          <%= render partial: "user/project_steps/item" %>
         <% else %>
           <%= render partial: "user/project_steps/service_fields" %>
         <% end %>
