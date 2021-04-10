@@ -4,25 +4,24 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   if ENV["ON_TESTING"].present?
     config.cache_classes = false
-    config.consider_all_requests_local       = true 
+    config.consider_all_requests_local = true
     config.action_controller.perform_caching = false
-  # Eager load code on boot. This eager loads most of Rails and
-  # your application in memory, allowing both threaded web servers
-  # and those relying on copy on write to perform better.
-  # Rake tasks automatically ignore this option for performance.
+    # Eager load code on boot. This eager loads most of Rails and
+    # your application in memory, allowing both threaded web servers
+    # and those relying on copy on write to perform better.
+    # Rake tasks automatically ignore this option for performance.
     config.eager_load = false
-    else 
-      config.consider_all_requests_local       = true
-      config.action_controller.perform_caching = true
-    config.cache_classes = true 
+  else
+    config.consider_all_requests_local = false
+    config.action_controller.perform_caching = true
+    config.cache_classes = true
     config.eager_load = false
-end 
+  end
   # Full error reports are disabled and caching is turned on.
-  
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
   # Compress JavaScripts and CSS.
   #config.assets.js_compressor = :uglifier
@@ -39,11 +38,10 @@ end
   else
     config.assets.compile = false
 
-  # Asset digests allow you to set far-future HTTP expiration dates on all assets,
-  # yet still be able to expire them through the digest params.
-  config.assets.digest = true
+    # Asset digests allow you to set far-future HTTP expiration dates on all assets,
+    # yet still be able to expire them through the digest params.
+    config.assets.digest = true
   end
-  
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
@@ -66,7 +64,7 @@ end
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
@@ -75,21 +73,18 @@ end
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
   end
-  
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
-  
 
   if ENV["CACHE_PROD"].present?
     config.cache_store = :dalli_store
-  else 
-    endpoint    = "prod-march-2021.6taks2.0001.apse1.cache.amazonaws.com:11211"
+  else
+    endpoint = "prod-march-2021.6taks2.0001.apse1.cache.amazonaws.com:11211"
     elasticache = Dalli::ElastiCache.new(endpoint)
-    
-    config.cache_store = :dalli_store, elasticache.servers, {:expires_in => 2.day, :compress => true}
-    
-  end 
+
+    config.cache_store = :dalli_store, elasticache.servers, { :expires_in => 2.day, :compress => true }
+  end
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "muqawiloon_#{Rails.env}"
@@ -122,12 +117,11 @@ end
     storage: :s3,
     s3_protocol: :https,
     s3_credentials: {
-     s3_host_name: ENV.fetch('S3_HOST_NAME'),
-      s3_region: ENV.fetch('AWS_REGION'),
-      bucket: ENV.fetch('S3_BUCKET_NAME'),
-      access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
-      secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
-    }
+      s3_host_name: ENV.fetch("S3_HOST_NAME"),
+      s3_region: ENV.fetch("AWS_REGION"),
+      bucket: ENV.fetch("S3_BUCKET_NAME"),
+      access_key_id: ENV.fetch("AWS_ACCESS_KEY_ID"),
+      secret_access_key: ENV.fetch("AWS_SECRET_ACCESS_KEY"),
+    },
   }
-
 end
