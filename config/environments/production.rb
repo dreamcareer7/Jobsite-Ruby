@@ -12,7 +12,7 @@ Rails.application.configure do
   # Rake tasks automatically ignore this option for performance.
     config.eager_load = false
     else 
-      config.consider_all_requests_local       = false
+      config.consider_all_requests_local       = true
       config.action_controller.perform_caching = true
     config.cache_classes = true 
     config.eager_load = false
