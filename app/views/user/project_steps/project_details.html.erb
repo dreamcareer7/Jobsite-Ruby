@@ -1,11 +1,14 @@
-<%# content_for :breadcrumbs do %>
-  <%#= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [], current_breadcrumb: { name: "#{ t("post_project.header.project_details") } (1 #{ t("words.of") } 2)" } } %>
-<%# end %>
+<% content_for :breadcrumbs do %>
+  <%= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [], current_breadcrumb: { name: "#{ t("post_project.header.project_details") } " } } %>
+<% end %>
 
-<section class="section-dashboard" style="width:100%">
-  <%= simple_form_for @project, url: wizard_path do |f| %>
-    <%= render partial: "partials/projects/project_form", locals: { f: f } %>
-  <% end %>
+<section class="section section--alt in-section" >
+  <div class="site-wrap">
+    <h1 class="section-heading"><%= @project_type_header %></h1>
+    <%= simple_form_for @project, url: wizard_path do |f| %>
+      <%= render partial: "user/project_steps/sub_projects_forms/project_form", locals: { f: f } %>
+    <% end %>
+  </div>
 </section>
 
 <%# restore fields on server validation error %>
@@ -47,5 +50,31 @@
 
       $('#other_field').val(otherField);
     <% end %>
+  </script>
+<% end %>
+
+<%= content_for :page_scripts do %>
+  <script>
+    var selectedSubCat = '';
+
+    $('.js-selected-services').on('change', function() {
+      if($(this).val() && $(this).val().length) {
+        $('.js-submit').prop('disabled', false)
+      }
+    });
+
+    $('.js-submit').prop('disabled', true)
+    
+    $('.js-selected-subcat').on('change', function() {
+      selectedSubCat = parseInt($(this).val());
+      $.each($('.js-select-services'), function() {
+        if ($(this).data('sub-cat') === selectedSubCat) {
+          $(this).removeClass('u-hide')
+        } else {
+          $(this).addClass('u-hide');
+          $(this).find('select').val('').change();
+        }
+      })
+    });
   </script>
 <% end %>

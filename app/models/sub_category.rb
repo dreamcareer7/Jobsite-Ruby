@@ -18,7 +18,7 @@ class SubCategory < ApplicationRecord
   accepts_nested_attributes_for :category_metadata, allow_destroy: true
 
   after_create :create_none_service
-
+  after_commit :clear_cache
   is_impressionable
 
   translates :name, fallbacks_for_empty_translations: true
@@ -29,41 +29,59 @@ class SubCategory < ApplicationRecord
 
   default_scope { includes(:translations) }
   scope :trending, -> { includes(:category_metadata).order(view_count_change: :desc) }
-  scope :by_category, -> (category) { joins(:category).where('categories.id' => category) }
+  scope :by_category, ->(category) { joins(:category).where("categories.id" => category) }
   scope :visible, -> { where(hidden: false).order(name: :asc) }
   scope :enabled, -> { where(disabled: false) }
 
+  def cached_visible_services
+    Rails.cache.fetch("#{Rails.env}_sub_category_services_#{id}_#{I18n.locale}") {
+      services.visible
+    }
+  end
+
   def active_businesses_in_city(city)
-    Rails.cache.fetch("#{Rails.env}_active_businesses_in_city_#{city.id}_#{I18n.locale}"){
-    self.businesses.active.by_city(city).count
+    Rails.cache.fetch("#{Rails.env}_subcat_#{id}_active_businesses_in_city_#{city.id}_#{I18n.locale}") {
+      self.businesses.active.by_city(city).count
     }
   end
 
   def slug_candidates
     [
       :name,
-      [:id, :name]
+      [:id, :name],
     ]
   end
 
   def self.popular_by_listing_count(city)
-    Rails.cache.fetch("#{Rails.env}_popular_by_listing_#{city.id}_#{I18n.locale}"){
-    by_listing_count = SubCategory.includes(:businesses).to_a.sort_by do |sub_category| 
-      sub_category.active_businesses_in_city(city)
-    end
+    Rails.cache.fetch("#{Rails.env}_popular_by_listing_#{city.id}_#{I18n.locale}") {
+      by_listing_count = SubCategory.includes(:businesses).to_a.sort_by do |sub_category|
+        sub_category.active_businesses_in_city(city)
+      end
 
-    by_listing_count.reverse!
-  }
+      by_listing_count.reverse!
+    }
   end
 
   def description(city)
-    "#{ I18n.t('phrases.the_best_meta') } #{ self.name } #{ I18n.t('phrases.services_in') } #{ city.name.titleize }, #{ city.country.name.titleize }. #{ I18n.t('words.including') }: #{ self.services.visible.limit(5).collect(&:name).join(", ") }."
+    "#{I18n.t("phrases.the_best_meta")} #{self.name} #{I18n.t("phrases.services_in")} #{city.name.titleize}, #{city.country.name.titleize}. #{I18n.t("words.including")}: #{self.services.visible.limit(5).collect(&:name).join(", ")}."
   end
 
   private
 
+  def clear_cache
+    I18n.available_locales.each do |locale|
+      Rails.cache.delete("#{Rails.env}_get_distinct_services_#{id}_#{locale}")
+      Rails.cache.delete("#{Rails.env}_sub_category_services_#{id}_#{locale}")
+
+      Rails.cache.delete("#{Rails.env}_visible_sub_categories_#{category_id}_#{locale}")
+      Rails.cache.delete("#{Rails.env}_cached_all_site_categories_#{locale}")
+      if category.present?
+        Rails.cache.delete("#{Rails.env}_supplier_sub_caegory_#{self.category.name}_#{locale}")
+      end
+    end
+  end
+
   def create_none_service
     self.services.create(name: "None", hidden: true)
   end
-
 end

@@ -86,6 +86,7 @@ Rails.application.routes.draw do
 
       member do 
         get 'project_details', to: "projects#project_details"
+        get 'category_details',to: "projects#category_details"
       end
 
       resources :project_business, only: [:show]

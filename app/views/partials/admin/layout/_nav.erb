@@ -23,7 +23,15 @@
       </button>
       <ul class="list list--inline nav__list u-hide--medium-down mb0">
         <div class="nav__divider nav__divider--tight"></div>
-       
+           <% if locale == :en %>
+          <li class="list__item">
+            <h3 class="pb1"><%= link_to "ع", set_language_path(language: :ar), method: :put, class: "u-text-contrast" %></h3>
+          </li>
+        <% else %>
+          <li class="list__item">
+            <%= link_to "EN", set_language_path(language: :en), method: :put, class: "u-text-contrast" %>
+          </li>
+        <% end %>
         <div class="nav__divider nav__divider--tight"></div>
 
         <li class="list__item">

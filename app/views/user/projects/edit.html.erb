@@ -1,33 +1,10 @@
-<section class="section-dashboard js-project mb-4">
-  <div class="">
-    <div class="grid">
-      <%#= render partial: "partials/user/projects/project_edit_menu" %>
-      <div class="grid__col--xs-12 grid__col--md-12 grid__col--lg-12">
-        <fieldset class="fieldset">
+<section class="section section--alt in-section" >
+  <div class="site-wrap">
+    <h1 class="section-heading">Edit Project</h1>
           <%= simple_form_for [:user, @project] do |f| %>
-            <%= render partial: "partials/projects/project_form", locals: { f: f } %>
+            <%= render partial: "user/project_steps/sub_projects_forms/project_form", locals: { f: f } %>
           <% end %>
-        </fieldset>
-      </div>
     </div>
-  </div>
-</section>
-
-<section class="section section--alt js-services u-hide">
-  <div class="">
-    <div class="grid">
-      <%= render partial: "partials/user/projects/project_edit_menu" %>
-      <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-8">
-        <% if I18n.with_locale(:en){ @project.category.name == "Machinery" } %>
-          <%= render partial: "user/project_steps/machinery" %>
-        <% elsif I18n.with_locale(:en){ @project.category.name == "Suppliers" } %>
-          <%= render partial: "user/project_steps/suppliers" %>
-        <% else %>
-          <%= render partial: "user/project_steps/service_fields" %>
-        <% end %>
-      </div>
-    </div>
-  </div>
 </section>
 
 

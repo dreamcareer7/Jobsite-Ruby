@@ -15,13 +15,15 @@ class User::BaseController < ApplicationController
     end
   end
 
+  
   def auth_user_or_admin
     if current_user
       authenticate_user!
     elsif current_admin
       true
     else
-      false
+      authenticate_user!
+    #  false
     end
   end
 

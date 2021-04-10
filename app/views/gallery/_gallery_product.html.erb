@@ -41,8 +41,9 @@
     <div class="product-card-name-and-by-container">
       <div class="product-card-product-name"><%= gallery_tile_title(owner) %></div>
       <div class="product-card-product-by">
-      
+      <%unless gallery_item_slug(owner).nil?%>
         <%= link_to business_path(id: gallery_item_slug(owner), city: @current_city.slug, targetSection: 'projects-all'), class: '' do %>
+        <%end%>
         <%= gallery_tile_company(owner) %>
           <%end%>
         </div>
@@ -57,6 +58,7 @@
         <div class="product-action-button has-popover">
           <i class="fa fa-share-alt js-open-popover " aria-hidden="true"></i>
           <div class="popover popover--right popover--arrow popover--arrow-ne">
+          <%unless (owner.is_a?Project and owner.business.nil?)%>
             <%= link_to fb_share_url(owner), class: "popover__link", target: "_blank" do %>
               <%= inline_svg("icons/facebook.svg", class: "social-share__icon icon icon--small") %> Facebook
             <% end %>
@@ -73,7 +75,9 @@
               <%= inline_svg("icons/twitter.svg", class: "social-share__icon icon icon--small") %>
               <small class="social-share__label"><%= t("phrases.share_twitter") %></small>
             <% end %>
+            
             <%= link_to "mailto:?subject=&body=" + business_share_url(owner), class: "popover__link", target: "_blank", title: "Share on Email" do %>
+            <%end%>
               <%= inline_svg("icons/email.svg", class: "social-share__icon icon icon--small") %> Email
             <% end %>
           </div>

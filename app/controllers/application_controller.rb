@@ -127,7 +127,7 @@ class ApplicationController < ActionController::Base
       cookies.signed[:view_count] = 0
     end
 
-    return cookies.signed[:view_count] += 1 if cookies[:view_count].present?
+    return cookies.signed[:view_count] += 1 if cookies.signed[:view_count].present?
 
     cookies.signed[:view_count] = {
       value: 1,

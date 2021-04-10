@@ -13,7 +13,8 @@ class CategoriesController < ApplicationController
   after_action :record_listed_businesses, only: [:show]
 
   def index
-    @categories = Category.includes(:category_metadata, :translations, sub_categories: :category_metadata ).order('sub_categories.name asc')
+#    @categories = Category.includes(:category_metadata, :translations, sub_categories: :category_metadata ).order('sub_categories.name asc')
+    @categories = CachedItems.get_all_categories
   end
 
   def show

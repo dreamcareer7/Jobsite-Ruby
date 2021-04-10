@@ -25,7 +25,7 @@ class City < ApplicationRecord
   globalize_accessors
 
   def all_country_cities
-    Rails.cache.fetch("#{Rails.env}_all_country_cities_ng_#{id}_#{I18n.locale}"){
+    Rails.cache.fetch("#{Rails.env}_all_country_full_cities_ng_#{id}_#{I18n.locale}"){
       country.cities.enabled.order(:name)
       }
     
@@ -83,9 +83,18 @@ class City < ApplicationRecord
 
 
   def country_cities
-    Rails.cache.fetch("#{Rails.env}_country_cities_n_#{id}_#{I18n.locale}"){
+    #Rails.cache.fetch("#{Rails.env}_country_cities_n_#{id}_#{I18n.locale}"){
     self.country.cities.enabled
-    }
+    #}
+  end
+
+  private 
+
+
+  def clear_cache
+    Rails.cache.delete("#{Rails.env}_get_cached_city_#{self}_#{I18n.locale}")
+    Rails.cache.delete("#{Rails.env}_popular_items_new_#{id}_#{I18n.locale}")
+    Rails.cache.delete("#{Rails.env}_popular_by_listing_#{id}_#{I18n.locale}")
   end
 
 end

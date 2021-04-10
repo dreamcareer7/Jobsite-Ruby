@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 # ruby '2.3.1'
 
@@ -13,6 +13,7 @@ gem 'jquery-datatables-rails'
 gem 'ajax-datatables-rails', github: 'frankmarineau/ajax-datatables-rails', branch: 'v-0-4-0'
 gem 'turbolinks', '~> 5.x'
 gem 'jbuilder', '~> 2.0'
+#gem "mimemagic" ,"0.3.10"
 gem 'oj'
 gem 'figaro'
 gem 'simple_form'
@@ -21,7 +22,7 @@ gem 'devise', '4.0.0.rc1'
 gem 'devise_invitable', '~> 1.6'
 gem 'devise-async'
 gem 'pundit'
-gem 'paperclip', github: 'thoughtbot/paperclip'
+gem 'paperclip', github: 'remon/paperclip'
 gem 'paperclip-ffmpeg'
 gem 'paperclip-av-transcoder'
 gem 'sidekiq', '< 5'
@@ -35,8 +36,8 @@ gem 'rack-mini-profiler'
 gem 'redis'
 gem 'globalize-accessors'
 #gem 'globalize', github: 'globalize/globalize'
-#gem 'globalize', '~> 5.3.0'
-gem "globalize" , git: "https://github.com/remon/globalize"
+gem 'globalize', '~> 5.3.0'
+#gem "globalize" , git: "https://github.com/remon/globalize"
 #necessary for globalize rails5 support -> https://github.com/globalize/globalize#installation
 gem 'activemodel-serializers-xml'
 gem 'inline_svg'

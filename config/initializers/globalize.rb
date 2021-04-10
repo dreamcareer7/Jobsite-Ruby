@@ -1,1 +1,3 @@
-Globalize.fallbacks = {:en => [:en, :ar], :ar => [:ar, :en]}
+require 'globalize'
+
+Globalize.fallbacks = {:en => [:ar], :ar => [:en]}

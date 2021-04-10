@@ -204,7 +204,9 @@
 
                         <div class="left-content">
                           <div class="progress-bar-with-percentage">
+                          <%unless quote.project.nil?%>
                             <h5 class="heading"><%= quote.project.user.name %></h5>
+                            <%end%>
                             <span class="activity-edit-button ml2"><%= time_ago_in_words("#{quote.updated_at}") %> <%= t("words.ago") %></span>
                           </div>
                           <div class="sub-heading">
@@ -223,7 +225,9 @@
               </div>
             </div>
           </div>
+          <%unless quote.project.nil?%>
           <%= render partial: "modals/projects/view_quote", locals: { project: quote.project, business: quote.business, quote: quote } %>
+          <%end%>
         <% end %>
       </div>
       <div class= "grid__col--xs-12 grid__col--md-3 grid__col--lg-3">

@@ -17,7 +17,15 @@
   <% unless current_namespace == "business" %>
     <%= render partial: "partials/nav/main_nav/more" %>
   <% end %>
-
+  <% if locale == :en %>
+    <li class="list__item">
+      <h3 class="pb1"><%= link_to "ع", set_language_path(language: :ar), method: :put, class: "u-text-contrast" %></h3>
+    </li>
+  <% else %>
+    <li class="list__item">
+      <%= link_to "EN", set_language_path(language: :en), method: :put, class: "u-text-contrast" %>
+    </li>
+  <% end %>
 
   <li class="list__item">
     <%= link_to user_inbox_index_path do %>

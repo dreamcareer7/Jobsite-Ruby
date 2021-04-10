@@ -16,13 +16,15 @@ GIT
       railties (>= 3.2)
 
 GIT
-  remote: https://github.com/remon/globalize
-  revision: 3fe2f93ab2d0f5d9c2b84e085f627cf469db72a1
+  remote: https://github.com/remon/paperclip.git
+  revision: 3e521879d6762d9cfe36edf98f3e44b80e62cf40
   specs:
-    globalize (5.2.0)
-      activemodel (>= 4.2, < 5.3)
-      activerecord (>= 4.2, < 5.3)
-      request_store (~> 1.0)
+    paperclip (6.1.0)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      mime-types
+      mimemagic (~> 0.3.10)
+      terrapin (~> 0.6.0)
 
 GIT
   remote: https://github.com/rspec/rspec-core.git
@@ -83,19 +85,8 @@ GIT
       rack-protection (= 2.1.0)
       tilt (~> 2.0)
 
-GIT
-  remote: https://github.com/thoughtbot/paperclip.git
-  revision: e3f7493b4cc954405a0209d26933830333ae2869
-  specs:
-    paperclip (6.1.0)
-      activemodel (>= 4.2.0)
-      activesupport (>= 4.2.0)
-      mime-types
-      mimemagic (~> 0.3.0)
-      terrapin (~> 0.6.0)
-
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     actioncable (5.0.7.2)
       actionpack (= 5.0.7.2)
@@ -1226,6 +1217,10 @@ GEM
     geocoder (1.6.3)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    globalize (5.3.1)
+      activemodel (>= 4.2, < 6.1)
+      activerecord (>= 4.2, < 6.1)
+      request_store (~> 1.0)
     globalize-accessors (0.2.1)
       globalize (~> 5.0, >= 5.0.0)
     gmaps4rails (2.1.2)
@@ -1250,7 +1245,7 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     httpclient (2.8.3)
-    i18n (1.8.9)
+    i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     i18n_data (0.10.0)
     impressionist (1.6.1)
@@ -1288,8 +1283,10 @@ GEM
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2020.0512)
-    mimemagic (0.3.5)
+    mime-types-data (3.2021.0225)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.4)
@@ -1540,7 +1537,7 @@ DEPENDENCIES
   font-awesome-rails
   friendly_id (~> 5.1.0)
   geocoder
-  globalize!
+  globalize (~> 5.3.0)
   globalize-accessors
   gmaps4rails
   google-api-client (~> 0.9)
@@ -1594,4 +1591,4 @@ DEPENDENCIES
   wicked
 
 BUNDLED WITH
-   2.2.14
+   2.2.15

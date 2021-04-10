@@ -1,5 +1,6 @@
 
 class User::ProjectsController < User::BaseController
+  #include Wicked::Wizard
   include SortAppliedAndShortlisted
   include SortUserProjects
   include FilterServices
@@ -10,6 +11,14 @@ class User::ProjectsController < User::BaseController
   before_action :suggest_businesses, only: :show
 
   skip_before_action :set_project, only: [:index, :new, :create]
+  
+
+  def category_details
+    #sleep 200
+    @category = Category.find(params[:category_id])
+    @project_types = ProjectType.cached_appropriate_project_types(@category.id) #CachedItems.category_types(@category) #ProjectType.appropriate_project_types(@category)
+    render :layout => false
+  end
 
   def index
     @projects = current_user.projects.includes(country: :translations, city: :translations, shortlists: :business)
@@ -28,7 +37,7 @@ class User::ProjectsController < User::BaseController
     @project = Project.create
     @project_type = params[:project_type]
 
-    if Rails.env.production?
+    if Rails.env.production? and ENV["ON_TESTING_PROD"].nil?
       redirect_to user_project_project_step_url(id: 'project_details', project_id: @project.id, project_type: @project_type, protocol: :https)
     else
       redirect_to user_project_project_step_path(id: 'project_details', project_id: @project.id, project_type: @project_type)

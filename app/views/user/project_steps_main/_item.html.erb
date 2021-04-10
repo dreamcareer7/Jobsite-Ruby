@@ -1,0 +1,70 @@
+<span class="js-cocoon-fields">
+  <%= simple_form_for @project, url: @edit_path do |f| %>
+    <div class="card">
+      <div class="card__section card__section--padded">
+        <div class="card__header">
+          <div class="card__title">
+            <h4 class="card__title"><%= inline_svg("icons/paint.svg", class: 'icon icon--dark icon--small') %> <%= t("post_project.project_requirements") %></h4>
+          </div>
+        </div>
+        <fieldset class="fieldset">
+          <div class="grid">
+            <div class="grid__col--xs-12 grid__col--md-12">
+              <%= f.association :project_types, collection: @project_types, selected: @project.project_types.pluck(:id), input_html: { style: "width:100%", multiple: true }, wrapper: :select2, label: false %>
+              <%# end%>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="card">
+      <fieldset class="fieldset">
+
+        <div class="card__section card__section--padded card__section--border">
+          <div class="card__header">
+            <div class="card__title">
+              <h4 class="card__title">
+                <%= inline_svg("icons/#{ I18n.with_locale(:en){ @category.name.downcase }}.svg", class: "icon icon--small icon--dark") %>
+                <%= t("post_project.project_services_needed", category: @category.name.capitalize.singularize) %>
+              </h4>
+            </div>
+          </div>
+          <fieldset class="fieldset">
+            <div class="grid">
+              <div class="grid__col--xs-12 grid__col--md-12">
+                <div class="field">
+                  <div class="field__input-wrapper">
+                    <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                    <%= f.input :project_sub_category, collection: @project.category.sub_categories.visible, selected: @project.sub_categories.present? ? @project.sub_categories.first.id : '', input_html: { class: "field__input field__input--right-add-on js-selected-subcat" }, label: false, required: true, include_blank: true %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <%= f.simple_fields_for :project_services do |ps| %>
+          <%= render "user/project_steps/item_fields", f: ps %>
+        <% end %>
+        <div class="card__section js-more">
+          <%= link_to_add_association t("post_project.machinery.add_more"), f, :project_services, partial: "user/project_steps/item_fields", class: "u-text-accent btn" %>
+        </div>
+        <div class="card__section card__section--padded">
+          <div class="field u-text-right">
+            <div class="btn-group btn-group--full mt1">
+              <% if action_name == "edit" %>
+                <%= f.submit t("form.create"), class: "btn-group__item btn--xs-full btn btn--primary" %>
+              <% else %>
+                <%= f.submit t("post_project.submit"), class: "btn-group__item btn--xs-full btn btn--primary" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      </fieldset>
+    </div>
+</span>
+
+  <%= content_tag :span, '', class: "js-project-id", data: { id: @project.id } %>
+  <%= javascript_include_tag "project-services" %>

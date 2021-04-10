@@ -2,17 +2,23 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
-  config.cache_classes = true
-
+  if ENV["ON_TESTING"].present?
+    config.cache_classes = false
+    config.consider_all_requests_local       = true 
+    config.action_controller.perform_caching = false
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
   # Rake tasks automatically ignore this option for performance.
-  config.eager_load = true
-
+    config.eager_load = false
+    else 
+      config.consider_all_requests_local       = false
+      config.action_controller.perform_caching = true
+    config.cache_classes = true 
+    config.eager_load = false
+end 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = true
+  
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
@@ -24,16 +30,25 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  if ENV["ON_TESTING"].present?
+    config.assets.compile = true
+
+    # Asset digests allow you to set far-future HTTP expiration dates on all assets,
+    # yet still be able to expire them through the digest params.
+    config.assets.digest = false
+  else
+    config.assets.compile = false
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
   config.assets.digest = true
+  end
+  
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.action_controller.asset_host = 'http://assets.example.com'
+  config.action_controller.asset_host = "d11r78q9l0p282.cloudfront.net"
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
@@ -86,7 +101,7 @@ Rails.application.configure do
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
-  config.i18n.fallbacks = true
+  #config.i18n.fallbacks = true
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify

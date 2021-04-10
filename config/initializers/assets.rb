@@ -10,6 +10,7 @@ Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'bo
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += [
+  "user_projects_main",
   'modals.js',
   'auto_complete.js',
   'location-map.js',

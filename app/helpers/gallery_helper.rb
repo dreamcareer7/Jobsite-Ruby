@@ -25,6 +25,8 @@ module GalleryHelper
   end
 
   def business_share_url(owner)
+    Rails.logger.error("------------------")
+    Rails.logger.error(owner)
     business_url(id: gallery_item_slug(owner), city: @current_city.slug)
   end
 

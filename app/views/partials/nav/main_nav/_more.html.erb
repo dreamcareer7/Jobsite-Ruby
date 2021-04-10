@@ -11,7 +11,11 @@
     <%= link_to t("main_nav.gallery"), gallery_index_path, class: "popover__link" %>
     <%= link_to t("main_nav.contact"), "/pages/contact", class: "popover__link" %>
     <span data-modal="problem" class="js-open-modal js-claim-menu popover__link"><%= t("business.report") %></span>
-
+  <% if I18n.locale == :en %>
+      <%= link_to "العربية", set_language_path(language: :ar), method: :put, class: "popover__link" %>
+    <% else %>
+      <%= link_to "English", set_language_path(language: :en), method: :put, class: "popover__link" %>
+    <% end %>
   </div>
 </li>
 <div class="nav__divider nav__divider--tight"></div>

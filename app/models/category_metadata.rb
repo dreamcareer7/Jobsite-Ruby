@@ -9,4 +9,11 @@ class CategoryMetadata < ApplicationRecord
   translates :subheadline
   globalize_accessors
 
+  after_commit :clear_cache
+
+  private
+  def clear_cache
+    Rails.cache.delete("#{Rails.env}_cached_all_site_categories_#{I18n.locale}")
+  end
+
 end
