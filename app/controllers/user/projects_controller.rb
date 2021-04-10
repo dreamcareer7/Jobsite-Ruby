@@ -1,4 +1,3 @@
-
 class User::ProjectsController < User::BaseController
   #include Wicked::Wizard
   include SortAppliedAndShortlisted
@@ -11,7 +10,6 @@ class User::ProjectsController < User::BaseController
   before_action :suggest_businesses, only: :show
 
   skip_before_action :set_project, only: [:index, :new, :create]
-  
 
   def category_details
     #sleep 200
@@ -38,9 +36,9 @@ class User::ProjectsController < User::BaseController
     @project_type = params[:project_type]
 
     if Rails.env.production? and ENV["ON_TESTING_PROD"].nil?
-      redirect_to user_project_project_step_url(id: 'project_details', project_id: @project.id, project_type: @project_type, protocol: :https)
+      redirect_to user_project_project_step_url(id: "project_details", project_id: @project.id, project_type: @project_type, protocol: :https)
     else
-      redirect_to user_project_project_step_path(id: 'project_details', project_id: @project.id, project_type: @project_type)
+      redirect_to user_project_project_step_path(id: "project_details", project_id: @project.id, project_type: @project_type)
     end
   end
 
@@ -57,7 +55,7 @@ class User::ProjectsController < User::BaseController
   def show
     authorize @project
     @project_types = ProjectType.appropriate_project_types(@project.category)
-    @filter_terms = ["Shortlisted (#{ @project.number_shortlisted })", "Interested (#{ @project.number_applied })"]
+    @filter_terms = ["Shortlisted (#{@project.number_shortlisted})", "Interested (#{@project.number_applied})"]
     @businesses = Business.where(id: @project.shortlists.pluck(:business_id))
 
     if params[:filter_by].present?
@@ -72,6 +70,7 @@ class User::ProjectsController < User::BaseController
     @cities = City.all.enabled
     @countries = Country.all.enabled
     @category = @project.category
+    @category_name = I18n.with_locale(:en) { @category.name }
     @project_types = ProjectType.appropriate_project_types(@category)
     @services = @project.sub_categories.present? ? @project.sub_categories.first.services : @category.services
     project_type_header
@@ -96,7 +95,7 @@ class User::ProjectsController < User::BaseController
   def destroy
     authorize @project
     @project.destroy
-      respond_to do |format|
+    respond_to do |format|
       format.html { redirect_to user_projects_path }
       format.js { render layout: false }
     end
@@ -105,7 +104,6 @@ class User::ProjectsController < User::BaseController
   def project_type_header
     # @project_type_header = I18n.t("main_nav.hire_professional") unless params[:project_type].present?
 
-    
     if @category.slug == "suppliers"
       @project_type_header = I18n.t("main_nav.get_supplies")
     elsif @category.slug == "machinery"
@@ -124,7 +122,7 @@ class User::ProjectsController < User::BaseController
   private
 
   def user_not_authorised
-    redirect_back(fallback_location: user_profile_index_path) 
+    redirect_back(fallback_location: user_profile_index_path)
     flash[:error] = "Sorry, you must be a pro user to post more than 3 projects a month."
   end
 
@@ -134,39 +132,39 @@ class User::ProjectsController < User::BaseController
     params[:project][:project_type_ids].reject!(&:blank?) if params[:project][:project_type_ids].present?
 
     params.require(:project).permit(
-      :title, 
-      :description, 
-      :start_date, 
-      :end_date, 
+      :title,
+      :description,
+      :start_date,
+      :end_date,
       :budget,
       :timeline_type,
-      :status, 
-      :creation_status, 
-      :project_budget, 
+      :status,
+      :creation_status,
+      :project_budget,
       :currency_type,
-      :historical_structure, 
-      :location_type, 
-      :user_id, 
-      :category_id, 
+      :historical_structure,
+      :location_type,
+      :user_id,
+      :category_id,
       :project_owner_type,
       :contact_name,
       :contact_email,
       :contact_number,
       :contact_role,
       :project_type_ids => [],
-      :project_services_attributes => [ :id, :service_id, :quantity, :details, :option, :_destroy, :service_id => [] ], 
+      :project_services_attributes => [:id, :service_id, :quantity, :details, :option, :_destroy, :service_id => []],
       :service_ids => [],
-      :location_attributes => [ :city_id, :street_address, :latitude, :longitude ],
-      :attachments_attributes => [ :id, :attachment, :_destroy ])
+      :location_attributes => [:city_id, :street_address, :latitude, :longitude],
+      :attachments_attributes => [:id, :attachment, :_destroy],
+    )
   end
 
   def set_project
     @project = Project.where(id: params[:project_id].present? ? params[:project_id] : params[:id]).first
 
     unless @project.present?
-      redirect_back(fallback_location: user_profile_index_path) 
+      redirect_back(fallback_location: user_profile_index_path)
       flash[:error] = "Sorry, that project is no longer available."
     end
   end
-
 end

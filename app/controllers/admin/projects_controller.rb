@@ -17,6 +17,7 @@ class Admin::ProjectsController < Admin::BaseController
     @cities = City.all.enabled
     @countries = Country.all.enabled
     @category = @project.category
+    @category_name = I18n.with_locale(:en) { @category.name }
     @project_types = ProjectType.appropriate_project_types(@category)
     @services = @project.sub_categories.present? ? @project.sub_categories.first.services : @category.services
     @edit_path = admin_project_path(@project)
@@ -30,7 +31,6 @@ class Admin::ProjectsController < Admin::BaseController
   def show
     #authorize @project
     resolve_notification
-
   end
 
   def update
@@ -78,21 +78,21 @@ class Admin::ProjectsController < Admin::BaseController
     params[:project][:project_type_ids].reject!(&:blank?) if params[:project][:project_type_ids].present?
 
     params.require(:project).permit(
-      :title, 
-      :description, 
-      :start_date, 
-      :end_date, 
+      :title,
+      :description,
+      :start_date,
+      :end_date,
       :budget,
       :timeline_type,
-      :status, 
-      :creation_status, 
-      :project_budget, 
+      :status,
+      :creation_status,
+      :project_budget,
       :currency_type,
-      :historical_structure, 
-      :location_type, 
+      :historical_structure,
+      :location_type,
       :project_types,
-      :user_id, 
-      :category_id, 
+      :user_id,
+      :category_id,
       :project_owner_type,
       :contact_name,
       :contact_email,
@@ -100,10 +100,10 @@ class Admin::ProjectsController < Admin::BaseController
       :contact_role,
       :approved,
       :project_type_ids => [],
-      :location_attributes => [ :city_id, :street_address, :latitude, :longitude ],
-      :project_services_attributes => [ :id, :service_id, :quantity, :details, :option, :_destroy, :service_id => [] ], 
+      :location_attributes => [:city_id, :street_address, :latitude, :longitude],
+      :project_services_attributes => [:id, :service_id, :quantity, :details, :option, :_destroy, :service_id => []],
       :service_ids => [],
-      :attachments_attributes => [ :id, :attachment, :_destroy ])
+      :attachments_attributes => [:id, :attachment, :_destroy],
+    )
   end
-
 end

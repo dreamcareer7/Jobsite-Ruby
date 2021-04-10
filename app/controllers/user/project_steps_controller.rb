@@ -30,7 +30,7 @@ class User::ProjectStepsController < User::BaseController
       @project.update_attributes(category_id: @project_category.id)
     end
     @category = Category.find(@project.category_id)
-
+    @category_name = I18n.with_locale(:en) { @category.name }
     @project_types = CachedItems.category_types(@category) #  ProjectType.appropriate_project_types(@category)
     @services = @category ? @category.services : Service.all
     restore_on_validation_error

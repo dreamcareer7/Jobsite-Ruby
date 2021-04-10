@@ -1,12 +1,22 @@
+
+
 <section class="section section--alt in-section" >
   <div class="site-wrap">
     <h1 class="section-heading">Edit Project</h1>
-          <%= simple_form_for [:user, @project] do |f| %>
-            <%= render partial: "user/project_steps/sub_projects_forms/project_form", locals: { f: f } %>
-          <% end %>
-    </div>
+    <%= simple_form_for [:user , @project] do |f| %>
+      <%= render partial: "user/project_steps/sub_projects_forms/project_form", locals: { f: f } %>
+    <% end %>
+  </div>
 </section>
 
+<%# restore fields on server validation error %>
+<% if @required_categories.present? %>
+  <%= content_tag :span, '', class: "js-restore-required-categories", data: { categories: @required_categories } %>
+<% end %>
+
+<% if @other_field.present? %>
+  <%= content_tag :span, '', class: "js-restore-other-field", data: { other: @other_field } %>
+<% end %>
 
 <%= content_for :page_scripts do %>
   <%= javascript_include_tag "location-map" %>
@@ -20,38 +30,49 @@
         $('.js-other-option').addClass('u-hide');
       };
     });
-    
+
     if( $('#project_location_type_other').is(':checked')) {
       $('.js-other-option').removeClass('u-hide');
       $('#other_field').val(other_field);
     };
-    
+
     <% if @restored %>
-      var requiredCategories = "<%= j @required_categories %>".split("");
-      var address = "<%= j @address %>"
-      var coordinates = "<%= j @coordinates %>".split("");
-      var other_field = "<%= j @other_field %>";
-    
+      var requiredCategories = $('.js-restore-required-categories').data('categories');
+      var otherField = $('.js-restore-other-field').data('other')
+
       $('.js-required-categories').each(function() {
         if (requiredCategories.indexOf(this.value) > -1) {
           $(this).prop('checked', true);
         };
       });
-    
-      $('#other_field').val(other_field);
-      $("#coordinates").val(coordinates);
-      $('.js-street-address').val(address);
-    <% end %>
 
-    $('.js-toggle-project').on('click', function() {
-      $('.js-services').addClass('u-hide');
-      $('.js-project').removeClass('u-hide');
+      $('#other_field').val(otherField);
+    <% end %>
+  </script>
+<% end %>
+
+<%= content_for :page_scripts do %>
+  <script>
+    var selectedSubCat = '';
+
+    $('.js-selected-services').on('change', function() {
+      if($(this).val() && $(this).val().length) {
+        $('.js-submit').prop('disabled', false)
+      }
     });
 
-    $('.js-toggle-services').on('click', function() {
-      $('.js-project').addClass('u-hide');
-      $('.js-services').removeClass('u-hide');
+    $('.js-submit').prop('disabled', true)
+    
+    $('.js-selected-subcat').on('change', function() {
+      selectedSubCat = parseInt($(this).val());
+      $.each($('.js-select-services'), function() {
+        if ($(this).data('sub-cat') === selectedSubCat) {
+          $(this).removeClass('u-hide')
+        } else {
+          $(this).addClass('u-hide');
+          $(this).find('select').val('').change();
+        }
+      })
     });
   </script>
-
 <% end %>
