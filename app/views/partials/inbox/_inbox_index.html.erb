@@ -1,97 +1,106 @@
 <% if @inbox.present? %>
-  <section class="grid__col--md-12">
-    <div class="card">
-      <div class="grid unset-grid">
-        <div class="grid__col--md-3 unset-grid">
-          <div class="message-left-section">
-            <h3 class="message-contacts-heading ml3">Contacts</h3>
+<section class="grid__col--md-12">
+  <div class="card">
+    <div class="grid unset-grid">
+      <div class="grid__col--md-3 unset-grid">
+        <div class="message-left-section">
+          <h3 class="message-contacts-heading ml3">Contacts</h3>
 
-            <ul class="message-contact-list messageContactListDropdown ">
-              <% @project_message_array.each do |value| %>
-                <li class="message-contact-list__single_list active-class set-project-<%= value[0].id %> limain">
-                  <div class="message-contact-list__outer-container ">
-                    <div class="msg-val message-contact-list_profile_image">
-                      <%= image_tag current_user.profile_image.url, class: "avatar" %>
+          <ul class="message-contact-list messageContactListDropdown ">
+            <% @project_message_array.each do |value| %>
+            <li class="message-contact-list__single_list active-class set-project-<%= value[0].id %> limain">
+              <div class="message-contact-list__outer-container ">
+                <div class="msg-val message-contact-list_profile_image">
+                  <%= image_tag current_user.profile_image.url, class: "avatar" %>
+                </div>
+                <div class="msg-val message-contact-list_company_name">
+                  <h5><%= value[0].title %></h5>
+                  <p>
+                    <%if value[1]%>
+                    <%if value[1].first%>
+                    <%= t("words.you") if value[1].first.is_sender?(current_user, @current_business) %>
+                    <%= truncate(value[1].first.body, length: 50 ) %>
+                    <%end%>
+                    <%end%>
+                  </p>
+                </div>
+              </div>
+              <ul class="li-active">
+                <% value[1].each do |entry| %>
+                <li
+                  class="lichild set-active-<%= entry.id %>  <%= 'message-active' if @active_message.id == entry.id %>">
+                  <%= link_to  user_inbox_path(id: entry.id), remote: true  do %>
+                  <div class="message-contact-list__outer-container">
+                    <div class="message-contact-list_profile_image">
+                      <% if entry.sender.present? && entry.receiver.present? %>
+                      <% if entry.is_sender?(current_user, @current_business) %>
+                      <%= image_tag(entry.receiver.is_a?(Business) ? entry.receiver.logo.url(:small) : entry.receiver.profile_image.url, class: "avatar") %>
+                      <% else %>
+                      <%= image_tag(entry.sender.is_a?(Business) ? entry.sender.logo.url(:small) : entry.sender.profile_image.url, class: "avatar") %>
+                      <% end %>
+                      <% end %>
                     </div>
-                    <div class="msg-val message-contact-list_company_name">
-                      <h5><%= value[0].title %></h5>
+                    <div class="message-contact-list_company_name">
+                      <h5>
+                        <%= entry.is_sender?(current_user, @current_business) ? entry.receiver.name : entry.sender.name if entry.sender.present? && entry.receiver.present? %>
+                      </h5>
                       <p>
-                        <%= t("words.you") if value[1].first.is_sender?(current_user, @current_business) %>
-                        <%= truncate(value[1].first.body, length: 50 ) %>
+                        <%= t("words.you") if entry.is_sender?(current_user, @current_business) %>
+                        <%= truncate(entry.body, length: 50 ) %>
                       </p>
                     </div>
                   </div>
-                  <ul class="li-active">
-                    <% value[1].each do |entry| %>
-                      <li class="lichild set-active-<%= entry.id %>  <%= 'message-active' if @active_message.id == entry.id %>">
-                        <%= link_to  user_inbox_path(id: entry.id), remote: true  do %>
-                          <div class="message-contact-list__outer-container">
-                            <div class="message-contact-list_profile_image">
-                              <% if entry.sender.present? && entry.receiver.present? %>
-                                <% if entry.is_sender?(current_user, @current_business) %>
-                                  <%= image_tag(entry.receiver.is_a?(Business) ? entry.receiver.logo.url(:small) : entry.receiver.profile_image.url, class: "avatar") %>
-                                <% else %>
-                                  <%= image_tag(entry.sender.is_a?(Business) ? entry.sender.logo.url(:small) : entry.sender.profile_image.url, class: "avatar") %>
-                                <% end %>
-                              <% end %>
-                            </div>
-                            <div class="message-contact-list_company_name">
-                                <h5><%= entry.is_sender?(current_user, @current_business) ? entry.receiver.name : entry.sender.name if entry.sender.present? && entry.receiver.present? %></h5>
-                                <p>
-                                  <%= t("words.you") if entry.is_sender?(current_user, @current_business) %>
-                                  <%= truncate(entry.body, length: 50 ) %>
-                                </p>
-                            </div>
-                          </div>
-                        <% end %>
-                      </li>
-                    <% end %>
-                  </ul> 
-                </li>
-              <% end %>
-              <% @conversations.each do |entry| %>
-                <li class="message-contact-list__single_list p0 active-class limain set-active-<%= entry.id %>">
-                  <%= link_to  user_inbox_path(id: entry.id), remote: true  do %>
-                    <div class="message-contact-list__outer-container ">
-                      <div class="msg-val message-contact-list_profile_image">
-                        <% if entry.sender.present? && entry.receiver.present? %>
-                          <% if entry.is_sender?(current_user, @current_business) %>
-                            <%= image_tag(entry.receiver.is_a?(Business) ? entry.receiver.logo.url(:small) : entry.receiver.profile_image.url, class: "avatar") %>
-                          <% else %>
-                            <%= image_tag(entry.sender.is_a?(Business) ? entry.sender.logo.url(:small) : entry.sender.profile_image.url, class: "avatar") %>
-                          <% end %>
-                        <% end %>
-                      </div>
-                      <div class="msg-val message-contact-list_company_name">
-                        <h5><%= entry.is_sender?(current_user, @current_business) ? entry.receiver.name : entry.sender.name if entry.sender.present? && entry.receiver.present? %></h5>
-                        <p>
-                          <%= t("words.you") if entry.is_sender?(current_user, @current_business) %>
-                          <%= truncate(entry.body, length: 50 ) %>
-                        </p>
-                      </div>
-                    </div>
                   <% end %>
                 </li>
+                <% end %>
+              </ul>
+            </li>
+            <% end %>
+            <% @conversations.each do |entry| %>
+            <li class="message-contact-list__single_list p0 active-class limain set-active-<%= entry.id %>">
+              <%= link_to  user_inbox_path(id: entry.id), remote: true  do %>
+              <div class="message-contact-list__outer-container ">
+                <div class="msg-val message-contact-list_profile_image">
+                  <% if entry.sender.present? && entry.receiver.present? %>
+                  <% if entry.is_sender?(current_user, @current_business) %>
+                  <%= image_tag(entry.receiver.is_a?(Business) ? entry.receiver.logo.url(:small) : entry.receiver.profile_image.url, class: "avatar") %>
+                  <% else %>
+                  <%= image_tag(entry.sender.is_a?(Business) ? entry.sender.logo.url(:small) : entry.sender.profile_image.url, class: "avatar") %>
+                  <% end %>
+                  <% end %>
+                </div>
+                <div class="msg-val message-contact-list_company_name">
+                  <h5>
+                    <%= entry.is_sender?(current_user, @current_business) ? entry.receiver.name : entry.sender.name if entry.sender.present? && entry.receiver.present? %>
+                  </h5>
+                  <p>
+                    <%= t("words.you") if entry.is_sender?(current_user, @current_business) %>
+                    <%= truncate(entry.body, length: 50 ) %>
+                  </p>
+                </div>
+              </div>
               <% end %>
-            </ul>
-          </div>
-        </div>
-        <div class="grid__col--md-9 unset-grid" id="conversation-messages">
-          <%= render partial: "partials/inbox/conversation_messages", locals: { project:@project, business: @business }  %>
+            </li>
+            <% end %>
+          </ul>
         </div>
       </div>
+      <div class="grid__col--md-9 unset-grid" id="conversation-messages">
+        <%= render partial: "partials/inbox/conversation_messages", locals: { project:@project, business: @business }  %>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 <% else %>
-  <section class="grid__col--md-12 mt2">
-    <div class="card">
-      <div class="grid unset-grid">
-        <div class="card__section card__section--border text-center">
-          <p><%= t("dashboard.no_notifications") %></p>
-        </div>
+<section class="grid__col--md-12 mt2">
+  <div class="card">
+    <div class="grid unset-grid">
+      <div class="card__section card__section--border text-center">
+        <p><%= t("dashboard.no_notifications") %></p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 <% end %>
 
 <script>
@@ -101,9 +110,10 @@
     $(".set-project-<%= @project.present? ? @project.id : '' %>").children('ul').show();
 
     $(".limain").click(function (e) {
-      if(event.target.classList.contains('msg-val') || event.target.parentElement.classList.contains('msg-val')) {
+      if (event.target.classList.contains('msg-val') || event.target.parentElement.classList.contains(
+        'msg-val')) {
         $(this).siblings().find('ul').hide();
-        if(this.querySelector('ul').style.display === 'none') {
+        if (this.querySelector('ul').style.display === 'none') {
           $(this).children('ul').show();
         } else {
           $(this).children('ul').hide();
@@ -112,6 +122,3 @@
     });
   });
 </script>
-
-
-
