@@ -19,7 +19,7 @@ class ServicesController < ApplicationController
 
   def show
     category_sub_categories = @category.cached_subcategories_enabled
-    @trending_sub_categories = category_sub_categories.trending.first(3)
+    @trending_sub_categories = category_sub_categories.cached_trending.first(3)
 
     #always place current sub category first
     @sub_categories = (category_sub_categories

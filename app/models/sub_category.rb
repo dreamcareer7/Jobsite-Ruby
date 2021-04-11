@@ -33,6 +33,12 @@ class SubCategory < ApplicationRecord
   scope :visible, -> { where(hidden: false).order(name: :asc) }
   scope :enabled, -> { where(disabled: false) }
 
+  def self.cached_trending
+    Rails.cache.fetch("#{Rails.env}_cached_trendingn_#{I18n.locale}") {
+      includes(:category_metadata).order(view_count_change: :desc).to_a
+    }
+  end
+
   def cached_visible_services
     Rails.cache.fetch("#{Rails.env}_sub_category_services_#{id}_#{I18n.locale}") {
       services.visible
@@ -70,6 +76,7 @@ class SubCategory < ApplicationRecord
 
   def clear_cache
     I18n.available_locales.each do |locale|
+      Rails.cache.delete("#{Rails.env}_cached_trendingn_#{locale}")
       Rails.cache.delete("#{Rails.env}_2visible_sub_categories_enabled_#{category_id}_#{locale}")
       Rails.cache.delete("#{Rails.env}_get_distinct_services_#{id}_#{locale}")
       Rails.cache.delete("#{Rails.env}_sub_category_services_#{id}_#{locale}")

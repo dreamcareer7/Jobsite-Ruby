@@ -1,5 +1,4 @@
 class CategoryMetadata < ApplicationRecord
-
   belongs_to :owner, polymorphic: true
 
   has_attached_file :banner, styles: { small: "300x600", square: "600x600", large: "1600x400" }, default_url: "missing/banner.png"
@@ -12,8 +11,11 @@ class CategoryMetadata < ApplicationRecord
   after_commit :clear_cache
 
   private
-  def clear_cache
-    Rails.cache.delete("#{Rails.env}_cached_all_site_categories_#{I18n.locale}")
-  end
 
+  def clear_cache
+    I18n.available_locales.each do |locale|
+      Rails.cache.delete("#{Rails.env}_cached_trendingn_#{locale}")
+      Rails.cache.delete("#{Rails.env}_cached_all_site_categories_#{locale}")
+    end
+  end
 end
