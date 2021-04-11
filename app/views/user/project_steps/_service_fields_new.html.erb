@@ -1,24 +1,6 @@
 
 
   <div class="card card-middle">
-    <div class="card__section card__section--padded">
-      <div class="card__header">
-        <div class="card__title">
-          <h4 class="card__title"><%= inline_svg("icons/paint.svg", class: 'icon icon--dark icon--small') %><%= t("post_project.project_type") %></h4>
-        </div>
-      </div>
-      <fieldset class="fieldset">
-        <div class="grid">
-          <div class="grid__col--xs-12 grid__col--md-12">
-            <%= f.association :project_types, collection: @project_types, selected: @project.project_types.pluck(:id), input_html: { style: "width:100%", multiple: true }, wrapper: :select2, label: false %>
-            <%# end%>
-          </div>
-        </div>
-      </fieldset>
-    </div>
-  </div>
-
-  <div class="card card-middle">
 
     <div class="card__section card__section--padded">
       <div class="card__header">
@@ -27,7 +9,7 @@
         </div>
       </div>
       <fieldset class="fieldset">
-        <div class="grid">
+        
           <div class="grid__col--xs-12 grid__col--md-12">
             <div class="field">
               <div class="field__input-wrapper">
@@ -36,7 +18,7 @@
               </div>
             </div>
           </div>
-        </div>
+        
       </fieldset>
     </div>
 
@@ -48,14 +30,14 @@
           </div>
         </div>
         <fieldset class="fieldset">
-          <div class="grid">
+          
             <div class="grid__col--xs-12 grid__col--md-12">
               <div class="field">
                 <label class="field__label">* <%= t("post_project.project_services") %></label>
                 <%= f.association :services, collection: sub_category.services.visible, selected: @project.services.pluck(:id), input_html: { multiple: true, style: "width:100%", class: "js-selected-services" }, wrapper: :select2, label: false %>
               </div>
             </div>
-          </div>
+         </fieldset>
       </div>
     <% end %>
 

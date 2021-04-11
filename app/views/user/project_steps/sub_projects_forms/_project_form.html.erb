@@ -39,6 +39,19 @@
 
         <%= f.hidden_field  :required_category,value: @category.id, class: "product_hidden_category" %>
         <!--end ofcategories_select-->
+
+      </div>
+      <div class="card__section card__section--padded category_all_temp" id="category_details_all">
+
+
+        <div class="grid">
+
+
+          <%= render partial: I18n.with_locale(:en) { @category.name.downcase }  ,locals: { f: f } %>
+        </div>
+
+      </div>
+      <div class="card__section card__section--padded">
         <div class="card__header">
           <h4 class="card__title">
             <%= inline_svg("icons/briefcase.svg", class: "icon icon--dark icon--small") %><%= t("post_project.header.general") %>
@@ -61,18 +74,22 @@
             </div>
           </div>
         </fieldset>
-      </div>
-      <div class="card__section card__section--padded category_all_temp" id="category_details_all">
 
-
-        <div class="grid">
-
-
-          <%= render partial: I18n.with_locale(:en) { @category.name.downcase }  ,locals: { f: f } %>
+        <div class="card__header">
+          <div class="card__title">
+            <h4 class="card__title">
+              <%= inline_svg("icons/paint.svg", class: 'icon icon--dark icon--small') %><%= t("post_project.project_type") %>
+            </h4>
+          </div>
         </div>
-
-      </div>
-      <div class="card__section card__section--padded">
+        <fieldset class="fieldset mgb10">
+          <div class="grid">
+            <div class="grid__col--xs-12 grid__col--md-12">
+              <%= f.association :project_types, collection: @project_types, selected: @project.project_types.pluck(:id), input_html: { style: "width:100%", multiple: true }, wrapper: :select2, label: false %>
+              <%# end%>
+            </div>
+          </div>
+        </fieldset>
         <div class="card__header">
           <h4 class="card__title">
             <%= inline_svg("icons/location.svg", class: "icon icon--dark icon--small") %><%= t("post_project.header.location") %>
