@@ -86,7 +86,7 @@
           <% contractor_sub_categories.each do |category_name| %>
             <ul class="professionals-submenu-unorder-list">
               <h3 class="submenu-category-title"><%= category_name[0] %></h3>
-              <% supplier_sub_caegory(category_name[1]).limit(6).each do |sub_category| %>
+              <% supplier_sub_caegory(category_name[1]).first(6).each do |sub_category| %>
                 <li><%= link_to sub_category.name, sub_category_path(id: sub_category) %></li>
               <% end %>
               <h5 class="see-all-links"><%= link_to t('nav.view_all'), category_path(id: category_name[1]) %></h5>

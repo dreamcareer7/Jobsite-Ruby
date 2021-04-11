@@ -96,6 +96,7 @@ class Category < ApplicationRecord
 
   def clear_cache
     I18n.available_locales.each do |locale|
+      Rails.cache.delete("#{Rails.env}_suppliers_sub_caty_#{slug}_#{locale}")
       Rails.cache.delete("#{Rails.env}_cached_trendingn_#{locale}")
       Rails.cache.delete("#{Rails.env}_2visible_sub_categories_enabled_#{id}_#{locale}")
       Rails.cache.delete("#{Rails.env}_cached__by_n_category_type_#{category_id}_#{locale}")

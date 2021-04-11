@@ -14,6 +14,9 @@ class CategoryMetadata < ApplicationRecord
 
   def clear_cache
     I18n.available_locales.each do |locale|
+      unless owner.slug.present?
+        Rails.cache.delete("#{Rails.env}_suppliers_sub_caty_#{owner.slug}_#{locale}")
+      end
       Rails.cache.delete("#{Rails.env}_cached_trendingn_#{locale}")
       Rails.cache.delete("#{Rails.env}_cached_all_site_categories_#{locale}")
     end
