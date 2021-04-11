@@ -37,7 +37,7 @@ class User::ProjectStepsController < User::BaseController
 
     @project.attachments.build if step == :project_details
     @project.build_location if step == :project_details && @project.location.blank?
-    @project.project_services.build if step == :additional_information
+    @project.project_services.build #if step == :additional_information
 
     if params[:sort_by].present?
       @services = SubCategory.find(params[:sort_by]).services.visible

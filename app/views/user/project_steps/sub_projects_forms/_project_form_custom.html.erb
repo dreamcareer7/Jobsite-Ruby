@@ -44,10 +44,10 @@
                                 </div>
 
                                 <%= f.simple_fields_for :project_services do |ps| %>
-                                <%=ps%>
+                                
                                 <%= render "user/project_steps/item_fields", f: ps %>
                                 <% end %>
-                                <div class="card__section js-more">
+                                <div class="card__section js-more ">
                                     <%= link_to_add_association t("post_project.machinery.add_more"), f, :project_services, partial: "user/project_steps/item_fields", class: "u-text-accent btn" %>
                                 </div>
 

@@ -12,6 +12,7 @@ $('.js-cocoon-fields').on('cocoon:after-insert', function() {
 
 $('.js-selected-subcat').on('change', function() {
   var selectedSubCat = $(this).val();
+  console.log(selectedSubCat);
   targetSubCat = $(this);
 
   // $('.js-cocoon-fields').find('form')[0].reset();
