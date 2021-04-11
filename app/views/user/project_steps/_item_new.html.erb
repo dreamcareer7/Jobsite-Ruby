@@ -57,4 +57,27 @@
 </span>
 
   <%= content_tag :span, '', class: "js-project-id", data: { id: @project.id } %>
-  <%= javascript_include_tag "project-services" %>
+    <script>
+    var selectedSubCat = '';
+
+    $('.js-selected-services').on('change', function() {
+      if($(this).val() && $(this).val().length) {
+        $('.js-submit').prop('disabled', false)
+      }
+    });
+
+    $('.js-submit').prop('disabled', true)
+    
+    $('.js-selected-subcat').on('change', function() {
+      selectedSubCat = parseInt($(this).val());
+      $.each($('.js-select-services'), function() {
+        if ($(this).data('sub-cat') === selectedSubCat) {
+          $(this).removeClass('u-hide')
+        } else {
+          $(this).addClass('u-hide');
+          $(this).find('select').val('').change();
+        }
+      })
+    });
+  </script>
+  

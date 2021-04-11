@@ -47,7 +47,7 @@
                                 
                                 <%= render "user/project_steps/item_fields", f: ps %>
                                 <% end %>
-                                <div class="card__section js-more ">
+                                <div class="card__section js-more u-hide">
                                     <%= link_to_add_association t("post_project.machinery.add_more"), f, :project_services, partial: "user/project_steps/item_fields", class: "u-text-accent btn" %>
                                 </div>
 
@@ -56,7 +56,7 @@
                     </span>
 
                     <%= content_tag :span, '', class: "js-project-id", data: { id: @project.id } %>
-                    <%= javascript_include_tag "project-services" %>
+                    
 
                 </div>
 
@@ -263,3 +263,5 @@
         </div>
     </div>
 </div>
+
+<%= javascript_include_tag "project-services" %>

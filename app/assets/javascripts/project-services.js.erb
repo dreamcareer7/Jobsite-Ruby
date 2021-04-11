@@ -2,6 +2,7 @@ var targetSubCat;
 
 $('.js-cocoon-fields').on('cocoon:after-insert', function() {
   $.each($('.js-item-field'), function() {
+      $(this).removeClass('u-hide');
     if (this === $('.js-item-field').last()[0]) {
       $(this).addClass('pb0');
     } else {

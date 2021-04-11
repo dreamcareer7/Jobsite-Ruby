@@ -50,27 +50,5 @@
 <% end %>
 
 
-  <script>
-    var selectedSubCat = '';
 
-    $('.js-selected-services').on('change', function() {
-      if($(this).val() && $(this).val().length) {
-        $('.js-submit').prop('disabled', false)
-      }
-    });
-
-    $('.js-submit').prop('disabled', true)
-    
-    $('.js-selected-subcat').on('change', function() {
-      selectedSubCat = parseInt($(this).val());
-      $.each($('.js-select-services'), function() {
-        if ($(this).data('sub-cat') === selectedSubCat) {
-          $(this).removeClass('u-hide')
-        } else {
-          $(this).addClass('u-hide');
-          $(this).find('select').val('').change();
-        }
-      })
-    });
-  </script>
 
