@@ -81,7 +81,7 @@ Rails.application.configure do
   if ENV["CACHE_PROD"].present?
     config.cache_store = :dalli_store
   else
-    endpoint = "prod-march-2021.6taks2.0001.apse1.cache.amazonaws.com:11211"
+    endpoint = "prod-cache-muqa.6taks2.cfg.apse1.cache.amazonaws.com:11211"
     elasticache = Dalli::ElastiCache.new(endpoint)
 
     config.cache_store = :dalli_store, elasticache.servers, { :expires_in => 2.day, :compress => true }
