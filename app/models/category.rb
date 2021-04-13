@@ -26,6 +26,12 @@ class Category < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
 
+  def cached_all_services
+    Rails.cache.fetch("#{Rails.env}_cachedAllServices_#{id}_#{I18n.locale}") {
+      services
+    }
+  end
+
   def cached_subcategories_enabled
     Rails.cache.fetch("#{Rails.env}_2visible_sub_categories_enabled_#{id}_#{I18n.locale}") {
       sub_categories.visible.enabled
@@ -96,6 +102,7 @@ class Category < ApplicationRecord
 
   def clear_cache
     I18n.available_locales.each do |locale|
+      Rails.cache.delete("#{Rails.env}_cachedAllServices_#{id}_#{locale}")
       Rails.cache.delete("#{Rails.env}_suppliers_sub_caty_#{slug}_#{locale}")
       Rails.cache.delete("#{Rails.env}_cached_trendingn_#{locale}")
       Rails.cache.delete("#{Rails.env}_2visible_sub_categories_enabled_#{id}_#{locale}")

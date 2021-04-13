@@ -14,7 +14,7 @@
             <div class="field">
               <div class="field__input-wrapper">
                 <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-                <%= f.input :project_services, collection: @project.category.sub_categories.visible, selected: @project.sub_categories.present? ? @project.sub_categories.first.id : '', input_html: { class: "field__input field__input--right-add-on js-selected-subcat" }, label: false, required: true, include_blank: true %>
+                <%= f.input :project_services, collection: @project.category.cached_subcategories, selected: @project.sub_categories.present? ? @project.sub_categories.first.id : '', input_html: { class: "field__input field__input--right-add-on js-selected-subcat" }, label: false, required: true, include_blank: true %>
               </div>
             </div>
           </div>
@@ -34,7 +34,7 @@
             <div class="grid__col--xs-12 grid__col--md-12">
               <div class="field">
                 <label class="field__label">* <%= t("post_project.project_services") %></label>
-                <%= f.association :services, collection: sub_category.services.visible, selected: @project.services.pluck(:id), input_html: { multiple: true, style: "width:100%", class: "js-selected-services" }, wrapper: :select2, label: false %>
+                <%= f.association :services, collection: sub_category.services.cached_visible, selected: @project.services.pluck(:id), input_html: { multiple: true, style: "width:100%", class: "js-selected-services" }, wrapper: :select2, label: false %>
               </div>
             </div>
          </fieldset>
@@ -52,3 +52,28 @@
 
 
 
+
+  <script>
+    var selectedSubCat = '';
+
+    $('.js-selected-services').on('change', function() {
+      if($(this).val() && $(this).val().length) {
+        $('.js-submit').prop('disabled', false)
+      }
+    });
+
+    $('.js-submit').prop('disabled', true)
+    
+    $('.js-selected-subcat').on('change', function() {
+      selectedSubCat = parseInt($(this).val());
+      console.log(selectedSubCat)
+      $.each($('.js-select-services'), function() {
+        if ($(this).data('sub-cat') === selectedSubCat) {
+          $(this).removeClass('u-hide')
+        } else {
+          $(this).addClass('u-hide');
+          $(this).find('select').val('').change();
+        }
+      })
+    });
+  </script>

@@ -32,7 +32,7 @@ class User::ProjectStepsController < User::BaseController
     @category = Category.find(@project.category_id)
     @category_name = I18n.with_locale(:en) { @category.name }
     @project_types = CachedItems.category_types(@category) #  ProjectType.appropriate_project_types(@category)
-    @services = @category ? @category.services : Service.all
+    @services = @category ? @category.cached_all_services : Service.all
     restore_on_validation_error
 
     @project.attachments.build if step == :project_details

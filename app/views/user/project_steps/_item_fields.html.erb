@@ -6,7 +6,7 @@
         <div class="field__label"><%= t("post_project.project_services_specific") %></div>
         <div class="field__input-wrapper mgb30">
           <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-          <%= f.input :service_id, collection: @services.visible, input_html: { class: "field__input field__input-right-add-on rails-display-services js-selected-service", data: { sub_cat: f.object.sub_category.present? ? f.object.sub_category.id : nil }, include_blank: true }, label: false, required: true  %>
+          <%= f.input :service_id, collection: @services.cached_visible, input_html: { class: "field__input field__input-right-add-on rails-display-services js-selected-service", data: { sub_cat: f.object.sub_category.present? ? f.object.sub_category.id : nil }, include_blank: true }, label: false, required: true  %>
         </div>
       </div>
     </div>

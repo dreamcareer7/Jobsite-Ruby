@@ -37,6 +37,12 @@ class Service < ApplicationRecord
   scope :trending_services, -> { order(view_count_change: :desc).first(4) }
   after_commit :clear_cache
 
+  def self.cached_visible
+    Rails.cache.fetch("#{Rails.env}_cachedAllServicesVisible_n_#{I18n.locale}") {
+      where(hidden: false).order(name: :asc).to_a
+    }
+  end
+
   def slug_candidates
     [:id, :name]
   end
@@ -58,6 +64,10 @@ class Service < ApplicationRecord
 
   def clear_cache
     I18n.available_locales.each do |locale|
+      Rails.cache.delete("#{Rails.env}_cachedAllServicesVisible_n_#{locale}")
+      if category.present?
+        Rails.cache.delete("#{Rails.env}_cachedAllServices_#{category.id}_#{locale}")
+      end
       Rails.cache.delete("#{Rails.env}_sub_category_services_#{sub_category_id}_#{locale}")
       Rails.cache.delete("#{Rails.env}_get_distinct_services_#{sub_category_id}_#{locale}")
     end
