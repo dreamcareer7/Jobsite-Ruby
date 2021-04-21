@@ -35,3 +35,4 @@
 //= require tooltipster
 //= require highcharts
 //= require rivets/dist/rivets.bundled.min
+//= require custom_methods
