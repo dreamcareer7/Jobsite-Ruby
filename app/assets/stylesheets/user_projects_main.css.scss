@@ -78,3 +78,27 @@
 .mgb30{
     margin-bottom: 30px;
 }
+
+.card.normal-card{
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+
+}
+
+.project-new-card{
+    border-bottom: none;
+    .single-latest-activity-box{
+        border: 1px solid rgba(0,0,0,0.2);
+        padding: 15px 20px;
+        border-radius: 5px;
+    }
+    .card__title__hide_button{
+        display: inherit;
+
+        .project-block{
+            margin: 5px 0px;
+        }
+    }
+}

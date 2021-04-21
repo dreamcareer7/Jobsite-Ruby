@@ -1,24 +1,24 @@
 Rails.application.routes.draw do
-
   devise_for :admins, controllers: {
-    sessions: "admin/sessions",
-    invitations: "admin/invitations"
-  }
+             sessions: "admin/sessions",
+             invitations: "admin/invitations",
+           }
 
   devise_for :users, controllers: {
-    registrations: "registrations", sessions: "sessions", confirmations: "confirmations",
-    omniauth_callbacks: "omniauth_callbacks"
-  }
+            registrations: "registrations", sessions: "sessions", confirmations: "confirmations",
+            omniauth_callbacks: "omniauth_callbacks",
+          }
 
   devise_scope :admin do
-    get 'admins/sign_out' => "devise/sessions#destroy"
+    get "admins/sign_out" => "devise/sessions#destroy"
   end
 
   devise_scope :user do
-    get 'users/sign_out' => "devise/sessions#destroy"
+    get "users/sign_out" => "devise/sessions#destroy"
     get "registered", to: "registrations#confirmation_sent"
   end
-
+  resources :projects, only: [:index, :show] do
+  end
   #errors
   get "/404", to: "errors#not_found"
   get "/422", to: "errors#rejected"
@@ -84,9 +84,9 @@ Rails.application.routes.draw do
       get "filter_services", to: "project_steps#filter_services"
       get "set_category", to: "project_steps#set_category"
 
-      member do 
-        get 'project_details', to: "projects#project_details"
-        get 'category_details',to: "projects#category_details"
+      member do
+        get "project_details", to: "projects#project_details"
+        get "category_details", to: "projects#category_details"
       end
 
       resources :project_business, only: [:show]
@@ -104,7 +104,6 @@ Rails.application.routes.draw do
         end
       end
     end
-
   end
 
   namespace :business do
@@ -113,7 +112,7 @@ Rails.application.routes.draw do
     resources :stats, only: [:index]
     resources :project_feed, only: [:index, :show] do
       collection do
-        post 'apply_filter', to: "project_feed#sort_apply_filter"
+        post "apply_filter", to: "project_feed#sort_apply_filter"
       end
     end
     resources :inbox, only: [:index]
@@ -155,109 +154,109 @@ Rails.application.routes.draw do
     resources :overview, only: :index
 
     resource :statistics do
-      get 'engagement'
-      get 'businesses'
-      get 'users'
-      get 'categories'
-      get 'analytics'
+      get "engagement"
+      get "businesses"
+      get "users"
+      get "categories"
+      get "analytics"
     end
 
     resource :gallery, only: [] do
-      get 'business_banners'
-      get 'user_projects'
-      get 'business_projects'
-      get 'business_logos'
+      get "business_banners"
+      get "user_projects"
+      get "business_projects"
+      get "business_logos"
       collection do
-        delete 'destroy_video_link/:id', to: 'galleries#destroy_video_link'
-        delete 'destroy_business_image/:image/:id', to: 'galleries#destroy_business_image'
-        delete 'destroy_attachment/:image/:id', to: 'galleries#destroy_attachment'
-        delete 'destroy_banner/:id', to: 'galleries#destroy_banner'
+        delete "destroy_video_link/:id", to: "galleries#destroy_video_link"
+        delete "destroy_business_image/:image/:id", to: "galleries#destroy_business_image"
+        delete "destroy_attachment/:image/:id", to: "galleries#destroy_attachment"
+        delete "destroy_banner/:id", to: "galleries#destroy_banner"
       end
     end
 
     resources :admin_notifications, only: [:show, :update] do
       collection do
-        get 'site', to: 'admin_notifications#site'
-        get 'business_claim', to: 'admin_notifications#business_claim'
-        get 'inquiries', to: 'admin_notifications#inquiries'
-        get 'upgrade', to: 'admin_notifications#upgrade'
-        get 'new_businesses', to: 'admin_notifications#new_businesses'
-        get 'new_projects', to: 'admin_notifications#new_projects'
-        get 'new_reviews', to: 'admin_notifications#new_reviews'
-        get 'new_callback_requests', to: 'admin_notifications#new_callback_requests'
+        get "site", to: "admin_notifications#site"
+        get "business_claim", to: "admin_notifications#business_claim"
+        get "inquiries", to: "admin_notifications#inquiries"
+        get "upgrade", to: "admin_notifications#upgrade"
+        get "new_businesses", to: "admin_notifications#new_businesses"
+        get "new_projects", to: "admin_notifications#new_projects"
+        get "new_reviews", to: "admin_notifications#new_reviews"
+        get "new_callback_requests", to: "admin_notifications#new_callback_requests"
       end
       member do
-        put 'toggle_resolve'
+        put "toggle_resolve"
       end
     end
 
     resources :admins do
       member do
-        put 'enable'
-        put 'disable'
+        put "enable"
+        put "disable"
       end
     end
 
-    post 'select_country', to: 'base#select_country'
+    post "select_country", to: "base#select_country"
 
     resources :categories
     resources :sub_categories do
       member do
-        put 'enable'
-        put 'disable'
+        put "enable"
+        put "disable"
       end
     end
     resources :services do
       member do
-        put 'enable'
-        put 'disable'
+        put "enable"
+        put "disable"
       end
     end
     resources :cities do
       member do
-        put 'enable'
-        put 'disable'
+        put "enable"
+        put "disable"
       end
     end
     resources :reviews
     resources :review_replies
     resources :countries do
       member do
-        put 'enable'
-        put 'disable'
+        put "enable"
+        put "disable"
       end
     end
 
     resources :subscriptions do
-      get 'send_invoice'
-      get 'send_receipt'
+      get "send_invoice"
+      get "send_receipt"
     end
 
     resources :businesses do
       collection do
-        put 'delete_photo', to: 'businesses#delete_photo'
+        put "delete_photo", to: "businesses#delete_photo"
       end
 
       member do
-        put 'enable'
-        put 'disable'
-        put 'dissociate_owner'
-        put 'clear_business_hours'
+        put "enable"
+        put "disable"
+        put "dissociate_owner"
+        put "clear_business_hours"
       end
     end
 
     resources :vendors do
       resources :subscriptions
       member do
-        put 'enable'
-        put 'disable'
+        put "enable"
+        put "disable"
       end
     end
 
     resources :users do
       member do
-        put 'enable'
-        put 'disable'
+        put "enable"
+        put "disable"
       end
     end
 
@@ -269,16 +268,16 @@ Rails.application.routes.draw do
     resources :certifications
     resources :banners, except: :index do
       collection do
-        get 'sidebar', to: 'banners#sidebar'
-        get 'dashboard', to: 'banners#dashboard'
-        get 'listing', to: 'banners#listing'
+        get "sidebar", to: "banners#sidebar"
+        get "dashboard", to: "banners#dashboard"
+        get "listing", to: "banners#listing"
       end
-      put 'enable'
-      put 'disable'
+      put "enable"
+      put "disable"
     end
   end
 
-  scope path: '(:city)' do
+  scope path: "(:city)" do
     root to: "home#index"
     resources :self_added_projects, only: [:index]
     resources :businesses do
@@ -295,5 +294,4 @@ Rails.application.routes.draw do
     resources :sub_categories, only: [:index, :show]
     resources :services, only: [:index, :show]
   end
-
 end
