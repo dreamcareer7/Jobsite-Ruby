@@ -1,5 +1,5 @@
 <div class="grid__col--md-9 mt3 change-family">
-  <div class="center-container">
+  <div class="center-container tb_bg">
     <div class="activity__title__hide_button">
       <h3 class="activity-section-title">Activity</h3>
       <div class="btn-group">
@@ -10,28 +10,7 @@
     <% if @projects.present? %>
       <!-- start Single Service list -->
       <% @projects.each do |project| %>
-        <div class="single-latest-activity-box">
-          <div class="heading-container">
-              <h5 class="heading"><%= project.title %></h5>
-              <div class="sub-heading"><%= time_ago_in_words(project.updated_at) %> <%= t("words.ago") %> - 112 Views - <%= project.number_applied %> interested</div>
-              <div class="sub-heading">
-                <%= link_to user_project_path(project),  style: "text-decoration: none;color:black" do %>
-                  <span class="activity-preview-button"><i class="fa fa-external-link" aria-hidden="true"></i> Preview</span>
-                <% end %>
-                <%= link_to edit_user_project_path(project),  style: "text-decoration: none;color:black" do %>
-                  <span class="activity-edit-button"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span>
-                <% end %>
-                <%= link_to user_project_path(project), method: :delete, class: "delete_project", style: "text-decoration: none;color:black", data:{confirm: "Are you sure to delete?"} , remote:true  do %>
-                  <span class="activity-delete-button"><i class="fa fa-times" aria-hidden="true"></i> Delete</span>
-                <% end %>
-              </div>
-          </div>
-          <div class="icon-container">
-            <div class="icon-and-value">
-              <i class="fa fa-envelope" aria-hidden="true"></i> <span class="value"><%= project.messages.count %></span>
-            </div>
-          </div>
-        </div>
+        <%=render partial: "user/projects/project_thumb" ,locals: {project: project}%>
       <% end %>
     <% else %>
       <div class="mt1">

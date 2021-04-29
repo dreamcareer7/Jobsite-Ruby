@@ -46,7 +46,7 @@ Rails.application.configure do
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  if !ENV["ON_TESTING"].present?
+  if !ENV["NO_CLOUDFRONT"].present?
     config.action_controller.asset_host = "d11r78q9l0p282.cloudfront.net"
   end
   # Specifies the header that your server uses for sending files.

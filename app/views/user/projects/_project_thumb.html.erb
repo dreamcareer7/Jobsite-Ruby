@@ -1,6 +1,6 @@
           <div class="card__section card__section--border pb1 pt1 project-new-card">
 
-            <div class="single-latest-activity-box relative">
+            <div class="single-latest-activity-box relative lux">
               <div class="project-thumb-actions-wrapper">
                 <div class="project-thumb-actions">
                   <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
@@ -74,14 +74,13 @@
                     Contractor</span>
                   <% end %>
                 </div>
-                <% else %>
-                <div class="sub-heading"><%= time_ago_in_words(project.updated_at) %> <%= t("words.ago") %> - 112 Views
-                  - <%= project.number_applied %> interested</div>
+         
+                
 
                 <% end %>
                 <div class="project-bottom-thumb">
                 <div class="flx-1"> Hired </div>
-                <div class="flx-1"> Requests 69 (8)</div>
+                <div class="flx-1"> <%= project.number_applied %> interested</div>
 
                 <div class="project-location-thumb ">
                   <i class="fa fa-map-marker" aria-hidden="true"></i>

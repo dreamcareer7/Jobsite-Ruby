@@ -5,7 +5,6 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
-
 development:
   <<: *default
   database: <%= ENV['RDS_DB_NAME'] %>
@@ -16,10 +15,10 @@ development:
 
 staging:
   <<: *default
-  database: <%= ENV['RDS_DB_NAME'] %>
-  username: <%= ENV['RDS_USERNAME'] %>
-  password: <%= ENV['RDS_PASSWORD'] %>
-  host: <%= ENV['RDS_HOSTNAME'] %>
+  database: muqawiloon_dev
+  username: postgres
+  password: <%=ENV['RDS_PASSWORD_STG']%>
+  host: localhost
   port: <%= ENV['RDS_PORT'] %>
 test:
   <<: *default
