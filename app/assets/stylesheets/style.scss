@@ -2093,4 +2093,12 @@ label {
 }
 .my-admin-right {
   flex: auto;
+  max-width: 80%;
+}
+.admin-body {
+  .custom-edit-project {
+    width: 100%;
+    flex: none;
+    max-width: inherit;
+  }
 }

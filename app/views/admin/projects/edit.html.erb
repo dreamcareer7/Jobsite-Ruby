@@ -9,9 +9,10 @@
       <%= render partial: "edit_menu" %>
 
       <div id="tabs_general">
-        <%= simple_form_for [:admin, @project] do |f| %>
-          <%= render partial: "user/project_steps/sub_projects_forms/project_form", locals: { f: f, disabled: true  } %>
-        <% end %>
+        <%= simple_form_for [:admin , @project] do |f| %>
+      <%= render partial: "user/project_steps/sub_projects_forms/project_form", locals: { f: f } %>
+    <% end %>
+     
       </div>
 
       <div id="tabs_services">

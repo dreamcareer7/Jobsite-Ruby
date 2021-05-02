@@ -1,7 +1,7 @@
 <%if ["machinery","supplier", "suppliers"].include?@category_name.to_s.downcase%>
 <%= render partial: "user/project_steps/sub_projects_forms/project_form_custom", locals: { f: f } %>
 <%else %>
-<div class="grid grid--center js-location-fields">
+<div class="custom-edit-project grid grid--center js-location-fields">
   <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-<%= action_name == 'edit' ? '8' : '8' %> ">
     <div class="card">
 
