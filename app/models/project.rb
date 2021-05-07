@@ -181,6 +181,11 @@ class Project < ApplicationRecord
     self.business_id != nil
   end
 
+  def hired_count 
+    return 0 if !hired?
+    return 1
+  end
+
   ## Counts
 
   def number_applied

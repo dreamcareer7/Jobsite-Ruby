@@ -55,7 +55,7 @@ class User::ProjectsController < User::BaseController
   def show
     authorize @project
     @project_types = ProjectType.appropriate_project_types(@project.category)
-    @filter_terms = ["Shortlisted (#{@project.number_shortlisted})", "Interested (#{@project.number_applied})"]
+    @filter_terms = ["Shortlisted (#{@project.number_shortlisted})", "Interested (#{@project.number_applied})" ,"Hired (#{@project.hired_count})"]
     @businesses = Business.where(id: @project.shortlists.pluck(:business_id))
 
     if params[:filter_by].present?
