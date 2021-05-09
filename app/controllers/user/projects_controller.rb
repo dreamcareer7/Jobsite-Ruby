@@ -55,12 +55,19 @@ class User::ProjectsController < User::BaseController
   def show
     authorize @project
     @project_types = ProjectType.appropriate_project_types(@project.category)
-    @filter_terms = ["Shortlisted (#{@project.number_shortlisted})", "Interested (#{@project.number_applied})" ,"Hired (#{@project.hired_count})"]
+    @matching_businesses = @project.suggested_businesses
+    @filter_terms = ["Matching (#{@matching_businesses.count})", "Shortlisted (#{@project.number_shortlisted})", "Interested (#{@project.number_applied})", "Hired (#{@project.hired_count})"]
     @businesses = Business.where(id: @project.shortlists.pluck(:business_id))
-
+    @hired_businesses = Business.where(id: @project.business_id)
     if params[:filter_by].present?
-      @businesses = sort_businesses(@businesses, params[:filter_by]) || [] # or empty array to handle no results
-      @businesses = Kaminari.paginate_array(@businesses.order(updated_at: :desc)).page(params[:page]).per(6)
+      if params[:filter_by].to_s == "Matching"
+        @businesses = Kaminari.paginate_array(@matching_businesses).page(params[:page]).per(6)
+      elsif params[:filter_by].to_s == "Hired"
+        @businesses = Kaminari.paginate_array(@hired_businesses).page(params[:page]).per(6)
+      else
+        @businesses = sort_businesses(@businesses, params[:filter_by]) || [] # or empty array to handle no results
+        @businesses = Kaminari.paginate_array(@businesses.order(updated_at: :desc)).page(params[:page]).per(6)
+      end
     else
       @businesses = Kaminari.paginate_array(@businesses.order(updated_at: :desc)).page(params[:page]).per(6)
     end

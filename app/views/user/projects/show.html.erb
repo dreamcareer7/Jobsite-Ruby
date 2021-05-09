@@ -32,10 +32,9 @@
 
     <div class="grid js-listing-cards">
       <% unless @project.inactive? %>
-      <div class="grid__col--xs-12 grid__col--md-8">
-        <% if @project.project_in_process? || @project.completed? %>
-        <%= render partial: "partials/projects/project_listing_card_small", locals: { business: Business.find(@project.business_id) } %>
-        <% elsif @businesses.present? %>
+      <div class="grid__col--xs-12 grid__col--md-12">
+
+        <% if @businesses.present? %>
         <% @businesses.each do |business| %>
         <%= render partial: "partials/projects/project_listing_card_small", locals: { business: business } %>
         <% end %>

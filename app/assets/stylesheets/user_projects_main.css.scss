@@ -253,6 +253,10 @@
       display: flex;
       .bussiness__title {
         flex: 1;
+        align-items: center;
+        vertical-align: middle;
+        display: flex;
+        margin-left: 20px;
       }
     }
   }
