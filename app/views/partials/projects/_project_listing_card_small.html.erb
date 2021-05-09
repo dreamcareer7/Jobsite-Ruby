@@ -1,16 +1,24 @@
 <div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-12 js-project-listing-card project__small__card">
   <div class="listing card">
     <div class="listing__content card__section">
-    
-        <%= image_tag(business.logo.url(:listing), size: "72x72", class: "listing__logo u-box-shadow u-hide--large-down u-rounded") %>
-        <div class="media u-hide--large">
-          <%= link_to business_path(id: business.slug) do %>
-          <%= image_tag(business.logo.url(:listing), size: "60x60", class: "u-hide--large u-rounded u-border media__figure") %>
-          <% end %>
-        </div>
+
+      <%= image_tag(business.logo.url(:listing), size: "72x72", class: "listing__logo u-box-shadow u-hide--large-down u-rounded") %>
+      <div class="media u-hide--large">
+        <%= link_to business_path(id: business.slug) do %>
+        <%= image_tag(business.logo.url(:listing), size: "60x60", class: "u-hide--large u-rounded u-border media__figure") %>
+        <% end %>
+      </div>
 
       <div class="bussiness__title">
-<%= link_to business.name, business_path(id: business.slug), class: "u-truncate u-block u-hover-underline  u-hide--medium-down", target: "_blank" %>
+        <%= link_to business.name, business_path(id: business.slug), class: "u-truncate u-block u-hover-underline  u-hide--medium-down", target: "_blank" %>
+        <div>
+        
+          <%if @project.messages.count > 0%>
+        <% if @project.messages_contributors.include? business.user_id%>
+          <%=@project.messages.last.body%>
+          <%end %>
+          <%end%>
+        </div>
       </div>
     </div>
   </div>

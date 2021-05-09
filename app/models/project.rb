@@ -196,6 +196,12 @@ class Project < ApplicationRecord
     self.shortlists.present? ? self.shortlists.count : 0
   end
 
+
+  def messages_contributors 
+
+    return [] if messages.count <1 
+    (messages.pluck(:sending_user_id) +  messages.pluck(:receiving_user_id)).uniq
+  end
   ## Business actions
 
   def suggested_businesses

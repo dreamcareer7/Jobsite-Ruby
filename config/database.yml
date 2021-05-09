@@ -7,10 +7,10 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV['RDS_DB_NAME'] %>
-  username: <%= ENV['RDS_USERNAME'] %>
-  password: <%= ENV['RDS_PASSWORD'] %>
-  host: <%= ENV['RDS_HOSTNAME'] %>
+  database: muqawiloon_dev
+  username: postgres
+  password: <%=ENV['RDS_PASSWORD_STG']%>
+  host: localhost
   port: <%= ENV['RDS_PORT'] %>
 
 staging:

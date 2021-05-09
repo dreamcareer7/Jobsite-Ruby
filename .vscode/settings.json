@@ -24,9 +24,9 @@
     },
     "window.zoomLevel": 0,
     "highlight-matching-tag.enabled": true,
-    "solargraph.autoformat": true,
+    "solargraph.autoformat": false,
     "solargraph.diagnostics": false,
-    "solargraph.formatting": true,
+    "solargraph.formatting": false,
     "workbench.colorTheme": "Monokai",
     "editor.formatOnSave": true,
    
