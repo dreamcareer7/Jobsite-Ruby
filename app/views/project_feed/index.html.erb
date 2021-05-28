@@ -1,0 +1,117 @@
+<section class="project-page section-page section-alt">
+    <!-- start breadcrumb Box -->
+  <% content_for :breadcrumbs do %>
+    <%= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [], current_breadcrumb: { name: "Projects" } } %>
+  <% end %>
+  <div class="project-page-heading-with-background-image">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h1 class="page-heading"><%= t("gallery.header") %></h1>
+          <p class="page-heading-description"><%= t("gallery.blurb") %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="grid__col--md-3 grid__col--xs-12 filterbox">
+      <%= form_for :filter, url: apply_filter_business_project_feed_index_path, remote: true do |f| %>
+        <div class="filterbox-1">
+          <h4>categories</h4>
+          <div class="row">
+            <hr/>
+          </div>
+          <ul>
+            <li>
+              <label class="control">
+                <%= f.check_box "all_category", { class: "control__input"}, true , " " %>
+                  <span class="control__indicator control__indicator--checkbox">
+                    <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
+                  </span>
+                  <span class="control__label">All Category</span>
+              </label>
+              <ul>
+                <% Category.all.each_with_index do  |category, index| %>
+                  <li>
+                    <label class="control">
+                      <%= f.check_box "category_ids", { class: "control__input", id: "inlineCheckbox#{index + 1}" , multiple: true }, category.id, " " %>
+                        <span class="control__indicator control__indicator--checkbox">
+                          <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
+                        </span>
+                        <span class="control__label"><%= category.name %></span>
+                    </label>
+                  </li>
+                <% end %>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="filterbox-1">
+          <h4>locations</h4>
+          <div class="row">
+            <hr/>
+          </div>
+          <ul>
+            <li>
+            <label for="Saudi">Country</label><br>
+              <%= select_tag(:country, options_for_select(Country.all.collect {|p| [ p.name, p.id ] }), {class: 'rails-country-for-select form-control mt2', prompt: "select country" } ) %>
+              <!--<input type="checkbox" id="Saudi" name="Saudi" value="all">-->              
+              <ul class="city-listing">
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <%= f.submit "Apply Filter", class:"btn btn--full btn--primary u-text-center" %>
+      <% end %>
+    </div>
+    <div class="grid__col--xs-12 grid__col--md-9">
+      <div class="grid">
+        <div class="grid__col--xs-12 grid__col--md-12">
+          <div class="btn-group filterBtn">
+            <%= link_to 'Date added', { city: @current_city.slug, filter_by: 'Dateadded' }, class: "js-submit btn btn--primary #{'filter-active' if (params[:filter_by].present? && params[:filter_by] == 'Dateadded')}" %>
+            <%= link_to 'Distance', { city: @current_city.slug, filter_by: 'Distance' }, class: "js-submit btn btn--primary #{'filter-active' if (params[:filter_by].present? && params[:filter_by] == 'Distance')}" %>
+          </div> 
+          <div class="filterListiconBtn">
+            <i class="fa fa-th-large" aria-hidden="true"></i>
+            Map View <i class="fa fa-map" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="grid__col--md-12 grid__col--xs-12 index-content">
+          <%= render partial: "partials/project_feed/index", locals: { project_feed: @project_feed } %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagination-content">
+    <%= render partial: "partials/project_feed/pagination_content", locals: { project_feed: @project_feed } %>
+  </div>
+</section>
+
+<script>
+  $(function() {
+    toggleCitySelection();
+    return $(document).on('change', '.rails-country-for-select', function(e) {
+      var $this = $(this);
+      if ($this.val() == ""){
+        $('city-listing').empty()
+      }
+      else {
+        return $.ajax({
+          url: '/filter_cities',
+          type: 'GET',
+          dataType: 'script',
+          data: {
+            country_for_select: $this.val(),
+            target_element: $this.uniqueId().attr('id'),
+            filter: true
+          }
+        });
+      }
+    });
+  });
+
+  function toggleCitySelection() {
+    var countrySelect = $('.rails-country-for-select');
+  }
+  $('.rails-country-for-select').on('change', toggleCitySelection);
+</script>

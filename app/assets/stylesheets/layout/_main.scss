@@ -453,7 +453,7 @@ body{
   }
 }
 
-
+z
 // Start 05-Oct-2020
 .breadcrumb{
   background: $white-color;
@@ -492,6 +492,33 @@ body{
   }
 }
 
+
+.project-page{
+  .project-page-heading-with-background-image{
+    background-image: image-url("home/gallery-page-heading-banner.png");
+    height: 250px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    background-position: bottom;
+    .page-heading{
+      color: $white-color;
+    }
+    .page-heading-description{
+      color: $white-color;
+    }
+  }
+
+  .category-buttons{
+    .btn-outline-primary{
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
+}
 
 // gallery products start
 

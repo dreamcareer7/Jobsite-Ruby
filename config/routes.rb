@@ -106,6 +106,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :project_feed, only: [:index, :show] do
+    collection do
+      post "apply_filter", to: "project_feed#sort_apply_filter"
+    end
+  end
+
   namespace :business do
     put :switch_business, to: "switch_business#switch_business"
 
