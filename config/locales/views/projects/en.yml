@@ -26,6 +26,8 @@ en:
     sub_categories: "Sub categories"
     services: "Services"
     project_types: "Project types"
+    header: "Project Requests in Your Area"
+    blurb: "Apply to Requests and send your offers direclty with Project Owners, Procuement Managers and much more, in %{current_city}"
 
     user_instructions:
       blurb: "How To Run A Successful Project"

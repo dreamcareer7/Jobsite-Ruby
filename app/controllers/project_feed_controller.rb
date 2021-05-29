@@ -52,6 +52,7 @@ class ProjectFeedController < ApplicationController
   def sort_apply_filter
     get_projects 
     category_ids = params[:filter][:category_ids].compact.uniq.flatten
+    category_ids = category_ids - ["", " "]
     city_ids = params[:filter][:city_id]
 
     @project_feed = handle_sorting_with_category_city(@projects, category_ids, city_ids)
@@ -78,17 +79,12 @@ class ProjectFeedController < ApplicationController
   end
 
   def get_projects
-    @services = current_business.services
     @projects = policy_scope(Project).includes(:translations)
       .by_city(@current_business.cities)
-      .approved
       .not_completed_or_accepted
       .not_hidden(@current_business.hidden_resources.pluck(:project_id))
       .not_applied(@current_business.applied_to_projects.pluck(:project_id))
-
-    @projects = @projects.by_services(@services)
-      .or(@projects.by_sub_categories_no_service(@current_business.sub_categories_where_no_service))
-    
+      # .approved
   end
 
 

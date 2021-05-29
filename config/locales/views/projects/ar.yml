@@ -22,6 +22,8 @@ ar:
     help: "تحتاج مساعدة بمشروعك ؟ تواصل معنا"
     leave_review: "إترك تقييماً"
     cancel: "الغاء المشروع"
+    header: "Project Requests in Your Area"
+    blurb: "Apply to Requests and send your offers direclty with Project Owners, Procuement Managers and much more, in %{current_city}"
 
     user_instruction:
       blurb: "كيف تنشئ مشروع ناجح مع مقاولون"
