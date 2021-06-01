@@ -54,7 +54,7 @@
           <ul>
             <li>
             <label for="Saudi">Country</label><br>
-              <%= select_tag(:country, options_for_select(Country.all.collect {|p| [ p.name, p.id ] }), {class: 'rails-country-for-select form-control mt2', prompt: "select country" } ) %>
+              <%= select_tag(:country, options_for_select(Country.all.collect {|p| [ p.name, p.id ] }, [@current_city.country.name, @current_city.country.id]), {class: 'rails-country-for-select form-control mt2', prompt: "select country" } ) %>
               <!--<input type="checkbox" id="Saudi" name="Saudi" value="all">-->              
               <ul class="city-listing">
               </ul>
@@ -96,22 +96,26 @@
         $('city-listing').empty()
       }
       else {
-        return $.ajax({
-          url: '/filter_cities',
-          type: 'GET',
-          dataType: 'script',
-          data: {
-            country_for_select: $this.val(),
-            target_element: $this.uniqueId().attr('id'),
-            filter: true
-          }
-        });
+        loadCities($this);
       }
     });
   });
 
+  function loadCities(country_element) {
+    return $.ajax({
+      url: '/filter_cities',
+      type: 'GET',
+      dataType: 'script',
+      data: {
+        country_for_select: country_element.val(),
+        target_element: country_element.uniqueId().attr('id'),
+        filter: true
+      }
+    });
+  }
   function toggleCitySelection() {
     var countrySelect = $('.rails-country-for-select');
   }
   $('.rails-country-for-select').on('change', toggleCitySelection);
+  $(document).ready(loadCities($('.rails-country-for-select')));
 </script>
