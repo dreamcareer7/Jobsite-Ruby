@@ -39,7 +39,7 @@
                           <span class="control__indicator control__indicator--checkbox">
                             <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
                           </span>
-                          <span class="control__label"><%= category.name %></span>
+                          <span class="control__label"><%= "#{category.name}, #{@projects.where(category_id: category.id).count}" %></span>
                       </label>
                     </li>
                   <% end %>
