@@ -3,7 +3,7 @@
     <% project_feed.each do |project| %>
       <div class="card">
         <div class="filterList">
-          <%= image_tag "bg-interview.png" %>
+          <%= image_tag  "icons/fallback/#{project.category&.slug}.png" %>
           <div class="filterListContent">
             <ul>
               <%= link_to project_feed_path(project), class: "u-text-inherit" do %>
@@ -30,12 +30,6 @@
           </div>
           <div class="filterListAction">
             <i class="fa fa-bookmark-o" aria-hidden="true"></i>
-            <div class="tooltip"> <i class="fa fa-bars" aria-hidden="true"></i>
-              <div class="tooltiptext">
-                <a href=""> <i class="fa fa-eye" aria-hidden="true"></i> View Request</a>
-                <a href=""> <i class="fa fa-file-text" aria-hidden="true"></i> Request a Quote</a>
-              </div>
-            </div>
           </div>
         </div>
       </div>
