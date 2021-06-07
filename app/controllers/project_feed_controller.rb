@@ -53,9 +53,11 @@ class ProjectFeedController < ApplicationController
     get_projects 
     category_ids = params[:filter][:category_ids].compact.uniq.flatten
     category_ids = category_ids - ["", " "]
+    timeline_types = params[:filter][:timeline_types].compact.uniq.flatten
+    timeline_types = timeline_types - ["", " "]
     city_ids = params[:filter][:city_id]
 
-    @project_feed = handle_sorting_with_category_city(@projects, category_ids, city_ids)
+    @project_feed = handle_sorting_with_category_city(@projects, category_ids, city_ids, timeline_types)
     #@project_feed = Kaminari.paginate_array(projects.order(updated_at: :desc)).page(params[:page]).per(6)
   end
 

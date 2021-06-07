@@ -28,7 +28,9 @@ en:
     project_types: "Project types"
     header: "Project Requests in Your Area"
     blurb: "Apply to Requests and send your offers direclty with Project Owners, Procuement Managers and much more, in %{current_city}"
-
+    timeline_types:
+      flexible: Flexible
+      urgent: Urgent
     user_instructions:
       blurb: "How To Run A Successful Project"
       step_one: "Shortlist the businesses you would like to work on your project"

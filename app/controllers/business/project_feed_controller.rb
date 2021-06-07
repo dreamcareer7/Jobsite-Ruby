@@ -54,7 +54,7 @@ class Business::ProjectFeedController < Business::BaseController
     category_ids = params[:filter][:category_ids].compact.uniq.flatten
     city_ids = params[:filter][:city_id]
 
-    @project_feed = handle_sorting_with_category_city(@projects, category_ids, city_ids)
+    @project_feed = handle_sorting_with_category_city(@projects, category_ids, city_ids, [])
     #@project_feed = Kaminari.paginate_array(projects.order(updated_at: :desc)).page(params[:page]).per(6)
   end
 

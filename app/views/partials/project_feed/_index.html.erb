@@ -3,7 +3,7 @@
     <% project_feed.each do |project| %>
       <div class="card">
         <div class="filterList">
-          <%= image_tag "bg-interview.png" %>
+          <%= image_tag  "icons/fallback/#{project.category&.slug}.png" %>
           <div class="filterListContent">
             <ul>
               <%= link_to business_project_feed_path(project), class: "u-text-inherit" do %>

@@ -24,6 +24,9 @@ ar:
     cancel: "الغاء المشروع"
     header: "Project Requests in Your Area"
     blurb: "Apply to Requests and send your offers direclty with Project Owners, Procuement Managers and much more, in %{current_city}"
+    timeline_types:
+      flexible: Flexible
+      urgent: Urgent
 
     user_instruction:
       blurb: "كيف تنشئ مشروع ناجح مع مقاولون"
