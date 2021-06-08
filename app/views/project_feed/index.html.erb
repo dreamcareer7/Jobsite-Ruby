@@ -54,22 +54,26 @@
             </div>
             <ul>
               <li>
-                <label class="control">
-                  <%= f.check_box "timeline_types", { class: "control__input", id: "inlineCheckbox-flexible" , multiple: true }, Project::timeline_types[:flexible], " " %>
-                    <span class="control__indicator control__indicator--checkbox">
-                      <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
-                    </span>
-                    <span class="control__label"> <%= "#{t("projects.timeline_types.flexible")}, #{@projects.where(timeline_type: Project::timeline_types[:flexible]).count}" %> </span>
-                </label>
-              </li>
-              <li>
-                <label class="control">
-                  <%= f.check_box "timeline_types", { class: "control__input", id: "inlineCheckbox-urgent" , multiple: true }, Project::timeline_types[:urgent], " " %>
-                    <span class="control__indicator control__indicator--checkbox">
-                      <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
-                    </span>
-                    <span class="control__label"> <%= "#{t("projects.timeline_types.urgent")}, #{@projects.where(timeline_type: Project::timeline_types[:urgent]).count}" %> </span>
-                </label>
+                <ul>
+                  <li>
+                    <label class="control">
+                      <%= f.check_box "timeline_types", { class: "control__input", id: "inlineCheckbox-flexible" , multiple: true }, Project::timeline_types[:flexible], " " %>
+                        <span class="control__indicator control__indicator--checkbox">
+                          <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
+                        </span>
+                        <span class="control__label"> <%= "#{t("projects.timeline_types.flexible")}, #{@projects.where(timeline_type: Project::timeline_types[:flexible]).count}" %> </span>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="control">
+                      <%= f.check_box "timeline_types", { class: "control__input", id: "inlineCheckbox-urgent" , multiple: true }, Project::timeline_types[:urgent], " " %>
+                        <span class="control__indicator control__indicator--checkbox">
+                          <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
+                        </span>
+                        <span class="control__label"> <%= "#{t("projects.timeline_types.urgent")}, #{@projects.where(timeline_type: Project::timeline_types[:urgent]).count}" %> </span>
+                    </label>
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>
