@@ -1,24 +1,145 @@
-<div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-12 js-project-listing-card project__small__card">
+<div class="grid__col--xs-12 grid__col--md-6 grid__col--lg-12">
   <div class="listing card">
     <div class="listing__content card__section">
-
-      <%= image_tag(business.logo.url(:listing), size: "72x72", class: "listing__logo u-box-shadow u-hide--large-down u-rounded") %>
-      <div class="media u-hide--large">
-        <%= link_to business_path(id: business.slug) do %>
-        <%= image_tag(business.logo.url(:listing), size: "60x60", class: "u-hide--large u-rounded u-border media__figure") %>
-        <% end %>
-      </div>
-
-      <div class="bussiness__title">
-        <%= link_to business.name, business_path(id: business.slug), class: "u-truncate u-block u-hover-underline  u-hide--medium-down", target: "_blank" %>
-        <div>
-        
-          <%if @project.messages.count > 0%>
-        <% if @project.messages_contributors.include? business.user_id%>
-          <%=@project.messages.last.body%>
-          <%end %>
-          <%end%>
+      <%= link_to business_path(id: business.slug), target: "_blank" do %>
+        <div class="listing__image u-cover" <% if business.banner.present? %> style="background-image: url('<%= business.banner.url(:small) %>')" <% end %>>
+          <%= image_tag(business.logo.url(:listing), size: "72x72", class: "listing__logo u-box-shadow u-hide--large-down u-rounded") %>
+          <div class="media u-hide--large">
+            <%= link_to business_path(id: business.slug) do %>
+              <%= image_tag(business.logo.url(:listing), size: "60x60", class: "u-hide--large u-rounded u-border media__figure") %>
+            <% end %>
+            <div class="media__body">
+              <h4 class="mb0">
+                <%= link_to business_path(id: business.slug), class: "u-truncate u-block u-hover-underline u-text-contrast u-hide--medium-down", target: "_blank" do %>
+                  <%= link_to business_path(id: business.slug), class: "u-truncate u-block u-hover-underline u-text-contrast u-hide--large" do %>
+                    <%= business.name %>
+                    <% if business.trusted? %>
+                      <%= inline_svg("icons/trusted.svg", class: "icon icon--brand")%>
+                    <% elsif business.verified? %>
+                      <%= inline_svg("icons/verified.svg", class: "icon icon--green")%>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </h4>
+              <small class="u-block mb0 u-text-contrast u-text-muted"><%= @current_city.name %> (<%= business.distance_from_user_to_s(@current_coordinates, @current_city)%> km)</small>
+              <% if business.reviews.present? %>
+                <div class="rating small">
+                  <%= render partial: "partials/businesses/reviews", locals: { business: business, star_modifier: 'white' } %>
+                </div>
+              <% end %>
+            </div>
+          </div>
         </div>
+      <% end %>
+      <div class="media u-hide--large-down">
+        <%= link_to business_path(id: business.slug), target: "_blank" do %>
+          <%= image_tag(business.logo.url(:medium), size: "60x60", class: "u-hide--large u-rounded u-border media__figure mb2") %>
+        <% end %>
+        <div class="media__body">
+          <h4 class="mb0">
+            <%= link_to business.name, business_path(id: business.slug), class: "u-hover-underline u-text-inherit", target: "_blank" %>
+            <% if business.trusted? %>
+              <%= inline_svg("icons/trusted.svg", class: "icon icon--brand") %>
+            <% elsif business.verified? %>
+              <%= inline_svg("icons/verified.svg", class: "icon icon--green") %>
+            <% end %>
+          </h4>
+          <small class="u-block mb1">
+            <%= @current_city.name %>
+            (<%= business.distance_from_user_to_s(@current_coordinates, @current_city)%> km)
+          </small>
+          <% if business.reviews.present? %>
+            <div class="mb2 rating small">
+              <%= render partial: "partials/businesses/reviews", locals: { business: business, star_modifier: 'yellow' } %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <%= link_to business_path(id: business.slug), target: "_blank" do %>
+        <p class="u-text-reset u-text-paragraph mb1"><%= truncate(business.description, length: browser.device.mobile? ? 43 : 200) %></p>
+        <small class="u-text-turquoise">
+          <%= business.services.visible.first(5).select{ |service| service }.map(&:name).join(' • ') %>         
+        </small>
+        <ul class="list list--inline mt1 mb0">
+          <li class="list__item">
+            <div class="media media--tight">
+              <div class="media__figure u-hide--medium-only u-hide--xsmall-only">
+                <%= inline_svg("icons/info.svg", class: "icon") %>
+              </div>
+              <div class="media__body">
+                <small class="strong"><%= t("listing.added") %></small><br>
+                <small class="u-text-reset"><%= business.created_at.strftime("%d/%m/%y") %></small>
+              </div>
+            </div>
+          </li>
+          <% if business.experience.present? && business.experience.to_i > 0 %>
+            <li class="list__item">
+              <div class="media media--tight">
+                <div class="media__figure u-hide--medium-only u-hide--xsmall-only">
+                  <%= inline_svg("icons/clock.svg", class: "icon") %>
+                </div>
+                <div class="media__body">
+                  <small class="strong"><%= t("listing.experience") %></small><br>
+                  <small class="u-text-reset"><%= pluralize(business.experience, t("words.year")) %> </small>
+                </div>
+              </div>
+            </li>
+          <% end %>
+          <% if business.nb_projects_completed.present? && !business.nb_projects_completed == '0' %>
+            <li class="list__item">
+              <div class="media media--tight">
+                <div class="media__figure u-hide--medium-only u-hide--xsmall-only">
+                  <%= inline_svg("icons/briefcase.svg", class: "icon") %>
+                </div>
+                <div class="media__body">
+                  <small class="strong"><%= t("listing.projects") %></small><br>
+                  <small class="u-text-reset"><%= business.nb_projects_completed %></small>
+                </div>
+              </div>
+            </li>
+          <% end %>
+          <% if business.number_of_employees.present? %>
+            <li class="list__item">
+              <div class="media media--tight">
+                <div class="media__figure u-hide--medium-only u-hide--xsmall-only">
+                  <%= inline_svg("icons/users.svg", class: "icon") %>
+                </div>
+                <div class="media__body">
+                  <small class="strong"><%= t("listing.employees") %></small><br>
+                  <small class="u-text-reset"><%= business.number_of_employees %></small>
+                </div>
+              </div>
+            </li>
+          <% end %>
+          <% if business.certifications.present? %>
+            <li class="list__item">
+              <div class="media media--tight">
+                <div class="media__figure u-hide--medium-only u-hide--xsmall-only">
+                  <%= inline_svg("icons/reward.svg", class: "icon") %>
+                </div>
+                <div class="media__body">
+                  <small class="strong"><%= t("business.certifications") %></small><br>
+                  <% business.certifications.shuffle.first(2).each do |certification| %>
+                    <%= image_tag(certification.logo.url(:small), size: "36", class: "tooltip", title: "#{ certification.name }#{ ' (' + certification.country.name + ')' if certification.country.present? }") %>
+                  <% end %>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+      <div class="btn-group listing__action">
+        <% if current_user %>
+          <%= render partial: "partials/follows/follow", locals: { target: business, follow: current_user.followed_businesses.where(id: business.id).first, classes: "btn btn-group__item #{ 'btn--secondary' unless current_user.followed_businesses.where(id: business.id).present? }" } %>
+        <% else %>
+          <span data-modal="please-log-in" class="js-open-modal btn btn--secondary btn-group__item"><%= t("business.follow") %></span>
+
+        <% end %>
+	<% if current_user %>
+	  <button data-modal="call-now" class="js-open-modal btn btn--primary btn-group__item js-impressionist-number-view" data-business-name="<%= business.name %>" data-business-hours="<%= business.business_hours.to_json %>" data-phone="<%= Base64.encode64(business.number_for_city(@current_city)) %>"><%= t("listing.call") %></button>
+	<% else %>
+	  <span data-modal="please-log-in" class="js-open-modal btn btn--primary btn-group__item"><%= t("listing.call") %></span>
+	<% end %>
       </div>
     </div>
   </div>
