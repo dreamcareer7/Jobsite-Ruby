@@ -39,15 +39,14 @@ class ProjectType < ApplicationRecord
       ##TODO: fix caching here depends on name 
       return '' unless category.present?
       Rails.cache.fetch("#{Rails.env}_cached_by_category_type_#{category.id}_#{I18n.locale}"){
-      if I18n.with_locale(:en){ category.name } == 'Machinery'
-        self.by_category_type(:machinery).order(:name)
-      elsif I18n.with_locale(:en){ category.name } == 'Suppliers'
-        self.by_category_type(:supplier).order(:name)
-      else
-        self.by_category_type(:professional).order(:name)
-      end
-    }
-
+        if I18n.with_locale(:en){ category.name } == 'Machinery'
+          self.by_category_type(:machinery).order(:name)
+        elsif I18n.with_locale(:en){ category.name } == 'Suppliers'
+          self.by_category_type(:supplier).order(:name)
+        else
+          self.by_category_type(:professional).order(:name)
+        end
+      }
     end
 
 

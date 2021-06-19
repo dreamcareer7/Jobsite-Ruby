@@ -79,7 +79,8 @@ class User::ProjectsController < User::BaseController
     @countries = Country.all.enabled
     @category = @project.category
     @category_name = I18n.with_locale(:en) { @category.name }
-    @project_types = ProjectType.appropriate_project_types(@category)
+    project_type_ids = ProjectType.appropriate_project_types(@category).collect(&:id).uniq
+    @project_types = ProjectType.where(id: project_type_ids)
     @services = @project.sub_categories.present? ? @project.sub_categories.first.services : @category.services
     project_type_header
     @edit_path = user_project_path(@project)
