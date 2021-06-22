@@ -130,7 +130,9 @@
       <% end %>
       <div class="btn-group listing__action">
         <% if current_user %>
-          <%= render partial: "partials/follows/follow", locals: { target: business, follow: current_user.followed_businesses.where(id: business.id).first, classes: "btn btn-group__item #{ 'btn--secondary' unless current_user.followed_businesses.where(id: business.id).present? }" } %>
+          <%= simple_form_for(ProjectBusiness.new, url: user_project_project_business_index_path(@project.id), method: :post) do |f| %>
+            <%= f.submit t("business.shortlist"), class: "js-open-modal btn btn--secondary btn-group__item" %>
+          <% end %>
         <% else %>
           <span data-modal="please-log-in" class="js-open-modal btn btn--secondary btn-group__item"><%= t("business.follow") %></span>
 

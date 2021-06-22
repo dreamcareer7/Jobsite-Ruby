@@ -89,7 +89,7 @@ Rails.application.routes.draw do
         get "category_details", to: "projects#category_details"
       end
 
-      resources :project_business, only: [:show]
+      resources :project_business, only: [:create, :show]
       put "shortlist_business", to: "projects#shortlist_business"
       put "accept_quote", to: "projects#accept_quote"
       put "deny_quote", to: "projects#deny_quote"

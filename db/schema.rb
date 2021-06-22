@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201008142852) do
+ActiveRecord::Schema.define(version: 20210622114420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -168,6 +168,8 @@ ActiveRecord::Schema.define(version: 20201008142852) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.string   "name"
+    t.string   "email"
+    t.string   "role"
     t.index ["business_contact_id"], name: "index_business_contact_translations_on_business_contact_id", using: :btree
     t.index ["locale"], name: "index_business_contact_translations_on_locale", using: :btree
   end
@@ -273,6 +275,7 @@ ActiveRecord::Schema.define(version: 20201008142852) do
   end
 
   create_table "category_metadata", force: :cascade do |t|
+    t.string   "headline"
     t.string   "subheadline"
     t.integer  "owner_id"
     t.string   "owner_type"
@@ -289,6 +292,7 @@ ActiveRecord::Schema.define(version: 20201008142852) do
     t.string   "locale",                null: false
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.string   "headline"
     t.string   "subheadline"
     t.index ["category_metadatum_id"], name: "index_category_metadatum_translations_on_category_metadatum_id", using: :btree
     t.index ["locale"], name: "index_category_metadatum_translations_on_locale", using: :btree
@@ -327,7 +331,6 @@ ActiveRecord::Schema.define(version: 20201008142852) do
   end
 
   create_table "cities", force: :cascade do |t|
-    t.string   "name"
     t.integer  "country_id"
     t.float    "latitude"
     t.float    "longitude"
@@ -577,6 +580,15 @@ ActiveRecord::Schema.define(version: 20201008142852) do
     t.integer  "project3"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "project_businesses", force: :cascade do |t|
+    t.integer  "project_id"
+    t.string   "business"
+    t.integer  "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_businesses_on_project_id", using: :btree
   end
 
   create_table "project_services", force: :cascade do |t|
@@ -890,11 +902,11 @@ ActiveRecord::Schema.define(version: 20201008142852) do
     t.datetime "profile_image_updated_at"
     t.integer  "default_profile"
     t.boolean  "disabled",                   default: false
+    t.integer  "browse_location"
     t.string   "provider"
     t.string   "uid"
     t.string   "fb_omniauth_info"
     t.string   "google_omniauth_info"
-    t.integer  "browse_location"
     t.integer  "industry"
     t.string   "linkedin_omniauth_info"
     t.string   "confirmation_token"

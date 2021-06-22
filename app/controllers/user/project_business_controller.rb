@@ -1,5 +1,11 @@
 class User::ProjectBusinessController < User::BaseController
 
+  def create
+    @project_business = ProjectBusiness.create(business_params)
+    @project_business.save
+    redirect_to user_project_path(@project_business.project)
+  end
+
   def show
     @project = Project.where(id: params[:project_id]).first
 
@@ -29,4 +35,12 @@ class User::ProjectBusinessController < User::BaseController
 
   end
 
+  protected
+
+
+  def business_params
+    params.permit(
+      :project_id, :business_id, :status
+    )
+  end
 end
