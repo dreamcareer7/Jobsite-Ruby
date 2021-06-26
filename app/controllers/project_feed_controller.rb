@@ -34,11 +34,12 @@ class ProjectFeedController < ApplicationController
     end
 
     #authorize @project
+    if current_business
+      @conversation_messages = @project.messages_with_business(current_business).order(created_at: :asc)
+      @active = current_business.shortlisted_or_accepted?(@project)
 
-    @conversation_messages = @project.messages_with_business(current_business).order(created_at: :asc)
-    @active = current_business.shortlisted_or_accepted?(@project)
-
-    mark_as_read
+      mark_as_read
+    end
   end
 
   def mark_as_read
