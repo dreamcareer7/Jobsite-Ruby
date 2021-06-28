@@ -11,6 +11,7 @@ ar:
     add_business: "أضف شركتك"
     more: "المزيد"
     categories: "الأقسام"
+    select_ctegory: "Select Category"
     gallery: "معرض الصور"
     about: "عن مقاولون"
     press: "الصحيفة"
