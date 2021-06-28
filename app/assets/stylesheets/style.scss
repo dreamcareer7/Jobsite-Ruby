@@ -939,6 +939,9 @@ label {
         position: absolute;
       }
       visibility: hidden;
+      @media (max-width: 400px) {
+        visibility: visible;
+      }  
       background: #ffffff;
       z-index: 4;
       border-left: 1px solid #dcdcdc;
