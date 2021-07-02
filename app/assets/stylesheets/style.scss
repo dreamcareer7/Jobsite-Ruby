@@ -932,14 +932,15 @@ label {
     .submenu{
       top: 100%;
       // left: 0;
-      width: 50%;
       display: none;
       @media (min-width: 400px) {
         display: flex;  
         position: absolute;
       }
+      width: 50%;
       visibility: hidden;
       @media (max-width: 400px) {
+        width: 100%;
         visibility: visible;
       }  
       background: #ffffff;
