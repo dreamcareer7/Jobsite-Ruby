@@ -70,7 +70,6 @@ module EmailHelper
   def send_new_business_email
     AdminMailer.new_business(self)
     AdminNotification.new_business_notification(self)
-
     return unless self.user.present?
 
     BusinessMailer.welcome_business(self).deliver_now
