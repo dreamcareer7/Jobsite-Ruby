@@ -47,6 +47,9 @@
         <% end %>
       <% end %>
 
+      <% if controller.controller_name == "businesses" && action_name == "new" %>
+        <%= render partial: "partials/form_headers/new_business" %>
+      <% end %>
       <div class="site-wrap">
         <div class="grid">
           <%#= yield :side_bar %>
