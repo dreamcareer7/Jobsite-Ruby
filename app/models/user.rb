@@ -202,7 +202,7 @@ class User < ApplicationRecord
     ]
 
     completed = (
-      ((fields_for_complete_profile.count(&:present?).to_f /
+      ((fields_for_complete_profile.count(&:present?).to_f / 
         fields_for_complete_profile.count.to_f) * 100)
       .round)
 
@@ -211,7 +211,7 @@ class User < ApplicationRecord
 
   def after_confirmation
     send_welcome_email
-    send_business_model_email
+    # send_business_model_email
   end
 
   def user_upgraded(subscription)
