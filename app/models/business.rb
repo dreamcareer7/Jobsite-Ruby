@@ -195,7 +195,7 @@ class Business < ApplicationRecord
   after_commit :update_cached_ranking, :handle_video_url
   after_commit :update_profile_completion, :update_index, on: [:create, :update]
   after_destroy :update_index
-  after_create :send_new_business_email, :update_sendgrid_contacts
+  after_create :send_business_model_email, :update_sendgrid_contacts
   after_update :send_approval_email
 
   translates :name, :email, :description, :insurance_coverage, :business_hours, fallbacks_for_empty_translations: true
@@ -495,7 +495,7 @@ class Business < ApplicationRecord
     ]
 
     completed = (
-      ((fields_for_complete_profile.count(&:present?).to_f /
+      ((fields_for_complete_profile.count(&:present?).to_f / 
         fields_for_complete_profile.count.to_f) * 100)
       .round)
 

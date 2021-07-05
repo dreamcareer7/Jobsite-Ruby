@@ -211,7 +211,6 @@ class User < ApplicationRecord
 
   def after_confirmation
     send_welcome_email
-    # send_business_model_email
   end
 
   def user_upgraded(subscription)
