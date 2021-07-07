@@ -83,7 +83,7 @@ class ProjectFeedController < ApplicationController
 
   def get_projects
     @projects = policy_scope(Project).includes(:translations)
-      .not_completed_or_accepted
+      # .not_completed_or_accepted
     if @current_business
       @projects = @projects.by_city(@current_business.cities)
         .not_hidden(@current_business.hidden_resources.pluck(:project_id))
