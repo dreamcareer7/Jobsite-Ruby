@@ -72,6 +72,7 @@ gem "aws-sdk"
 gem "sendgrid-ruby"
 gem "listen", "~> 3.1"
 gem "rails_emoji_picker"
+gem 'will_paginate', '~> 3.1.0'
 
 group :development, :test do
   gem "byebug"
