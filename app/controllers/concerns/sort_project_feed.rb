@@ -10,7 +10,9 @@ module SortProjectFeed
     when "Dateadded"
       @projects = projects.order(created_at: :desc)
     when "Distance"
-      @projects = projects.includes(location: :city).order('cities.name ASC')
+      locs = Location.near([21.4858, 39.1925], 8_000_000 , order: 'distance')
+      @projects = projects.select('projects.*, projects.id as project_id').includes(:sub_categories).joins(:location).merge(locs)
+      @projects = Project.where(id: @projects.collect(&:project_id))
     else
       @projects
     end

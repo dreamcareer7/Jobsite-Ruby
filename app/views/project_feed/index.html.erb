@@ -39,7 +39,7 @@
                           <span class="control__indicator control__indicator--checkbox">
                             <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
                           </span>
-                          <span class="control__label"><%= "#{category.name}, #{@projects.where(category_id: category.id).count}" %></span>
+                          <span class="control__label"><%= "#{category.name}, #{@projects.where(category_id: category.id).size}" %></span>
                       </label>
                     </li>
                   <% end %>
@@ -61,7 +61,7 @@
                         <span class="control__indicator control__indicator--checkbox">
                           <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
                         </span>
-                        <span class="control__label"> <%= "#{t("projects.timeline_types.flexible")}, #{@projects.where(timeline_type: Project::timeline_types[:flexible]).count}" %> </span>
+                        <span class="control__label"> <%= "#{t("projects.timeline_types.flexible")}, #{@projects.where(timeline_type: Project::timeline_types[:flexible]).size}" %> </span>
                     </label>
                   </li>
                   <li>
@@ -70,7 +70,7 @@
                         <span class="control__indicator control__indicator--checkbox">
                           <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
                         </span>
-                        <span class="control__label"> <%= "#{t("projects.timeline_types.urgent")}, #{@projects.where(timeline_type: Project::timeline_types[:urgent]).count}" %> </span>
+                        <span class="control__label"> <%= "#{t("projects.timeline_types.urgent")}, #{@projects.where(timeline_type: Project::timeline_types[:urgent]).size}" %> </span>
                     </label>
                   </li>
                 </ul>
