@@ -86,7 +86,7 @@ class ProjectFeedController < ApplicationController
       @projects = @projects.by_city(@current_business.cities)
         .not_hidden(@current_business.hidden_resources.pluck(:project_id))
         .not_applied(@current_business.applied_to_projects.pluck(:project_id))
-        .approved
+        # .approved
       end
   end
 
