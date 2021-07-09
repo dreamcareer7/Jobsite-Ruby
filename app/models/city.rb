@@ -7,6 +7,7 @@ class City < ApplicationRecord
   has_many :locations
   has_many :city_banners
   has_many :businesses, through: :locations, source: :owner, source_type: "Business"
+  has_many :projects, through: :locations, source: :owner, source_type: "Project"
   has_many :users, through: :locations, source: :owner, source_type: "User"
 
   has_attached_file :banner, :styles => { small: "300x600", large: "1600x1000" }, default_url: "missing/defaultcity.jpg"
