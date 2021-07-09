@@ -1,6 +1,7 @@
 ar:
 
   projects:
+    approved: "مكتمل"
     no_longer_interested: "لست مهتماً بعد الآن"
     not_interested: "لست مهتماً"
     submit_quote: "إرسال العرض"

@@ -8,7 +8,7 @@
             <ul>
               <%= link_to project_feed_path(project), class: "u-text-inherit" do %>
                 <li>
-                  <h3><%= project.title %></h3>
+                  <h3><%= "#{project.title}#{project.approved ? ' - ' + t("projects.approved") : '' }" %></h3>
                 </li>
               <% end %>
               <li>

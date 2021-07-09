@@ -1,6 +1,7 @@
 en:
 
   projects:
+    approved: "Verified"
     no_longer_interested: "No longer interested"
     not_interested: "Not interested"
     submit_quote: "Submit quote"
