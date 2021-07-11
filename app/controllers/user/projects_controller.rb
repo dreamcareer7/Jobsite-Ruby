@@ -55,7 +55,7 @@ class User::ProjectsController < User::BaseController
   def show
     authorize @project
     @project_types = ProjectType.appropriate_project_types(@project.category)
-    @matching_businesses_main = @project.suggested_businesses.sort_by { |b| b.user_id.to_i }.reverse.first(20)
+    @matching_businesses_main = @project.suggested_businesses.sort_by { |b| b.profile_completion }.reverse.first(20)
     @matching_businesses = @matching_businesses_main.group_by { |business| business.user ? 'verified' : 'unverified' }
     @filter_terms = ["Matching (#{@matching_businesses_main.count})", "Shortlisted (#{@project.number_shortlisted})", "Interested (#{@project.number_applied})", "Hired (#{@project.hired_count})"]
     @businesses = Business.where(id: @project.shortlists.pluck(:business_id))
