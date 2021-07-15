@@ -12,6 +12,9 @@ class ProjectFeedController < ApplicationController
 
     if params[:filter_by].present?
       @projects = handle_sorting(@projects, params[:filter_by])
+    else
+      params[:filter_by] = "Dateadded"
+      @projects = handle_sorting(@projects, params[:filter_by])
     end
     @project_feed = @projects.paginate(page: params[:page], per_page: 6)
     # @project_feed = Kaminari.paginate_array(@projects.order(updated_at: :desc)).page(params[:page]).per(6)
@@ -81,7 +84,7 @@ class ProjectFeedController < ApplicationController
 
   def get_projects
     @projects = policy_scope(Project).includes(:translations)
-      .not_completed_or_accepted
+      .completed
     if @current_business
       @projects = @projects.by_city(@current_business.cities)
         .not_hidden(@current_business.hidden_resources.pluck(:project_id))

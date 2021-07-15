@@ -108,6 +108,7 @@ class Project < ApplicationRecord
   scope :not_hidden, -> (hidden_resources) { where.not(id: hidden_resources) }
   scope :not_applied, -> (applied_projects) { where.not(id: applied_projects) }
   scope :not_completed_or_accepted, -> { where.not(project_status: :completed).where(business_id: nil) }
+  scope :completed, -> { where.not(project_status: :new_project) }
   scope :has_images, -> { joins(:attachments) }
   scope :prompt_check_quotes_candidates, -> { where(project_status: :new_project).joins(:quotes).where("quotes.created_at >= ? AND quotes.created_at <= ?", 7.days.ago.beginning_of_day, 7.day.ago.end_of_day) }
   scope :prompt_list_of_businesses_email_candidates, -> { where(project_status: :new_project).where("created_at >= ? AND created_at <= ?", 7.days.ago.beginning_of_day, 7.day.ago.end_of_day) }
