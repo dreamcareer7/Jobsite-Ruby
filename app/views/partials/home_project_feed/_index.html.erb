@@ -28,7 +28,7 @@
                 <i class="fa fa-info-circle" aria-hidden="true"></i> <%= project.timeline_type %>
               </li>
               <li>
-                <i class="fa fa-sticky-note" aria-hidden="true"></i> <%= project.description %>
+                <i class="fa fa-sticky-note" aria-hidden="true"></i> <%= project.description.size > 320 ? project.description[0..320] + '...' : project.description %>
               </li>
               <li>
                 <i class="fa fa-clock-o" aria-hidden="true"></i><%= project.created_at.strftime("%d/%m/%Y")%>

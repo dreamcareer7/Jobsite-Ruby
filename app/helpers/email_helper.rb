@@ -6,7 +6,7 @@ module EmailHelper
   end
 
   def send_business_model_email
-    UserMailer.business_model(self).deliver_now
+    # UserMailer.business_model(self).deliver_now
   end
 
   def send_user_upgrade_prompt_email
@@ -22,7 +22,7 @@ module EmailHelper
   end
 
   def send_project_posted_email(project)
-    UserMailer.project_posted(project).deliver_now
+    # UserMailer.project_posted(project).deliver_now
   end
 
   def send_new_quote_email(quote)
@@ -173,7 +173,7 @@ module EmailHelper
   end
 
   def send_notify_admin_project_new_project(project)
-    AdminMailer.new_project(project).deliver
+    # AdminMailer.new_project(project).deliver
   end
 
   def send_notify_admin_project_complete_email(project)
