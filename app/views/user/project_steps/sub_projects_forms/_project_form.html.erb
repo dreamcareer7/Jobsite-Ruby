@@ -1,5 +1,5 @@
 <%if ["machinery","supplier", "suppliers"].include?@category_name.to_s.downcase%>
-<%= render partial: "user/project_steps/sub_projects_forms/project_form_custom", locals: { f: f } %>
+  <%= render partial: "user/project_steps/sub_projects_forms/project_form_custom", locals: { f: f } %>
 <%else %>
 <div class="custom-edit-project grid grid--center js-location-fields">
   <div class="grid__col--xs-12 grid__col--md-10 grid__col--lg-<%= action_name == 'edit' ? '8' : '8' %> ">
@@ -7,34 +7,30 @@
 
       <div class="card__section card__section--padded">
         <% unless current_admin %>
-        <div class="mb2">
-          <small><%= t("post_project.prompt.post") %></small>
-        </div>
+          <div class="mb2">
+            <small><%= t("post_project.prompt.post") %></small>
+          </div>
         <% end %>
 
 
         <% unless["suppliers","machinery"].include?@category_name%>
-        <div class="categories_select">
+          <div class="categories_select">
+            <% Category.order_by_type.first(4).each_with_index do |category| %>
+            <div data-category="<%=category.id%>" data-project="<%=@project.id%>"
+              class="category_select_item  <%=category.id==@category.id ? 'category_selected' : '' %>">
+              <div class="category_img">
 
+                <%=image_tag "#{I18n.with_locale(:en) { category.name}.singularize.downcase}.png"%>
 
-          <% Category.order_by_type.first(4).each_with_index do |category| %>
-          <div data-category="<%=category.id%>" data-project="<%=@project.id%>"
-            class="category_select_item  <%=category.id==@category.id ? 'category_selected' : '' %>">
-            <div class="category_img">
+              </div>
+              <h5> <%=category.name%> </h5>
 
-              <%=image_tag "#{I18n.with_locale(:en) { category.name}.singularize.downcase}.png"%>
-
+              <div>
+                <%=I18n.with_locale(:en) { category.category_head_description.join(",") } %>
+              </div>
             </div>
-            <h5> <%=category.name%> </h5>
-
-            <div>
-              <%=I18n.with_locale(:en) { category.category_head_description.join(",") } %>
-            </div>
+            <%end%>
           </div>
-          <%end%>
-
-
-        </div>
         <%end%>
 
         <%= f.hidden_field  :required_category,value: @category.id, class: "product_hidden_category" %>
@@ -42,12 +38,8 @@
 
       </div>
       <div class="card__section card__section--padded category_all_temp" id="category_details_all">
-
-
         <div class="grid">
-
-
-          <%= render partial: I18n.with_locale(:en) { @category.name.downcase }  ,locals: { f: f } %>
+          <%= render partial: 'user/project_steps/' + I18n.with_locale(:en) { @category.name.downcase }  ,locals: { f: f } %>
         </div>
 
       </div>
