@@ -207,12 +207,9 @@ class Project < ApplicationRecord
 
   def suggested_businesses
     #base matching
-    businesses = Business.by_city(self.location.city).by_category(self.category)
+    businesses = Business.includes(:cities, :services).by_city(self.location.city)
 
-    by_sub_category = businesses.by_sub_category(self.sub_categories)
-    by_project_types = businesses.by_project_types(self.project_types)
-
-    suggested = by_project_types + by_sub_category + businesses
+    suggested = businesses.by_service(self.services.uniq.flatten).distinct
 
     suggested.uniq
   end
