@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210709200236) do
+ActiveRecord::Schema.define(version: 20210716120852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -663,6 +663,17 @@ ActiveRecord::Schema.define(version: 20210709200236) do
     t.string   "reference_number"
     t.integer  "project_status",       default: 0
     t.index ["category_id"], name: "index_projects_on_category_id", using: :btree
+  end
+
+  create_table "projects_matching_businesses", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "business_id"
+    t.boolean  "automatic_match"
+    t.integer  "order"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["business_id"], name: "index_projects_matching_businesses_on_business_id", using: :btree
+    t.index ["project_id"], name: "index_projects_matching_businesses_on_project_id", using: :btree
   end
 
   create_table "quote_requests", force: :cascade do |t|

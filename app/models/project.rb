@@ -81,6 +81,8 @@ class Project < ApplicationRecord
   has_many :project_type_joins, as: :owner, dependent: :destroy
   has_many :project_types, through: :project_type_joins
   has_many :quote_requests
+  has_many :projects_matching_businesses
+  has_many :matching_businesses, through: :projects_matching_businesses, source: :business
   has_many :services, through: :project_services
   has_many :hidden_resources, dependent: :destroy
   has_many :sub_categories, through: :services
@@ -108,13 +110,14 @@ class Project < ApplicationRecord
   scope :not_hidden, -> (hidden_resources) { where.not(id: hidden_resources) }
   scope :not_applied, -> (applied_projects) { where.not(id: applied_projects) }
   scope :not_completed_or_accepted, -> { where.not(project_status: :completed).where(business_id: nil) }
-  scope :completed, -> { where.not(project_status: :new_project) }
+  scope :completed, -> { where.not(contact_name: nil) }
   scope :has_images, -> { joins(:attachments) }
   scope :prompt_check_quotes_candidates, -> { where(project_status: :new_project).joins(:quotes).where("quotes.created_at >= ? AND quotes.created_at <= ?", 7.days.ago.beginning_of_day, 7.day.ago.end_of_day) }
   scope :prompt_list_of_businesses_email_candidates, -> { where(project_status: :new_project).where("created_at >= ? AND created_at <= ?", 7.days.ago.beginning_of_day, 7.day.ago.end_of_day) }
   scope :new_since, -> (target) { where("projects.created_at >= ?", target.days.ago) }
 
   after_create :generate_reference_number
+  before_update :create_suggested_businesses
 
   def project_batch
     ProjectBatch.where("project1 = ? OR project2 = ? OR project3 = ?", self.id, self.id, self.id).first
@@ -248,6 +251,15 @@ class Project < ApplicationRecord
       .by_service(self.services.uniq.flatten).distinct
     
     target_businesses.each do |business|
+    end
+  end
+
+  def create_suggested_businesses
+    if project_services.any?(&:changed?) || project_services.collect(&:id).sort != project_services.pluck(&:id).sort
+      projects_matching_businesses.delete_all
+      suggested_businesses.sort_by { |b| b.profile_completion }.each_with_index do |business, index|
+        ProjectsMatchingBusiness.create(project_id: self.id, business_id: business.id, automatic_match: true, order: index + 1)
+      end
     end
   end
 

@@ -23,9 +23,7 @@ class Admin::ProjectsController < Admin::BaseController
     @edit_path = admin_project_path(@project)
     @interactions = @project.shortlists + @project.applied_to_projects
     @interactions << @project.business if @project.business.present?
-    @target_businesses = Business.includes(:cities, :services)
-      .by_city(@project.city)
-      .by_service(@project.services.uniq.flatten).distinct
+    @target_businesses = @project.matching_businesses.includes(:cities, :services)
   end
 
   def show
