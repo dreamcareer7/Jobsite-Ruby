@@ -1,7 +1,7 @@
 class Admin::ProjectsController < Admin::BaseController
   include EmailHelper
 
-  before_action :set_project, only: [:edit, :update, :destroy, :show]
+  before_action :set_project, only: [:edit, :update, :destroy, :show, :add_matching_business]
   #after_action :verify_authorized
 
   def index
@@ -24,6 +24,7 @@ class Admin::ProjectsController < Admin::BaseController
     @interactions = @project.shortlists + @project.applied_to_projects
     @interactions << @project.business if @project.business.present?
     @target_businesses = @project.matching_businesses.includes(:cities, :services)
+    @project_matching_business = ProjectsMatchingBusiness.new
   end
 
   def show
@@ -64,10 +65,22 @@ class Admin::ProjectsController < Admin::BaseController
     unresolved_notification.update(resolved: true) if unresolved_notification.present?
   end
 
+  def add_matching_business
+    ProjectsMatchingBusiness.create(project_matching_business_params)
+    redirect_to edit_admin_project_path(@project)
+  end
+
   protected
 
   def set_project
     @project = Project.find(params[:id])
+  end
+
+  def project_matching_business_params
+    params[:projects_matching_business][:project_id] = @project.id
+    params[:projects_matching_business][:order] = @project.matching_businesses.size + 1
+    params[:projects_matching_business][:automatic_match] = false
+    params.require(:projects_matching_business).permit(:project_id, :order, :automatic_match, :business_id)
   end
 
   def project_params

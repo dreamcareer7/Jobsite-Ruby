@@ -23,8 +23,17 @@
             <td><%= s.created_at %></td>
           </tr>
         <% end %>
+        <tr>
+          <td>
+            <%= simple_form_for [:admin, @project_matching_business], url: add_matching_business_admin_project_path(@project) do |f| %>
+              <fieldset class="fieldset">
+                <%= f.association :business, collection: Business.all, input_html: { style: "width:100%", multiple: false }, wrapper: :select2, label: false %>
+                <%= f.button :submit, class: "btn btn--primary" %>
+              </fieldset>
+            <% end %>
+          </td>
+        </tr>
       </tbody>
     </table>
-
   </div>
 </div>

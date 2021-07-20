@@ -266,7 +266,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :projects
+    resources :projects do
+      member do
+        post "add_matching_business"
+      end
+    end
 
     resources :project_types
 
