@@ -19,6 +19,7 @@ class Admin::ProjectsController < Admin::BaseController
     @category = @project.category
     @category_name = I18n.with_locale(:en) { @category.name }
     @project_types = ProjectType.appropriate_project_types(@category)
+    @project_types = ProjectType.where(id: @project_types.collect(&:id).uniq)
     @services = @project.sub_categories.present? ? @project.sub_categories.first.services : @category.services
     @edit_path = admin_project_path(@project)
     @interactions = @project.shortlists + @project.applied_to_projects
