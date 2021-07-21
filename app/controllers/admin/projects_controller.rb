@@ -67,7 +67,12 @@ class Admin::ProjectsController < Admin::BaseController
 
   def add_matching_business
     ProjectsMatchingBusiness.create(project_matching_business_params)
-    redirect_to edit_admin_project_path(@project)
+    redirect_to edit_admin_project_path(@project, anchor: 'tabs_matching_businesses')
+  end
+
+  def delete_matching_business
+    ProjectsMatchingBusiness.where(project_id: params[:id], business_id: params[:business_id]).delete_all
+    redirect_to edit_admin_project_path(params[:id], anchor: 'tabs_matching_businesses')
   end
 
   protected

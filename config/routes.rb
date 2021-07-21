@@ -156,6 +156,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: "overview#index"
+    delete "projects/:id/delete_matching_business/:business_id", to: "projects#delete_matching_business"
 
     resources :overview, only: :index
 

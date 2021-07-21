@@ -21,6 +21,7 @@
               <%= link_to s.name, edit_admin_business_path(s) %>
             </td>
             <td><%= s.created_at %></td>
+            <td><a class="tooltip" title="Delete" rel="nofollow" data-method="delete" href=<%="/admin/projects/#{@project.id.to_s}/delete_matching_business/#{s.id.to_s}"%> data-confirm="Are you sure?"><%= image_tag("icons/trash.svg", class: "icon icon--dark icon--small") %></a></td>
           </tr>
         <% end %>
         <tr>
@@ -28,7 +29,7 @@
             <%= simple_form_for [:admin, @project_matching_business], url: add_matching_business_admin_project_path(@project) do |f| %>
               <fieldset class="fieldset">
                 <%= f.association :business, collection: Business.all, input_html: { style: "width:100%", multiple: false }, wrapper: :select2, label: false %>
-                <%= f.button :submit, class: "btn btn--primary" %>
+                <%= f.button :submit, t("projects.add_business"), class: "btn btn--primary" %>
               </fieldset>
             <% end %>
           </td>
