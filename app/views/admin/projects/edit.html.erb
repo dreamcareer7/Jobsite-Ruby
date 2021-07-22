@@ -15,15 +15,15 @@
      
       </div>
 
-      <div id="tabs_services">
+      <%# <div id="tabs_services">
         <% if I18n.with_locale(:en){ @project.category.name == "Machinery" } %>
-          <%= render partial: "user/project_steps/item" %>
-        <% elsif I18n.with_locale(:en){ @project.category.name == "Suppliers" } %>
-          <%= render partial: "user/project_steps/item" %>
-        <% else %>
-          <%= render partial: "user/project_steps/service_fields" %>
-        <% end %>
-      </div>
+          <%# <%= render partial: "user/project_steps/item" %>
+        <%# <% elsif I18n.with_locale(:en){ @project.category.name == "Suppliers" } %> 
+          <%# <%= render partial: "user/project_steps/item" %> 
+        <%# <% else %> 
+          <%# <%= render partial: "user/project_steps/service_fields" %> 
+        <%# <% end %> 
+      <%# </div> %>
 
       <div id="tabs_matching_businesses">
         <%= render partial: 'matching_businesses' %>
