@@ -66,25 +66,16 @@
                       Category</span></strong>
                 </div>
                 <% if @project.category.present? %>
-                <div class="pill-list">
-
-                  <div class="pill-list__item pill"><%= @project.category.name %></div>
-
-                </div>
+                  <div class="pill-list">
+                    <div class="pill-list__item pill"><%= @project.category.name %></div>
+                  </div>
                 <% end %>
-              </section>
-              <hr>
-              <section class="second-section mb3">
-                <div style="padding:9px 0px 26px 0px">
-                  <strong><span style="font-size:large"><i class="fa fa-clone" aria-hidden="true"></i> Project Sub
-                      Categories</span></strong>
-                </div>
                 <% if @project.sub_categories.present? %>
-                <div class="pill-list">
-                  <% @project.sub_categories.each do |sub_category| %>
-                  <div class="pill-list__item pill"><%= sub_category.name %></div>
-                  <%end%>
-                </div>
+                  <div class="pill-list">
+                    <% @project.sub_categories.each do |sub_category| %>
+                      <div class="pill-list__item pill"><%= sub_category.name %></div>
+                    <%end%>
+                  </div>
                 <% end %>
               </section>
               <hr>
@@ -94,14 +85,27 @@
                       Needed</span></strong>
                 </div>
                 <% if @project.services.present? %>
-                <div class="pill-list">
-                  <% @project.services.visible.distinct.each do |service| %>
-                  <div class="pill-list__item pill"><%= service.name.capitalize %></div>
-                  <% end %>
-                </div>
+                  <div class="pill-list">
+                    <% @project.services.visible.distinct.each do |service| %>
+                      <div class="pill-list__item pill"><%= service.name.capitalize %></div>
+                    <% end %>
+                  </div>
                 <% end %>
               </section>
 
+              <hr>
+              <section class="second-section mb3">
+                <div style="padding:9px 0px 26px 0px">
+                  <strong><span style="font-size:large"><i class="fa fa-clone" aria-hidden="true"></i> Scope </span></strong>
+                </div>
+                <% if @project.project_types.present? %>
+                  <div class="pill-list">
+                    <% @project.project_types.distinct.each do |type| %>
+                      <div class="pill-list__item pill"><%= type.name.capitalize %></div>
+                    <% end %>
+                  </div>
+                <% end %>
+              </section>
               <hr>
 
               <section class="third-section mb5">
@@ -128,10 +132,6 @@
                         <tr>
                           <td><strong> Start Date: </strong></td>
                           <td><%= @project.start_date.present? ? @project.start_date.strftime("%Y/%m/%d") : " " %></td>
-                        </tr>
-                        <tr>
-                          <td><strong>Scope: </strong></td>
-                          <td>Civil Work</td>
                         </tr>
                         <tr>
                           <td><strong>Budget: </strong></td>
