@@ -19,6 +19,11 @@ ar:
   timeline_types:
     flexible: 'مرن'
     urgent: 'اهمية قصوى'
+  project_stages:
+    concept_initiation: "Concept/Initiation"
+    bidding_planning: "Bidding/Planning"
+    launch_execution: "Launch/Execution"
+    complete_close: "Complete/Close"
   currency_types:
     american_dollar: 'دولار امريكي - USD'
     bahrain: 'دينار بحريني - BHD'

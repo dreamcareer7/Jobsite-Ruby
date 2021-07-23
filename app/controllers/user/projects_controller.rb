@@ -154,6 +154,7 @@ class User::ProjectsController < User::BaseController
       :historical_structure,
       :location_type,
       :user_id,
+      :project_stage,
       :category_id,
       :project_owner_type,
       :contact_name,

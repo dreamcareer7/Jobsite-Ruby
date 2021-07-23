@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210716120852) do
+ActiveRecord::Schema.define(version: 20210723002242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -662,6 +662,7 @@ ActiveRecord::Schema.define(version: 20210716120852) do
     t.boolean  "approved",             default: false
     t.string   "reference_number"
     t.integer  "project_status",       default: 0
+    t.integer  "project_stage"
     t.index ["category_id"], name: "index_projects_on_category_id", using: :btree
   end
 

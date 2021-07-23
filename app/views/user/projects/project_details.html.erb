@@ -119,7 +119,7 @@
                       <body>
                         <tr>
                           <td><strong> <%= t("projects.stage") %> </strong></td>
-                          <td><%= @project.project_status%></td>
+                          <td><%= Project.project_stage_loc(@project.project_stage) %></td>
                         </tr>
                         <tr>
                           <td><strong> <%= t("projects.timeline") %> </strong></td>

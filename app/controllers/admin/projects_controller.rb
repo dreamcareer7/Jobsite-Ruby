@@ -109,6 +109,7 @@ class Admin::ProjectsController < Admin::BaseController
       :location_type,
       :project_types,
       :user_id,
+      :project_stage,
       :category_id,
       :project_owner_type,
       :contact_name,

@@ -13,6 +13,13 @@ class Project < ApplicationRecord
     :industrial
   ]
 
+  enum project_stage: [
+    :concept_initiation,
+    :bidding_planning,
+    :launch_execution,
+    :complete_close
+  ]
+
   enum contact_role: [
     :agent,
     :ceo,
@@ -271,6 +278,15 @@ class Project < ApplicationRecord
       project_roles["Other"] = project_roles.delete("Other")
 
       project_roles
+    end
+
+    def project_loc_stages
+      project_stages = Project.i18n_enum_collection(:project_stages)
+      project_stages
+    end
+
+    def project_stage_loc( enum_value)
+      I18n.t("project_stages.#{enum_value}")
     end
 
   end

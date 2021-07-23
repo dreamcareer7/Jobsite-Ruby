@@ -21,28 +21,53 @@
                         <div class="card card-middle mach-middle">
                             <fieldset class="fieldset">
 
-                                <div class="card__section card__section--padded ">
-                                    <div class="card__header">
-                                        <div class="card__title">
-                                            <h4 class="card__title">
-                                                <%= inline_svg("icons/#{ I18n.with_locale(:en){ @category.name.downcase }}.svg", class: "icon icon--small icon--dark") %>
-                                                <%= t("post_project.project_services_needed", category: @category.name.capitalize.singularize) %>
-                                            </h4>
-                                        </div>
+                            <div class="card__section card__section--padded ">
+                                <div class="card__header">
+                                    <div class="card__title">
+                                        <h4 class="card__title">
+                                            <%= inline_svg("icons/#{ I18n.with_locale(:en){ @category.name.downcase }}.svg", class: "icon icon--small icon--dark") %>
+                                            <%= t("post_project.project_services_needed", category: @category.name.capitalize.singularize) %>
+                                        </h4>
                                     </div>
-                                    <fieldset class="fieldset">
-                                        <div class="grid">
-                                            <div class="grid__col--xs-12 grid__col--md-12">
-                                                <div class="field">
-                                                    <div class="field__input-wrapper">
-                                                        <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
-                                                        <%= f.input :project_sub_category, collection: @project.category.cached_subcategories, selected: @project.sub_categories.present? ? @project.sub_categories.first.id : '', input_html: { class: "field__input field__input--right-add-on js-selected-subcat" }, label: false, required: true, include_blank: true %>
-                                                    </div>
+                                </div>
+                                <fieldset class="fieldset">
+                                    <div class="grid">
+                                        <div class="grid__col--xs-12 grid__col--md-12">
+                                            <div class="field">
+                                                <div class="field__input-wrapper">
+                                                    <%= inline_svg("icons/dropdown.svg", class: "icon field__add-on field__add-on--right field__add-on--clickthrough") %>
+                                                    <%= f.input :project_sub_category, collection: @project.category.cached_subcategories, selected: @project.sub_categories.present? ? @project.sub_categories.first.id : '', input_html: { class: "field__input field__input--right-add-on js-selected-subcat" }, label: false, required: true, include_blank: true %>
                                                 </div>
                                             </div>
                                         </div>
-                                    </fieldset>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="card__section card__section--padded">
+                              <div class="card__header">
+                                <h4 class="card__title">
+                                  <%= inline_svg("icons/gallery.svg", class: "icon icon--dark icon--small") %><%= t("post_project.header.stage") %>
+                                </h4>
+                              </div>
+                              <fieldset class="fieldset">
+                                <div class="grid">
+                                  <div class="grid__col--xs-12 grid__col--md-12">
+                                    <div class="field field--has-btn">
+                                        <% Project.project_loc_stages.each do |stage, index| %>
+                                          <label class="control-group__item control">
+                                            <%= f.radio_button :project_stage, index, class: "control__input js-required-category", checked: @project.project_stage == index %>
+                                            <span class="control__indicator control__indicator--checkbox">
+                                              <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
+                                            </span>
+                                            <span class="control__label"><%= stage %></span>
+                                          </label>
+                                        <% end %>
+                                    </div>
+                                  </div>
                                 </div>
+                              </fieldset>
+                            </div>
 
                                 <%= f.simple_fields_for :project_services do |ps| %>
                                 

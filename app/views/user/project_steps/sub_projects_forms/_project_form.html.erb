@@ -37,12 +37,38 @@
         <!--end ofcategories_select-->
 
       </div>
+
+      <div class="card__section card__section--padded">
+        <div class="card__header">
+          <h4 class="card__title">
+            <%= inline_svg("icons/gallery.svg", class: "icon icon--dark icon--small") %><%= t("post_project.header.stage") %>
+          </h4>
+        </div>
+        <fieldset class="fieldset">
+          <div class="grid">
+            <div class="grid__col--xs-12 grid__col--md-12">
+              <div class="field field--has-btn">
+                  <% Project.project_loc_stages.each do |stage, index| %>
+                    <label class="control-group__item control">
+                      <%= f.radio_button :project_stage, index, class: "control__input js-required-category", checked: @project.project_stage == index %>
+                      <span class="control__indicator control__indicator--checkbox">
+                        <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
+                      </span>
+                      <span class="control__label"><%= stage %></span>
+                    </label>
+                  <% end %>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
       <div class="card__section card__section--padded category_all_temp" id="category_details_all">
         <div class="grid">
           <%= render partial: 'user/project_steps/' + I18n.with_locale(:en) { @category.name.downcase }  ,locals: { f: f } %>
         </div>
-
       </div>
+
       <div class="card__section card__section--padded">
         <div class="card__header">
           <h4 class="card__title">
