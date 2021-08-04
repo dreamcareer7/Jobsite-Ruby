@@ -55,8 +55,6 @@
         <div class="grid__col--xs-12 grid__col--md-12">
           <div class="card">
             <div class="card__section card__section--border">
-              <%= link_to t("projects.view_project"), project_details_user_project_path(@project), class: "btn-group__item btn btn--xs-full btn--secondary", method: :get %>
-              <%= link_to t("projects.edit_project"), edit_user_project_path(@project), class: "btn-group__item btn btn--xs-full btn--secondary" %>
               <p><%= t("dashboard_following.no_businesses") %>.</p>
               <%= link_to t("links.browse"), categories_path(city: @current_city.slug), class: 'btn btn--primary btn--small' %>
             </div>

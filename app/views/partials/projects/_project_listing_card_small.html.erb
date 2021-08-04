@@ -130,10 +130,9 @@
       <% end %>
       <div class="btn-group listing__action">
         <% if current_user %>
-          <%= render partial: "partials/follows/follow", locals: { target: business, follow: current_user.followed_businesses.where(id: business.id).first, classes: "btn btn-group__item #{ 'btn--secondary' unless current_user.followed_businesses.where(id: business.id).present? }" } %>
-          <button data-modal="call-now" class="js-open-modal btn btn--primary btn-group__item js-impressionist-number-view" data-business-name="<%= business.name %>" data-business-hours="<%= business.business_hours.to_json %>" data-phone="<%= Base64.encode64(business.number_for_city(@current_city)) %>"><%= t("listing.call") %></button>
+          <button data-modal="call-now" class="js-open-modal btn btn--primary btn-group__item js-impressionist-number-view" data-business-name="<%= business.name %>" data-business-hours="<%= business.business_hours.to_json %>" data-phone="<%= Base64.encode64(business.number_for_city(@current_city)) %>"><%= t("listing.contact") %></button>
         <% else %>
-          <span data-modal="please-log-in" class="js-open-modal btn btn--primary btn-group__item"><%= t("listing.call") %></span>
+          <span data-modal="please-log-in" class="js-open-modal btn btn--primary btn-group__item"><%= t("listing.contact") %></span>
         <% end %>
       </div>
     </div>

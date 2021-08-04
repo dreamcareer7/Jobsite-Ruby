@@ -53,6 +53,11 @@
                         <%= project.end_date.present? ? "to #{project.end_date.strftime("%Y/%m/%d")}" : "to " %>
                       </strong>
                     </div>
+                    <div class="project-block">
+                      <strong>
+                        <%= t("listing.added") %> <span><%= time_ago_in_words("#{project.created_at}") %> <%= t("words.ago") %></span>
+                      </strong>
+                    </div>
                     <% if request.original_url.include?("Allprojects") %>
                     <span><%= project.creation_status %></span>
                     <% end %>
