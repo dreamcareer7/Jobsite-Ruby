@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210723002242) do
+ActiveRecord::Schema.define(version: 20210804141128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -294,6 +294,7 @@ ActiveRecord::Schema.define(version: 20210723002242) do
     t.datetime "updated_at",            null: false
     t.string   "headline"
     t.string   "subheadline"
+    t.text     "description"
     t.index ["category_metadatum_id"], name: "index_category_metadatum_translations_on_category_metadatum_id", using: :btree
     t.index ["locale"], name: "index_category_metadatum_translations_on_locale", using: :btree
   end

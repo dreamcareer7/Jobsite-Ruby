@@ -80,6 +80,7 @@ class Category < ApplicationRecord
   end
 
   def category_head_description
+    return [self.category_metadata.description] if self.category_metadata.present? && self.category_metadata.description.present?
     if self.name == "Consultants"
       return ["Architects", "Engineer", "Designers"]
     elsif self.name == "Contractors"

@@ -95,6 +95,8 @@ class Admin::SubCategoriesController < Admin::BaseController
       :category_metadata_attributes =>[
         :subheadline_en,
         :subheadline_ar,
+        :description_en,
+        :description_ar,
         :banner
       ]
     )
