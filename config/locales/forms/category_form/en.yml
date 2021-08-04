@@ -7,3 +7,6 @@ en:
       subheadline:
         label: Subheadline
         placeholder: Subheadline
+      description:
+        label: Description
+        placeholder: Description

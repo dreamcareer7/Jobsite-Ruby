@@ -7,3 +7,6 @@ ar:
       subheadline:
         label: الوصف
         placeholder: الوصف
+      description:
+        label: Description
+        placeholder: Description
