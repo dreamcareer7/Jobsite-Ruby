@@ -26,6 +26,7 @@ module HandleProjectActions
     if @project.save
       #send notification to business
       Notification.send_shortlisted(@project, @business)
+      # Notification.send_quote_request(QuoteRequest.create(project: @project, user: current_user, business: @business))
       send_shortlisted_email(@project, @business)
       send_notify_admin_business_shortlisted_email(@project, @business)
 

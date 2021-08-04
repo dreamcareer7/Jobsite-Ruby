@@ -130,7 +130,7 @@
       <% end %>
       <div class="btn-group listing__action">
         <% if current_user %>
-          <button data-modal="call-now" class="js-open-modal btn btn--primary btn-group__item js-impressionist-number-view" data-business-name="<%= business.name %>" data-business-hours="<%= business.business_hours.to_json %>" data-phone="<%= Base64.encode64(business.number_for_city(@current_city)) %>"><%= t("listing.contact") %></button>
+          <%= link_to  t("listing.contact"), user_project_shortlist_business_path(@project, business_id:business.id), class: "btn-group__item btn btn--primary", method: :put %>
         <% else %>
           <span data-modal="please-log-in" class="js-open-modal btn btn--primary btn-group__item"><%= t("listing.contact") %></span>
         <% end %>

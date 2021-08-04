@@ -19,7 +19,7 @@ class Business::InboxController < Business::BaseController
 
     @conversations = @current_business.conversations.collect(&:messages).flatten.sort_by!(&:created_at).reverse!.select(&:conversation_id).uniq(&:conversation_id)
 
-    @inbox = @project_correspondence  + @conversations #+ @other_notifications
+    @inbox = @project_correspondence + @conversations #+ @other_notifications
 
     array = []
     @projects.each do |project|
