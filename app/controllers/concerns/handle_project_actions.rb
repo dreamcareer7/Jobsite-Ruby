@@ -38,7 +38,7 @@ module HandleProjectActions
       send_shortlisted_email(@project, @business)
       send_notify_admin_business_shortlisted_email(@project, @business)
 
-      redirect_back(fallback_location: user_projects_path)
+      redirect_to user_inbox_index_path
       flash[:notice] = "Business shortlisted."
     else
       redirect_back(fallback_location: user_projects_path)
