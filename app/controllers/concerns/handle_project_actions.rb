@@ -1,6 +1,7 @@
 module HandleProjectActions
   extend ActiveSupport::Concern
   include EmailHelper
+  include HandleConversations
 
   def apply_to_project
     #business applies to project
@@ -25,6 +26,13 @@ module HandleProjectActions
 
     if @project.save
       #send notification to business
+      params[:message] = {}
+      params[:message][:project_id] = @project.id
+      params[:message][:body] = @project.description
+
+      @new_message = create_message_from_business_listing_page(@business)
+      @new_message.save
+
       Notification.send_shortlisted(@project, @business)
       # Notification.send_quote_request(QuoteRequest.create(project: @project, user: current_user, business: @business))
       send_shortlisted_email(@project, @business)
@@ -204,4 +212,7 @@ module HandleProjectActions
 
   end
 
+  def message_params
+    params.require(:message).permit(:body, :receiving_user_id, :receiving_user_type, :project_id, :conversation_id, :attachment_attributes => [ :id, :attachment, :_destroy ])
+  end
 end
