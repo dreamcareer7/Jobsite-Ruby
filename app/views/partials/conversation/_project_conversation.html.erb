@@ -9,6 +9,20 @@
       <% @conversation_messages.each_with_index do |message, index| %>
         <%= render partial: "partials/inbox/format_conversation_body", locals: { message: message, previous_message: index == 0 ? "" : @conversation_messages[index - 1] } %>
       <% end %>
+      <% unless @project.completed? && %>
+        <% if @business.shortlisted_or_accepted?(@project) && @project.quotes.pluck(:business_id).any?{ |business_id| business_id == @business.id } && !@project.project_in_process? %>
+          <%= link_to "Hire now", user_project_accept_quote_path(quote_id: @business.quotes.where(project_id: @project.id).first.id, project_id: @project.id), class: "btn-group__item btn btn--primary", method: :put %>
+        <% elsif !@business.shortlisted_or_accepted?(@project) %>
+          <%= link_to "Shortlist", user_project_shortlist_business_path(@project, business_id: @business.id), class: "btn-group__item btn btn--primary", method: :put %>
+        <% end %>
+        <% if @business.shortlisted_or_accepted?(@project) %>
+          <%= link_to t("projects.view_messages"), user_project_project_business_path(@project, @business), class: "btn-group__item btn btn--secondary" %>
+        <% end %>
+        <%= link_to user_project_hide_business_path(@project, business_id: @business.id), class: "btn-group__item btn btn--secondary", method: :put do %>
+          <span class="u-visuallyhidden"><%= t("projects.not_interested") %></span>
+          <%= inline_svg("icons/trash.svg", class: "btn__add-on btn__add-on--center icon") %>
+        <% end %>
+      <% end %>
       <div class="grid">
         <div class="grid__col--xs-12 grid__col--md-12">
           <fieldset class="fieldset">
