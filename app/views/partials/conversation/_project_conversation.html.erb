@@ -15,12 +15,27 @@
         <% elsif !@business.shortlisted_or_accepted?(@project) %>
           <%= link_to "Shortlist", user_project_shortlist_business_path(@project, business_id: @business.id), class: "btn-group__item btn btn--primary", method: :put %>
         <% end %>
-        <% if @business.shortlisted_or_accepted?(@project) %>
-          <%= link_to t("projects.view_messages"), user_project_project_business_path(@project, @business), class: "btn-group__item btn btn--secondary" %>
-        <% end %>
-        <%= link_to user_project_hide_business_path(@project, business_id: @business.id), class: "btn-group__item btn btn--secondary", method: :put do %>
-          <span class="u-visuallyhidden"><%= t("projects.not_interested") %></span>
-          <%= inline_svg("icons/trash.svg", class: "btn__add-on btn__add-on--center icon") %>
+      <% end %>
+      <% if (!@project.project_in_process?) || (@project.project_in_process? && @project.business == @business)  %>
+        <% if @project.completed? %>
+          <span class="btn-group__item btn-group__item--full-small-down "><%= t("projects.project_complete") %></span>
+
+        <% elsif @project.business == @business %>
+          <% unless @project.pending_completion? %>
+            <%= link_to t("projects.mark_complete"), business_project_mark_as_complete_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", id: "mark-complete", method: :put %>
+          <% end %>
+          <% unless @project.inactive? || @project.pending_completion? %>
+            <%= link_to t("projects.cancel_project"), business_project_cancel_project_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--secondary", id: "cancel-project", data: { confirm: "Are you sure?" }, method: :put %>
+          <% end %>
+        <% elsif @business.shortlisted?(@project) && @business.quotes.where(project_id: @project.id).blank? %>
+          <%= link_to t("projects.submit_quote"), new_business_quote_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary" %>
+
+        <% else %>
+          <%#= link_to t("words.apply"), business_project_apply_to_project_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", method: :put unless @business.applied_to_projects.where(project_id: @project.id).exists? %>
+
+          <%= link_to business_project_apply_to_project_path(project_id: @project), method: :put do %>
+            <span class="btn-apply btn--primary float-right"><i class="fa fa-lock"></i> <%= t("words.apply") %></span>
+          <% end %>
         <% end %>
       <% end %>
       <div class="grid">
