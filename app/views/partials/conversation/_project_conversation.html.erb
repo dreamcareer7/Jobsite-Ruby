@@ -9,7 +9,7 @@
       <% @conversation_messages.each_with_index do |message, index| %>
         <%= render partial: "partials/inbox/format_conversation_body", locals: { message: message, previous_message: index == 0 ? "" : @conversation_messages[index - 1] } %>
       <% end %>
-      <% unless @project.completed? && %>
+      <% unless @project.completed? %>
         <% if @business.shortlisted_or_accepted?(@project) && @project.quotes.pluck(:business_id).any?{ |business_id| business_id == @business.id } && !@project.project_in_process? %>
           <%= link_to "Hire now", user_project_accept_quote_path(quote_id: @business.quotes.where(project_id: @project.id).first.id, project_id: @project.id), class: "btn-group__item btn btn--primary", method: :put %>
         <% elsif !@business.shortlisted_or_accepted?(@project) %>
@@ -19,7 +19,6 @@
       <% if (!@project.project_in_process?) || (@project.project_in_process? && @project.business == @business)  %>
         <% if @project.completed? %>
           <span class="btn-group__item btn-group__item--full-small-down "><%= t("projects.project_complete") %></span>
-
         <% elsif @project.business == @business %>
           <% unless @project.pending_completion? %>
             <%= link_to t("projects.mark_complete"), business_project_mark_as_complete_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", id: "mark-complete", method: :put %>
@@ -29,10 +28,8 @@
           <% end %>
         <% elsif @business.shortlisted?(@project) && @business.quotes.where(project_id: @project.id).blank? %>
           <%= link_to t("projects.submit_quote"), new_business_quote_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary" %>
-
         <% else %>
           <%#= link_to t("words.apply"), business_project_apply_to_project_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", method: :put unless @business.applied_to_projects.where(project_id: @project.id).exists? %>
-
           <%= link_to business_project_apply_to_project_path(project_id: @project), method: :put do %>
             <span class="btn-apply btn--primary float-right"><i class="fa fa-lock"></i> <%= t("words.apply") %></span>
           <% end %>
