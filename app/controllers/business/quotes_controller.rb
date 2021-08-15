@@ -14,7 +14,7 @@ class Business::QuotesController < Business::BaseController
 
     @project = Project.find(params[:project_id])
     session[:project_id] = @project.id
-    authorize @quote
+    # authorize @quote
   end
 
   def create
@@ -24,6 +24,16 @@ class Business::QuotesController < Business::BaseController
 
     if @quote.save
       @quote.submit_quote
+      @project = Project.find(session[:project_id])
+
+      params[:message] = {}
+      params[:message][:project_id] = @project.id
+      params[:message][:receiving_user_id] = @project.user_id
+      params[:message][:receiving_user_type] = "User"
+      params[:message][:body] = @quote.proposal
+
+      new_message = current_business.outgoing_messages.create(message_params)
+
       redirect_to business_project_feed_index_path
       flash[:notice] = "Quote submitted."
       session.delete(:project_id)
@@ -91,6 +101,10 @@ class Business::QuotesController < Business::BaseController
       :project_id,
       :status,
       :attachments_attributes => [ :id, :attachment, :_destroy ])
+  end
+
+  def message_params
+    params.require(:message).permit(:body, :receiving_user_id, :receiving_user_type, :project_id, :conversation_id, :attachment_attributes => [ :id, :attachment, :_destroy ])
   end
 
 end
