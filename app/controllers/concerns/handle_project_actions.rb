@@ -61,6 +61,13 @@ module HandleProjectActions
       send_hired_for_project_email(@project, @business)
       send_notify_admin_business_hired_email(@project, @business)
 
+      params[:message] = {}
+      params[:message][:project_id] = @project.id
+      params[:message][:receiving_user_id] = @business.id
+      params[:message][:receiving_user_type] = "Business"
+      params[:message][:body] = "Congrats you got hired" 
+      new_message = @current_user.outgoing_messages.create(message_params)
+
       #remove other shortlisted and applied businesses
       cleanup_shortlists_and_applied(@project, @business)
 
