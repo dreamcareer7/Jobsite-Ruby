@@ -11,7 +11,9 @@
       <% end %>
       <% unless @project.completed? %>
         <% if @business.shortlisted_or_accepted?(@project) && @project.quotes.pluck(:business_id).any?{ |business_id| business_id == @business.id } && !@project.project_in_process? %>
-          <%= link_to "Hire now", user_project_accept_quote_path(quote_id: @business.quotes.where(project_id: @project.id).first.id, project_id: @project.id), class: "btn-group__item btn btn--primary", method: :put %>
+          <% if @project.user == @current_user %>
+            <%= link_to "Hire now", user_project_accept_quote_path(quote_id: @business.quotes.where(project_id: @project.id).first.id, project_id: @project.id), class: "btn-group__item btn btn--primary", method: :put %>
+          <% end %>
         <% elsif !@business.shortlisted_or_accepted?(@project) %>
           <%= link_to "Shortlist", user_project_shortlist_business_path(@project, business_id: @business.id), class: "btn-group__item btn btn--primary", method: :put %>
         <% end %>
@@ -29,11 +31,6 @@
         <% elsif @business.shortlisted?(@project) && @business.quotes.where(project_id: @project.id).blank? %>
           <% if @project.shortlists.pluck(:business_id).include?(@current_business.id) %>
             <%= link_to t("projects.submit_quote"), new_business_quote_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary" %>
-          <% end %>
-        <% else %>
-          <%#= link_to t("words.apply"), business_project_apply_to_project_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", method: :put unless @business.applied_to_projects.where(project_id: @project.id).exists? %>
-          <%= link_to business_project_apply_to_project_path(project_id: @project), method: :put do %>
-            <span class="btn-apply btn--primary float-right"><i class="fa fa-lock"></i> <%= t("words.apply") %></span>
           <% end %>
         <% end %>
       <% end %>
