@@ -28,7 +28,7 @@
           <% unless @project.inactive? || @project.pending_completion? %>
             <%= link_to t("projects.cancel_project"), business_project_cancel_project_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--secondary", id: "cancel-project", data: { confirm: "Are you sure?" }, method: :put %>
           <% end %>
-        <% elsif @business.shortlisted?(@project) && @business.quotes.where(project_id: @project.id).blank? %>
+        <% elsif @business.shortlisted?(@project) %>
           <% if @project.shortlists.pluck(:business_id).include?(@current_business.id) %>
             <%= link_to t("projects.submit_quote"), new_business_quote_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary" %>
           <% end %>

@@ -30,7 +30,7 @@ class Business::QuotesController < Business::BaseController
       params[:message][:project_id] = @project.id
       params[:message][:receiving_user_id] = @project.user_id
       params[:message][:receiving_user_type] = "User"
-      params[:message][:body] = @quote.proposal
+      params[:message][:body] = "Proposal: #{@quote.proposal} \n Budget: #{@quote.approximate_budget} \n Duration: #{@quote.approximate_duration}" 
 
       new_message = current_business.outgoing_messages.create(message_params)
 
