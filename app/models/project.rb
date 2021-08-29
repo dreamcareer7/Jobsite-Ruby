@@ -219,7 +219,7 @@ class Project < ApplicationRecord
     #base matching
     businesses = Business.includes(:cities, :services).by_city(self.location.city)
 
-    suggested = businesses.by_service(self.services.uniq.flatten).distinct
+    suggested = businesses.where.not(user_id: self.user_id).by_service(self.services.uniq.flatten).distinct
 
     suggested.uniq
   end

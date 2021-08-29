@@ -28,7 +28,7 @@
           <td>
             <%= simple_form_for [:admin, @project_matching_business], url: add_matching_business_admin_project_path(@project) do |f| %>
               <fieldset class="fieldset">
-                <%= f.association :business, collection: Business.all, input_html: { style: "width:100%", multiple: false }, wrapper: :select2, label: false %>
+                <%= f.association :business, collection: Business.where.not(user_id: @project.user_id), input_html: { style: "width:100%", multiple: false }, wrapper: :select2, label: false %>
                 <%= f.button :submit, t("projects.add_business"), class: "btn btn--primary" %>
               </fieldset>
             <% end %>
