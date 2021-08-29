@@ -41,8 +41,6 @@
                     <%= link_to t("projects.submit_quote"), new_business_quote_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary" %>
 
                     <% else %>
-                    <%#= link_to t("words.apply"), business_project_apply_to_project_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", method: :put unless @current_business.applied_to_projects.where(project_id: @project.id).exists? %>
-
                     <%= link_to edit_user_project_path(@project) do %>
                     <span class="btn-apply btn--primary float-right"> <%= t("projects.edit_project") %></span>
                     <% end %>

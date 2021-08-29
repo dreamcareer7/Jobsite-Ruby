@@ -14,9 +14,8 @@
       <% elsif @current_business.shortlisted?(@project) && @current_business.quotes.where(project_id: @project.id).blank? %>
         <%= link_to t("projects.submit_quote"), new_business_quote_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary" %>
 
-      <% else %>
+      <% elsif @current_business.user_id != @project.user_id %>
         <%= link_to t("words.apply"), business_project_apply_to_project_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", method: :put unless @current_business.applied_to_projects.where(project_id: @project.id).exists? %>
-
       <% end %>
       <% unless @project.inactive? || @current_business == @project.business %>
         <%= link_to t("projects.no_longer_interested"), business_project_hide_project_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--secondary", method: :put %>

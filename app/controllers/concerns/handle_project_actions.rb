@@ -5,17 +5,21 @@ module HandleProjectActions
 
   def apply_to_project
     #business applies to project
-    AppliedToProject.create(
-      business_id: @current_business.id,
-      project_id: @project.id)
+    if @current_business.user_id != @project.user_id
+      AppliedToProject.create(
+        business_id: @current_business.id,
+        project_id: @project.id)
 
-    #send notification to user
-    Notification.send_applied_to_project(@project, @current_business)
+      #send notification to user
+      Notification.send_applied_to_project(@project, @current_business)
 
-    send_new_project_applicant_email(@project, @current_business)
+      send_new_project_applicant_email(@project, @current_business)
 
-    redirect_to business_project_feed_index_path
-    flash[:notice] = "Applied to project."
+      redirect_to business_project_feed_index_path
+      flash[:notice] = "Applied to project."
+    else
+      flash[:error] = "You cannot apply to a project you posted."
+    end
   end
 
   def shortlist_business

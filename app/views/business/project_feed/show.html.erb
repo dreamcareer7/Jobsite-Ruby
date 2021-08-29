@@ -134,9 +134,7 @@
                       <% elsif @current_business.shortlisted?(@project) && @current_business.quotes.where(project_id: @project.id).blank? %>
                         <%= link_to t("projects.submit_quote"), new_business_quote_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary" %>
 
-                      <% else %>
-                        <%#= link_to t("words.apply"), business_project_apply_to_project_path(project_id: @project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", method: :put unless @current_business.applied_to_projects.where(project_id: @project.id).exists? %>
-
+                      <% elsif @current_business.user_id != @project.user_id %>
                         <%= link_to business_project_apply_to_project_path(project_id: @project), method: :put do %>
                           <span class="btn-apply btn--primary float-right"><i class="fa fa-lock"></i> <%= t("words.apply") %></span>
                         <% end %>
@@ -251,11 +249,13 @@
                       <% end %>
                     <% end %>
                   </div>
-                  <div class="grid__col--xs-12 grid__col--md-4  u-text-center mt2">
-                    <%= link_to business_project_apply_to_project_path(project_id: @project), method: :put do %>
-                      <span class="btn--primary btn-apply" style="font-weight:bold"><i class="fa fa-lock"></i> <%= t("words.apply") %></span>
-                    <% end %>
-                  </div>
+                  <% if @current_business.user_id != @project.user_id %>
+                    <div class="grid__col--xs-12 grid__col--md-4  u-text-center mt2">
+                      <%= link_to business_project_apply_to_project_path(project_id: @project), method: :put do %>
+                        <span class="btn--primary btn-apply" style="font-weight:bold"><i class="fa fa-lock"></i> <%= t("words.apply") %></span>
+                      <% end %>
+                    </div>
+                  <% end %>
                   <div class="grid__col--xs-12 grid__col--md-4 u-text-right mt2">
                     <% if @next_element.present? %>
                       <%= link_to business_project_feed_path(id: @next_element)  do %>
