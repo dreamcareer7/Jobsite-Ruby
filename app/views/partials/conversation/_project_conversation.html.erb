@@ -13,8 +13,11 @@
         <% if @business.shortlisted_or_accepted?(@project) && @project.quotes.pluck(:business_id).any?{ |business_id| business_id == @business.id } && !@project.project_in_process? %>
           <% if @project.user == @current_user %>
             <%= link_to "Hire now", user_project_accept_quote_path(quote_id: @business.quotes.where(project_id: @project.id).first.id, project_id: @project.id), class: "btn-group__item btn btn--primary", method: :put %>
+            <% unless @project.quotes.where(business_id: @business.id).size.zero? %>        
+              <%= link_to "Reject Now", user_project_unshortlist_business_path(@project, business_id: @business.id), class: "btn-group__item btn btn--primary", method: :put %>
+            <% end %>
           <% end %>
-        <% elsif !@business.shortlisted_or_accepted?(@project) %>
+        <% elsif @project.user == @current_user && !@business.shortlisted_or_accepted?(@project) %>
           <%= link_to "Shortlist", user_project_shortlist_business_path(@project, business_id: @business.id), class: "btn-group__item btn btn--primary", method: :put %>
         <% end %>
       <% end %>

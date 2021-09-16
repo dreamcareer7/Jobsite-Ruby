@@ -243,6 +243,10 @@ class Project < ApplicationRecord
     self.shortlists.create(business_id: business.id)
   end
 
+  def unshortlist_business(business)
+    self.shortlists.where(business_id: business.id).destroy_all
+  end
+
   def remove_business
     #remove business and cancels project
     self.update_attributes(business_id: nil, project_status: :cancelled)

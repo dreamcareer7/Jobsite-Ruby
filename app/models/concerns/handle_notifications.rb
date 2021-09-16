@@ -61,6 +61,18 @@ module HandleNotifications
       receiving_user_type: "Business")
   end
 
+  def send_rejected(project, business)
+
+    @notification = Notification.create(
+      notification_type: "rejected",
+      project_id: project.id,
+      business_id: business.id,
+      sending_user_id: project.user.id, 
+      sending_user_type: "User",
+      receiving_user_id: business.id,
+      receiving_user_type: "Business")
+  end
+
   def send_quote(quote, project, business)
 
     @notification = Notification.create(

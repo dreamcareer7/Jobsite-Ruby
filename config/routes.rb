@@ -91,6 +91,7 @@ Rails.application.routes.draw do
 
       resources :project_business, only: [:create, :show]
       put "shortlist_business", to: "projects#shortlist_business"
+      put "unshortlist_business", to: "projects#unshortlist_business"
       put "accept_quote", to: "projects#accept_quote"
       put "deny_quote", to: "projects#deny_quote"
       put "confirm_completion", to: "projects#confirm_completion"

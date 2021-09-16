@@ -51,6 +51,27 @@ module HandleProjectActions
 
   end
 
+  def unshortlist_business
+    #user shortlists business
+    @business = Business.find(params[:business_id])
+
+    @project.unshortlist_business(@business)
+
+    if @project.save
+      #send notification to business
+
+      Notification.send_rejected(@project, @business)
+      # Notification.send_quote_request(QuoteRequest.create(project: @project, user: current_user, business: @business))
+      send_project_cancelled_by_user_email(@project, @business)
+      send_notify_admin_project_cancelled_email(@project)
+
+      redirect_to user_inbox_index_path
+      flash[:notice] = "Business rejected."
+    else
+      redirect_back(fallback_location: user_projects_path)
+      flash[:error] = "Business could not be rejected. Please try again later."
+    end
+  end
 
   def accept_quote
     #user accepts quote from business
