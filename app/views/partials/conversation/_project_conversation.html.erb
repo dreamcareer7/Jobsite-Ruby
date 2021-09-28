@@ -6,9 +6,30 @@
           <div class="message__bubble"><%= t("messages.no_messages") %></div>
         </div>
         <% end %>
-      <% @conversation_messages.each_with_index do |message, index| %>
-        <%= render partial: "partials/inbox/format_conversation_body", locals: { message: message, previous_message: index == 0 ? "" : @conversation_messages[index - 1] } %>
-      <% end %>
+      <div class="chat" data-channel-subscribe="conversation" data-conversation-id="<%= @conversation.id %>">
+        <% @conversation_messages.each_with_index do |message, index| %>
+          <%= render partial: "partials/inbox/format_conversation_body", locals: { message: message, previous_message: index == 0 ? "" : @conversation_messages[index - 1] } %>
+        <% end %>
+      </div>
+      <div class="d-none" data-role="message-template">
+        <div class="chat-message-container">
+          <div class="row no-gutters">
+
+            <div class="col">
+              <div class="message-content">
+                <p class="mb-1" data-role="message-text">
+
+                </p>
+
+                <div class="text-right">
+                  <small data-role="message-date">
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <% unless @project.completed? %>
         <% if @business.shortlisted_or_accepted?(@project) && @project.quotes.pluck(:business_id).any?{ |business_id| business_id == @business.id } && !@project.project_in_process? %>
           <% if @project.user == @current_user %>
@@ -40,11 +61,12 @@
       <div class="grid">
         <div class="grid__col--xs-12 grid__col--md-12">
           <fieldset class="fieldset">
-            <%= simple_form_for(@message, url: url, method: :post) do |f| %>
+            <%= simple_form_for(@message, url: url, method: :post, remote: true) do |f| %>
               <div class="new-message-textbox-with-send-button">
                 <div class="field__input-wrapper new-message-textbox">
                   <div class="emoji-picker-container">
-                    <%= f.input :body, wrapper: :text_area, placeholder: t("messages.placeholder"), input_html: { class: "form-control", id:"describe-your-request", rows:"2", data: { emojiable:true } }, label: false %>
+                    <%= f.input :body, as: :string, wrapper: false, placeholder: t("messages.placeholder"), input_html: { class: "form-control", id:"describe-your-request", rows:"2", data: { emojiable:true } }, label: false %>
+                    <%= f.input :conversation_id, as: :hidden, input_html: { value: @conversation.id } %>
                     <%= f.simple_fields_for :attachment do |ff| %>
                       <%= ff.input :attachment, as: :file, input_html: { class: "js-file-upload", hidden: true }, label: false %>
                       <span class="field__add-on field__add-on--right-custom" onclick="clickBrowseProjectPhoto($(this));"><i class="fa fa-paperclip fa-2x"></i></span>

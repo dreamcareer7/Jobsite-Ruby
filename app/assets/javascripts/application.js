@@ -36,3 +36,6 @@
 //= require highcharts
 //= require rivets/dist/rivets.bundled.min
 //= require gallery
+//= require popper
+//= require bootstrap-sprockets
+//= require_tree .

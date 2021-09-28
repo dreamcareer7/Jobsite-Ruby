@@ -21,8 +21,9 @@ class Business::MessagesController < Business::BaseController
 
 
     if @new_message.save
-      redirect_back(fallback_location: business_profile_index_path) 
-      flash[:notice] = "Message sent."
+      ConversationChannel.broadcast_to @conversation, @new_message
+      # redirect_back(fallback_location: business_profile_index_path) 
+      # flash[:notice] = "Message sent."
     else
       redirect_back(fallback_location: business_profile_index_path) 
       flash[:error] = "The message could not be sent. Try again later."

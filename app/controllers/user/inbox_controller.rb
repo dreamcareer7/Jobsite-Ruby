@@ -58,11 +58,11 @@ class User::InboxController < User::BaseController
     @active_message = @inbox.first if @inbox.present?
     
     if @inbox.present?
+      @conversation = Conversation.find(@inbox.first.conversation_id)
       if @inbox.first.project.present?
         @conversation_messages = @inbox.first.project.messages_with_business(@inbox.first.business).order(created_at: :asc)
         @project = @inbox.first.project
       else
-        @conversation = Conversation.find(@inbox.first.conversation_id)
         @conversation_messages = @conversation.messages.order(created_at: :asc)
       end
       @file_messages = @conversation_messages.select{|a| a if a.attachment.present? && a.attachment.attachment_content_type == 'application/pdf' }

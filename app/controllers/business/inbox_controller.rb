@@ -32,11 +32,11 @@ class Business::InboxController < Business::BaseController
 
     if @inbox.present?
       @active_message = @inbox.first
+      @conversation = Conversation.find(@active_message.conversation_id)
       if @active_message.project.present?
         @conversation_messages = @inbox.first.project.messages_with_business(@inbox.first.business).order(created_at: :asc)
         @project = @inbox.first.project
       else
-        @conversation = Conversation.find(@active_message.conversation_id)
         @conversation_messages = @conversation.messages.order(created_at: :asc)
       end
       @business = @inbox.first.business

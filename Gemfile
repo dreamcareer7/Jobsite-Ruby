@@ -74,7 +74,7 @@ gem "listen", "~> 3.1"
 gem "rails_emoji_picker"
 gem 'will_paginate', '~> 3.1.0'
 
-group :development, :test do
+group :development, :test, :staging do
   gem "byebug"
   %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
     gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => "master"
@@ -110,3 +110,5 @@ end
 gem "mongo"
 gem "rest-client", "~> 2.0.2"
 gem "font-awesome-rails"
+gem 'bootstrap', '~> 4.3.1'
+gem 'jquery-rails'
