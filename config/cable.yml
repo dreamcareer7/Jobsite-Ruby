@@ -10,8 +10,8 @@ staging:
   channel_prefix: messages-websocket
 
 development:
-  adapter: async
+  adapter: redis
   channel_prefix: messages-websocket
 
 test:
-  adapter: async
+  adapter: redis

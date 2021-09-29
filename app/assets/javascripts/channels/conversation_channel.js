@@ -18,6 +18,12 @@ $(function () {
           content.find('[data-role="message-date"]').text(data.updated_at);
           $element.append(content);
           $element.animate({ scrollTop: $element.prop("scrollHeight") }, 1000);
+        },
+        connected: function (data) {
+          console.log('connected Helloooooo!!!!!!!');
+        },
+        disconnected: function (data) {
+          console.log('disconnected Helloooooo!!!!!!!');
         }
       }
     );
