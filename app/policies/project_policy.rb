@@ -44,7 +44,7 @@ class ProjectPolicy < ApplicationPolicy
     end
 
     def resolve
-      current_business && current_business.premium? ? scope.all : scope.where("projects.created_at < ?", STANDARD_BUSINESS_PROJECT_DELAY)
+      current_business.premium? ? scope.all : scope.where("projects.created_at < ?", STANDARD_BUSINESS_PROJECT_DELAY)
     end
 
   end

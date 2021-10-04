@@ -19,11 +19,6 @@ en:
   timeline_types:
     flexible: 'Flexible'
     urgent: 'Urgent'
-  project_stages:
-    concept_initiation: "Concept/Initiation"
-    bidding_planning: "Bidding/Planning"
-    launch_execution: "Launch/Ongoing"
-    complete_close: "Complete/Close"
   currency_types:
     american_dollar: 'American Dollars - USD'
     bahrain: 'Bahrain - BHD'

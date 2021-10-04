@@ -1,25 +1,20 @@
 module HandleProjectActions
   extend ActiveSupport::Concern
   include EmailHelper
-  include HandleConversations
 
   def apply_to_project
     #business applies to project
-    if @current_business.user_id != @project.user_id
-      AppliedToProject.create(
-        business_id: @current_business.id,
-        project_id: @project.id)
+    AppliedToProject.create(
+      business_id: @current_business.id,
+      project_id: @project.id)
 
-      #send notification to user
-      Notification.send_applied_to_project(@project, @current_business)
+    #send notification to user
+    Notification.send_applied_to_project(@project, @current_business)
 
-      send_new_project_applicant_email(@project, @current_business)
+    send_new_project_applicant_email(@project, @current_business)
 
-      redirect_to business_project_feed_index_path
-      flash[:notice] = "Applied to project."
-    else
-      flash[:error] = "You cannot apply to a project you posted."
-    end
+    redirect_to business_project_feed_index_path
+    flash[:notice] = "Applied to project."
   end
 
   def shortlist_business
@@ -30,19 +25,11 @@ module HandleProjectActions
 
     if @project.save
       #send notification to business
-      params[:message] = {}
-      params[:message][:project_id] = @project.id
-      params[:message][:body] = @project.description
-
-      @new_message = create_message_from_business_listing_page(@business)
-      @new_message.save
-
       Notification.send_shortlisted(@project, @business)
-      # Notification.send_quote_request(QuoteRequest.create(project: @project, user: current_user, business: @business))
       send_shortlisted_email(@project, @business)
       send_notify_admin_business_shortlisted_email(@project, @business)
 
-      redirect_to user_inbox_index_path
+      redirect_back(fallback_location: user_projects_path)
       flash[:notice] = "Business shortlisted."
     else
       redirect_back(fallback_location: user_projects_path)
@@ -51,27 +38,6 @@ module HandleProjectActions
 
   end
 
-  def unshortlist_business
-    #user shortlists business
-    @business = Business.find(params[:business_id])
-
-    @project.unshortlist_business(@business)
-
-    if @project.save
-      #send notification to business
-
-      Notification.send_rejected(@project, @business)
-      # Notification.send_quote_request(QuoteRequest.create(project: @project, user: current_user, business: @business))
-      send_project_cancelled_by_user_email(@project, @business)
-      send_notify_admin_project_cancelled_email(@project)
-
-      redirect_to user_inbox_index_path
-      flash[:notice] = "Business rejected."
-    else
-      redirect_back(fallback_location: user_projects_path)
-      flash[:error] = "Business could not be rejected. Please try again later."
-    end
-  end
 
   def accept_quote
     #user accepts quote from business
@@ -85,13 +51,6 @@ module HandleProjectActions
       Notification.send_accepted(@project, @business)
       send_hired_for_project_email(@project, @business)
       send_notify_admin_business_hired_email(@project, @business)
-
-      params[:message] = {}
-      params[:message][:project_id] = @project.id
-      params[:message][:receiving_user_id] = @business.id
-      params[:message][:receiving_user_type] = "Business"
-      params[:message][:body] = "Congrats you got hired" 
-      new_message = @current_user.outgoing_messages.create(message_params)
 
       #remove other shortlisted and applied businesses
       cleanup_shortlists_and_applied(@project, @business)
@@ -244,7 +203,4 @@ module HandleProjectActions
 
   end
 
-  def message_params
-    params.require(:message).permit(:body, :receiving_user_id, :receiving_user_type, :project_id, :conversation_id, :attachment_attributes => [ :id, :attachment, :_destroy ])
-  end
 end

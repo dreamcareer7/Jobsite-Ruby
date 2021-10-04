@@ -1,7 +1,6 @@
 ar:
 
   projects:
-    approved: "مكتمل"
     no_longer_interested: "لست مهتماً بعد الآن"
     not_interested: "لست مهتماً"
     submit_quote: "إرسال العرض"
@@ -23,11 +22,6 @@ ar:
     help: "تحتاج مساعدة بمشروعك ؟ تواصل معنا"
     leave_review: "إترك تقييماً"
     cancel: "الغاء المشروع"
-    header: "Project Requests in Your Area"
-    blurb: "Apply to Requests and send your offers direclty with Project Owners, Procuement Managers and much more, in %{current_city}"
-    timeline_types:
-      flexible: Flexible
-      urgent: Urgent
 
     user_instruction:
       blurb: "كيف تنشئ مشروع ناجح مع مقاولون"
@@ -42,21 +36,4 @@ ar:
       step_two: "عندما يتم إختيارك، تواصل مع صاحب المشروع لطلب التفاصيل وتقديم العرض"
       step_three: "قم بكتابة وتجهيز العرض وإرساله"
       step_four: "ابدأ العمل"
-    add_business: "اضافة"
-    premium_request: " Premium Request"
-    posted: "Posted"
-    by: "By:"
-    project_category: "Project Category"
-    services_needed: "Services Needed"
-    scope: "Scope"
-    request_details: "Request Details"
-    stage: "Stage:"
-    timeline: "Timeline: "
-    duration: "Duration: "
-    start_date: "Start Date: "
-    budget: "Budget: "
-    location: "Location: "
-    attachments: " Photos & Attachment"
-    contact_info: " Contact Info"
-
 

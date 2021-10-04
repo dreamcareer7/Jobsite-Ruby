@@ -1,4 +1,4 @@
-<% if (@business && action_name == "switch_form_section") %>
+<% if (@business && action_name == "switch_form_section") || current_admin && current_namespace == "admin" %>
   <div class="grid__col--xs-12 grid__col--md-6">
     <div class="field">
       <label class="field__label"><%= t("business_profile.fields.locations.type.label") %></label>

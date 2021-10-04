@@ -5,20 +5,18 @@ module SortBusinessProjects
 
     case filter_term
 
-    when "applied"
+    when "Applied"
       @projects = Project.where(id: current_business.applied_to_projects.pluck(:project_id)).where.not(id: current_business.shortlists.pluck(:project_id)).where(business_id: nil).order(updated_at: :desc)
-    when "shortlisted"
+    when "Shortlisted"
       @projects = Project.where(id: current_business.shortlists.pluck(:project_id)).order(updated_at: :desc)
     when "posted"
       @projects = projects.where(project_status: :new_project)
-    when "active"
+    when "Active"
       @projects = projects.where(project_status: :in_process)
-    when "completed"
+    when "Completed"
       @projects = projects.where(project_status: :completed)
-    when "cancelled"
+    when "Cancelled"
       @projects = projects.where(project_status: :cancelled)
-    when "invited"
-      @projects = Project.where(id: @current_business.quote_requests.pluck(:project_id))
     else
       @projects
     end

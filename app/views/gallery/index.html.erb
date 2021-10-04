@@ -1,67 +1,39 @@
-<main class="gallery-page">
-  <!-- start breadcrumb Box -->
-  <% content_for :breadcrumbs do %>
-    <%= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [], current_breadcrumb: { name: "Gallery" } } %>
-  <% end %>
-  <div class="gallery-page-heading-with-background-image">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <h1 class="page-heading"><%= t("gallery.header") %></h1>
-          <p class="page-heading-description"><%= t("gallery.blurb") %></p>
-        </div>
-      </div>
-    </div>
-  </div>
+<% content_for :breadcrumbs do %>
+  <%= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [], current_breadcrumb: { name: "Gallery" } } %>
+<% end %>
+
+<section class="section section--dark u-cover u-text-center" style="background-image: url('<%= image_path('add-business-header.jpg') %>')">
   <div class="site-wrap">
-    <!-- Start Row -->
+    <div class="section-heading">
+      <h1 class="section-heading__heading u-text-contrast"><%= t("gallery.header") %></h1>
+      <h3 class="section-heading__subheading u-text-contrast"><%= t("gallery.blurb") %></h3>
+    </div>
+  </div>
+</section>
 
-    <div class="row category-buttons">
-      <!--  -->
-      <div class="col-md-12">
-      <nav class="gallery-category-menu-and-dropdown">
-        <ul class="gallery-category-filters">
-          <% gallery_categories.each do |category| %>
-            <li class="gallery-category-items">
-              <%= link_to t(category[0]), gallery_index_path(category_type: category[1]),
-                class: "#{'active' if params[:category_type].to_s == category[1]}" %>
-            </li>
+<section class="section section--alt">
+  <div class="site-wrap">
+    <div class="grid grid--tight grid--v-padded">
+      <% @gallery_items.each do |item| %>
+        <% if item.is_a?(Business) %>
+          <%= render partial: "gallery/gallery_item_image", locals: { owner: item, item: item.banner } %>
+        <% elsif item.is_a?(SelfAddedProject) && (item.photos.present? || item.video_link.present?) %>
+          <% next unless item.business.present? %>
+          <% if item.photos.present? %>
+            <%= render partial: "gallery/gallery_item_image", locals: { owner: item, item: item.photos.sample } %>
           <% end %>
-        </ul>
-        <% select_options = [] %>
-        <% gallery_categories.each do |category| %>
-          <% select_options << [t(category[0]), gallery_index_path(category_type: category[1])] %>
-        <%end %>
-        <% selected = select_options.select {|g_c| g_c[1] == gallery_index_path(category_type: params[:category_type])}[0] %>
-        <%= select_tag "category_type", options_for_select(select_options, selected ) %>
-
-        </nav>
-      </div>
-      <!--  -->
-    </div>
-
-    <div class="row">
-      <div class="gallery-page-product-list">
-        <% @gallery_items.each do |item| %>
-          <%= render partial: "gallery/gallery_product", locals: { item: item } %>
+          <% if item.video_link.present? %>
+            <%= render partial: "gallery/gallery_item_video", locals: { item: item } %>
+          <% end %>
+        <% elsif item.is_a?(Attachment) %>
+          <%= render partial: "gallery/gallery_item_image", locals: { owner: item.owner, item: item.attachment } %>
         <% end %>
-      </div>
+      <% end %>
     </div>
-    <% if @gallery_items.total_count == 0 %>
-      <div class="mb4 u-text-center section section--dark has-tint u-cover pl2 pr2" ,="" >
-        <div class="media media--middle media--inline media--tight u-text-center">
-          <div class="media__body">
-            <h2 class="u-text-contrast"> <%= t("gallery.no_result") %> </h2>
-          </div>
-        </div>
-      </div>
-    <% end %>
-    <% if @gallery_items.next_page.present? %>
-      <div class="row">
-        <div class="col-md-12 text-center pagination-load-more">
-          <%= link_to t('gallery.show_more'), gallery_index_path(page: @gallery_items.next_page, category_type: params[:category_type]), remote: true, data: { "disable-with": t('gallery.loading') }, class: "btn btn-primary" %>
-        </div>
+    <% if @gallery_items.total_pages > 1 %>
+      <div class="mt2">
+        <%= paginate @gallery_items %>
       </div>
     <% end %>
   </div>
-</main>
+</section>

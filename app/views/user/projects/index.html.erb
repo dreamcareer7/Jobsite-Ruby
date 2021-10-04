@@ -1,42 +1,81 @@
-<section class="grid__col--md-9 section-page section--alt mt3 mb-4">
+<section class="section section--alt">
   <div class="site-wrap">
-    <div class="mb2">
-      <span class="custom-breadcrumb-title"><%= t("profile_nav.projects") %></span>
+    <% if current_user.projects.present? %>
+    <div class="has-popover u-hide--medium mb2">
+      <%= render partial: "partials/filter_sort/filter_sort_mobile", locals: { filter_terms: @filter_terms, default_term: "Allprojects" } %>
     </div>
-    <div class="card normal-card">
-      <div class="card__section card__section--border pb1">
-        <% if current_user.projects.present? %>
-          <div class="has-popover u-hide--medium">
-            <%= render partial: "partials/filter_sort/filter_sort_mobile", locals: { filter_terms: @filter_terms, default_term: "Allprojects" } %>
-          </div>
-          <div class="u-hide--medium-down ">
-            <div class="segmented-control">
-              <ul class="active-project-tab">
-                <%= render partial: "partials/filter_sort/filter_sort", locals: { filter_terms: @filter_terms, default_term: "Allprojects" } %>
-              </ul>
-            </div>
-          </div>
-        <% end %>
+    <div class="u-hide--medium-down">
+      <div class="segmented-control mb4">
+        <%= render partial: "partials/filter_sort/filter_sort", locals: { filter_terms: @filter_terms, default_term: "Allprojects" } %>
       </div>
+    </div>
+    <% end %>
+    <div class="card">
       <% if @projects.present? %>
         <% @projects.each do |project| %>
-    <%=render partial: "user/projects/project_thumb" ,locals: {project: project}%>
+          <div class="card__section card__section--border">
+            <div class="grid mb3">
+              <div class="grid__col--xs-12 grid__col--md-8">
+                <h3>
+                  <%= link_to project.title, user_project_path(project), class: 'u-text-reset' %>
+                  <%= link_to "(#{ t("words.edit") })", edit_user_project_path(project), class: "u-text-regular" unless project.inactive? %>
+                </h3>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-4 u-text-right--medium">
+                <span class="m0 u-hide--medium-down"><%= t("words.posted") %> <%= time_ago_in_words(project.updated_at) %> <%= t("words.ago") %> • <span class="u-text-turquoise"><%= project.status_to_s %></span></span>
+                <span class="m0 u-hide--medium"><%= t("words.posted") %> <%= time_ago_in_words(project.updated_at) %> <%= t("words.ago") %> • <span class="u-text-turquoise"><%= project.status_to_s %></span></span>
+              </div>
+            </div>
+            <div class="grid grid--v-padded">
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-flex">
+                <p><small><%= t("projects.location") %></small><br><span class="u-text-dark"><%= project.city_country %></span></p>
+                <% if project.category %>
+                  <p><small><%= t("projects.category") %></small><br><span class="u-text-dark"><%= project.category.name %></span></p>
+                <% end %>
+              </div>
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-flex">
+                <% if project.start_date.present? %>
+                  <p><small><%= t("projects.start_date") %></small><br><span class="u-text-dark"><%= project.start_date.strftime("%B %d, %Y") %></span></p>
+                <% end %>
+                <% if project.sub_categories.present? %>
+                  <p><small><%= t("projects.sub_categories") %></small><br><span class="u-text-dark"><%= truncate(project.sub_categories.visible.distinct.first.name, length: 20) %></span></p>
+                <% end %>
+              </div>
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-flex">
+                <% if project.end_date.present? %>
+                  <p><small><%= t("projects.end_date") %></small><br><span class="u-text-dark"><%= project.end_date.strftime("%B %d, %Y") %></span></p>
+                <% end %>
+                <% if project.services.present? %>
+                  <p><small><%= t("projects.services") %></small><br><span class="u-text-dark"><%= truncate(project.services.visible.distinct.first.name, length: 20) %></span></p>
+                <% end %>
+              </div>
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-flex">
+                <p><small><%= t("projects.budget") %></small><br><span class="u-text-dark"><%= project.project_budget.present? ? project.project_budget : "" %></span></p>
+                <% if project.project_types.present? %>
+                  <p><small><%= t("projects.project_types") %></small><br><span class="u-text-dark"><%= truncate(project.project_types.distinct.first.name, length: 20) %></span></p>
+                <% end %>
+              </div>
+              <% unless project.inactive? %>
+                <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-flex">
+                  <p><small><%= t("projects.interested") %></small><br><span class="u-text-dark"><%= project.number_applied %></span></p>
+                </div>
+                <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-flex u-block">
+                  <p><small><%= t("projects.shortlisted") %></small><br><span class="u-text-dark"><%= project.number_shortlisted %></span></p>
+                </div>
+              <% end %>
+              <div class="grid__col--xs-12 grid__col--lg-flex u-text-right--x-large">
+                  <%= link_to t("projects.view_project"), user_project_path(project), class: "btn btn--xs-full btn--secondary u-block" %>
+                  <% unless project.project_in_process? || project.inactive? %>
+                    <%= link_to t("projects.view_applicants"), user_project_path(project, filter_by: "Interested"), class: "btn btn--xs-full btn--primary u-block" %>
+                  <% end %>
+              </div>
+            </div>
+          </div>
         <% end %>
       <% else %>
         <div class="card__section card__section--border">
           <p><%= t("dashboard_projects.no_projects") %>.</p>
-          <div class="grid__col--md-4 grid__col--xs-12">
-            <% if !current_user.projects.present? %>
-              <%= link_to t("main_nav.hire_professional"), new_user_project_path(project_type: "default"), class: "btn-outline-primary btn-block btn-special mt-3" %>
-              <%= link_to t("main_nav.get_supplies"), new_user_project_path(project_type: "suppliers"), class: "btn-outline-primary btn-block btn-special" %>
-              <%= link_to t("main_nav.buy_rent"), new_user_project_path(project_type: "machinery"), class: "btn-outline-primary btn-block btn-special" %>
-            <% else %>
-              <div class="btn-group">
-                <button class="btn btn--primary btn--small u-text-right btn-fixed--medium btn-group__item js-open-modal" data-modal="tell_use_your_needs">Tell us what you need<%#= t("links.post_project") %></button>
-              </div>
-              <%#= link_to t("links.post_project"), new_user_project_path, class: 'btn btn--primary btn--small' %>
-            <% end %>
-          </div>
+          <%= link_to t("links.post_project"), new_user_project_path, class: 'btn btn--primary btn--small' %>
         </div>
       <% end %>
     </div>

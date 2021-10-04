@@ -2,7 +2,6 @@ var targetSubCat;
 
 $('.js-cocoon-fields').on('cocoon:after-insert', function() {
   $.each($('.js-item-field'), function() {
-      $(this).removeClass('u-hide');
     if (this === $('.js-item-field').last()[0]) {
       $(this).addClass('pb0');
     } else {
@@ -13,10 +12,9 @@ $('.js-cocoon-fields').on('cocoon:after-insert', function() {
 
 $('.js-selected-subcat').on('change', function() {
   var selectedSubCat = $(this).val();
-  console.log(selectedSubCat);
   targetSubCat = $(this);
 
-  // $('.js-cocoon-fields').find('form')[0].reset();
+  $('.js-cocoon-fields').find('form')[0].reset();
   $(this).val(selectedSubCat);
 
   if ($(this).val()) {

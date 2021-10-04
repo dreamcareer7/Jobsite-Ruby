@@ -1,7 +1,7 @@
 class Business::ProjectFeedPolicy < ApplicationPolicy
 
   def index?
-    true
+    !@user.disabled?
   end
 
   def show?

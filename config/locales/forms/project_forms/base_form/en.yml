@@ -27,7 +27,6 @@ en:
       general: "General information"
       location: "Where is your project located?"
       attachments: "Attachments"
-      stage: "Project Stage"
       contact: "Project contact"
       project_details: "Project details"
     prompt:

@@ -1,86 +1,12 @@
-<div class="grid__col--md-3 mt3">
-  <div class="dashboard-sidebar-profile-container">
-    <%= image_tag current_user.profile_image.url %>
-    <p class="dashboard-sidebar-username"><%= current_user.name.split.first %></p>
-  </div>
-  <div class="progress mb-2">
-    <div class="progress-bar-dashboard" role="progressbar" style="width: <%= current_user.profile_completion.round %>%;" aria-valuenow="<%= current_user.profile_completion.round %>" aria-valuemin="0" aria-valuemax="100"><%= current_user.profile_completion.round %>%</div>
-  </div>
-  <div>
-    <p>
-      <%= link_to edit_user_path(current_user), style: "text-decoration: none;color:black" do %>
-      <%= current_user.profile_completion == 100 ?
-        t("user_dashboard.edit") :
-        t("user_dashboard.complete_it") %>
-        <i class="fa fa-pencil" aria-hidden="true"></i>
+<nav class="nav secondary-nav secondary-nav--has-tabs js-sticky-nav">
+  <div class="site-wrap">
+    <div class="tab-nav">
+      <% nav_links.each do |nav_link| %>
+        <%= link_to nav_link[:name], nav_link[:path], class: "tab-nav__item#{' is-active--red' if current_page?(nav_link[:path])}" %>
       <% end %>
-    </p>
+    </div>
   </div>
-  <div class="dashboard-sidebar-lists">
-    <ul>
-      <%= link_to user_profile_index_path, class: "sidebar-link" do %>
-        <li class="<%= 'active' if current_page?(user_profile_index_path) %>">
-          <i class="fa fa-globe" aria-hidden="true"></i>
-          <%= t("profile_nav.dashboard") %>
-        </li>
-      <% end %>
-      <%= link_to user_projects_path, class: "sidebar-link" do %>
-        <li class="<%= 'active' if current_page?(user_projects_path) %>">
-          <i class="fa fa-home" aria-hidden="true"></i>
-          <%= t("profile_nav.projects") %>
-        </li>
-      <% end %>
-      <%= link_to user_inbox_index_path, class: "sidebar-link" do %>
-        <li class="<%= 'active' if current_page?(user_inbox_index_path) %>">
-          <i class="fa fa-comments" aria-hidden="true"></i>
-          <%= t("profile_nav.inbox") %>
-        </li>
-      <% end %>
-      <%= link_to user_reviews_path, class: "sidebar-link" do %>
-        <li class="<%= 'active' if current_page?(user_reviews_path) %>">
-          <i class="fa fa-star-half-o" aria-hidden="true"></i>
-          <%= t("profile_nav.user.reviews") %>
-        </li>
-      <% end %>
-      <%= link_to user_profile_index_path, class: "sidebar-link" do %>
-        <li class="">
-          <i class="fa fa-picture-o" aria-hidden="true"></i> Saved Albums
-        </li>
-      <% end %>
-    </ul>
-  </div>
-  
-  <div class="tell-us-what-you-need-lists">
-    <ul>
-      <li class="active"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Tell us what you need</li>
-    </ul>
-  </div>
-
-  <div class="saved-lists">
-
-    <h5 class="saved-lists-heading"><i class="fa fa-heart" aria-hidden="true"></i> Saved lists</h5>
-
-    <ul>
-      <li>Matches Your Categories</li>
-      <li>Electrical contractors</li>
-      <li>Heavy machnery</li>
-      <li>Consultant</li>
-      <li>Machinery</li>
-    </ul>
-  </div>
-
-
-  <div class="bookmarks">
-    <h5 class="bookmarks-lists-heading"><i class="fa fa-bookmark" aria-hidden="true"></i> Bookmarks</h5>
-    <ul>
-      <li>Matches Your Categories</li>
-      <li>Electrical contractors</li>
-      <li>Heavy machnery</li>
-      <li>Consultant</li>
-      <li>Machinery</li>
-    </ul>
-  </div>
-</div>
+</nav>
 
 <%= content_for :page_scripts do %>
   <%= javascript_include_tag 'sticky-nav' %>

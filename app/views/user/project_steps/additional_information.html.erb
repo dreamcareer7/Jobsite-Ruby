@@ -2,7 +2,7 @@
   <%= render partial: 'partials/nav/breadcrumb_nav', locals: { breadcrumbs: [ { name: "Project details", url: wizard_path(:project_details )}], current_breadcrumb: { name: "#{ @category.name_to_singular.capitalize} (2 #{ t("words.of") } 2)" } } %>
 <% end %>
 
-<section class="section section--alt in-section">
+<section class="section section--alt">
   <div class="site-wrap">
 
     <h1 class="section-heading"> <%= @project_type_header %> (<%= @category.name_to_singular %>) </h1>

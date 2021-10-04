@@ -1,171 +1,67 @@
-<!--<section class="section section--alt">
+<section class="section section--alt">
   <div class="site-wrap">
     <div class="segmented-control mb4">
-      <%#= render partial: "partials/filter_sort/filter_sort", locals: { filter_terms: @filter_terms, default_term: "Allprojects" } %>
+      <%= render partial: "partials/filter_sort/filter_sort", locals: { filter_terms: @filter_terms, default_term: "Allprojects" } %>
     </div>
     <div class="card">
-      <%# if @project_feed.present? %>
-        <%# @project_feed.each do |project| %>
+      <% if @project_feed.present? %>
+        <% @project_feed.each do |project| %>
           <div class="card__section card__section--border">
             <div class="grid mb2">
               <div class="grid__col--xs-12 grid__col--md-8">
-                <%#= link_to business_project_feed_path(project), class: "u-text-inherit" do %>
-                  <%# if @current_business.trusted? %>
-                    <h3><%#= project.title %></h3>
-                  <%# else %>
-                    <h3><%#= t("feed.obscured_title") %></h3>
-                    <small><%#= t("feed.obscured_blurb") %></small>
-                  <%# end %>
-                <%# end %>
+                <%= link_to business_project_feed_path(project), class: "u-text-inherit" do %>
+                  <% if @current_business.trusted? %>
+                    <h3><%= project.title %></h3>
+                  <% else %>
+                    <h3><%= t("feed.obscured_title") %></h3>
+                    <small><%= t("feed.obscured_blurb") %></small>
+                  <% end %>
+                <% end %>
               </div>
               <div class="grid__col--xs-12 grid__col--md-4 u-text-right--medium">
-                <small class="m0 u-hide--medium-down"><%#= t("feed.posted") %> <%#= time_ago_in_words(project.created_at) %> <%#= t("feed.ago") %></small>
-                <small class="m0 u-hide--medium"><%#= time_ago_in_words(project.created_at) %> <%#= t("feed.ago") %></small>
+                <small class="m0 u-hide--medium-down"><%= t("feed.posted") %> <%= time_ago_in_words(project.created_at) %> <%= t("feed.ago") %></small>
+                <small class="m0 u-hide--medium"><%= time_ago_in_words(project.created_at) %> <%= t("feed.ago") %></small>
               </div>
             </div>
             <div class="grid grid--v-padded">
               <div class="grid__col--xs-6 grid__col--lg-3 grid__col--xlg-flex">
-                <p><small><%#= t("feed.location") %></small><br><span class="u-text-dark"><%#= project.city_country %></span></p>
+                <p><small><%= t("feed.location") %></small><br><span class="u-text-dark"><%= project.city_country %></span></p>
               </div>
               <div class="grid__col--xs-6 grid__col--lg-3 grid__col--xlg-flex">
-                <p><small><%#= t("feed.distance") %></small><br><span class="u-text-dark"><%#= project.distance_from_business_to_s(@current_coordinates) <= 100 ? project.distance_from_business_to_s(@current_coordinates) : "> 100" %> km</span></p>
+                <p><small><%= t("feed.distance") %></small><br><span class="u-text-dark"><%= project.distance_from_business_to_s(@current_coordinates) <= 100 ? project.distance_from_business_to_s(@current_coordinates) : "> 100" %> km</span></p>
               </div>
               <div class="grid__col--xs-6 grid__col--lg-3 grid__col--xlg-flex">
-                <%# if project.start_date.present? %>
-                  <p><small><%#= t("feed.start_date") %></small><br><span class="u-text-dark"><%#= project.start_date.strftime("%B %d, %Y") %></span></p>
-                <%# end %>
+                <% if project.start_date.present? %>
+                  <p><small><%= t("feed.start_date") %></small><br><span class="u-text-dark"><%= project.start_date.strftime("%B %d, %Y") %></span></p>
+                <% end %>
               </div>
               <div class="grid__col--xs-6 grid__col--lg-3 grid__col--xlg-flex">
-                <%# if project.end_date.present? %>
-                  <p><small><%#= t("feed.end_date") %></small><br><span class="u-text-dark"><%#= project.end_date.strftime("%B %d, %Y") %></span></p>
-                <%# end %>
+                <% if project.end_date.present? %>
+                  <p><small><%= t("feed.end_date") %></small><br><span class="u-text-dark"><%= project.end_date.strftime("%B %d, %Y") %></span></p>
+                <% end %>
               </div>
               <div class="grid__col--xs-12 grid__col--lg-8 grid__col--xlg-flex">
-                <p><small><%#= t("feed.services") %></small><br><span class="u-text-dark"><%#= truncate(project.display_services, length: 35) %></span></p>
+                <p><small><%= t("feed.services") %></small><br><span class="u-text-dark"><%= truncate(project.display_services, length: 35) %></span></p>
               </div>
               <div class="grid__col--xs-12 grid__col--lg-4 grid__col--xlg-flex u-text-right--large">
                 <div class="btn-group btn-group--full">
-                  <%#= link_to t("feed.apply"), business_project_apply_to_project_path(project_id: project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", method: :put %>
-                  <%#= link_to t("feed.details"), business_project_feed_path(project), class: "btn-group__item btn-group__item--full-small-down btn btn--secondary" %>
+                  <%= link_to t("feed.apply"), business_project_apply_to_project_path(project_id: project), class: "btn-group__item btn-group__item--full-small-down btn btn--primary", method: :put %>
+                  <%= link_to t("feed.details"), business_project_feed_path(project), class: "btn-group__item btn-group__item--full-small-down btn btn--secondary" %>
                 </div>
               </div>
             </div>
           </div>
-        <%# end %>
-      <%# else %>
+        <% end %>
+      <% else %>
         <div class="card__section">
-          <p><%#= t("feed.no_projects") %></p>
+          <p><%= t("feed.no_projects") %></p>
         </div>
-      <%# end %>
-    </div>
-    <%# if @project_feed.total_pages > 1 %>
-      <div class="mt3">
-        <%#= paginate @project_feed %>
-      </div>
-    <%# end %>
-  </div>
-</section>-->
-
-<section class="section-page section-alt">
-  <div class="grid">
-    <div class="grid__col--md-3 grid__col--xs-12 filterbox">
-      <%= form_for :filter, url: apply_filter_business_project_feed_index_path, remote: true do |f| %>
-        <div class="filterbox-1">
-          <h4>categories</h4>
-          <div class="row">
-            <hr/>
-          </div>
-          <ul>
-            <li>
-              <label class="control">
-                <%= f.check_box "all_category", { class: "control__input"}, true , " " %>
-                  <span class="control__indicator control__indicator--checkbox">
-                    <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
-                  </span>
-                  <span class="control__label">All Category</span>
-              </label>
-              <ul>
-                <% Category.all.each_with_index do  |category, index| %>
-                  <li>
-                    <label class="control">
-                      <%= f.check_box "category_ids", { class: "control__input", id: "inlineCheckbox#{index + 1}" , multiple: true }, category.id, " " %>
-                        <span class="control__indicator control__indicator--checkbox">
-                          <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
-                        </span>
-                        <span class="control__label"><%= category.name %></span>
-                    </label>
-                  </li>
-                <% end %>
-              </ul>
-            </li>
-          </ul>
-        </div>
-        <div class="filterbox-1">
-          <h4>locations</h4>
-          <div class="row">
-            <hr/>
-          </div>
-          <ul>
-            <li>
-            <label for="Saudi">Country</label><br>
-              <%= select_tag(:country, options_for_select(Country.all.collect {|p| [ p.name, p.id ] }), {class: 'rails-country-for-select form-control mt2', prompt: "select country" } ) %>
-              <!--<input type="checkbox" id="Saudi" name="Saudi" value="all">-->              
-              <ul class="city-listing">
-              </ul>
-            </li>
-          </ul>
-        </div>
-        <%= f.submit "Apply Filter", class:"btn btn--full btn--primary u-text-center" %>
       <% end %>
     </div>
-    <div class="grid__col--xs-12 grid__col--md-9">
-      <div class="grid">
-        <div class="grid__col--xs-12 grid__col--md-12">
-          <div class="btn-group filterBtn">
-            <%= link_to 'Date added', { city: @current_city.slug, filter_by: 'Dateadded' }, class: "js-submit btn btn--primary #{'filter-active' if (params[:filter_by].present? && params[:filter_by] == 'Dateadded')}" %>
-            <%= link_to 'Distance', { city: @current_city.slug, filter_by: 'Distance' }, class: "js-submit btn btn--primary #{'filter-active' if (params[:filter_by].present? && params[:filter_by] == 'Distance')}" %>
-          </div> 
-          <div class="filterListiconBtn">
-            <i class="fa fa-th-large" aria-hidden="true"></i>
-            Map View <i class="fa fa-map" aria-hidden="true"></i>
-          </div>
-        </div>
-        <div class="grid__col--md-12 grid__col--xs-12 index-content">
-          <%= render partial: "partials/project_feed/index", locals: { project_feed: @project_feed } %>
-        </div>
+    <% if @project_feed.total_pages > 1 %>
+      <div class="mt3">
+        <%= paginate @project_feed %>
       </div>
-    </div>
-  </div>
-  <div class="pagination-content">
-    <%= render partial: "partials/project_feed/pagination_content", locals: { project_feed: @project_feed } %>
+    <% end %>
   </div>
 </section>
-
-<script>
-  $(function() {
-    toggleCitySelection();
-    return $(document).on('change', '.rails-country-for-select', function(e) {
-      var $this = $(this);
-      if ($this.val() == ""){
-        $('city-listing').empty()
-      }
-      else {
-        return $.ajax({
-          url: '/filter_cities',
-          type: 'GET',
-          dataType: 'script',
-          data: {
-            country_for_select: $this.val(),
-            target_element: $this.uniqueId().attr('id'),
-            filter: true
-          }
-        });
-      }
-    });
-  });
-
-  function toggleCitySelection() {
-    var countrySelect = $('.rails-country-for-select');
-  }
-  $('.rails-country-for-select').on('change', toggleCitySelection);
-</script>

@@ -1,5 +1,4 @@
 class User::ProjectsController < User::BaseController
-  #include Wicked::Wizard
   include SortAppliedAndShortlisted
   include SortUserProjects
   include FilterServices
@@ -11,16 +10,9 @@ class User::ProjectsController < User::BaseController
 
   skip_before_action :set_project, only: [:index, :new, :create]
 
-  def category_details
-    #sleep 200
-    @category = Category.find(params[:category_id])
-    @project_types = ProjectType.cached_appropriate_project_types(@category.id) #CachedItems.category_types(@category) #ProjectType.appropriate_project_types(@category)
-    render :layout => false
-  end
-
   def index
     @projects = current_user.projects.includes(country: :translations, city: :translations, shortlists: :business)
-    @filter_terms = ["All projects", "Active", "Completed", "Cancelled"]
+    @filter_terms = ["All projects", "Posted", "Active", "Completed", "Cancelled"]
 
     if params[:filter_by].present?
       @projects = handle_sorting(@projects, params[:filter_by]) || [] # or empty array to handle no results
@@ -35,10 +27,10 @@ class User::ProjectsController < User::BaseController
     @project = Project.create
     @project_type = params[:project_type]
 
-    if Rails.env.production? and ENV["ON_TESTING_PROD"].nil?
-      redirect_to user_project_project_step_url(id: "project_details", project_id: @project.id, project_type: @project_type, protocol: :https)
+    if Rails.env.production?
+      redirect_to user_project_project_step_url(id: 'project_details', project_id: @project.id, project_type: @project_type, protocol: :https)
     else
-      redirect_to user_project_project_step_path(id: "project_details", project_id: @project.id, project_type: @project_type)
+      redirect_to user_project_project_step_path(id: 'project_details', project_id: @project.id, project_type: @project_type)
     end
   end
 
@@ -54,21 +46,13 @@ class User::ProjectsController < User::BaseController
 
   def show
     authorize @project
-    @project_types = ProjectType.appropriate_project_types(@project.category)
-    @matching_businesses_main = @project.matching_businesses.uniq.reverse # suggested_businesses.sort_by { |b| b.profile_completion }.reverse.first(20)
-    @matching_businesses = @matching_businesses_main.group_by { |business| business.user ? 'verified' : 'unverified' }
-    @filter_terms = ["Matching (#{@matching_businesses_main.count})", "Shortlisted (#{@project.number_shortlisted})", "Interested (#{@project.number_applied})", "Hired (#{@project.hired_count})"]
+
+    @filter_terms = ["Shortlisted (#{ @project.number_shortlisted })", "Interested (#{ @project.number_applied })"]
     @businesses = Business.where(id: @project.shortlists.pluck(:business_id))
-    @hired_businesses = Business.where(id: @project.business_id)
+
     if params[:filter_by].present?
-      if params[:filter_by].to_s == "Matching"
-        @businesses = @matching_businesses
-      elsif params[:filter_by].to_s == "Hired"
-        @businesses = Kaminari.paginate_array(@hired_businesses).page(params[:page]).per(6)
-      else
-        @businesses = sort_businesses(@businesses, params[:filter_by]) || [] # or empty array to handle no results
-        @businesses = Kaminari.paginate_array(@businesses.order(updated_at: :desc)).page(params[:page]).per(6)
-      end
+      @businesses = sort_businesses(@businesses, params[:filter_by]) || [] # or empty array to handle no results
+      @businesses = Kaminari.paginate_array(@businesses.order(updated_at: :desc)).page(params[:page]).per(6)
     else
       @businesses = Kaminari.paginate_array(@businesses.order(updated_at: :desc)).page(params[:page]).per(6)
     end
@@ -78,11 +62,8 @@ class User::ProjectsController < User::BaseController
     @cities = City.all.enabled
     @countries = Country.all.enabled
     @category = @project.category
-    @category_name = I18n.with_locale(:en) { @category.name }
-    project_type_ids = ProjectType.appropriate_project_types(@category).collect(&:id).uniq
-    @project_types = ProjectType.where(id: project_type_ids)
     @services = @project.sub_categories.present? ? @project.sub_categories.first.services : @category.services
-    project_type_header
+    @project_types = ProjectType.appropriate_project_types(@category)
     @edit_path = user_project_path(@project)
     authorize @project
   end
@@ -96,42 +77,21 @@ class User::ProjectsController < User::BaseController
       redirect_to user_project_path(@project)
       flash[:notice] = "Your project updates have been successful"
     else
-      @project_types = ProjectType.appropriate_project_types(@category)
       render :edit
     end
   end
 
   def destroy
     authorize @project
+
     @project.destroy
-    respond_to do |format|
-      format.html { redirect_to user_projects_path }
-      format.js { render layout: false }
-    end
-  end
-
-  def project_type_header
-    # @project_type_header = I18n.t("main_nav.hire_professional") unless params[:project_type].present?
-
-    if @category.slug == "suppliers"
-      @project_type_header = I18n.t("main_nav.get_supplies")
-    elsif @category.slug == "machinery"
-      @project_type_header = I18n.t("main_nav.buy_rent")
-    else
-      @project_type_header = I18n.t("main_nav.hire_professional")
-    end
-
-    @project_type_header
-  end
-
-  def project_details
-    #authorize @project
+    redirect_to user_projects_path
   end
 
   private
 
   def user_not_authorised
-    redirect_back(fallback_location: user_profile_index_path)
+    redirect_back(fallback_location: user_profile_index_path) 
     flash[:error] = "Sorry, you must be a pro user to post more than 3 projects a month."
   end
 
@@ -141,40 +101,39 @@ class User::ProjectsController < User::BaseController
     params[:project][:project_type_ids].reject!(&:blank?) if params[:project][:project_type_ids].present?
 
     params.require(:project).permit(
-      :title,
-      :description,
-      :start_date,
-      :end_date,
+      :title, 
+      :description, 
+      :start_date, 
+      :end_date, 
       :budget,
       :timeline_type,
-      :status,
-      :creation_status,
-      :project_budget,
+      :status, 
+      :creation_status, 
+      :project_budget, 
       :currency_type,
-      :historical_structure,
-      :location_type,
-      :user_id,
-      :project_stage,
-      :category_id,
+      :historical_structure, 
+      :location_type, 
+      :user_id, 
+      :category_id, 
       :project_owner_type,
       :contact_name,
       :contact_email,
       :contact_number,
       :contact_role,
       :project_type_ids => [],
-      :project_services_attributes => [:id, :service_id, :quantity, :details, :option, :_destroy, :service_id => []],
+      :project_services_attributes => [ :id, :service_id, :quantity, :details, :option, :_destroy, :service_id => [] ], 
       :service_ids => [],
-      :location_attributes => [:city_id, :street_address, :latitude, :longitude],
-      :attachments_attributes => [:id, :attachment, :_destroy],
-    )
+      :location_attributes => [ :city_id, :street_address, :latitude, :longitude ],
+      :attachments_attributes => [ :id, :attachment, :_destroy ])
   end
 
   def set_project
     @project = Project.where(id: params[:project_id].present? ? params[:project_id] : params[:id]).first
 
     unless @project.present?
-      redirect_back(fallback_location: user_profile_index_path)
+      redirect_back(fallback_location: user_profile_index_path) 
       flash[:error] = "Sorry, that project is no longer available."
     end
   end
+
 end

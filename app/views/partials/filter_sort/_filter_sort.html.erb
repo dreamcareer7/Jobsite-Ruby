@@ -1,11 +1,7 @@
 <% filter_terms.each do |term| %>
   <% if !filter_terms.any? { |any_term| request.original_url.include? any_term.gsub(/[\d\W]/, "") } %>
-    <li class="active-project-list-tab">
-      <%= link_to t("filter_sort.#{ term.downcase.gsub(" ", "_") }"), { city: @current_city.slug, filter_by: term.gsub(/[\d\W]/, "") }, class: "list-item-project #{term.gsub(/[\d\W]/, "") == default_term ? ' active' : '' }" %>
-    </li>
+    <%= link_to t("filter_sort.#{ term.downcase.gsub(" ", "_") }"), { city: @current_city.slug, filter_by: term.gsub(/[\d\W]/, "") }, class: "segmented-control__item btn btn--secondary#{term.gsub(/[\d\W]/, "") == default_term ? ' active' : '' }" %>
   <% else %>
-    <li class="active-project-list-tab">
-      <%= link_to t("filter_sort.#{ term.downcase.gsub(" ", "_") }"), { city: @current_city.slug, filter_by: term.gsub(/[\d\W]/, "") }, class: "list-item-project #{ request.original_url.include?(term.gsub(/[\d\W]/, "")) ? ' active' : '' }" %>
-    </li>
+    <%= link_to t("filter_sort.#{ term.downcase.gsub(" ", "_") }"), { city: @current_city.slug, filter_by: term.gsub(/[\d\W]/, "") }, class: "segmented-control__item btn btn--secondary#{ request.original_url.include?(term.gsub(/[\d\W]/, "")) ? ' active' : '' }" %>
   <% end %>
 <% end %>

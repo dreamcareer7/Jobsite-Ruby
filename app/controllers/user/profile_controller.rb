@@ -8,7 +8,7 @@ class User::ProfileController < User::BaseController
 
     @dashboard_banners = Banner.relevant_banner("dashboard banner", @current_city.country)
 
-    @projects = current_user.projects.order(created_at: :desc).first(5)
+    @projects = current_user.projects.order(created_at: :desc).first(3)
 
     session[:dashboard] = user_profile_index_path
 

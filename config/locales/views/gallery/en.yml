@@ -1,28 +1,6 @@
 en:
 
   gallery:
-    name: "Gallery"
-    header: "Get Inspired"
-    blurb: "Scroll through the gallery and explore all your project needs with your own eyes"
+    header: "Gallery"
+    blurb: "Get inspired with the latest pictures and projects uploaded by our businesses"
     uploaded: "Uploaded by"
-    machinery: MACHINERY
-    interior_design: INTERIOR DESIGN
-    projects: PROJECTS
-    furniture: FURNITURE
-    tool_and_hardware: TOOLS & HARDWARE
-    building_materials: BUILDING MATERIALS
-    show_more: SHOW MORE
-    loading: Loading...
-    save: Save
-    no_result: NO RESULTS | Try a different category or city
-    all: ALL
-  nav:
-    view_all: view all
-    suppliers: SUPPLIERS
-    professionls: PROFESSIONALS
-    gallery: GALLERY
-    more: MORE
-    consultants: Consultants
-    contractors: Contractors
-    specialists: Specialists
-    developers: Developers

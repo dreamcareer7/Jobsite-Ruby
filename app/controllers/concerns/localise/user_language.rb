@@ -2,7 +2,6 @@ module Localise::UserLanguage
   extend ActiveSupport::Concern
 
   def current_language
-    #return I18n.locale = :ar
     return I18n.locale = @language if @language.present?
 
     @language = get_language_from_cookie

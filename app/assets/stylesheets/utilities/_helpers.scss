@@ -298,13 +298,6 @@
   }
 }
 
-.medium-down-icon {
-  @include mq(medium-down) {
-    display: inline-block !important;
-    padding: 0px 50px 0px 15px !important ;
-  }
-}
-
 .u-hide--small-down {
   @include mq(small-down) {
     display: none !important;

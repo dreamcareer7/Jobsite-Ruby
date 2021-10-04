@@ -9,7 +9,7 @@
   </li>
 
   <%= render partial: "partials/nav/main_nav/more" %>
-    <% if locale == :en %>
+  <% if locale == :en %>
     <li class="list__item">
       <h3 class="pb1"><%= link_to "ع", set_language_path(language: :ar), method: :put, class: "u-text-contrast" %></h3>
     </li>

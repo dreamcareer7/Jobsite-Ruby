@@ -173,7 +173,7 @@ module EmailHelper
   end
 
   def send_notify_admin_project_new_project(project)
-    # AdminMailer.new_project(project).deliver
+    AdminMailer.new_project(project).deliver
   end
 
   def send_notify_admin_project_complete_email(project)

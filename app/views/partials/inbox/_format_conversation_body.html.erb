@@ -9,30 +9,11 @@
   <div class="message media">
     <%= image_tag(message.sender.is_a?(Business) ? message.sender.contact_photo : message.sender.profile_image.url, class: "u-hide--large-down avatar media__figure") if message.sender.present? %>
     <div class="media__body">
-      <div class="message__bubble u-text-paragraph <%= 'u-text-break-word' unless message.body.match(/\s/) %>"><%= content_with_emoji(message.body) %></div>
+      <div class="message__bubble u-text-paragraph <%= 'u-text-break-word' unless message.body.match(/\s/) %>"><%= message.body %></div>
     </div>
   </div>
 <% else %>
-  <% if message.body.present? %>
-    <div class="message message--sent">
-      <div class="message__bubble message__bubble--sent u-text-paragraph <%= 'u-text-break-word' unless message.body.match(/\s/) %>"><%= message.body %></div>
-    </div>
-  <% elsif message.attachment.is_image_type? %>
-    <div class="message message--sent">
-      <%= image_tag(message.attachment.attachment.url, style:"width:30%;height:100px" ) %>
-      <%#=  audio_tag(message.attachment.attachment.url) %>
-    </div>
-  <% elsif message.attachment.is_audio_type? %>
-    <div class="message message--sent">
-     <%= audio_tag message.attachment.attachment.url, controls:true %>
-    </div>
-  <% elsif message.attachment.is_video_type? %>
-    <div class="message message--sent">
-      <%= video_tag message.attachment.attachment.url, controls:true, style:"width:30%;height:100px" %>
-    </div>
-  <% else %>
-    <div class="message message--sent">
-      <a href="#"><i class="fa fa-file-text-o"></i> <%= message.attachment.attachment_file_name %></a>
-    </div>
-  <% end %>
+  <div class="message message--sent">
+    <div class="message__bubble message__bubble--sent u-text-paragraph <%= 'u-text-break-word' unless message.body.match(/\s/) %>"><%= message.body %></div>
+  </div>
 <% end %>

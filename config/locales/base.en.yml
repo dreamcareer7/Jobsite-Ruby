@@ -2,9 +2,3 @@ en:
   date:
     formats:
       default: "%d/%m/%Y"
-  custom_view:
-    services: "Services"
-    brands: "Brands"
-    view_more: "View More"
-    view_less: "View Less"
-    similar_businesses: "Similar Businesses"
