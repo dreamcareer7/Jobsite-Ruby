@@ -6,7 +6,7 @@ class Business::MessagesController < Business::BaseController
 
   def create
     authorize Message
-
+    @conversation = Conversation.find_by_id(params[:message][:conversation_id])
     if params[:project].present?
       @project = Project.find(params[:project])
       @user = User.find(@project.user.id)
@@ -14,8 +14,6 @@ class Business::MessagesController < Business::BaseController
       @new_message = create_message_for_conversation_with_project(@project, @user, current_business)
 
     else
-      @conversation = Conversation.find(params[:conversation_id])
-
       @new_message = create_message_for_conversation_without_project(@conversation, current_business)
     end
 

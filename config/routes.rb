@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   devise_scope :admin do
     get "admins/sign_out" => "devise/sessions#destroy"
   end
-
+  mount ActionCable.server => '/cable'
   devise_scope :user do
     get "users/sign_out" => "devise/sessions#destroy"
     get "registered", to: "registrations#confirmation_sent"
