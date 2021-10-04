@@ -4,7 +4,6 @@ en:
     home: "Home"
     inbox: "Inbox"
     feed: "Project feed"
-    details: "Project Details"
 
   search:
     placeholder: "What are you looking for?"

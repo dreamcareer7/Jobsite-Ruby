@@ -1,7 +1,6 @@
 en:
 
   projects:
-    approved: "Verified"
     no_longer_interested: "No longer interested"
     not_interested: "Not interested"
     submit_quote: "Submit quote"
@@ -27,11 +26,7 @@ en:
     sub_categories: "Sub categories"
     services: "Services"
     project_types: "Project types"
-    header: "Project Requests in Your Area"
-    blurb: "Apply to Requests and send your offers direclty with Project Owners, Procuement Managers and much more, in %{current_city}"
-    timeline_types:
-      flexible: Flexible
-      urgent: Urgent
+
     user_instructions:
       blurb: "How To Run A Successful Project"
       step_one: "Shortlist the businesses you would like to work on your project"
@@ -45,18 +40,3 @@ en:
       step_two: "Once shortlisted, message project owners for additional information to create a proposal"
       step_three: "Write and submit a proposal"
       step_four: "Start working"
-    add_business: "Add Match"
-    premium_request: " Premium Request"
-    posted: "Posted"
-    by: "By:"
-    project_category: "Project Category"
-    services_needed: "Services Needed"
-    scope: "Scope"
-    request_details: "Request Details"
-    stage: "Stage:"
-    timeline: "Timeline: "
-    duration: "Duration: "
-    start_date: "Start Date: "
-    budget: "Budget: "
-    location: "Location: "
-    attachments: "Photos & Attachment"

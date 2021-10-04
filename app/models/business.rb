@@ -82,15 +82,15 @@ class Business < ApplicationRecord
 
   validates :name, presence: true, on: :create
 
-  attr_accessor :sub_categories_chosen, :business_days_start, :business_days_end, :business_time, :license_expiration_date
+  attr_accessor :sub_categories_chosen, :business_days_start, :business_days_end, :business_time
 
   belongs_to :user
 
   has_one :business_contact
   has_one :social_links, as: :owner, dependent: :destroy
   has_one :photo_gallery, as: :owner, dependent: :destroy
-  has_one :brand
 
+  has_one :brand
   has_many :quotes
   has_many :reviews
   has_many :shortlists
@@ -124,7 +124,6 @@ class Business < ApplicationRecord
   has_many :hours_of_operation
   has_many :branch_hours_of_operation, through: :locations, source: :hours_of_operation
   has_many :admin_notifications, dependent: :destroy
-  has_many :favorites, as: :favoratable
 
   has_many :outgoing_notifications, -> (business) { where(sending_user_id: business.id, sending_user_type: 'Business' )}, class_name: "Notification", foreign_key: :sending_user_id
   has_many :incoming_notifications, -> (business) { where(receiving_user_id: business.id, receiving_user_type: 'Business' )}, class_name: "Notification", foreign_key: :receiving_user_id
@@ -144,7 +143,6 @@ class Business < ApplicationRecord
   accepts_nested_attributes_for :self_added_projects, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :locations, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :team_members, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :certifications, reject_if: :all_blank, allow_destroy: true
 
   has_attached_file :profile_image, styles: { small: "64x64", medium: "100x100", large: "200x200" }, default_url: "default_photos/:style/missing.png"
   validates_attachment_content_type :profile_image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
@@ -195,7 +193,7 @@ class Business < ApplicationRecord
   after_commit :update_cached_ranking, :handle_video_url
   after_commit :update_profile_completion, :update_index, on: [:create, :update]
   after_destroy :update_index
-  after_create :send_business_model_email, :update_sendgrid_contacts
+  after_create :send_new_business_email, :update_sendgrid_contacts
   after_update :send_approval_email
 
   translates :name, :email, :description, :insurance_coverage, :business_hours, fallbacks_for_empty_translations: true
@@ -518,7 +516,7 @@ class Business < ApplicationRecord
       .pluck(:project_id)).where(project_status: :new_project)
 
     outstanding = projects.select do |project|
-      !project.applied_to_projects.pluck(:business_id).include?(self.id) &&
+      !project.applied_to_projects.pluck(:business_id).include?(self.id) && 
         !project.shortlists.pluck(:business_id).include?(self.id) &&
         !self.hidden_resources.pluck(:project_id).include?(project.id)
     end

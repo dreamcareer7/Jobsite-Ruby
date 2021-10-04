@@ -16,17 +16,6 @@ GIT
       railties (>= 3.2)
 
 GIT
-  remote: https://github.com/remon/paperclip.git
-  revision: 3e521879d6762d9cfe36edf98f3e44b80e62cf40
-  specs:
-    paperclip (6.1.0)
-      activemodel (>= 4.2.0)
-      activesupport (>= 4.2.0)
-      mime-types
-      mimemagic (~> 0.3.10)
-      terrapin (~> 0.6.0)
-
-GIT
   remote: https://github.com/rspec/rspec-core.git
   revision: e7c5d030966a7e8dad3e0a67c61920c4f2437c15
   branch: master
@@ -85,8 +74,19 @@ GIT
       rack-protection (= 2.1.0)
       tilt (~> 2.0)
 
+GIT
+  remote: https://github.com/thoughtbot/paperclip.git
+  revision: e3f7493b4cc954405a0209d26933830333ae2869
+  specs:
+    paperclip (6.1.0)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      mime-types
+      mimemagic (~> 0.3.0)
+      terrapin (~> 0.6.0)
+
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     actioncable (5.0.7.2)
       actionpack (= 5.0.7.2)
@@ -141,8 +141,6 @@ GEM
     arel (7.1.4)
     autoprefixer-rails (9.8.6.3)
       execjs
-    av (0.9.0)
-      cocaine (~> 0.5.3)
     aws-eventstream (1.1.0)
     aws-partitions (1.358.0)
     aws-sdk (3.0.1)
@@ -1074,17 +1072,8 @@ GEM
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
     bcrypt (3.1.15)
-    better_errors (2.9.1)
-      coderay (>= 1.0.0)
-      erubi (>= 1.0.0)
-      rack (>= 0.9.0)
     bigdecimal (2.0.0)
-    binding_of_caller (1.0.0)
-      debug_inspector (>= 0.0.1)
-    bootstrap (4.3.1)
-      autoprefixer-rails (>= 9.1.0)
-      popper_js (>= 1.14.3, < 2)
-      sassc-rails (>= 2.0.0)
+    bindex (0.8.1)
     bower-rails (0.10.0)
     browser (4.2.0)
     bson (4.10.0)
@@ -1134,8 +1123,6 @@ GEM
     clockwork (2.0.4)
       activesupport
       tzinfo
-    cocaine (0.5.8)
-      climate_control (>= 0.0.3, < 1.0)
     cocoon (1.2.14)
     coderay (1.1.3)
     coffee-rails (4.2.2)
@@ -1145,7 +1132,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.8)
+    concurrent-ruby (1.1.7)
     connection_pool (2.2.3)
     countries (3.0.1)
       i18n_data (~> 0.10.0)
@@ -1156,11 +1143,7 @@ GEM
       sort_alphabetical (~> 1.0)
     crass (1.0.6)
     daemons (1.3.1)
-    dalli (2.7.11)
-    dalli-elasticache (0.2.0)
-      dalli (>= 1.0.0)
     database_cleaner (1.8.5)
-    debug_inspector (1.0.0)
     declarative (0.0.20)
     declarative-option (0.1.0)
     devise (4.0.0.rc1)
@@ -1177,11 +1160,8 @@ GEM
     diff-lcs (1.4.4)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
-    emoji (1.0.7)
-      json
     enum_help (0.0.17)
       activesupport (>= 3.0.0)
-    erubi (1.10.0)
     erubis (2.7.0)
     excon (0.76.0)
     execjs (2.7.0)
@@ -1213,17 +1193,15 @@ GEM
     fog-xml (0.1.3)
       fog-core
       nokogiri (>= 1.5.11, < 2.0.0)
-    font-awesome-rails (4.7.0.5)
-      railties (>= 3.2, < 6.1)
     formatador (0.2.5)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
     geocoder (1.6.3)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    globalize (5.3.1)
-      activemodel (>= 4.2, < 6.1)
-      activerecord (>= 4.2, < 6.1)
+    globalize (5.1.0)
+      activemodel (>= 4.2, < 5.2)
+      activerecord (>= 4.2, < 5.2)
       request_store (~> 1.0)
     globalize-accessors (0.2.1)
       globalize (~> 5.0, >= 5.0.0)
@@ -1249,10 +1227,10 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     httpclient (2.8.3)
-    i18n (1.8.10)
+    i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     i18n_data (0.10.0)
-    impressionist (1.6.1)
+    impressionist (2.0.0)
       nokogiri (~> 1)
     inline_svg (1.7.1)
       activesupport (>= 3.0)
@@ -1270,7 +1248,6 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    json (2.3.1)
     jwt (2.2.2)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -1287,13 +1264,11 @@ GEM
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2021.0225)
-    mimemagic (0.3.10)
-      nokogiri (~> 1)
-      rake
+    mime-types-data (3.2020.0512)
+    mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.14.4)
+    minitest (5.14.1)
     mongo (2.13.0)
       bson (>= 4.8.2, < 5.0.0)
     multi_json (1.15.0)
@@ -1305,7 +1280,7 @@ GEM
       net-ssh (>= 2.6.5, < 7.0.0)
     net-ssh (6.1.0)
     netrc (0.11.0)
-    newrelic_rpm (3.18.1.330)
+    newrelic_rpm (6.12.0.367)
     nio4r (2.5.2)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
@@ -1333,18 +1308,11 @@ GEM
       omniauth (~> 1.9)
     orm_adapter (0.5.0)
     os (1.1.1)
-    paperclip-av-transcoder (0.6.4)
-      av (~> 0.9.0)
-      paperclip (>= 2.5.2)
-    paperclip-ffmpeg (1.2.0)
-      paperclip (>= 2.5.2)
-      rails
     pg (0.21.0)
     poltergeist (1.18.1)
       capybara (>= 2.1, < 4)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
-    popper_js (1.16.0)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -1360,8 +1328,6 @@ GEM
     rack (2.2.3)
     rack-contrib (2.2.0)
       rack (~> 2.0)
-    rack-mini-profiler (2.3.1)
-      rack (>= 1.2.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.7.2)
@@ -1384,8 +1350,6 @@ GEM
     rails-i18n (5.1.3)
       i18n (>= 0.7, < 2)
       railties (>= 5.0, < 6)
-    rails_emoji_picker (0.1.5)
-      emoji
     railties (5.0.7.2)
       actionpack (= 5.0.7.2)
       activesupport (= 5.0.7.2)
@@ -1426,14 +1390,6 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    sassc (2.4.0)
-      ffi (~> 1.9)
-    sassc-rails (2.1.2)
-      railties (>= 4.0.0)
-      sassc (>= 2.0)
-      sprockets (> 3.0)
-      sprockets-rails
-      tilt
     sendgrid-ruby (6.3.4)
       ruby_http_client (~> 3.4)
     sidekiq (4.2.10)
@@ -1481,7 +1437,7 @@ GEM
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
-    tzinfo (1.2.9)
+    tzinfo (1.2.7)
       thread_safe (~> 0.1)
     uber (0.1.0)
     uglifier (4.2.0)
@@ -1493,17 +1449,16 @@ GEM
     uniform_notifier (1.13.0)
     warden (1.2.8)
       rack (>= 2.0.6)
-    web-console (3.4.0)
+    web-console (3.7.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
-      debug_inspector
+      bindex (>= 0.4.0)
       railties (>= 5.0)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     wicked (1.3.4)
       railties (>= 3.0.7)
-    will_paginate (3.1.8)
     xpath (3.2.0)
       nokogiri (~> 1.8)
 
@@ -1517,9 +1472,6 @@ DEPENDENCIES
   appsignal
   autoprefixer-rails
   aws-sdk
-  better_errors
-  binding_of_caller
-  bootstrap (~> 4.3.1)
   bower-rails (~> 0.10.0)
   browser
   bullet
@@ -1539,8 +1491,6 @@ DEPENDENCIES
   coffee-rails
   country_select
   daemons
-  dalli
-  dalli-elasticache
   database_cleaner
   devise (= 4.0.0.rc1)
   devise-async
@@ -1550,19 +1500,17 @@ DEPENDENCIES
   faker
   figaro
   fog-aws
-  font-awesome-rails
   friendly_id (~> 5.1.0)
   geocoder
-  globalize (~> 5.3.0)
+  globalize (~> 5.1.0)
   globalize-accessors
   gmaps4rails
   google-api-client (~> 0.9)
   groupdate
-  impressionist (~> 1.6.1)
+  impressionist
   inline_svg
   jbuilder (~> 2.0)
   jquery-datatables-rails
-  jquery-rails
   kaminari!
   listen (~> 3.1)
   meta_request
@@ -1573,19 +1521,15 @@ DEPENDENCIES
   omniauth-google-oauth2 (>= 0.6.0)
   omniauth-linkedin-oauth2 (>= 1.0.0)
   paperclip!
-  paperclip-av-transcoder
-  paperclip-ffmpeg
   pg (~> 0.18)
   poltergeist
   pry-rails
   pry-theme
   puma
   pundit
-  rack-mini-profiler
   rack-protection
   rails (~> 5)
   rails-i18n
-  rails_emoji_picker
   redis
   rest-client (~> 2.0.2)
   rspec-core!
@@ -1605,9 +1549,8 @@ DEPENDENCIES
   sprockets-es6
   turbolinks (~> 5.x)
   uglifier (>= 1.3.0)
-  web-console (~> 3.4.0)
+  web-console (~> 3.0)
   wicked
-  will_paginate (~> 3.1.0)
 
 BUNDLED WITH
-   2.2.15
+   2.1.4

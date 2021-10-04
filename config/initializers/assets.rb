@@ -10,7 +10,6 @@ Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'bo
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += [
-  "user_projects_main",
   'modals.js',
   'auto_complete.js',
   'location-map.js',
@@ -23,8 +22,5 @@ Rails.application.config.assets.precompile += [
   'guest-add-business.js',
   'business-profile.js',
   'project-services.js',
-  'sticky-nav.js',
-  'user_dashboard.css',
-  'user_dashboard.js',
-  'business_dashboard.css'
+  'sticky-nav.js'
 ]

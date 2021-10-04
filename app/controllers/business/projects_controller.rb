@@ -14,7 +14,7 @@ class Business::ProjectsController < Business::BaseController
       .or(Project.where(id: @current_business.shortlists.pluck(:project_id)))
       .or(Project.where(business_id: @current_business.id))
 
-    @filter_terms = [["invited", 'fa-bell'], ["applied", 'fa-send'], ["shortlisted", 'fa-calendar-check-o'], ["active", 'fa-circle'], ["completed", 'fa-check-square'], ["cancelled", 'fa-close']]
+    @filter_terms = ["All projects", "Applied", "Shortlisted", "Active", "Completed", "Cancelled"]
 
     if params[:filter_by].present?
       @projects = handle_sorting(@projects, params[:filter_by]) || [] # or empty array to handle no results

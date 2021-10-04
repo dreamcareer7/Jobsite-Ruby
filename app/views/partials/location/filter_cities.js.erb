@@ -1,12 +1,3 @@
-//$("#<%= @target_element %>").closest('.grid').find('.rails-display-cities').empty()
-//.append("<option disabled selected value></option")
-//.append("<%= escape_javascript(render(:partial => @cities)) %>")
-
-<% if params[:filter].present? %>
-  $(".city-listing").empty();
-  $(".city-listing").append("<% @cities.each_with_index do |city, index| %><li><input type='checkbox' id='<%= city.name%>-<%=index%>' name='filter[city_id][]' value='<%= city.id %>',multiple= true ><label for='<%= city.name%>-<%=index%>'><%= city.name %></label><span>, <%= city.projects.size %></span><br></li><% end %>");
-  <% else %>
-    $(".rails-display-cities").empty()
-      .append("<option disabled selected value></option>")
-      .append("<%= escape_javascript(render(:partial => @cities)) %>")
-    <% end %>
+$("#<%= @target_element %>").closest('.grid').find('.rails-display-cities').empty()
+.append("<option disabled selected value></option")
+.append("<%= escape_javascript(render(:partial => @cities)) %>")

@@ -1,114 +1,126 @@
-<section class="grid__col--md-9 unset-grid section-page section--alt mt3 mb-4">
+<section class="section section--alt">
   <div class="site-wrap">
-    <div class="grid">
-      <div class="activity__title__hide_button">
-        <h1><%= @project.title %></h1>
-        <div class="u-text-center">
-          <%= link_to t("projects.view_project"), project_details_user_project_path(@project), class: "btn-group__item btn btn--xs-full btn--secondary", method: :get %>
-          <%= link_to t("projects.edit_project"), edit_user_project_path(@project), class: "btn-group__item btn btn--xs-full btn--secondary" %>
-        </div>
-
-
-
+    <h1><%= @project.title %></h1>
+    <% unless @project.project_in_process? || @project.inactive? %>
+      <div class="has-popover u-hide--medium mb2">
+        <%= render partial: "partials/filter_sort/filter_sort_mobile", locals: { filter_terms: @filter_terms, default_term: "Shortlisted" } %>
       </div>
-
-      <div class="sub-heading project-tabs-main">
-
-        <div class="has-popover u-hide--medium mb2">
-          <ul>
-            <%= render partial: "partials/filter_sort/filter_sort_mobile", locals: { filter_terms: @filter_terms, default_term: "Shortlisted" } %>
-          </ul>
+      <div class="u-hide--medium-down">
+        <div class="segmented-control mb4">
+          <%= render partial: "partials/filter_sort/filter_sort", locals: { filter_terms: @filter_terms, default_term: "Shortlisted" } %>
         </div>
-        <div class="u-hide--medium-down">
-          <ul>
-            <%= render partial: "partials/filter_sort/filter_sort", locals: { filter_terms: @filter_terms, default_term: "Shortlisted" } %>
-          </ul>
-        </div>
-
-
-
       </div>
-    </div>
+    <% end %>
 
     <div class="grid js-listing-cards">
+      <% unless @project.inactive? %>
+        <div class="grid__col--xs-12 grid__col--md-8">
+          <% if @project.project_in_process? || @project.completed? %>
+            <%= render partial: "partials/projects/project_listing_card", locals: { business: Business.find(@project.business_id) } %>
+          <% elsif @businesses.present? %>
+            <% @businesses.each do |business| %>
+              <%= render partial: "partials/projects/project_listing_card", locals: { business: business } %>
+            <% end %>
+          <% else %>
+            <div class="grid__col--xs-12 grid__col--md-12">
+              <div class="card">
+                <div class="card__section card__section--border">
+                  <p><%= t("dashboard_following.no_businesses") %>.</p>
+                  <%= link_to t("links.browse"), categories_path(city: @current_city.slug), class: 'btn btn--primary btn--small' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
 
-      <div class="grid__col--xs-12 grid__col--md-12">
-
-        <% if @businesses.present? %>
-
-        <%if @businesses.is_a?Hash %>
-        <% @businesses.each do |m_business| %>
-        <h3>
-          <%=m_business[0]%>
-        </h3>
-        <%businesses = m_business[1]%>
-        <%businesses.each do |business|%>
-        <%= render partial: "partials/projects/project_listing_card_small", locals: { project: @project , business: business } %>
-        <%end%>
-        <%end%>
-        <%else%>
-        <% @businesses.each do |business| %>
-        <%= render partial: "partials/projects/project_listing_card_small", locals: { project: @project , business: business } %>
-        <%end%>
-        <% end %>
-        <% else %>
-        <div class="grid__col--xs-12 grid__col--md-12">
-          <div class="card">
-            <div class="card__section card__section--border">
-              <p><%= t("dashboard_following.no_businesses") %>.</p>
-              <%= link_to t("links.browse"), categories_path(city: @current_city.slug), class: 'btn btn--primary btn--small' %>
+      <div class="grid__col--xs-12 grid__col--md-<%= @project.inactive? ? '12' : '4' %>">
+        <div class="card">
+          <div class="card__section card__section--border">
+            <div class="grid grid--v-padded">
+              <%= render partial: "partials/projects/details/project_details_sidebar" %>
+              <% unless @project.cancelled? && !@project.cancelled_by_business? %>
+                <div class="grid__col--xs-12">
+                  <div class="btn-group btn-group--full">
+                    <% unless @project.inactive? %>
+                      <%= link_to t("projects.edit_project"), edit_user_project_path(@project), class: "btn-group__item btn btn--xs-full btn--secondary" %>
+                      <%= link_to t("projects.cancel"), user_project_cancel_project_path(@project), class: "btn-group__item btn btn--xs-full btn--primary", method: :put, data: { confirm: "Are you sure?" } %>
+                      <%= link_to t("suggest_businesses.view_more"), category_path(@project.category.slug, city: @current_city.slug), filter_by: "Recommended", class: "btn btn-group__item btn--secondary btn--xs-full" %>
+                    <% end %>
+                    <% if (@project.completed? || @project.cancelled_by_business?) && @project.review.blank? %>
+                      <%= link_to t("projects.leave_review"), new_user_review_path(project_id: @project), class: "btn-group__item btn btn--xs-full btn--primary" %>
+                    <% end %>
+                  </div>
+                </div>
+            <% end %>
             </div>
           </div>
+          <div class="card__section card__section--border">
+            <p class="js-truncate-text u-text-paragraph"><%= @project.description %></p>
+            <% if @project.services.present? %>
+              <div class="pill-list">
+                <span class="pill-list__item pill"><%= @project.category.name %></span>
+                <% @project.services.visible.distinct.each do |service| %>
+                  <span class="pill-list__item pill"><%= service.name %></span>
+                <% end %>
+                <% @project.project_types.distinct.each do |project_type| %>
+                  <span class="pill-list__item pill"><%= project_type.name %></span>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         </div>
-        <% end %>
+        <%= render partial: "partials/projects/instructions/user_instructions" %>
+        <a class="u-block u-text-center" href="/pages/contact"><%= t("projects.help") %></a>
       </div>
+
     </div>
 
-    <% if !@businesses.is_a?Hash and  @businesses.total_pages > 1%>
-    <div class="mt3 pagination">
-      <%= paginate @businesses %>
-    </div>
+    <% if @businesses.total_pages > 1 %>
+      <div class="mt3 pagination">
+        <%= paginate @businesses %>
+      </div>
     <% end %>
 
   </div>
 </section>
 
 <% if @suggest_businesses %>
-<%= content_tag :span, '', class: "js-suggest-businesses", data: { suggest: 'yes' } %>
+  <%= content_tag :span, '', class: "js-suggest-businesses", data: { suggest: 'yes' } %>
 <% end %>
 
 
 
 <%= content_for :page_scripts do %>
-<script>
-  if ($('.js-suggest-businesses').data('suggest') === 'yes') {
-    $('.js-suggest-businesses').toggleClass('is-visible');
-  };
+  <script>
 
-  var sidebarPositionTop;
-  var sidebarPositionLeft;
-
-  $(document).ready(function () {
-    if ($('.js-project-sidebar').length < 1) {
-      return
+    if ( $('.js-suggest-businesses').data('suggest') === 'yes' ) {
+      $('.js-suggest-businesses').toggleClass('is-visible');
     };
-    var sidebar = $('.js-project-sidebar');
-    sidebarPositionTop = sidebar.offset().top;
-    sidebarPositionLeft = sidebar.offset().left;
-    sidebarWidth = sidebar.width();
-  });
 
-  if ($(window).width() > 600) {
-    $(window).scroll(function () {
+    var sidebarPositionTop;
+    var sidebarPositionLeft;
 
-      if ($(window).scrollTop() > sidebarPositionTop) {
-        $('.js-project-sidebar').addClass('project-sidebar--fixed');
-        $('.js-project-sidebar').css('left', sidebarPositionLeft);
-        $('.js-project-sidebar').css('width', sidebarWidth);
-      } else {
-        $('.js-project-sidebar').removeClass('project-sidebar--fixed');
-      }
+    $(document).ready(function() {
+      if ( $('.js-project-sidebar').length < 1 ) { return };
+      var sidebar = $('.js-project-sidebar');
+      sidebarPositionTop = sidebar.offset().top;
+      sidebarPositionLeft = sidebar.offset().left;
+      sidebarWidth = sidebar.width();
     });
-  }
-</script>
+
+    if($(window).width() > 600) {
+      $(window).scroll(function() {
+    
+        if($(window).scrollTop() > sidebarPositionTop){
+          $('.js-project-sidebar').addClass('project-sidebar--fixed');
+          $('.js-project-sidebar').css('left', sidebarPositionLeft);
+          $('.js-project-sidebar').css('width', sidebarWidth);
+        } else {
+          $('.js-project-sidebar').removeClass('project-sidebar--fixed');
+        }
+      });
+    }
+
+  </script>
 <% end %>

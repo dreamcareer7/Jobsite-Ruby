@@ -10,7 +10,7 @@
         <fieldset class="fieldset">
           <div class="grid">
             <div class="grid__col--xs-12 grid__col--md-12">
-              <%= f.association :project_types, collection: @project_types.uniq, selected: @project.project_types.pluck(:id), input_html: { style: "width:100%", multiple: true }, wrapper: :select2, label: false %>
+              <%= f.association :project_types, collection: @project_types, selected: @project.project_types.pluck(:id), input_html: { style: "width:100%", multiple: true }, wrapper: :select2, label: false %>
               <%# end%>
             </div>
           </div>
@@ -54,9 +54,9 @@
           <div class="field u-text-right">
             <div class="btn-group btn-group--full mt1">
               <% if action_name == "edit" %>
-                <%= f.submit t("form.update"), class: "btn-group__item btn--xs-full btn btn--primary" %>
+                <%= f.submit t("form.create"), class: "btn-group__item btn--xs-full btn btn--primary" %>
               <% else %>
-                <%= f.submit t("form.submit"), class: "btn-group__item btn--xs-full btn btn--primary" %>
+                <%= f.submit t("post_project.submit"), class: "btn-group__item btn--xs-full btn btn--primary" %>
               <% end %>
             </div>
           </div>

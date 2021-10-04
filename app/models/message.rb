@@ -1,21 +1,12 @@
 class Message < ApplicationRecord
   include TimeHelper
-  validates :sending_user_id, :sending_user_type, :receiving_user_id, :receiving_user_type, presence: true
-  
+  validates :body, :sending_user_id, :sending_user_type, :receiving_user_id, :receiving_user_type, presence: true
+
   belongs_to :sender
   belongs_to :receiver
   belongs_to :project
-  has_one :attachment, as: :owner, dependent: :destroy
 
   belongs_to :conversation
-
-  validates :body, presence: true, unless: :some_validation_check
-
-  def some_validation_check
-    attachment.present?
-  end
-
-  accepts_nested_attributes_for :attachment, reject_if: :all_blank, allow_destroy: true
 
   def mark_as_read
     self.update_attributes(read: true) unless self.read

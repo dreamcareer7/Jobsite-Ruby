@@ -6,7 +6,7 @@ class Business::MessagesController < Business::BaseController
 
   def create
     authorize Message
-    @conversation = Conversation.find_by_id(params[:message][:conversation_id])
+
     if params[:project].present?
       @project = Project.find(params[:project])
       @user = User.find(@project.user.id)
@@ -14,14 +14,15 @@ class Business::MessagesController < Business::BaseController
       @new_message = create_message_for_conversation_with_project(@project, @user, current_business)
 
     else
+      @conversation = Conversation.find(params[:conversation_id])
+
       @new_message = create_message_for_conversation_without_project(@conversation, current_business)
     end
 
 
     if @new_message.save
-      ConversationChannel.broadcast_to(@conversation, @new_message)
-      # redirect_back(fallback_location: business_profile_index_path) 
-      # flash[:notice] = "Message sent."
+      redirect_back(fallback_location: business_profile_index_path) 
+      flash[:notice] = "Message sent."
     else
       redirect_back(fallback_location: business_profile_index_path) 
       flash[:error] = "The message could not be sent. Try again later."
@@ -41,7 +42,7 @@ class Business::MessagesController < Business::BaseController
   private
 
   def message_params
-    params.require(:message).permit(:body, :receiving_user_id, :receiving_user_type, :project_id, :conversation_id, :attachment_attributes => [ :id, :attachment, :_destroy ])
+    params.require(:message).permit(:body, :receiving_user_id, :receiving_user_type, :project_id, :conversation_id)
   end
 
   def policy(record)

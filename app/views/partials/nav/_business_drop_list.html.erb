@@ -1,5 +1,5 @@
 <div class="has-popover">
-  <button class="js-open-popover btn btn--full btn--secondary u-text-left mb0 select-business medium-down-icon">
+  <button class="js-open-popover btn btn--full btn--secondary u-text-left mb0 select-business">
     <% if ["user", "users"].include? current_namespace %>
       <% if current_user.unread_business_notifications.present? %>
         <span class="badge badge--primary mr1"><%= current_user.unread_business_notifications %></span>

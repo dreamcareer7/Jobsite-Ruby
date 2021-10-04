@@ -18,20 +18,24 @@ class ServicesController < ApplicationController
   after_action :update_view_count, only: [:show]
 
   def show
-    category_sub_categories = @category.cached_subcategories_enabled
-    @trending_sub_categories = category_sub_categories.cached_trending.first(3)
+    category_sub_categories = @category.sub_categories.visible.enabled
+    @trending_sub_categories = category_sub_categories.trending.first(3)
 
     #always place current sub category first
-    @sub_categories = (category_sub_categories
+    @sub_categories = (
+      category_sub_categories
       .to_a
-      .rotate!(category_sub_categories.to_a.index(@sub_category)))
+      .rotate!(category_sub_categories.to_a.index(@sub_category))
+    )
 
-    @unpaginated_businesses = (Business
+    @unpaginated_businesses = (
+      Business
       .active
       .for_listing
       .by_city(@current_city)
       .by_service(@service)
-      .distinct)
+      .distinct
+    )
 
     @featured_businesses = get_featured_businesses(@unpaginated_businesses)
     @businesses = handle_filter(@unpaginated_businesses)
@@ -79,4 +83,5 @@ class ServicesController < ApplicationController
     CacheViewCountJob.perform_later(@service)
     CacheViewCountChangeJob.perform_later(@service)
   end
+
 end

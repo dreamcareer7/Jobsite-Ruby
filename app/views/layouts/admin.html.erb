@@ -10,7 +10,6 @@
     <%= action_cable_meta_tag %>
     <%= favicon_link_tag "favicon.png" %>
     <%= stylesheet_link_tag "application" %>
-        <%= stylesheet_link_tag "user_projects_main", media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag "//maps.google.com/maps/api/js?v=3&key=#{ ENV['G_KEY'] }" %>
     <%= javascript_include_tag "//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js" %>
@@ -19,7 +18,7 @@
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   </head>
 
-  <body data-turbolinks="false" class="admin-body">
+  <body data-turbolinks="false">
     <% flash.each do |name, msg| %>
       <% if msg.class == Array %>
         <% msg.each do |message| %>
@@ -40,7 +39,7 @@
       <div class="site-wrap">
         <div class="grid">
           <%= render partial: "partials/admin/layout/sidebar_nav" %>
-          <div class="grid__col--xs-12 grid__col--md-9 grid__col--lg-10 my-admin-right">
+          <div class="grid__col--xs-12 grid__col--md-9 grid__col--lg-10">
             <%= yield %>
           </div>
         </div>

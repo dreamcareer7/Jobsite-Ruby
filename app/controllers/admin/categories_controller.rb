@@ -62,8 +62,6 @@ class Admin::CategoriesController < Admin::BaseController
         :id,
         :subheadline_en,
         :subheadline_ar,
-        :description_en,
-        :description_ar,
         :banner
       ]
     )

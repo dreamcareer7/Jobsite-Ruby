@@ -52,10 +52,9 @@ class AutoComplete
     term.class.name == "SubCategory" ? 
       term_type = "sub_categories" : 
       term_type = term.class.name.downcase.pluralize
-if term and term.name.present?
+
     @redis.set("#{ I18n.with_locale(locale){ term.name.downcase } }#{ count }", 
                generate_term_hash(term, term_sort, term_type, locale).to_json)
-end 
   end
 
   def self.generate_term_hash(term, term_sort, term_type, locale)

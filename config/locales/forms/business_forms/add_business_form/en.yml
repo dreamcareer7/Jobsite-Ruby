@@ -21,7 +21,6 @@ en:
       header:
         general_information: "Business information"
         contact_person: "Contact person"
-        business_image: "Business logo and Banner"
       business_name:
         label: "Business name"
         field:

@@ -1,6 +1,6 @@
 en:
-  form:
-    update: "Save"
-    create: "Create"
-    date_placeholder: "01-09-2016"
-    submit: "Submit"
+
+ form:
+   update: "Save"
+   create: "Create"
+   date_placeholder: "01-09-2016"

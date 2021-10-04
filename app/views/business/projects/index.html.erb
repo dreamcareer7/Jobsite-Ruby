@@ -1,46 +1,61 @@
-<section class="section-page section--alt">
-  <div class="">
-    <div class="grid">
-      <div class="grid__col--md-3 grid__col--xs-12 mt2">
-        <div class="dashboard-sidebar-lists">
-          <ul>
-            <% @filter_terms.each do |term| %>
-              <%= link_to business_projects_path(filter_by: "#{term[0]}"), class: "sidebar-link" do %>
-                <li class="<%= 'active' if params[:filter_by] == "#{term[0]}" %>">
-                  <i class="fa <%= term[1]%>" aria-hidden="true"></i>
-                  <%= t("#{term[0]}") %>
-                </li>
-              <% end %>
-            <% end %>
-          </ul>
+<section class="section section--alt">
+  <div class="site-wrap">
+    <% if @current_business.projects.present? %>
+      <div class="has-popover u-hide--medium mb2">
+        <%= render partial: "partials/filter_sort/filter_sort_mobile", locals: { filter_terms: @filter_terms, default_term: "Allprojects" } %>
+      </div>
+      <div class="u-hide--medium-down">
+        <div class="segmented-control mb4">
+          <%= render partial: "partials/filter_sort/filter_sort", locals: { filter_terms: @filter_terms, default_term: "Allprojects" } %>
         </div>
-        <%= link_to business_project_feed_index_path do %>
-          <span class="btn--full btn-special mt3 float-right"> FInd Projects</span>
+      </div>
+    <% end %>
+    <div class="card">
+      <% if @projects.present? %>
+        <% @projects.each do |project| %>
+          <div class="card__section card__section--border">
+            <div class="grid mb3">
+              <div class="grid__col--xs-12 grid__col--md-8">
+                <%= link_to business_project_feed_path(project), class: "u-text-inherit" do %>
+                  <h3><%= project.title %></h3>
+                <% end %>
+              </div>
+              <div class="grid__col--xs-12 grid__col--md-4 u-text-right--medium">
+                <span class="m0 u-hide--medium-down"><%= t("words.posted") %> <%= time_ago_in_words(project.updated_at) %> <%= t("words.ago") %> • <span class="u-text-turquoise"><%= project.status_to_s %></span></span>
+                <span class="m0 u-hide--medium"><%= t("words.posted") %> <%= time_ago_in_words(project.updated_at) %> <%= t("words.ago") %> • <span class="u-text-turquoise"><%= project.status_to_s %></span></span>
+              </div>
+            </div>
+            <div class="grid grid--v-padded">
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-flex">
+                <p><small><%= t("feed.location") %></small><br><span class="u-text-dark"><%= project.city_country %></span></p>
+              </div>
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-flex">
+                <% if project.start_date.present? %>
+                  <p><small><%= t("feed.start_date") %></small><br><span class="u-text-dark"><%= project.start_date.strftime("%B %d, %Y") %></span></p>
+                <% end %>
+              </div>
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-flex">
+                <% if project.end_date.present? %>
+                  <p><small><%= t("feed.end_date") %></small><br><span class="u-text-dark"><%= project.end_date.strftime("%B %d, %Y") %></span></p>
+                <% end %>
+              </div>
+              <div class="grid__col--xs-6 grid__col--sm-4 grid__col--lg-flex">
+                <p><small><%= t("projects.budget") %></small><br><span class="u-text-dark"><%= project.project_budget.present? ? project.project_budget : "" %></span></p>
+              </div>
+              <div class="grid__col--xs-12 grid__col--lg-flex u-text-right--x-large">
+                <div class="btn-group btn-group--full">
+                  <%= link_to t("projects.view_project"), business_project_feed_path(project), class: "btn-group__item btn btn--xs-full btn--secondary" %>
+                </div>
+              </div>
+            </div>
+          </div>
         <% end %>
-      </div>
-      <div class="grid__col--xs-12 grid__col--md-6"> 
-        <div class="filterListiconBtn">
-          <i class="fa fa-th-large" aria-hidden="true"></i>
-          Map View <i class="fa fa-map" aria-hidden="true"></i>
+      <% else %>
+        <div class="card__section card__section--border">
+          <p><%= t("feed.no_projects") %>.</p>
+          <%= link_to t("links.project_feed"), business_project_feed_index_path, class: 'btn btn--primary btn--small' %>
         </div>
-        <%= render partial: "#{params[:filter_by]}" %>
-      </div>
-      <div class= "grid__col--xs-12 grid__col--md-3 grid__col--lg-3 mt4">
-        <%#= link_to  t("profile_nav.business.feed"), business_project_feed_index_path, class: "btn-block btn-special btn-business-dashboard mt-3" %>
-
-        <div class="featured-lists mb-4">
-
-          <h5 class="saved-lists-heading"><i class="fa fa-bookmark" aria-hidden="true"></i> Featured Project</h5>
-
-          <ul>
-            <li>I need a professional contractors</li>
-            <li>I need a professional consultants</li>
-            <li>I need a professional supplier</li>
-            <li>I need a heavy machinery</li>
-            <li>I need a developers</li>
-          </ul>
-        </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </section>

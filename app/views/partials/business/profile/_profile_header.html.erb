@@ -1,43 +1,28 @@
-<section class="section section--dark u-cover has-tint" <% if @current_business.banner.present? %> style="background-image: url('<%= @current_business.banner.url(:large)  %>') <% end %>">
-  <div class="site-wrap">
-    <div class="has-tint__content">
-      <div class="grid__col--md-8 p0" style="display:flex;">
-        <div class="grid__col--md-3">
-          <%= image_tag @current_business.logo.url, class: "u-box-shadow profile-logo u-rounded", style:"width:100%" %>
-        </div>
-        <div class="grid__col--md-5">
-          <h5 class="u-text-contrast u-text-shadow"><%= t("dashboard.welcome") %> <%#= @current_business.name %>!</h2>
-          <div class="business-dashboard-profile-container">
-            <%#= image_tag current_user.profile_image.url %>
-            <p class="dashboard-sidebar-username"><%= current_user.name.split.first %></p>
-          </div>
-          
-          <div class="progress-bar-with-percentage">
-            <div class="progress-business-profile">
-              <div class="progress-bar-dashboard" role="progressbar" style="width: <%= @current_business.profile_completion.round %>%;" aria-valuenow="<%= @current_business.profile_completion.round %>" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-            <div class="profile-percentage">
-              <%= @current_business.profile_completion.round %>%
-            </div>
-          </div>
-
-          <div>
-            <p>
-              <%= link_to edit_business_business_path(@current_business), style:"color:white" do %>
-              <%= @current_business.profile_completion == 100 ?
-                t("user_dashboard.edit") :
-                t("user_dashboard.complete_it") %>
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-              <% end %>
-            </p>
-          </div>
-          <span data-modal="user-upgrade-coming-soon" class="btn-special mt2 mb-4" style="width:280px"><%= t("words.upgrade") %></span>
-        </div>
+<section class="section section--dark u-cover u-text-center has-tint" <% if @current_business.banner.present? %> style="background-image: url('<%= @current_business.banner.url(:large)  %>') <% end %>">
+  <div class="site-wrap has-tint__content">
+    <%= image_tag @current_business.logo.url, class: "u-box-shadow profile-logo u-rounded" %>
+    <h2 class="mb0 u-text-contrast u-text-shadow"><%= t("dashboard.welcome") %> <%= @current_business.name %>!</h2>
+    <h3 class="mt1 u-text-contrast u-text-shadow u-text-regular">
+      <%= t("user_dashboard.your_profile") %> 
+      <strong class="<%= percentage_to_colour(@current_business.profile_completion) %>">
+        <%= @current_business.profile_completion.round %>%
+      </strong> 
+      <%= t("user_dashboard.completed") %>. 
+      <%= link_to @current_business.profile_completion == 100 ? 
+      t("user_dashboard.edit") : 
+      t("user_dashboard.complete_it"), 
+      edit_business_business_path(@current_business), class: "u-text-underline" %>
+  </h3>
+  <% if current_user.businesses.present? && current_user.businesses.count > 1 %>
+    <div class="grid grid--center">
+      <div class="grid__col--xs-12 grid__col--sm-10 grid__col--md-8 grid__col--lg-6 grid__col--xlg-4">
+        <%= render partial: "partials/nav/business_drop_list", locals: { business: @current_business } %>
       </div>
-      <% if @current_business.disabled? %>
-        <%= render partial: "partials/business/profile/disabled" %>
-      <% end %>
-      </div>
-      <%= link_to t("dashboard.view_as_user"), business_path(id: @current_business.slug, city: @current_city.slug), class: "btn btn--small home-city__tooltip-business-dashboard", target: "_blank" %>
+    </div>
+  <% end %>
+  <% if @current_business.disabled? %>
+    <%= render partial: "partials/business/profile/disabled" %>
+  <% end %>
   </div>
+  <%= link_to t("dashboard.view_as_user"), business_path(id: @current_business.slug, city: @current_city.slug), class: "btn btn--small home-city__tooltip", target: "_blank" %>
 </section>

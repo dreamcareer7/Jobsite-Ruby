@@ -3,14 +3,19 @@
     <div class="grid grid--center">
       <div class="grid__col--xs-12 grid__col--sm-10 grid__col--md-6 grid__col--lg-5 grid__col--xlg-4">
         <div class="grid grid--tight">
-       
-          <div class="grid__col--xs-6">
+          <div class="grid__col--xs-4">
+            <%= link_to user_omniauth_authorize_path(:facebook), class: "btn btn--facebook btn--full" do %>
+              <span class="u-visuallyhidden"><%= t("log_in.facebook") %></span>
+              <%= inline_svg("icons/facebook.svg", class: "btn__add-on btn__add-on--center icon icon--white") %>
+            <% end %>
+          </div>
+          <div class="grid__col--xs-4">
             <%= link_to user_omniauth_authorize_path(:google_oauth2), class: "btn btn--google btn--full" do %>
               <span class="u-visuallyhidden"><%= t("log_in.google") %></span>
               <%= inline_svg("icons/google_plus.svg", class: "btn__add-on btn__add-on--center icon icon--white") %>
             <% end %>
           </div>
-          <div class="grid__col--xs-6">
+          <div class="grid__col--xs-4">
             <%= link_to user_omniauth_authorize_path(:linkedin), class: "btn btn--linkedin btn--full" do %>
               <span class="u-visuallyhidden"><%= t("log_in.google") %></span>
               <%= inline_svg("icons/linkedin.svg", class: "btn__add-on btn__add-on--center icon icon--white") %>

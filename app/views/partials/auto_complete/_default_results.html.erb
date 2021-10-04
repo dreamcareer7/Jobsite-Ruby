@@ -1,11 +1,11 @@
-<ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content popover u-box-shadow list list--unstyled autocomplete--default js-default-results dashboard-search">
+<ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content popover u-box-shadow list list--unstyled autocomplete--default js-default-results">
   <% Category.includes(:translations).each do |category| %>
     <%= link_to category.name, category_path(category, city: @current_city.slug), class: "popover__link" %>
   <% end %>
 </ul>
 
 
-<%#= content_for :page_scripts do %>
+<%= content_for :page_scripts do %>
   <script>
     $('.search').on('click', function() {
       if ($('.js-autocomplete-results-ul a').length > 0 ) {
@@ -24,4 +24,4 @@
     });
 
   </script>
-<%# end %>
+<% end %>

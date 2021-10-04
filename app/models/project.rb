@@ -13,13 +13,6 @@ class Project < ApplicationRecord
     :industrial
   ]
 
-  enum project_stage: [
-    :concept_initiation,
-    :bidding_planning,
-    :launch_execution,
-    :complete_close
-  ]
-
   enum contact_role: [
     :agent,
     :ceo,
@@ -88,8 +81,6 @@ class Project < ApplicationRecord
   has_many :project_type_joins, as: :owner, dependent: :destroy
   has_many :project_types, through: :project_type_joins
   has_many :quote_requests
-  has_many :projects_matching_businesses
-  has_many :matching_businesses, through: :projects_matching_businesses, source: :business
   has_many :services, through: :project_services
   has_many :hidden_resources, dependent: :destroy
   has_many :sub_categories, through: :services
@@ -105,7 +96,7 @@ class Project < ApplicationRecord
   validates :historical_structure, inclusion: { in: [true, false] }, if: :active_or_project_details? && "historical_structure.present?"
 
   #validate before moving from first step of form
-  validates :title, :description, :user, presence: :true, if: :active_or_project_details?
+  validates :title, :description, :user, :start_date, :end_date, presence: :true, if: :active_or_project_details?
 
   translates :title, :description, :location_type, :project_owner_type, fallbacks_for_empty_translations: true
 
@@ -117,14 +108,12 @@ class Project < ApplicationRecord
   scope :not_hidden, -> (hidden_resources) { where.not(id: hidden_resources) }
   scope :not_applied, -> (applied_projects) { where.not(id: applied_projects) }
   scope :not_completed_or_accepted, -> { where.not(project_status: :completed).where(business_id: nil) }
-  scope :completed, -> { where.not(contact_name: nil) }
   scope :has_images, -> { joins(:attachments) }
   scope :prompt_check_quotes_candidates, -> { where(project_status: :new_project).joins(:quotes).where("quotes.created_at >= ? AND quotes.created_at <= ?", 7.days.ago.beginning_of_day, 7.day.ago.end_of_day) }
   scope :prompt_list_of_businesses_email_candidates, -> { where(project_status: :new_project).where("created_at >= ? AND created_at <= ?", 7.days.ago.beginning_of_day, 7.day.ago.end_of_day) }
   scope :new_since, -> (target) { where("projects.created_at >= ?", target.days.ago) }
 
   after_create :generate_reference_number
-  before_update :create_suggested_businesses
 
   def project_batch
     ProjectBatch.where("project1 = ? OR project2 = ? OR project3 = ?", self.id, self.id, self.id).first
@@ -192,11 +181,6 @@ class Project < ApplicationRecord
     self.business_id != nil
   end
 
-  def hired_count 
-    return 0 if !hired?
-    return 1
-  end
-
   ## Counts
 
   def number_applied
@@ -207,19 +191,16 @@ class Project < ApplicationRecord
     self.shortlists.present? ? self.shortlists.count : 0
   end
 
-
-  def messages_contributors 
-
-    return [] if messages.count <1 
-    (messages.pluck(:sending_user_id) +  messages.pluck(:receiving_user_id)).uniq
-  end
   ## Business actions
 
   def suggested_businesses
     #base matching
-    businesses = Business.includes(:cities, :services).by_city(self.location.city)
+    businesses = Business.by_city(self.location.city).by_category(self.category)
 
-    suggested = businesses.where.not(user_id: self.user_id).by_service(self.services.uniq.flatten).distinct
+    by_sub_category = businesses.by_sub_category(self.sub_categories)
+    by_project_types = businesses.by_project_types(self.project_types)
+
+    suggested = by_project_types + by_sub_category + businesses
 
     suggested.uniq
   end
@@ -243,10 +224,6 @@ class Project < ApplicationRecord
     self.shortlists.create(business_id: business.id)
   end
 
-  def unshortlist_business(business)
-    self.shortlists.where(business_id: business.id).destroy_all
-  end
-
   def remove_business
     #remove business and cancels project
     self.update_attributes(business_id: nil, project_status: :cancelled)
@@ -254,24 +231,6 @@ class Project < ApplicationRecord
 
   def generate_reference_number
     self.update_attributes(reference_number: "#{ [*'A'..'Z'].sample }#{ Date.today.strftime('%m') }#{ self.id }")
-  end
- 
-  def send_msg_to_matched_business_vendor
-    target_businesses = Business.includes(:cities, :services)
-      .by_city(self.city)
-      .by_service(self.services.uniq.flatten).distinct
-    
-    target_businesses.each do |business|
-    end
-  end
-
-  def create_suggested_businesses
-    if project_services.any?(&:changed?) || project_services.collect(&:id).sort != project_services.pluck(&:id).sort
-      projects_matching_businesses.delete_all
-      suggested_businesses.sort_by { |b| b.profile_completion }.each_with_index do |business, index|
-        ProjectsMatchingBusiness.create(project_id: self.id, business_id: business.id, automatic_match: true, order: index + 1)
-      end
-    end
   end
 
   class << self
@@ -282,15 +241,6 @@ class Project < ApplicationRecord
       project_roles["Other"] = project_roles.delete("Other")
 
       project_roles
-    end
-
-    def project_loc_stages
-      project_stages = Project.i18n_enum_collection(:project_stages)
-      project_stages
-    end
-
-    def project_stage_loc( enum_value)
-      I18n.t("project_stages.#{enum_value}")
     end
 
   end

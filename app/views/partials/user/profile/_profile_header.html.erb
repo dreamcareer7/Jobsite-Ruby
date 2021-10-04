@@ -1,63 +1,24 @@
-<div class="category-mega-menu">
-  <div class="site-wrap">
-    <div class="toggler">
-      <a href="#">Select Category</a>
-      <span class="toggle-btn">
-        <i class="fa fa-bars"></i>
-      </span>
+<section class="section section--dark u-cover u-text-center has-tint" style="background-image: url('<%= @current_city.city_image ? @current_city.city_image.image.url(:large) : @current_city.default_city_image %>')">
+  <div class="site-wrap has-tint__content">
+    <%= image_tag current_user.profile_image.url, class: "profile-avatar u-box-shadow avatar avatar--large" %>
+    <h1 class="mb0 u-text-contrast u-text-shadow"><%= t("user_dashboard.greeting") %> <span><%= current_user.name.split.first %></span>!</h1>
+    <h3 class="mt1 u-text-contrast u-text-shadow u-text-regular">
+      <span class="u-text-shadow"><%= t("user_dashboard.your_profile") %></span>
+      <strong class="<%= percentage_to_colour(current_user.profile_completion) %> u-text-shadow">
+        <%= current_user.profile_completion.round %>%
+      </strong>
+      <span class="u-text-shadow"><%= t("user_dashboard.completed") %></span>
+      <%= link_to current_user.profile_completion == 100 ?
+        t("user_dashboard.edit") :
+        t("user_dashboard.complete_it"),
+        edit_user_path(current_user), class: "u-text-underline u-text-shadow" %>
+  </h3>
+  <% if current_user.businesses.present? %>
+    <div class="grid grid--center">
+      <div class="grid__col--xs-12 grid__col--sm-10 grid__col--md-8 grid__col--lg-6 grid__col--xlg-4">
+        <%= render partial: "partials/nav/business_drop_list", locals: { business: @current_business } %>
+      </div>
     </div>
-    <ul class="toplevel">
-      <li class="submenu-holder"><a href="#" class="active"><%= t('nav.suppliers') %></a>
-        <div class="submenu">
-          <div class="list-and-see-all-container">
-            <ul class="submenu-unorder-list">
-              <% supplier_sub_caegory('suppliers').each do |sub_category| %>
-                <li><%= link_to sub_category.name, sub_category_path(id: sub_category) %></li>
-              <% end %>
-            </ul>
-            <div class="see-all-links">
-              <%= link_to t('nav.view_all'), category_path(id: 'suppliers') %>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="submenu-holder"><a href="#"><%= t('nav.professionls') %></a>
-        <div class="submenu">
-          <% contractor_sub_categories.each do |category_name| %>
-            <ul class="professionals-submenu-unorder-list">
-              <h3 class="submenu-category-title"><%#= category_name[0] %></h3>
-              <% supplier_sub_caegory(category_name[1]).first(6).each do |sub_category| %>
-                <li><%= link_to sub_category.name, sub_category_path(id: sub_category) %></li>
-              <% end %>
-              <h5 class="see-all-links"><%#= link_to t('nav.view_all'), category_path(id: category_name[1]) %></h5>
-            </ul>
-          <% end %>
-        </div>
-      </li>
-      <li class="submenu-holder"><a href="#"><%= t('gallery.machinery') %></a>
-        <div class="submenu">
-          <div class="list-and-see-all-container">
-            <ul class="submenu-unorder-list">
-              <% supplier_sub_caegory('machinery').each do |sub_category| %>
-                <li><%= link_to sub_category.name, sub_category_path(id: sub_category) %></li>
-              <% end %>
-            </ul>
-            <div class="see-all-links">
-              <%= link_to t('nav.view_all'), category_path(id: 'machinery') %>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="submenu-holder">
-      <%= link_to gallery_index_path do %>
-        <%= t('nav.gallery') %>
-      <% end %>
-      </li>
-      <li class="submenu-holder">
-        <%= link_to project_feed_index_path do %>
-          <%= t('gallery.projects') %>
-        <% end %>
-      </li>
-    </ul>
+  <% end %>
   </div>
-</div>
+</section>

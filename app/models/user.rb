@@ -14,9 +14,7 @@ class User < ApplicationRecord
   has_one :photo_gallery, as: :owner, dependent: :destroy
 
   has_many :reviews
-  has_many :favorites
   has_many :follows
-  has_many :favorites
   has_many :businesses
   has_many :followed_businesses, through: :follows, source: :follow_target, source_type: "Business"
   has_many :favourites
@@ -147,7 +145,7 @@ class User < ApplicationRecord
   def unread_business_notifications
     return unless self.businesses.present?
 
-    unread = self.businesses.reduce(0) do |total, business|
+    unread = self.businesses.reduce(0) do |total, business| 
       total += business.unread_notifications.count
     end
 
@@ -211,6 +209,7 @@ class User < ApplicationRecord
 
   def after_confirmation
     send_welcome_email
+    send_business_model_email
   end
 
   def user_upgraded(subscription)
@@ -229,7 +228,7 @@ class User < ApplicationRecord
 
   def update_sendgrid_contacts
     # only add contacts on prod
-
+    
     prepare_user_contact(self) if ENV["DOMAIN"] == "muqawiloon.com"
   end
 

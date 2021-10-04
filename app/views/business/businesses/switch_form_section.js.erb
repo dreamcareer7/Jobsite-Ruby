@@ -1,9 +1,3 @@
-// Highlight appropriate menu element
-$('.sidebar-menu__item').addClass('active').removeClass('active');
-$('.sidebar-menu__item a').addClass('sidebar-menu__link');
-$('.sidebar-menu__item a[data-section="<%= @section %>"]').removeClass('sidebar-menu__link');
-$('.sidebar-menu__item a[data-section="<%= @section %>"]').parent().addClass('active');
-
 $('#js-form-section').html('<%= j render partial: "partials/user/businesses/business_target_section", locals: { editor: :user, section: @section } %>');
 
 //rebind select2
@@ -20,3 +14,6 @@ function hideNone(data, container) {
 //hide remove option for first cocoon field
 $('.js-cocoon-partial').children('.js-cocoon-fields').first().find('.js-remove-field').hide();
 
+// Highlight appropriate menu element
+$('.sidebar-menu__item a').addClass('is-active').removeClass('is-active');
+$('.sidebar-menu__item a[data-section="<%= @section %>"]').addClass('is-active');

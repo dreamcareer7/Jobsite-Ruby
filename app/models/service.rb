@@ -30,18 +30,11 @@ class Service < ApplicationRecord
   is_impressionable
 
   default_scope { includes(:translations) }
-  scope :by_sub_category, ->(sub_category) { where(sub_category_id: sub_category.id) }
+  scope :by_sub_category, -> (sub_category) { where(sub_category_id: sub_category.id) }
   scope :visible, -> { where(hidden: false).order(name: :asc) }
   scope :enabled, -> { where(disabled: false) }
   scope :sub_category_visible, -> { joins(:sub_category).where("sub_categories.hidden" => false) }
   scope :trending_services, -> { order(view_count_change: :desc).first(4) }
-  after_commit :clear_cache
-
-  def self.cached_visible
-    Rails.cache.fetch("#{Rails.env}_cachedAllServicesVisible_n_#{I18n.locale}") {
-      where(hidden: false).order(name: :asc).to_a
-    }
-  end
 
   def slug_candidates
     [:id, :name]
@@ -57,19 +50,7 @@ class Service < ApplicationRecord
   end
 
   def description(city)
-    "#{I18n.t("phrases.the_best_meta")} #{self.name.capitalize} #{I18n.t("phrases.services_in").downcase} #{city.name.titleize}, #{city.country.name.titleize}. #{I18n.t("phrases.similar_services")}: #{self.sub_category.services.visible.limit(5).collect(&:name).join(", ")}."
+    "#{ I18n.t('phrases.the_best_meta') } #{ self.name.capitalize } #{ I18n.t('phrases.services_in').downcase } #{ city.name.titleize }, #{ city.country.name.titleize}. #{ I18n.t('phrases.similar_services') }: #{ self.sub_category.services.visible.limit(5).collect(&:name).join(", ") }."
   end
 
-  private
-
-  def clear_cache
-    I18n.available_locales.each do |locale|
-      Rails.cache.delete("#{Rails.env}_cachedAllServicesVisible_n_#{locale}")
-      if category.present?
-        Rails.cache.delete("#{Rails.env}_cachedAllServices_#{category.id}_#{locale}")
-      end
-      Rails.cache.delete("#{Rails.env}_sub_category_services_#{sub_category_id}_#{locale}")
-      Rails.cache.delete("#{Rails.env}_get_distinct_services_#{sub_category_id}_#{locale}")
-    end
-  end
 end
