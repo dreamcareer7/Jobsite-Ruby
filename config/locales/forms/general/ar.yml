@@ -1,6 +1,5 @@
 ar:
-
- form:
-   update: “حفظ”
-   create: “إنشاء”
-
+  form:
+    update: “حفظ”
+    create: “إنشاء”
+    submit: “إنشاء”

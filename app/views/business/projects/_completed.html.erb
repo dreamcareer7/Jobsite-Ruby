@@ -1,0 +1,53 @@
+<div class="filterListBoxBody">
+  <% if @projects.present? %>
+    <% @projects.each do |project| %>
+      <div class="card">
+        <div class="filterList">
+          <div class="filterListContent">
+            <ul class="pl2">
+              <%= link_to business_project_feed_path(project), class: "u-text-inherit" do %>
+                <li>
+                  <h3 style="color:#d14a3e;"><%= project.title %></h3>
+                </li>
+              <% end %>
+              <li class="completedDate">
+                <span>(<%= project.end_date.strftime("%d/%m/%Y") %>)</span>
+              </li>
+            </ul>
+            <ul class="invited completed pl2">
+              <li>
+                <i class="fa fa-user" aria-hidden="true"></i> <%= project.user.name %>
+              </li>
+              <li>
+                <i class="fa fa-map-marker" aria-hidden="true"></i> <%= project.location.present? ? project.location.city_country : " " %>
+              </li>
+              <li>
+                <i class="fa fa-tags" aria-hidden="true"></i> <%= project.category.name %>, <%= project.sub_categories.present? ? project.sub_categories.map(&:name).join(", ") : '' %>
+              </li>
+              <li>
+                <%= link_to user_project_path(project),  style: "text-decoration: none;color:black" do %>
+                  <span class="activity-preview-button"><i class="fa fa-external-link" aria-hidden="true"></i> view details
+                  </span>
+                <% end %>
+              </li>
+            </ul>
+          </div>
+          <div class="filterListAction">
+            <div class="tooltip"> <i class="fa fa fa-ellipsis-h" aria-hidden="true"></i>
+              <div class="tooltiptext">
+                <a href=""> <i class="fa fa-eye" aria-hidden="true"></i> Rate the client </a>
+                <a href=""> <i class="fa fa-file-text" aria-hidden="true"></i> view contract</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="card">
+      <div class="card__section">
+        <p><%= t("feed.no_projects") %></p>
+      </div>
+    </div>
+  <% end %>
+</div>

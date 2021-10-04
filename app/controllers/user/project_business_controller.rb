@@ -1,5 +1,11 @@
 class User::ProjectBusinessController < User::BaseController
 
+  def create
+    @project_business = ProjectBusiness.create(business_params)
+    @project_business.save
+    redirect_to user_project_path(@project_business.project)
+  end
+
   def show
     @project = Project.where(id: params[:project_id]).first
 
@@ -13,6 +19,7 @@ class User::ProjectBusinessController < User::BaseController
     @active = @business.shortlisted_or_accepted?(@project)
     @quote = @project.quotes.where(business_id: @business.id).first
     @conversation_messages = @project.messages_with_business(@business).order(created_at: :asc)
+    @message = Message.new
 
     mark_as_read
 
@@ -28,4 +35,12 @@ class User::ProjectBusinessController < User::BaseController
 
   end
 
+  protected
+
+
+  def business_params
+    params.permit(
+      :project_id, :business_id, :status
+    )
+  end
 end

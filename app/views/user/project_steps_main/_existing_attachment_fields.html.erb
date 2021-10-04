@@ -1,0 +1,19 @@
+<div class="field">
+  <div class="btn btn--secondary btn--full u-text-left">
+    <span class="u-truncate u-inline-block"><%= f.input :attachment_file_name, label: false, input_html: { disabled: true } %></span>
+    <%= link_to_remove_association f do  %>
+      <%= inline_svg("icons/close-small.svg", class: "icon icon--small btn__add-on js-remove-attachment") %>
+    <% end %>
+  </div>
+</div>
+
+<%= content_for :page_scripts do %>
+  <script>
+    $(".js-remove-attachment").on("click", removeAttachment);
+
+    function removeAttachment() {
+      $(this).closest('.field').hide()
+    };
+    
+  </script>
+<% end %>

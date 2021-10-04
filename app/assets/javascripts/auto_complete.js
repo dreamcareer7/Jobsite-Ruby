@@ -25,7 +25,7 @@ var ready = function() {
   autoComplete._renderMenu = function( container, items ) {
     var that = this;
 
-    container.addClass('popover u-box-shadow is-visible list list--unstyled js-autocomplete-results-ul');
+    container.addClass('popover u-box-shadow is-visible list list--unstyled js-autocomplete-results-ul dashboard-search');
     container.css('top', '1233px');
 
     result_sort = "";

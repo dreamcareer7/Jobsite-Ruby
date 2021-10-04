@@ -5,6 +5,8 @@ module ApplicationHelper
     current_page?(controller: "/services", action: "show", id: service.friendly_id)
   end
 
+  
+
   #devise helpers for ajax actions
   def resource_name
     :user

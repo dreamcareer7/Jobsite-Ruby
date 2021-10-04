@@ -162,9 +162,10 @@ class User::BusinessesController < User::BaseController
       services_attributes: [ :id,
                              :name,
                              :sub_category_id],
-      certifications_attributes: [ :id,
-                                   :name,
-                                   :logo])
+      certifications_attributes: [ *Certification.globalize_attribute_names,
+                                  :id,
+                                  :name,
+                                  :logo])
   end
 
 end

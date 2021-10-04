@@ -7,6 +7,7 @@ class User::MessagesController < User::BaseController
   end
 
   def create
+    @conversation = Conversation.find_by_id(params[:message][:conversation_id])
     if params[:p].present? && params[:b].present?
       #creates threaded message on project show page when multiple businesses may be present
       @project = Project.find(params[:p])
@@ -15,7 +16,6 @@ class User::MessagesController < User::BaseController
       @new_message = create_message_for_conversation_with_project(@project, @business, current_user)
 
     elsif params[:conversation_id].present?
-      @conversation = Conversation.find(params[:conversation_id])
 
       @new_message = create_message_for_conversation_without_project(@conversation, current_user)
 
@@ -33,8 +33,9 @@ class User::MessagesController < User::BaseController
     end
 
     if @new_message.save
-      redirect_back(fallback_location: user_profile_index_path)
-      flash[:notice] = "Message sent."
+      ConversationChannel.broadcast_to(@conversation, @new_message)
+      # redirect_back(fallback_location: user_profile_index_path)
+      # flash[:notice] = "Message sent."
 
     else
       redirect_back(fallback_location: user_profile_index_path)
@@ -65,7 +66,7 @@ class User::MessagesController < User::BaseController
   private
 
   def message_params
-    params.require(:message).permit(:body, :receiving_user_id, :receiving_user_type, :project_id, :conversation_id)
+    params.require(:message).permit(:body, :receiving_user_id, :receiving_user_type, :project_id, :conversation_id, :attachment_attributes => [ :id, :attachment, :_destroy ])
   end
 
 end

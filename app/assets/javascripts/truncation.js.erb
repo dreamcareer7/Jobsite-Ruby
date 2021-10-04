@@ -58,11 +58,13 @@ $( document ).on( 'turbolinks:load', function() {
 
 function setupReadMore() {
   // Truncate text
+  var view_more = $("body").data("view-more");
+  var view_less = $("body").data("view-less");
   $('.js-truncate-text').readmore({
     speed: 200,
     collapsedHeight: 100,
-    moreLink: '<p class="u-text-accent"><a href="">+ View more</a></p>',
-    lessLink: '<p class="u-text-accent"><a href="">- View less</a></p>'
+    moreLink: '<p class="u-text-accent"><a href="">+' + view_more +'</a></p>',
+    lessLink: '<p class="u-text-accent"><a href="">-' + view_less + '</a></p>'
   });
 
 }

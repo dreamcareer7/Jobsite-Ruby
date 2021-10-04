@@ -2,9 +2,16 @@
 production:
   adapter: redis
   url: redis://localhost:6379/1
+  # channel_prefix: messages-websocket
+
+staging:
+  adapter: redis
+  url: redis://localhost:6379/1
+  # channel_prefix: messages-websocket
 
 development:
-  adapter: async
+  adapter: redis
+  # channel_prefix: messages-websocket
 
 test:
-  adapter: async
+  adapter: redis

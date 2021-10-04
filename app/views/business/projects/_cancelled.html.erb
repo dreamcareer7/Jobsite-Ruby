@@ -1,0 +1,42 @@
+<div class="filterListBoxBody">
+  <% if @projects.present? %>
+    <% @projects.each do |project| %>
+      <div class="card">
+        <div class="filterList">
+          <div class="filterListContent">
+            <ul class="mb0 pl2">
+              <%= link_to business_project_feed_path(project), class: "u-text-inherit" do %>
+                <li style="display:flex">
+                  <h4 class="mb0"><%= project.title %></h4>
+                  <span class="mb0 filterListContentDate" >(<%= project.end_date.strftime("%d/%m/%Y") %>)</span>
+                </li>
+              <% end %>
+            </ul>
+            <ul class="invited mt0 pl2">
+              <li>
+                <i class="fa fa-map-marker" aria-hidden="true"></i> <%= project.location.present? ? project.location.city_country : " " %>
+              </li>
+              <li>
+                <i class="fa fa-tags" aria-hidden="true"></i> <%= project.category.name %>, <%= project.sub_categories.present? ? project.sub_categories.map(&:name).join(", ") : '' %>
+              </li>
+            </ul>
+            <ul class="invitedGalleryIteam">
+              <li>
+                <%= link_to user_project_path(project),  style: "text-decoration: none;color:black" do %>
+                  <span class="activity-preview-button"><i class="fa fa-external-link" aria-hidden="true"></i>view details
+                  </span>
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="card">
+      <div class="card__section">
+        <p><%= t("feed.no_projects") %></p>
+      </div>
+    </div>
+  <% end %>
+</div>  

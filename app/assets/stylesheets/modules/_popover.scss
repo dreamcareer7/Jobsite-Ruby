@@ -166,7 +166,7 @@ $popover-width: 220px;
   border-bottom: 1px solid $border;
   color: $grey;
   cursor: pointer;
-  @include caps-bold;
+  //@include caps-bold;
 
   @include ltr {
     text-align: left;

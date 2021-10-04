@@ -52,7 +52,7 @@
             <div class="grid__col--xs-12 grid__col--md-12">
               <div class="field">
                 <label class="field__label">* <%= t("post_project.project_services") %></label>
-                <%= f.association :services, collection: sub_category.services.visible, selected: @project.services.pluck(:id), input_html: { multiple: true, style: "width:100%", class: "js-selected-services" }, wrapper: :select2, label: false %>
+                <%= f.association :services, collection: sub_category.services.cached_visible, selected: @project.services.pluck(:id), input_html: { multiple: true, style: "width:100%", class: "js-selected-services" }, wrapper: :select2, label: false %>
               </div>
             </div>
           </div>

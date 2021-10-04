@@ -17,6 +17,7 @@
             <% I18n.available_locales.each do |locale| %>
               <div class="grid__col--xs-12 grid__col--md-6">
                 <%= cm.input "subheadline_#{ locale }", wrapper: "text_field", placeholder: t("category_form.fields.subheadline.placeholder", locale: locale), label: t("category_form.fields.subheadline.label", locale: locale ), input_html: { class: " #{ locale == :ar ? 'rtl' : 'ltr' } " } %>
+                <%= cm.input "description_#{ locale }", wrapper: "text_field", placeholder: t("category_form.fields.description.placeholder", locale: locale), label: t("category_form.fields.description.label", locale: locale ), input_html: { class: " #{ locale == :ar ? 'rtl' : 'ltr' } " } %>
               </div>
             <% end %>
           </div>

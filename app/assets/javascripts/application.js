@@ -16,6 +16,7 @@
 //= require jquery-ui
 //= require cocoon
 //= require slick-carousel/slick/slick
+//= require rails_emoji_picker
 //= require fastclick
 //= require smooth-scroll/dist/smooth-scroll
 //= require select2
@@ -34,3 +35,7 @@
 //= require tooltipster
 //= require highcharts
 //= require rivets/dist/rivets.bundled.min
+//= require gallery
+//= require popper
+//= require bootstrap-sprockets
+//= require_tree .

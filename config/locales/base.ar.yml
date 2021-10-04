@@ -1,4 +1,10 @@
-en:
+ar:
   date:
     formats:
       default: "%d/%m/%Y"
+  custom_view:
+    services: "الخدمات"
+    brands: "العلامات التجارية"
+    view_more: "المزيد"
+    view_less: "مشاهدة اقل"
+    similar_businesses: "اعمال مشابهة"

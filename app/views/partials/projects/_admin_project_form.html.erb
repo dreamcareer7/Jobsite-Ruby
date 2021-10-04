@@ -1,0 +1,248 @@
+<main class="post-a-projects">
+  <div class="mt-4">
+    <div class="grid">
+      <div class="grid__col--md-12 grid__col--xs-12">
+        <div class="form-container-background py-3 px-3 mb-4 mt-4">
+          <% if @category.slug == "suppliers" || @category.slug == "machinery" %>
+            <div class="mb-4">
+              <label for="request-title" class="form-label">Title of your request</label>
+              <%= f.input :title, wrapper: :text_field, input_html: { style: 'height:calc(1.5em + .75rem + 2px);'}, placeholder: "I need:",label: false, required: true %>
+            </div>
+            
+            <div class="mb-4 professionals-form">
+              <%= render partial: I18n.with_locale(:en) { @category.name.downcase }, locals: { f: f } %>
+            </div>
+          <% else %>
+            <div class="mb-4">
+              <div class="hire-a-professional-category-container">
+                <div class="hire-a-professional-category-box">
+                  <input type="radio" id="professional-category-consultants" name="hire-a-professional-category-selection" value="consultant" onclick= "setCategory('consultants')">
+                  <label for="professional-category-consultants">
+                    <div class="">
+                      <%= image_tag "consultant.png", class: "category-image" %>
+                    </div>
+                    <div class="">
+                      <h3>Consultant</h3>
+                    </div>
+                    <div class="">
+                      <p>Architects, Engineers, Designers</p>
+                    </div>
+                  </label>
+                </div>
+                <div class="hire-a-professional-category-box">
+                  <input type="radio" id="professional-category-contractors" name="hire-a-professional-category-selection" onclick= "setCategory('contractors')">
+                  <label for="professional-category-contractors">
+                    <div class="">
+                      <%= image_tag "contractor.png", class: "category-image" %>
+                    </div>  
+                    <div class="">
+                      <h3>Contractor</h3>
+                    </div>
+                    <div class="">
+                      <p>Construction, Builders, Mechanical</p>
+                    </div>
+                  </label>
+                </div>
+
+                <div class="hire-a-professional-category-box">
+                  <input type="radio" id="professional-category-developers" name="hire-a-professional-category-selection" value="Developer" onclick="setCategory('developers')">
+                  <label for="professional-category-developers">
+                    <div class="">
+                      <%= image_tag "developer.png", class: "category-image" %>
+                    </div>
+                    <div class="">
+                      <h3>Developer</h3>
+                    </div>
+                    <div class="">
+                      <p>Lorem ipsum dolor sit amet,<br> consectetur adipiscing elit.</p>
+                    </div>
+                  </label>
+                </div>
+
+                <div class="hire-a-professional-category-box">
+                  <input type="radio" id="professional-category-specialists" name="hire-a-professional-category-selection" value="Specialist" onclick= "setCategory('specialists')">
+                  <label for="professional-category-specialists">
+                    <div class="">
+                      <%= image_tag "specialist.png", class: "category-image" %>
+                    </div>
+                    <div class="">
+                      <h3>Specialist</h3>
+                    </div>
+                    <div class="">
+                      <p>Plumbers, Painters, Carpenters</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-4 professionals-form">
+              <%= render partial: I18n.with_locale(:en) { @category.name.downcase }, locals: { f: f } %>
+            </div>
+
+            <div class="mb-4">
+              <label for="request-title" class="form-label">Title of your request</label>
+              <%= f.input :title, wrapper: :text_field, input_html: { style: 'height:calc(1.5em + .75rem + 2px);' }, placeholder: "I need:",label: false, required: true %>
+            </div>
+
+          <% end %>
+
+          <%= f.input :required_category, input_html:{ hidden:true, value: @category.id, id: "required_category"}, label:false %>
+
+          <div class="mb-4">
+            <label for="describe-your-request" class="form-label">Describe your request in more detail</label>
+            <%= f.input :description, as: :text, wrapper: :text_area, placeholder: t("post_project.fields.description.placeholder"), input_html: { class: "form-control", id:"describe-your-request", rows:"4" }, label:false, required: true %>
+          </div>
+
+          <div class="mb-4">
+            <div>
+              <label for="Requirements" class="form-label">Requirements</label>
+            </div>
+            <ul class="two-column-checkbox-list">
+              <% @project_types.each_with_index do |project_type, index|%>
+                <li>
+                  <label class="control">
+                    <%= f.check_box "project_type_ids", { class: "control__input", id: "inlineCheckbox#{index + 1}" , multiple: true }, project_type.id, " " %>
+                      <span class="control__indicator control__indicator--checkbox">
+                        <%= inline_svg("icons/checkmark.svg", class: "control__icon icon icon--small icon--white") %>
+                      </span>
+                      <span class="control__label"><%= project_type.name %></span>
+                  </label>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+
+          <div class="mb-4">
+            <label for="Location" class="form-label">Location</label>
+            <%= f.simple_fields_for :location do |l| %>
+              <%#= render partial: "partials/location/choose_location", locals: { l: l } %>
+              <div class="input-group">
+                <div class="grid__col--md-5 grid__col--xs-12 unset-grid mb2">
+                  <% if l.object.new_record? %>
+                    <%= l.input :country_for_select, collection: @countries, input_html: { class: " rails-country-for-select form-control mb-3", id: "country", style: " width:100%; height:calc(1.5em + .75rem + 2px);"}, required: true,  placeholder: "Country" , selected: current_user.present? ?  current_user.country.id : " " %>
+                  <% else %>
+                    <%= l.input :country_for_select, collection: @countries, placeholder: "Country",  input_html: { class: "rails-country-for-select form-control mb-3", id: "country", style: "width:100%; height:calc(1.5em + .75rem + 2px);"}, required: true, selected: l.object.city.country.id, placeholder: "Country"  %>
+                  <% end %>
+                </div>
+
+                <div class="grid__col--md-1 unset-grid mb2"></div>
+
+                <div class="grid__col--md-6 grid__col--xs-12 unset-grid mb2">                  
+                  <%= l.input :city_id, collection: @cities, placeholder: "City", input_html: { class: " js-city rails-display-cities form-control mb-3", id:"city", style: "width:100%; height:calc(1.5em + .75rem + 2px);" }, required: true, placeholder: "City", selected: current_user.present? ?  current_user.city.id : " " %>
+                </div>
+              </div>
+
+              <%= l.input :street_address, wrapper: :text_field, input_html: { class: "js-street-address form-control", id:"street-address", style: 'height:calc(1.5em + .75rem + 2px);' }, required: true, label:false, placeholder: "Street address" %>
+            <% end %>
+            <div class="grid__col--xs-12 grid__col--md-12 unset-grid">
+              <p class="mb2"><%= t("map.confirm") %> <span data-modal="choose-location" class="js-open-modal js-confirm-location u-text-pointer u-text-accent u-text-underline"><%= t("map.use_map") %></span></p>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <div>
+              <label for="estimate-budget" class="form-label">Estimate budget</label>
+            </div>
+
+            <div class="input-group" id="estimate-budget-container">
+              <div class="grid__col--md-4 grid__col--xs-12 input-group-text" >
+                <%= f.input :currency_type, collection: Project.i18n_enum_collection(:currency_types), as: :select, input_html: { class: "form-select", aria: { label: "Timeline" }, style: "height:calc(1.5em + .75rem + 2px);"}, label: false, required: true, prompt: "select your currency" %>
+              </div>
+              <div class="grid__col--md-8 grid__col--xs-12 unset-grid"> 
+                <%= f.input :project_budget, selected: @project.project_budget.present? ? @project.project_budget : '', input_html: { class: "form-select", aria: {label: "Timeline"}, style: "width:100%, height:calc(1.5em + .75rem + 2px);" }, label: false, required: true, prompt: "select budget range" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <div>
+              <label for="timeline" class="form-label">Timeline</label>
+            </div>
+
+            <div class="input-group">
+              <div class="grid__col--md-4 grid__col--xs-12 unset-grid">
+                <%= f.input :timeline_type, collection: Project.i18n_enum_collection(:timeline_types), as: :select, input_html: { class: "form-select", aria: { label:'Timeline' },  style: 'height:calc(1.5em + .75rem + 2px);'}, label: false, required: true, prompt: "select your timeline" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <div>
+              <label for="attachments" class="form-label">Attachments (jpg, jpeg, png, pdf)</label>
+            </div>
+            <%= f.simple_fields_for :attachments do |attachment| %>
+              <%= render 'user/project_steps/attachment_fields', f: attachment %>
+            <% end %>
+            <div class="mt1">
+              <%= link_to_add_association t("post_project.fields.attachments.add_attachment"), f, :attachments, partial: "user/project_steps/attachment_fields", class: "text-warning" %>
+            </div>
+            
+          </div>
+
+          <div class="mb-4 text-center">
+            <%= f.submit "Publish",  class: "btn btn-primary" %>
+          </div>      
+        </div>
+      </div>
+    </div>
+  </div> 
+</main>
+
+<%= content_tag :span, '', class: "js-project-id", data: { id: @project.id } %>
+
+<%= content_tag :span, '', class: 'js-current-location', data: { coordinates: @current_coordinates } %>
+
+<%= javascript_include_tag "location-map" %>
+
+<script>
+
+  $(function() {
+    var category = "<%= @project.category.slug %>";
+    if (document.getElementById(`professional-category-${category}`)) {
+      document.getElementById(`professional-category-${category}`).checked = true;
+    }
+
+    toggleCitySelection();
+    return $(document).on('input', '.rails-country-for-select', function(e) {
+      var $this = $(this);
+
+      return $.ajax({
+        url: '/filter_cities',
+        type: 'GET',
+        dataType: 'script',
+        data: {
+          country_for_select: $this.val(),
+          target_element: $this.uniqueId().attr('id')
+        }
+      });
+    });
+
+  });
+
+  function toggleCitySelection() {
+    var countrySelect = $('.rails-country-for-select');
+  
+      if($(countrySelect).val()) {
+        setTimeout(function () { $('.js-city').prop('disabled', false) }, 1000);
+      } else {
+        $('.js-city').prop('disabled', true);
+      }
+  }
+
+  $('.rails-country-for-select').on('input', toggleCitySelection);
+
+  function setCategory(value) {
+    var projectID = $('.js-project-id').data('id');
+
+    $.ajax({
+      url: `/user/projects/${projectID}/set_category`,
+      type: 'GET',
+      dataType: 'script',
+      data: { 
+        category_slug: value
+      }
+    })
+  }
+
+</script>

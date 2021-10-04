@@ -34,6 +34,9 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.raise_delivery_errors = false
 
+  config.action_cable.url = "ws://localhost:3000/cable"
+  config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :silence
 
@@ -53,7 +56,7 @@ Rails.application.configure do
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
-
+  #config.i18n.fallbacks = [I18n.default_locale]
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
@@ -63,8 +66,10 @@ Rails.application.configure do
 
   # Enable Bullet to track redundant DB queries
   config.after_initialize do
-    Bullet.enable = false
-    Bullet.rails_logger = true
-    Bullet.add_footer = true
+    #Bullet.enable = false
+    #Bullet.rails_logger = true
+    #Bullet.add_footer = true
   end
+
+  Paperclip.options[:command_path] = "/usr/bin/identify"
 end

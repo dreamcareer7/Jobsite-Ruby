@@ -1,0 +1,2 @@
+var html = "<%= j like_gallery_button(@item) %>"  + " <%= @item.favoratable_count %>"
+$("#<%= params[:favoratable_type]%><%= params[:favoratable_id]%>").html(html)
